@@ -1,50 +1,71 @@
-
-
+// src/app/page.tsx
+import SeminarRegistrationForm from "@/src/components/Forms/SeminarRegistrationForm";
 import Banner from "@/src/components/home/Banner";
 import FAQSection from "@/src/components/home/FAQSection";
 import HomePageContent from "@/src/components/HomePageContent";
+import Header from "@/src/components/shared/Header";
 import SubHeader from "@/src/components/shared/SubHeader";
-// import type {
-//   Banner as BannerType,
-//   Seminar,
-//   SiteContent,
-// } from "@prisma/client";
+import { BannerType, Seminar, SiteContent } from "@/types";
 
-// interface HomePageData {
-//   seminar: Seminar | null;
-//   banner: BannerType | null;
-//   siteData: SiteContent | null;
-// }
+// API fetch ফাংশন
+async function getSiteContent(): Promise<SiteContent | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/site`, {
+      cache: 'no-store'
+    });
+    
+    if (!response.ok) return null;
+    
+    const result = await response.json();
+    return result.success ? result.data : null;
+  } catch {
+    return null;
+  }
+}
 
-// async function getHomePageData(): Promise<HomePageData> {
-//   try {
-//     const [seminar, banner, siteData] = await Promise.all([
-//       activeSeminar(),
-//       db.banner.findFirst({}),
-//       db.siteContent.findFirst({}),
-//     ]);
+async function activeSeminar(): Promise<Seminar | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/seminar/active`, {
+      cache: 'no-store'
+    });
+    
+    if (!response.ok) return null;
+    
+    const result = await response.json();
+    return result.success ? result.data : null;
+  } catch {
+    return null;
+  }
+}
 
-//     return {
-//       seminar: seminar || null,
-//       banner: banner || null,
-//       siteData: siteData || null,
-//     };
-//   } catch (error) {
-//     console.error("Error fetching home page data:", error);
-//     return {
-//       seminar: null,
-//       banner: null,
-//       siteData: null,
-//     };
-//   }
-// }
+async function getBanner(): Promise<BannerType | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/banner`, {
+      cache: 'no-store'
+    });
+    
+    if (!response.ok) return null;
+    
+    const result = await response.json();
+    return result.success ? result.data : null;
+  } catch {
+    return null;
+  }
+}
 
 export default async function HomePage() {
-//   const { seminar, banner, siteData } = await getHomePageData();
+
+  const [siteData, seminar, banner] = await Promise.all([
+    getSiteContent(),
+    activeSeminar(),
+    getBanner()
+  ]);
+
+  console.log("Page - siteData:", siteData);
 
   return (
     <>
-      {/* <SubHeader
+      <SubHeader
         siteData={{
           facebook: siteData?.facebook,
           facebookGroup: siteData?.facebookGroup,
@@ -53,14 +74,17 @@ export default async function HomePage() {
           youtube: siteData?.youtube,
         }}
         seminar={seminar}
-      /> */}
-{/* 
-      {siteData && (
-        <Header siteData={siteData} logo={siteData.logoLight || ""} />
-      )} */}
+      />
 
-      {/* {banner && <Banner data={banner} />} */}
-      <Banner />
+      {/* Header-এ siteData পাঠান */}
+      <Header  />
+
+
+      {/* Banner-এ siteData পাঠান */}
+      <Banner 
+        siteData={siteData}
+        bannerData={banner}
+      />
 
       <HomePageContent />
 
