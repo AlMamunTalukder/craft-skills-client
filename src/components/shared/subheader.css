@@ -1,0 +1,63 @@
+/* ✅ Responsive auto height class */
+
+.responsive-header {
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 100px; /* default height for large screens */
+}
+
+/* Extra small phones (≤320px) */
+@media (max-width: 320px) {
+  .responsive-header {
+    height: 95px;
+  }
+}
+
+/* Small phones (321px–460px) */
+@media (min-width: 321px) and (max-width: 460px) {
+  .responsive-header {
+    height: 85px;
+  }
+}
+
+/* Medium phones (461px–540px) */
+@media (min-width: 461px) and (max-width: 540px) {
+  .responsive-header {
+    height: 85px;
+  }
+}
+
+/* Large phones (541px–640px) */
+@media (min-width: 541px) and (max-width: 640px) {
+  .responsive-header {
+    height: 85px;
+  }
+}
+
+/* Tablets (641px–768px) */
+@media (min-width: 641px) and (max-width: 768px) {
+  .responsive-header {
+    height: 75px;
+  }
+}
+
+/* Small laptops (769px–1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .responsive-header {
+    height: auto;
+  }
+}
+
+/* Desktops (1025px–1280px) */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .responsive-header {
+     height: auto;
+  }
+}
+
+/* Large / 4K screens */
+@media (min-width: 1281px) {
+  .responsive-header {
+     height: auto;
+  }
+}
