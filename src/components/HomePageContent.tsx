@@ -21,7 +21,7 @@ const HomePageContent = () => {
       <CourseStory />
       <ClassDescription />
       <TotalClass />
-      {/* <ClassRoutine /> */}
+      <ClassRoutine /> 
       <CourseFeatures />
       <ComparisonTable />
       <Instructors />

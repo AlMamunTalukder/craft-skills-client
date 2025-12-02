@@ -4,27 +4,27 @@ import Container from "../shared/Container";
 import React, { useEffect, useState } from "react";
 import SectionTitle from "../shared/SectionTitle";
 import { usePathname } from "next/navigation";
-import { getClassRoutines } from "@/queries/classRoutine";
-import { getHolidays } from "@/queries/holiday";
-import type { ClassRoutine, Holiday } from "@prisma/client";
+// import { getClassRoutines } from "@/queries/classRoutine";
+// import { getHolidays } from "@/queries/holiday";
+// import type { ClassRoutine, Holiday } from "@prisma/client";
 
 const border = "border-[5px] border-white px-2 md:px-4 md:py-2";
 
 const ClassRoutine = () => {
   const pathname = usePathname();
-  const [routines, setRoutines] = useState<ClassRoutine[]>([]);
-  const [holidays, setHolidays] = useState<Holiday[]>([]);
+  // const [routines, setRoutines] = useState<ClassRoutine[]>([]);
+  // const [holidays, setHolidays] = useState<Holiday[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [routinesData, holidaysData] = await Promise.all([
-          getClassRoutines(),
-          getHolidays(),
-        ]);
-        setRoutines(routinesData || []);
-        setHolidays(holidaysData || []);
+        // const [routinesData, holidaysData] = await Promise.all([
+        //   getClassRoutines(),
+        //   getHolidays(),
+        // ]);
+        // setRoutines(routinesData || []);
+        // setHolidays(holidaysData || []);
       } catch (error) {
         console.error("Failed to fetch data:", error);
       } finally {
@@ -80,22 +80,22 @@ const ClassRoutine = () => {
               </tr>
             </thead>
             <tbody className="text-gray-800 text-[12px] md:text-[19px]">
-              {routines.map((routine) => (
+              {/* {routines.map((routine) => (
                 <tr key={routine.id} className="bg-gray-100">
                   <td className={border}>{routine.className}</td>
                   <td className={border}>{routine.days}</td>
                   <td className={border}>{routine.time}</td>
                 </tr>
-              ))}
+              ))} */}
               <tr className="bg-gray-100">
                 <td
                   className="border-[5px] border-white px-4 py-2 text-gray-800"
                   colSpan={3}
                 >
-                  {holidays
+                  {/* {holidays
                     .filter((h) => h.isActive)
                     .map((h) => h.days)
-                    .join(", ") || ""}
+                    .join(", ") || ""} */}
                 </td>
               </tr>
             </tbody>

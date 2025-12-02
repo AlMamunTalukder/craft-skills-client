@@ -149,7 +149,7 @@ const Footer = () => {
             {/* Logo */}
             <div className="flex flex-col items-center md:items-start">
               <Link href="/">
-                {logoDark && (
+                {/* {logoDark && ( */}
                   <Image
                     src={logofooter}
                     alt="Craft Institute Logo"
@@ -157,7 +157,7 @@ const Footer = () => {
                     height={100}
                     className="h-12 w-auto object-contain"
                   />
-                )}
+                {/* )} */}
               </Link>
               <p className="text-sm text-gray-300 mt-3 text-center md:text-left">
               কথার জাদুতে মুগ্ধ করুন ক্রাফট স্কিলসের সাথে।

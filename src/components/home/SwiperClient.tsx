@@ -47,7 +47,7 @@ const ImageGalleryWithSlider = ({ images }: { images: string[] }) => {
           <Link href={"/reviews"}>
             <button className="rounded bg-white flex items-center justify-center gap-2 p-3">
               {" "}
-              <FaHandPointRight /> আরও পড়ুন
+              {/* <FaHandPointRight /> আরও পড়ুন */}
             </button>
           </Link>
         </div>
