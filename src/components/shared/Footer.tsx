@@ -42,7 +42,7 @@ const Footer = () => {
         setSiteContent(result.data);
         setError(null);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'অজানা ত্রুটি');
+        setError(err instanceof Error ? err.message : 'Error');
       } finally {
         setIsLoading(false);
       }

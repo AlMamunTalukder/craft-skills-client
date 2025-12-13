@@ -1,6 +1,5 @@
 // import { Student, Batch, Course, StudentAttendance, AttendanceRoutine } from "@prisma/client";
 
-
 export type CategoryProps = {
   title: string;
   slug: string;
@@ -21,8 +20,6 @@ export type LoginProps = {
   password: string;
 };
 
-
-
 // export interface StudentWithAttendance extends Student {
 //   batch: Batch;
 //   course: Course;
@@ -30,8 +27,6 @@ export type LoginProps = {
 //     attendanceRoutine: AttendanceRoutine;
 //   })[];
 // }
-
-
 
 // src/types/index.ts
 export interface SiteContent {
@@ -50,21 +45,21 @@ export interface SiteContent {
   youtube?: string;
   telegram?: string;
   instagram?: string;
-  
+
   homeBannerInfo?: {
     title?: string;
     subtitle?: string;
     description?: string;
     otherInfo?: string;
   };
-  
+
   admissionBannerInfo?: {
     title?: string;
     subtitle?: string;
     description?: string;
     otherInfo?: string;
   };
-  
+
   seminarHeaderTitle?: string;
   seminarHeaderDescription?: string;
   seminarDeadline?: Date;
@@ -88,4 +83,12 @@ export interface Seminar {
   isActive: boolean;
   registrationDeadline?: Date;
   description?: string;
+}
+
+export interface Schedule {
+  _id: string;
+  className: string;
+  days: string;
+  time: string;
+  holidays?: string;
 }

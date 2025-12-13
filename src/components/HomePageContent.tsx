@@ -1,3 +1,4 @@
+import { Schedule } from "@/types";
 import ClassDescription from "./home/ClassDescription";
 import ClassRoutine from "./home/ClassRoutine";
 import ComparisonTable from "./home/ComparisonTable";
@@ -12,8 +13,31 @@ import TotalClass from "./home/TotalClass";
 import TrainerSection from "./home/TrainerSection";
 import WhyCourse from "./home/WhyCourse";
 
+// src/app/page.tsx - API ফাংশনে
+async function getClassSchedule(): Promise<Schedule[] | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/class-schedule`, {
+      cache: 'no-store'
+    });
+    
+    if (!response.ok) return null;
+    
+    const result = await response.json();
+    return result.success ? result.data : null;
+  } catch {
+    return null;
+  }
+}
 
-const HomePageContent = () => {
+const HomePageContent = async () => {
+
+   const [ classSchedule] = await Promise.all([
+    
+    getClassSchedule()
+  ]);
+
+   console.log("Page - classSchedule:", classSchedule);
+
   return (
     <>
       <WhyCourse />
@@ -21,7 +45,7 @@ const HomePageContent = () => {
       <CourseStory />
       <ClassDescription />
       <TotalClass />
-      <ClassRoutine /> 
+   <ClassRoutine scheduleData={classSchedule} />
       <CourseFeatures />
       <ComparisonTable />
       <Instructors />
