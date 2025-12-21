@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { seminarRegistration } from "@/queries/seminar/registration";
 import { seminarFormSchema } from "@/schemas/seminar/registration";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Briefcase, Loader2, Mail, Phone, User } from "lucide-react";
@@ -13,13 +12,14 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import AppForm from "./AppForm";
 import TextInput from "../FormInputs/TextInput";
 import TextArea from "../FormInputs/TextAreaInput";
+import { seminarRegistration } from "@/queries/seminar/registration";
 
 export type SeminarRegistrationFormData = z.infer<typeof seminarFormSchema>;
 
 export default function SeminarRegistrationForm({
   seminarId,
 }: {
-  seminarId: string | undefined;
+  seminarId?: string;
 }) {
   const router = useRouter();
 
@@ -29,10 +29,8 @@ export default function SeminarRegistrationForm({
     try {
       const response = await seminarRegistration(data, seminarId);
 
-      if (response.error) {
-        toast.error(response.error.message, {
-          id: toastId,
-        });
+      if (response?.error) {
+        toast.error(response.error.message, { id: toastId });
         return;
       }
 
@@ -40,8 +38,8 @@ export default function SeminarRegistrationForm({
         id: toastId,
       });
       router.push("/seminar-registration/success");
-    } catch (error: any) {
-      toast.error(error.message || "Failed to register for the seminar.", {
+    } catch (err: any) {
+      toast.error(err.message || "Registration failed", {
         id: toastId,
       });
     }
@@ -52,79 +50,19 @@ export default function SeminarRegistrationForm({
       <>
         <h1 className="text-[36px] text-center font-[500]">রেজিস্ট্রেশন ফরম</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5 text-white">
-          <div>
-            <TextInput
-              label="নাম"
-              name="name"
-              placeholder="আপনার নাম লিখুন"
-              icon={User}
-              labelClassName="text-white"
-            />
-          </div>
-          <div>
-            <TextInput
-              label="মোবাইল নাম্বার (ইংরেজি)"
-              name="phone"
-              placeholder="01XXXXXXXXX"
-              icon={Phone}
-              labelClassName="text-white"
-            />
-          </div>
-          <div>
-            <TextInput
-              label="WhatsApp নাম্বার (ইংরেজি)"
-              name="whatsapp"
-              placeholder="01XXXXXXXXX"
-              icon={Phone}
-              labelClassName="text-white"
-            />
-          </div>
-          <div>
-            <TextInput
-              label="ই-মেইল"
-              name="email"
-              placeholder="example@email.com"
-              icon={Mail}
-              labelClassName="text-white"
-            />
-          </div>
-          <div>
-            <TextInput
-              label="পেশা"
-              name="occupation" 
-              placeholder="আপনার পেশা লিখুন"
-              icon={Briefcase}
-              labelClassName="text-white"
-            />
-          </div>
-          <div>
-            <TextArea
-              name="address"
-              label="ঠিকানা"
-              placeholder="আপনার ঠিকানা লিখুন"
-              rows={2}
-            />
-          </div>
-
-          {/* <div className="hidden md:block" />
-
-          <div className="md:col-span-2">
-            <TextArea
-              name="address"
-              label="ঠিকানা"
-              placeholder="আপনার ঠিকানা লিখুন"
-              rows={1}
-
-            />
-          </div> */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <TextInput name="name" label="নাম" icon={User} />
+          <TextInput name="phone" label="মোবাইল নাম্বার" icon={Phone} />
+          <TextInput name="whatsapp" label="WhatsApp" icon={Phone} />
+          <TextInput name="email" label="ই-মেইল" icon={Mail} />
+          <TextInput name="occupation" label="পেশা" icon={Briefcase} />
+          <TextArea name="address" label="ঠিকানা" />
         </div>
 
-        <div className="pt-4 flex justify-center">
+        <div className="pt-6 flex justify-center">
           <SubmitButton
-            title=" জমা দিন"
+            title="জমা দিন"
             loadingTitle="প্রক্রিয়া চলছে..."
-            className="flex content-center items-center justify-center gap-2 w-[200px] bg-[#FFCB2C] text-lg py-3 rounded-md text-black transition-all duration-200 shadow-md hover:shadow-lg"
             loaderIcon={Loader2}
             buttonIcon={FaArrowCircleRight}
           />
