@@ -1,96 +1,9 @@
-
-
-
-
-
-// import { db } from "@/prisma/db";
-// import { getCourses } from "@/queries/course";
-// import { getActiveBatch } from "@/queries/course/batch";
-
-// import type {
-//   Batch,
-//   Course,
-//   SiteContent,
-//   Banner as BannerType,
-// } from "@prisma/client";
-// import { Suspense } from "react";
-// import SubHeaderWrapper from "./_components/SubHeaderWrapper";
-// import Header from "@/src/components/shared/Header";
-// import Banner from "@/src/components/home/Banner";
-// import HomePageContent from "@/src/components/HomePageContent";
-// import RegistrationForm from "@/src/components/Forms/Course/RegistrationForm";
-// import FAQSection from "@/src/components/home/FAQSection";
-
-// interface AdmissionPageData {
-//   batch: Batch | null;
-//   courses: Course[];
-//   siteData: SiteContent | null;
-//   banner: BannerType | null;
-// }
-
-// export const revalidate = 60;
-
-// async function getAdmissionPageData(): Promise<AdmissionPageData> {
-//   try {
-//     const [batch, courses, siteData, banner] = await Promise.all([
-//       getActiveBatch(),
-//       getCourses(),
-//       db.siteContent.findFirst({}),
-//       db.banner.findFirst(),
-//     ]);
-
-//     return {
-//       batch: batch || null,
-//       courses: courses || [], // Default to empty array if query fails
-//       siteData: siteData || null,
-//       banner: banner || null,
-//     };
-//   } catch (error) {
-//     console.error("Error fetching admission page data:", error);
-
-//     return {
-//       batch: null,
-//       courses: [],
-//       siteData: null,
-//       banner: null,
-//     };
-//   }
-// }
-
-// export default async function AdmissionPage() {
-//   const { batch, courses, siteData, banner } = await getAdmissionPageData();
-
-//   return (
-//     <>
-//       <Suspense fallback={<div className="h-[85px] bg-[#4F0187]"></div>}>
-//         <SubHeaderWrapper />
-//       </Suspense>
-
-//       {/* {siteData && (
-//         <Header siteData={siteData} logo={siteData.logoLight || ""} />
-//       )} */}
-
-//        <Header  />
-
-//       {banner && <Banner data={banner} />}
-
-//       <HomePageContent />
-
-//       <div id="admission" className="scroll-mt-[140px]">
-//         <RegistrationForm batch={batch} courses={courses} />
-
-//         <FAQSection />
-//       </div>
-//     </>
-//   );
-// }
-
-
 // src/app/page.tsx
 import SeminarRegistrationForm from "@/src/components/Forms/SeminarRegistrationForm";
 import Banner from "@/src/components/home/Banner";
 import FAQSection from "@/src/components/home/FAQSection";
 import HomePageContent from "@/src/components/HomePageContent";
+import Container from "@/src/components/shared/Container";
 import Header from "@/src/components/shared/Header";
 import SubHeader from "@/src/components/shared/SubHeader";
 import { BannerType, Seminar, SiteContent } from "@/types";
@@ -98,12 +11,15 @@ import { BannerType, Seminar, SiteContent } from "@/types";
 // API fetch ফাংশন
 async function getSiteContent(): Promise<SiteContent | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/site`, {
-      cache: 'no-store'
-    });
-    
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/site`,
+      {
+        cache: "no-store",
+      }
+    );
+
     if (!response.ok) return null;
-    
+
     const result = await response.json();
     return result.success ? result.data : null;
   } catch {
@@ -113,12 +29,15 @@ async function getSiteContent(): Promise<SiteContent | null> {
 
 async function activeSeminar(): Promise<Seminar | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/seminar/active`, {
-      cache: 'no-store'
-    });
-    
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/seminar/active`,
+      {
+        cache: "no-store",
+      }
+    );
+
     if (!response.ok) return null;
-    
+
     const result = await response.json();
     return result.success ? result.data : null;
   } catch {
@@ -128,12 +47,15 @@ async function activeSeminar(): Promise<Seminar | null> {
 
 async function getBanner(): Promise<BannerType | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/banner`, {
-      cache: 'no-store'
-    });
-    
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/banner`,
+      {
+        cache: "no-store",
+      }
+    );
+
     if (!response.ok) return null;
-    
+
     const result = await response.json();
     return result.success ? result.data : null;
   } catch {
@@ -142,14 +64,13 @@ async function getBanner(): Promise<BannerType | null> {
 }
 
 export default async function HomePage() {
-
   const [siteData, seminar, banner] = await Promise.all([
     getSiteContent(),
     activeSeminar(),
-    getBanner()
+    getBanner(),
   ]);
 
-  console.log("Page - siteData:", siteData);
+  // console.log("Page - siteData:", siteData);
 
   return (
     <>
@@ -165,18 +86,14 @@ export default async function HomePage() {
       />
 
       {/* Header-এ siteData পাঠান */}
-      <Header  />
-
+      <Header />
 
       {/* Banner-এ siteData পাঠান */}
-      <Banner 
-        siteData={siteData}
-        bannerData={banner}
-      />
+      <Banner siteData={siteData} bannerData={banner} />
 
       <HomePageContent />
 
-      {/* {seminar && (
+      {seminar && (
         <Container>
           <div
             id="registration-form"
@@ -185,7 +102,7 @@ export default async function HomePage() {
             <SeminarRegistrationForm seminarId={seminar.id} />
           </div>
         </Container>
-      )} */}
+      )}
 
       <FAQSection />
     </>

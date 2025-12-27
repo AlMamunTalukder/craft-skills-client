@@ -32,15 +32,15 @@ const TagInput: React.FC<TagInputProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   // Initialize tags from comma-separated string
-  useEffect(() => {
-    if (initialValue) {
-      const initialTags = initialValue
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean);
-      setTags(initialTags);
-    }
-  }, [initialValue]);
+  // useEffect(() => {
+  //   if (initialValue) {
+  //     const initialTags = initialValue
+  //       .split(",")
+  //       .map((tag) => tag.trim())
+  //       .filter(Boolean);
+  //     setTags(initialTags);
+  //   }
+  // }, [initialValue]);
 
   // Convert tags array to comma-separated string and call onChange
   useEffect(() => {

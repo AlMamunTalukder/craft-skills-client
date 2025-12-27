@@ -1,23 +1,22 @@
-import { getActiveBatch } from "@/queries/course/batch";
+// import { getActiveBatch } from "@/queries/course/batch";
 import { ArrowRight, CheckCircle, PhoneCall } from "lucide-react";
-import Image from "next/image";
+
 import Link from "next/link";
 import { FaFacebookF, FaFacebookMessenger } from "react-icons/fa";
-import click from "@/public/touch.png";
-import Header from "@/components/shared/Header";
-import Loading from "@/app/loading";
-import { db } from "@/prisma/db";
+import click from "../../../../../public/img/touch.png";
+
+
 
 const AdmissionSuccess = async () => {
-  const siteData = await db.siteContent.findFirst({});
-  const batch = await getActiveBatch();
+  // const siteData = await db.siteContent.findFirst({});
+  // const batch = await getActiveBatch();
 
   // Social links from batch data
   const socialLinks = [   
     {
       name: "Facebook সিক্রেট গ্রুপে যুক্ত হতে ক্লিক করুন",
       icon: <FaFacebookF className="h-4 md:h-6 w-4 md:w-6 mr-1 md:mr-2 text-[#1877F2]" />,
-      url: batch?.facebookSecretGroup || "#",
+      // url: batch?.facebookSecretGroup || "#",
       isPrivate: true,
       img: click,
     },
@@ -30,7 +29,7 @@ const AdmissionSuccess = async () => {
     {
       name: "Messenger সিক্রেট গ্রুপে যুক্ত হতে ক্লিক করুন",
       icon: <FaFacebookMessenger className="h-4 md:h-6 w-4 md:w-6 mr-2 text-[#1877F2]" />,
-      url: batch?.messengerSecretGroup || "#",
+      // url: batch?.messengerSecretGroup || "#",
       isPrivate: true,
       img: click,
     },
@@ -51,14 +50,14 @@ const AdmissionSuccess = async () => {
     // },
   ];
 
-    if (!siteData) {
-    return <Loading />;
-  }
+  //   if (!siteData) {
+  //   return <Loading />;
+  // }
 
 
   return (
     <>
-      <Header siteData={siteData} logo={siteData.logoLight || ""} />
+      {/* <Header siteData={siteData} logo={siteData.logoLight || ""} /> */}
     <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-50 flex items-center justify-center p-4">
       <div className="max-w-lg w-full bg-white rounded-2xl overflow-hidden border border-purple-100">
         {/* Header with decorative elements */}
@@ -101,7 +100,7 @@ const AdmissionSuccess = async () => {
             </p>
 
             <div className="space-y-3">
-              {socialLinks.map((link, index) => (
+              {/* {socialLinks.map((link, index) => (
                 <Link
                   key={index}
                   href={link.url}
@@ -115,11 +114,7 @@ const AdmissionSuccess = async () => {
                       {link.name}
                     </span>
                   </div>
-                  {/* {link.isPrivate && (
-                    <span className="bg-purple-100 text-[8px] md:text-xs text-purple-700 px-1 md:px-2 py-1 rounded-md md:rounded-full">
-                      Private
-                    </span>
-                  )} */}
+                
 
                   {link.img && (
                     <Image
@@ -129,7 +124,7 @@ const AdmissionSuccess = async () => {
                     />
                   )}
                 </Link>
-              ))}
+              ))} */}
             </div>
           </div>
 

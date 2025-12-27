@@ -1,7 +1,7 @@
-import { activeSeminar } from "@/queries/seminar";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// import { activeSeminar } from "@/queries/seminar";
 import { ArrowRight, CheckCircle, PhoneCall } from "lucide-react";
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   FaFacebookF,
@@ -10,15 +10,20 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import click from "../../../../public/touch.png";
-import Header from "@/components/shared/Header";
-import { db } from "@/prisma/db";
-import Loading from "@/app/loading";
+import click from "../../../../../public/img/touch.png";
+import Loading from "@/src/app/loading";
+import { SiteContent } from "@/types";
 
-const RegistrationSuccess = async () => {
-  const siteData = await db.siteContent.findFirst({});
+type Props = {
+  siteData: SiteContent | null;
+};
 
-  const seminar = await activeSeminar();
+
+
+const RegistrationSuccess = async ({siteData}: Props) => {
+  // const siteDatas = await siteData.siteContent.findFirst({});
+
+  // const seminar = await activeSeminar();
 
   const mailSMSLinks = [
     {
@@ -40,14 +45,14 @@ const RegistrationSuccess = async () => {
     {
       name: "ফ্রি সেমিনার Facebook গ্রুপে যুক্ত হতে ক্লিক করুন",
       icon: <FaFacebookF className="h-4 md:h-6 w-4 md:w-6 mr-1 md:mr-2 text-[#1877F2]" />,
-      url: seminar?.facebookSecretGroup || "#",
+      // url: seminar?.facebookSecretGroup || "#",
       isPrivate: true,
       img: click,
     },
     {
       name: "WhatsApp গ্রুপে যুক্ত হতে ক্লিক করুন",
       icon: <FaWhatsapp className="h-4 md:h-6 w-4 md:w-6 mr-1 md:mr-2 text-[#075e54]" />,
-      url: seminar?.whatsappSecretGroup || "#",
+      // url: seminar?.whatsappSecretGroup || "#",
       isPrivate: true,
       img: click,
     },
@@ -61,7 +66,7 @@ const RegistrationSuccess = async () => {
     {
       name: "Telegram গ্রুপে যুক্ত হতে ক্লিক করুন",
       icon: <FaTelegramPlane className="h-4 md:h-6 w-4 md:w-6 mr-1 md:mr-2 text-[#0088CC]" />,
-      url: seminar?.telegramGroup || "#",
+      // url: seminar?.telegramGroup || "#",
       isPrivate: true,
       img: click,
     },
@@ -82,9 +87,9 @@ const RegistrationSuccess = async () => {
 
   return (
     <>
-      <Header siteData={siteData} logo={siteData.logoLight || ""} />
+      {/* <Header siteDatas={siteData} logo={siteData.logoLight || ""} /> */}
 
-      <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-linear-to-br from-purple-100 via-white to-purple-50 flex items-center justify-center p-4">
         <div className="max-w-lg w-full bg-white rounded-2xl overflow-hidden border border-purple-100">
           {/* Header with decorative elements */}
           <div className="relative">
@@ -131,7 +136,7 @@ const RegistrationSuccess = async () => {
                   </div>
                 ))}
 
-                {socialLinks.map((link, index) => (
+                {/* {socialLinks.map((link, index) => (
                   <Link
                     key={index}
                     href={link.url}
@@ -154,7 +159,7 @@ const RegistrationSuccess = async () => {
                       />
                     )}
                   </Link>
-                ))}
+                ))} */}
               </div>
             </div>
 

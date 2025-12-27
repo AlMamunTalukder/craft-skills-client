@@ -1,12 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { MdArrowForward } from "react-icons/md";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Autoplay, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
 
@@ -22,34 +19,10 @@ const OurActivitiesSlider = () => {
       <SectionTitle
         text="আমাদের কার্যক্রম"
       />
-      <div className="md:w-[980px] md:h-[250px] mx-auto">
-        <div className="  flex justify-between items-center mb-5">
-          <div className="flex space-x-2 justify-end relative z-10">
-            <button className="custom-swiper-button-prev-activities flex items-center text-[#6B21A8] border border-[#6B21A8] rounded-full p-2">
-              <GoArrowLeft className="h-5 w-5" />
-            </button>
-            <button className="custom-swiper-button-next-activities flex items-center text-[#6B21A8] border border-[#6B21A8] rounded-full p-2">
-              <GoArrowRight className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-
-        <Swiper
-          spaceBetween={20}
-          slidesPerView={2}
-          navigation={{
-            nextEl: ".custom-swiper-button-next-activities",
-            prevEl: ".custom-swiper-button-prev-activities",
-          }}
-          loop={true}
-          autoplay={{ delay: 7000 }}
-          speed={1200}
-          modules={[Navigation, Autoplay]}
-          
-        >
-          {videoLinks.map((link, index) => (
-            <SwiperSlide key={index} className="rounded overflow-hidden">
-              <div className="w-full h-[160px] md:h-[300px]">
+      <div className="grid grid-cols-2 gap-3 md:w-full md:h-full mx-auto">
+        {videoLinks.map((link, index) => (
+            <div key={index} className="rounded overflow-hidden">
+              <div className="w-full h-40 md:h-[300px]">
                 <iframe
                   className="w-full h-full rounded-md"
                   src={link}
@@ -58,18 +31,19 @@ const OurActivitiesSlider = () => {
                   allowFullScreen
                 ></iframe>
               </div>
-            </SwiperSlide>
+            </div>
           ))}
-        </Swiper>
+        
 
-        <div className="flex justify-end py-5">
+        
+      </div>
+      <div className="flex justify-end py-5">
           <Link href="#">
-            <button className="flex items-center gap-2 bg-gradient-to-r from-[#DC25FF] to-[#3C016F] border border-white px-4 py-2 rounded text-white">
+            <button className="flex items-center gap-2 bg-linear-to-r from-[#DC25FF] to-[#3C016F] border border-white px-4 py-2 rounded text-white">
               সব দেখুন <MdArrowForward />
             </button>
           </Link>
         </div>
-      </div>
     </Container>
     </div>
   );

@@ -64,7 +64,7 @@ const Instructors = async () => {
                   alt={instructor.name}
                   width={100}
                   height={100}
-                  objectFit="cover"
+                  // objectFit="cover"
                   className="w-full h-full rounded-t-lg"
                 />
               </div>

@@ -1,23 +1,3 @@
-// import { db } from "@/prisma/db";
-// import ImageGalleryWithSlider from "./SwiperClient";
-// import SectionTitle from "../shared/SectionTitle";
-
-// export default async function Testimonials() {
-//   const images = await db.reviews.findMany({
-//     select: { image: true },
-//     take: 4,
-//   });
-
-//   return (
-//     <div id="reviews" className="bg-[#4F0187] pb-20">
-//       <SectionTitle text="লিখিত মতামত" className="text-white" />{" "}
-//       <ImageGalleryWithSlider
-//         images={images.map((img) => img.image) as string[]}
-//       />
-//     </div>
-//   );
-// }
-
 import ImageGalleryWithSlider from "./SwiperClient";
 import SectionTitle from "../shared/SectionTitle";
 import nesar from "../../../public/img/review/Screenshot_1-1.webp";
@@ -43,7 +23,7 @@ export default async function Testimonials() {
 
   return (
     <div id="reviews" className="bg-[#4F0187] pb-20">
-      <SectionTitle text="লিখিত মতামত" className="text-white" />{" "}
+      {/* <SectionTitle text="লিখিত মতামত" className="text-white" /> */}
       <ImageGalleryWithSlider
         images={reviews.map((img) => img.image.src) as string[]}
       />

@@ -69,7 +69,7 @@ export default async function HomePage() {
     getBanner(),
   ]);
 
-  console.log("Page - siteData:", siteData);
+  // console.log("Page - siteData:", siteData);
 
   return (
     <>

@@ -16,12 +16,15 @@ import WhyCourse from "./home/WhyCourse";
 // src/app/page.tsx - API ফাংশনে
 async function getClassSchedule(): Promise<Schedule[] | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/class-schedule`, {
-      cache: 'no-store'
-    });
-    
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL || ""}/class-schedule`,
+      {
+        cache: "no-store",
+      }
+    );
+
     if (!response.ok) return null;
-    
+
     const result = await response.json();
     return result.success ? result.data : null;
   } catch {
@@ -30,13 +33,9 @@ async function getClassSchedule(): Promise<Schedule[] | null> {
 }
 
 const HomePageContent = async () => {
+  const [classSchedule] = await Promise.all([getClassSchedule()]);
 
-   const [ classSchedule] = await Promise.all([
-    
-    getClassSchedule()
-  ]);
-
-   console.log("Page - classSchedule:", classSchedule);
+  //  console.log("Page - classSchedule:", classSchedule);
 
   return (
     <>
@@ -45,7 +44,7 @@ const HomePageContent = async () => {
       <CourseStory />
       <ClassDescription />
       <TotalClass />
-   <ClassRoutine scheduleData={classSchedule} />
+      <ClassRoutine scheduleData={classSchedule} />
       <CourseFeatures />
       <ComparisonTable />
       <Instructors />
