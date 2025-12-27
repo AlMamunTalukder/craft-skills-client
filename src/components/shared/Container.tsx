@@ -1,7 +1,13 @@
-import React, { ReactNode } from "react";
+// src/components/shared/Container.tsx
+interface ContainerProps {
+  children: React.ReactNode;
+  className?: string;
+}
 
-const Container = ({ children }: { children: ReactNode }) => {
-  return <div className="max-w-[1100px] w-full mx-auto px-5">{children}</div>;
-};
-
-export default Container;
+export default function Container({ children, className = "" }: ContainerProps) {
+  return (
+    <div className={`max-w-[1100px] w-full mx-auto px-5 ${className}`}>
+      {children}
+    </div>
+  );
+}

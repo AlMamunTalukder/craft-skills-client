@@ -55,7 +55,7 @@ export default function UserMenu({ user }: UserMenuProps) {
     );
   }
 
-  const currentItems = menuItems[user.role as keyof typeof menuItems] || [];
+  // const currentItems = menuItems[user.role as keyof typeof menuItems] || [];
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -95,14 +95,14 @@ export default function UserMenu({ user }: UserMenuProps) {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup className="px-1">
-          {currentItems.map((item) => (
+          {/* {currentItems.map((item) => (
             <DropdownMenuItem key={item.label} className="gap-3 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-accent/50">
               <item.icon className="size-4" />
               <Link href={item.href} className="font-medium text-sm">
                 {item.label}
               </Link>
             </DropdownMenuItem>
-          ))}
+          ))} */}
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />

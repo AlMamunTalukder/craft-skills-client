@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import Container from "./Container";
 import Image from "next/image";
 import { HiMenu, HiX } from "react-icons/hi";
@@ -25,7 +25,7 @@ const Header = () => {
     <div className="top-0 z-50 w-full shadow-sm bg-white">
       <Container>
         <div className="flex justify-between items-center py-3">
-          {/* Logo - সরলীকরণ */}
+          {/* Logo */}
           <div className="flex items-center">
             <Link href="/">
               <div className="relative ">
@@ -65,7 +65,7 @@ const Header = () => {
                 </li>
               ))}
             </ul>
-            {/* <UserMenu user={user} /> */}
+            <UserMenu user={user} />
           </nav>
           
           {/* Mobile Menu Button */}

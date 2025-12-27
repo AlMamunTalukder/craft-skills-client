@@ -78,7 +78,7 @@ export interface BannerType {
 }
 
 export interface Seminar {
-  id: string;
+  _id: string;
   title: string;
   isActive: boolean;
   registrationDeadline?: Date;
