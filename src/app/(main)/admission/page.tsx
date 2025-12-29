@@ -1,110 +1,53 @@
-// src/app/page.tsx
-import SeminarRegistrationForm from "@/src/components/Forms/SeminarRegistrationForm";
-import Banner from "@/src/components/home/Banner";
-import FAQSection from "@/src/components/home/FAQSection";
-import HomePageContent from "@/src/components/HomePageContent";
-import Container from "@/src/components/shared/Container";
+// app/admission/page.tsx
+import { Suspense } from "react";
+import SubHeaderWrapper from "./_components/SubHeaderWrapper";
 import Header from "@/src/components/shared/Header";
-import SubHeader from "@/src/components/shared/SubHeader";
-import { BannerType, Seminar, SiteContent } from "@/types";
-
-// API fetch ফাংশন
-async function getSiteContent(): Promise<SiteContent | null> {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/site`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) return null;
-
-    const result = await response.json();
-    return result.success ? result.data : null;
-  } catch {
-    return null;
-  }
-}
-
-async function activeSeminar(): Promise<Seminar | null> {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/seminars/active`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) return null;
-
-    const result = await response.json();
-    return result.success ? result.data : null;
-  } catch {
-    return null;
-  }
-}
+import Banner from "@/src/components/home/Banner";
+import HomePageContent from "@/src/components/HomePageContent";
+import FAQSection from "@/src/components/home/FAQSection";
+import AdmissionForm from "@/src/components/Forms/AdmissionForm";
+import { BannerType } from "@/types";
+import { getActiveBatch, getCourses, getSiteData } from "@/src/lib/api";
 
 async function getBanner(): Promise<BannerType | null> {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/banner`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) return null;
-
-    const result = await response.json();
-    return result.success ? result.data : null;
-  } catch {
+    // Replace with your actual banner fetch logic
+    return null;
+  } catch (error) {
+    console.error('Error fetching banner:', error);
     return null;
   }
 }
 
-export default async function HomePage() {
-  const [siteData, seminar, banner] = await Promise.all([
-    getSiteContent(),
-    activeSeminar(),
+export const revalidate = 60;
+
+export default async function AdmissionPage() {
+  const [batch, courses, siteData, banner] = await Promise.all([
+    getActiveBatch(),
+    getCourses(),
+    getSiteData(),
     getBanner(),
   ]);
 
-  // console.log("Page - siteData:", siteData);
-
   return (
     <>
-      <SubHeader
-        siteData={{
-          facebook: siteData?.facebook,
-          facebookGroup: siteData?.facebookGroup,
-          telegram: siteData?.telegram,
-          whatsapp: siteData?.whatsapp,
-          youtube: siteData?.youtube,
-        }}
-        seminar={seminar}
-      />
+      <Suspense fallback={<div className="h-[85px] bg-[#4F0187]"></div>}>
+        <SubHeaderWrapper />
+      </Suspense>
 
-      {/* Header-এ siteData পাঠান */}
+    
       <Header />
 
-      {/* Banner-এ siteData পাঠান */}
       <Banner siteData={siteData} bannerData={banner} />
+
+      
 
       <HomePageContent />
 
-      {seminar && (
-        <Container>
-          <div
-            id="registration-form"
-            className="scroll-mt-[180px] md:scroll-mt-[140px] border-purple-600 bg-[#4F0187] border-t-4 p-5 md:p-10 my-10 rounded-lg shadow-lg shadow-purple-500/50 text-white"
-          >
-            {/* <SeminarRegistrationForm seminarId={seminar.id} /> */}
-          </div>
-        </Container>
-      )}
-
-      <FAQSection />
+      <div id="admission" className="scroll-mt-[140px]">
+        <AdmissionForm batch={batch} courses={courses} />
+        <FAQSection />
+      </div>
     </>
   );
 }
