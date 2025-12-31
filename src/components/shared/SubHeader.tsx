@@ -107,11 +107,8 @@ export default function SubHeader({ siteData, seminar }: Props) {
       }`}
     >
       <Container>
-        {/* Seminar information - conditionally rendered based on seminar status */}
         {isSeminarActive() ? (
-          // **IF SEMINAR IS ACTIVE: Show full bar**
           <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[2px] md:space-y-0">
-            {/* Left side - Registration info and time */}
             <div className="flex items-center md:items-start flex-col text-center md:text-left  md:px-2">
               <h3 className="text-[13px] md:text-[17px] leading-tight">
                 {seminar?.title || "ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন।"}
@@ -122,15 +119,12 @@ export default function SubHeader({ siteData, seminar }: Props) {
               </div>
             </div>
 
-            {/* Middle - Countdown timer */}
             <div className="w-[150px] sm:w-[150px] md:w-[170px] px-1 md:px-0">
-              {/* my-2 md:my-0 md:mx-2 lg:mx-4 w-full sm:w-auto md:px-4 */}
               <div className="md:bg-white/5 md:backdrop-blur-sm px-1 md:px-5 py-0 md:py-0 rounded-lg md:border md:border-white/10 shadow-lg">
                 <CountdownTimer targetDate={seminar?.registrationDeadline} />
               </div>
             </div>
 
-            {/* Right side - Registration button */}
             <div className="w-[222px] md:w-[150px] px-4 md:px-0">
               <Link
                 href={"#registration-form"}

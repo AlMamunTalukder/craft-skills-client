@@ -5,38 +5,35 @@ import { usePathname } from "next/navigation";
 import CtaLinkButton from "../CtaLinkButton";
 import leftimg from "../../../public/img/course-logo.webp";
 import bg from "../../../public/img/bg.webp";
-import { BannerType, SiteContent } from "@/types";
+import { SiteContent } from "@/types";
 
 type Props = {
   siteData: SiteContent | null;
-  bannerData: BannerType | null;
 };
 
-const Banner = ({ siteData, bannerData }: Props) => {
+const Banner = ({ siteData }: Props) => {
   const pathname = usePathname();
 
   // পাথ অনুযায়ী বিভিন্ন টেক্সট
   const getBannerContent = () => {
     if (pathname === "/admission") {
-      // অ্যাডমিশন পেজের জন্য siteData থেকে টেক্সট
       return {
-        title: siteData?.admissionBannerInfo?.title || "বিশেষ ছাড়ে ভর্তি চলছে...!!",
-        subtitle: siteData?.admissionBannerInfo?.subtitle || "ডিসকাউন্ট পেতে দ্রুত ভর্তি নিশ্চিত করুন",
-        description: siteData?.admissionBannerInfo?.description || "অফার কাউন্টডাউন চলছে",
-        mainTitle: "৫০ দিনের চ্যালেঞ্জ"
+        title: "বিশেষ ছাড়ে ভর্তি চলছে...!!",
+        mainTitle: "৫০ দিনের চ্যালেঞ্জ",
+        subtitle: "ডিসকাউন্ট পেতে দ্রুত ভর্তি নিশ্চিত করুন",
+        description: siteData?.admissionBannerInfo?.description,
       };
     } else {
-      // হোম পেজের জন্য siteData থেকে টেক্সট
       return {
-        title: siteData?.homeBannerInfo?.title || "কথার জাদুতে মুগ্ধ করার",
-        subtitle: siteData?.homeBannerInfo?.subtitle || "ডিসকাউন্ট পেতে দ্রুত ভর্তি নিশ্চিত করুন",
-        description: siteData?.homeBannerInfo?.description || "ফ্রি সেমিনার কাউন্টডাউন চলছে",
-        mainTitle: "৫০ দিনের চ্যালেঞ্জ"
+        title: "কথার জাদুতে মুগ্ধ করার",
+        mainTitle: "৫০ দিনের চ্যালেঞ্জ",
+        description: siteData?.homeBannerInfo?.description,
       };
     }
   };
 
   const bannerContent = getBannerContent();
+  console.log("banner content", bannerContent);
 
   return (
     <div className="relative min-h-[500px] lg:min-h-[600px] flex items-center py-16 md:py-20 lg:py-28 overflow-hidden">
@@ -64,7 +61,7 @@ const Banner = ({ siteData, bannerData }: Props) => {
                 <h3 className="text-[23px] md:text-[31px] font-semibold leading-[1]">
                   {bannerContent.title}
                 </h3>
-                
+
                 {/* মেইন টাইটেল */}
                 <h1 className="text-[35px] md:text-[50px] font-bold text-[#DC25FF] drop-shadow-md">
                   {bannerContent.mainTitle}
@@ -79,11 +76,11 @@ const Banner = ({ siteData, bannerData }: Props) => {
                     {bannerContent.description}
                   </p>
                   {/* Banner-specific description যদি থাকে */}
-                  {bannerData?.description && (
+                  {/* {bannerData?.description && (
                     <p className="md:drop-shadow leading-[1]">
                       {bannerData.description}
                     </p>
-                  )}
+                  )} */}
                 </div>
 
                 {/* CTA বাটন */}
@@ -97,7 +94,7 @@ const Banner = ({ siteData, bannerData }: Props) => {
               <div className="relative w-64 md:w-96 h-64 md:h-96">
                 {/* Banner-specific image অথবা default image */}
                 <Image
-                  src={bannerData?.bannerImage || leftimg}
+                  src={leftimg}
                   alt="Banner logo"
                   height={400}
                   width={400}

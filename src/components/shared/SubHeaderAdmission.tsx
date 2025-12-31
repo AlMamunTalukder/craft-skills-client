@@ -104,7 +104,7 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
           : "bg-gradient-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
       }`}
     >
-      <div className="container mx-auto px-4">
+      <div className="max-w-[1100px] w-full mx-auto px-5 ">
         <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[2px] md:space-y-0">
           <div className="flex items-center md:items-start flex-col text-center md:text-left md:px-2">
             <h3 className="text-[13px] md:text-[17px] leading-tight">

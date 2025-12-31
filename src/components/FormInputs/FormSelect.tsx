@@ -77,7 +77,8 @@ export default function FormSelect({
   const focusClasses = {
     default: "focus:border-[#4f0187] focus:ring-2 focus:ring-[#4f0187]/20",
     outline: "focus:border-[#4f0187] focus:ring-2 focus:ring-[#4f0187]/20",
-    filled: "focus:bg-white focus:border-[#4f0187] focus:ring-2 focus:ring-[#4f0187]/20",
+    filled:
+      "focus:bg-white focus:border-[#4f0187] focus:ring-2 focus:ring-[#4f0187]/20",
     gradient: "focus:border-[#4f0187] focus:ring-2 focus:ring-[#4f0187]/20",
   };
 
@@ -104,32 +105,26 @@ export default function FormSelect({
             <FormControl>
               <SelectTrigger
                 className={cn(
-                  "w-full transition-all duration-300",
+                  "w-full transition-all duration-300 gap-2",
                   sizeClasses[size],
                   variantClasses[variant],
                   focusClasses[variant],
-                  error && "border-red-500 focus:border-red-500 focus:ring-red-500/20",
-                  icon && "pl-10",
+                  error &&
+                    "border-red-500 focus:border-red-500 focus:ring-red-500/20",
+                  icon && "pl-3",
                   triggerClassName
                 )}
               >
-                {icon && (
-                  <span className="absolute left-3 text-gray-500">
-                    {icon}
-                  </span>
-                )}
+                {/* {icon && (
+                  <span className="absolute pr-8  text-gray-500">{icon}</span>
+                )} */}
                 <SelectValue
-                  placeholder={
-                    placeholder || `Select ${label.toLowerCase()}`
-                  }
+                  placeholder={placeholder || `Select ${label.toLowerCase()}`}
                 />
               </SelectTrigger>
             </FormControl>
             <SelectContent
-              className={cn(
-                "max-h-60 overflow-y-auto",
-                contentClassName
-              )}
+              className={cn("max-h-60 overflow-y-auto", contentClassName)}
             >
               {options.map((option) => (
                 <SelectItem

@@ -1,46 +1,3 @@
-export interface Batch {
-  id: string;
-  name: string;
-  description?: string;
-  registrationEnd: string | Date;
-  isActive: boolean;
-  code?: string;
-  registrationStart?: string | Date;
-  facebookSecretGroup?: string;
-  messengerSecretGroup?: string;
-  whatsappSecretGroup?: string;
-}
-
-export interface Course {
-  id: string;
-  name: string;
-  price: number;
-  discount?: number;
-  paymentCharge?: number;
-  description?: string;
-}
-
-export type CategoryProps = {
-  title: string;
-  slug: string;
-  imageUrl: string;
-  description: string;
-};
-export type UserProps = {
-  name: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  image: string;
-  email: string;
-  password: string;
-};
-export type LoginProps = {
-  email: string;
-  password: string;
-};
-
-// types/index.ts
 export interface SiteContent {
   _id: string;
   name: string;
@@ -48,7 +5,7 @@ export interface SiteContent {
   logoDark: string;
   tagline: string;
   email: string;
-  phone1: string;
+  phone1?: string;
   phone2?: string;
   address: string;
   facebook?: string;
@@ -77,14 +34,49 @@ export interface SiteContent {
   admissionDeadline?: Date;
 }
 
-export interface BannerType {
-  id?: string;
-  title?: string;
-  subtitle?: string;
+export interface Batch {
+  id: string;
+  name: string;
   description?: string;
-  dateInfo?: string;
-  bannerImage?: string;
+  registrationEnd: string | Date;
+  isActive: boolean;
+  code?: string;
+  registrationStart?: string | Date;
+  facebookSecretGroup?: string;
+  messengerSecretGroup?: string;
+  whatsappSecretGroup?: string;
 }
+
+export interface Course {
+  id: string;
+  name: string;
+  price: number;
+  discount?: number;
+  paymentCharge?: number;
+  description?: string;
+}
+
+export type CategoryProps = {
+  title: string;
+  slug: string;
+  imageUrl: string;
+  description: string;
+};
+
+export type UserProps = {
+  name: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  image: string;
+  email: string;
+  password: string;
+};
+
+export type LoginProps = {
+  email: string;
+  password: string;
+};
 
 export interface Seminar {
   _id: string;

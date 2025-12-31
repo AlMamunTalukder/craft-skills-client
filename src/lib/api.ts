@@ -1,19 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SiteContent } from "@/types";
+import { Schedule, Seminar, SiteContent } from "@/types";
 
-// src/lib/api.ts
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api/v1';
+
+
+export async function getSiteData(): Promise<SiteContent | null> {
+  try {
+    const response = await fetch(`${API_URL}/site`);
+    
+    const result = await response.json();
+    
+    if (result.success && result.data) {
+      return result.data;
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Error fetching site data:', error);
+    return null;
+  }
+}
 
 export async function getActiveBatch() {
   try {
     const response = await fetch(`${API_URL}/course-batches/active`, {
       cache: 'no-store',
     });
-    
-    // if (!response.ok) {
-    //   console.error('Failed to fetch active batch:', response.status);
-    //   return null;
-    // }
     
     const result = await response.json();
     
@@ -41,14 +53,7 @@ export async function getActiveBatch() {
 
 export async function getCourses() {
   try {
-    const response = await fetch(`${API_URL}/courses`, {
-      cache: 'no-store',
-    });
-    
-    // if (!response.ok) {
-    //   console.error('Failed to fetch courses:', response.status);
-    //   return [];
-    // }
+    const response = await fetch(`${API_URL}/courses`);
     
     const result = await response.json();
     
@@ -70,27 +75,36 @@ export async function getCourses() {
   }
 }
 
-// Add this function
-export async function getSiteData(): Promise<SiteContent | null> {
+export async function activeSeminar(): Promise<Seminar | null> {
   try {
-    const response = await fetch(`${API_URL}/site`, {
-      cache: 'no-store',
-    });
-    
-    // if (!response.ok) {
-    //   console.error('Failed to fetch site data:', response.status);
-    //   return null;
-    // }
-    
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`
+    );
+
+    if (!response.ok) return null;
+
     const result = await response.json();
-    
-    if (result.success && result.data) {
-      return result.data;
-    }
-    
+    return result.success ? result.data : null;
+  } catch {
     return null;
-  } catch (error) {
-    console.error('Error fetching site data:', error);
+  }
+}
+
+
+export async function getClassSchedule(): Promise<Schedule[] | null> {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL || ""}/class-schedule`,
+      {
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) return null;
+
+    const result = await response.json();
+    return result.success ? result.data : null;
+  } catch {
     return null;
   }
 }

@@ -1,5 +1,3 @@
-import AdmissionForm from "@/src/components/Forms/AdmissionForm";
-import SeminarRegistrationForm from "@/src/components/Forms/AdmissionForm";
 import SeminarForm from "@/src/components/Forms/SeminarForm";
 import Banner from "@/src/components/home/Banner";
 import FAQSection from "@/src/components/home/FAQSection";
@@ -7,69 +5,12 @@ import HomePageContent from "@/src/components/HomePageContent";
 import Container from "@/src/components/shared/Container";
 import Header from "@/src/components/shared/Header";
 import SubHeader from "@/src/components/shared/SubHeader";
-import { BannerType, Seminar, SiteContent } from "@/types";
-
-// API fetch ফাংশন
-async function getSiteContent(): Promise<SiteContent | null> {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/site`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) return null;
-
-    const result = await response.json();
-    return result.success ? result.data : null;
-  } catch {
-    return null;
-  }
-}
-
-async function activeSeminar(): Promise<Seminar | null> {
-  try {
-    // Change from /api/seminar to /api/seminars/active
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) return null;
-
-    const result = await response.json();
-    return result.success ? result.data : null;
-  } catch {
-    return null;
-  }
-}
-
-async function getBanner(): Promise<BannerType | null> {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/api/banner`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) return null;
-
-    const result = await response.json();
-    return result.success ? result.data : null;
-  } catch {
-    return null;
-  }
-}
+import { activeSeminar, getSiteData } from "@/src/lib/api";
 
 export default async function HomePage() {
-  const [siteData, seminar, banner] = await Promise.all([
-    getSiteContent(),
+  const [siteData, seminar] = await Promise.all([
+    getSiteData(),
     activeSeminar(),
-    getBanner(),
   ]);
 
   return (
@@ -84,10 +25,11 @@ export default async function HomePage() {
         }}
         seminar={seminar}
       />
-      {/* Header-এ siteData পাঠান */}
+
       <Header />
-      {/* Banner-এ siteData পাঠান */}
-      <Banner siteData={siteData} bannerData={banner} />
+
+      <Banner siteData={siteData} />
+
       <HomePageContent />
 
       {seminar && (
@@ -100,7 +42,10 @@ export default async function HomePage() {
           </div>
         </Container>
       )}
+
       <FAQSection />
+
+      
     </>
   );
 }

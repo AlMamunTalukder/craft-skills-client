@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Container from "../shared/Container";
+import { Button } from "@/components/ui/button";
 
 const ImageGalleryWithSlider = ({ images }: { images: string[] }) => {
   const [open, setOpen] = useState(false);
@@ -45,10 +46,9 @@ const ImageGalleryWithSlider = ({ images }: { images: string[] }) => {
       {images.length > 4 ? null : (
         <div className="flex justify-center mt-3">
           <Link href={"/reviews"}>
-            <button className="rounded bg-white flex items-center justify-center gap-2 p-3">
-              {" "}
-              {/* <FaHandPointRight /> আরও পড়ুন */}
-            </button>
+            <Button className="rounded bg-white flex items-center justify-center gap-2 p-3 text-black hover:text-white">
+              <FaHandPointRight /> আরও পড়ুন
+            </Button>
           </Link>
         </div>
       )}
@@ -56,12 +56,12 @@ const ImageGalleryWithSlider = ({ images }: { images: string[] }) => {
       {/* Swiper Modal Overlay */}
       {open && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
-          <button
+          <Button
             className="absolute top-5 right-5 text-white text-3xl z-50"
             onClick={() => setOpen(false)}
           >
             <IoMdClose />
-          </button>
+          </Button>
 
           <div className="w-full max-w-4xl px-4">
             <Swiper

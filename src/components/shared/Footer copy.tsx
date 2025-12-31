@@ -1,3 +1,5 @@
+"use client"
+
 import {
   FaPhone,
   FaEnvelope,
@@ -11,48 +13,116 @@ import Image from "next/image";
 import Container from "./Container";
 import Link from "next/link";
 import bg from "@/public/img/bg.webp";
+import { useState, useEffect } from "react";
 import { SiteContent } from "@/types";
 import logofooter from "../../../public/img/footerlogo.png";
-import { getSiteData } from "@/src/lib/api";
 
 
+const Footer = () => {
+  const [siteContent, setSiteContent] = useState<SiteContent | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-export default async function Footer() {
 
-  const [siteData] = await Promise.all([getSiteData()]);
+  useEffect(() => {
+    const fetchSiteContent = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/site');
+        
+        if (!response.ok) {
+          throw new Error(`API Error: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (!result.success) {
+          throw new Error(result.message || 'Failed to fetch data');
+        }
+        
+        setSiteContent(result.data);
+        setError(null);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Error');
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
+    fetchSiteContent();
+  }, []);
 
-  // const { email, phone1, phone2, address } = siteData;
+  // Show loading state
+  if (isLoading) {
+    return (
+      <footer className="relative text-white py-12 md:py-16 overflow-hidden bg-gray-900">
+        <Container>
+          <div className="text-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#DC25FF] mx-auto"></div>
+            <p className="text-gray-300 mt-3">লোড হচ্ছে...</p>
+          </div>
+        </Container>
+      </footer>
+    );
+  }
+
+  // Show error state
+  if (error || !siteContent) {
+    return (
+      <footer className="relative text-white py-12 md:py-16 overflow-hidden bg-gray-900">
+        <Container>
+          <div className="text-center py-8">
+            <p className="text-red-300">ডেটা লোড করতে সমস্যা হচ্ছে</p>
+            <p className="text-sm text-gray-400 mt-2">
+              অনুগ্রহ করে পৃষ্ঠাটি রিফ্রেশ করুন
+            </p>
+          </div>
+        </Container>
+      </footer>
+    );
+  }
+
+  const {
+    email,
+    phone1,
+    phone2,
+    address,
+    facebook,
+    facebookGroup,
+    whatsapp,
+    youtube,
+    telegram,
+  } = siteContent;
 
   const socialLinks = [
     {
       icon: <FaFacebookF />,
       label: "Facebook",
-      href: siteData?.facebook,
+      href: facebook,
       color: "#1877F2",
     },
     {
       icon: <FaUserFriends />,
       label: "Groups",
-      href: siteData?.facebookGroup,
+      href: facebookGroup,
       color: "#4267B2",
     },
     {
       icon: <FaWhatsapp />,
       label: "WhatsApp",
-      href: siteData?.whatsapp,
+      href: whatsapp,
       color: "#25D366",
     },
     {
       icon: <FaYoutube />,
       label: "YouTube",
-      href: siteData?.youtube,
+      href: youtube,
       color: "#FF0000",
     },
     {
       icon: <FaTelegramPlane />,
       label: "Telegram",
-      href: siteData?.telegram,
+      href: telegram,
       color: "#0088cc",
     },
   ];
@@ -78,16 +148,17 @@ export default async function Footer() {
             {/* Logo */}
             <div className="flex flex-col items-center md:items-start">
               <Link href="/">
-                <Image
-                  src={logofooter}
-                  alt="Craft Institute Logo"
-                  width={180}
-                  height={100}
-                  className="h-12 w-auto object-contain"
-                />
+                  <Image
+                    src={logofooter}
+                    alt="Craft Institute Logo"
+                    width={180}
+                    height={100}
+                    className="h-12 w-auto object-contain"
+                  />
+             
               </Link>
               <p className="text-sm text-gray-300 mt-3 text-center md:text-left">
-                কথার জাদুতে মুগ্ধ করুন ক্রাফট স্কিলসের সাথে।
+              কথার জাদুতে মুগ্ধ করুন ক্রাফট স্কিলসের সাথে।
               </p>
             </div>
 
@@ -98,27 +169,27 @@ export default async function Footer() {
               </h3>
               <div className="space-y-3 text-sm">
                 <Link
-                  href={`tel:${siteData?.phone1}`}
+                  href={`tel:${phone1}`}
                   className="flex items-center gap-3 hover:text-[#DC25FF] transition-colors duration-300"
                 >
                   <FaPhone className="text-gray-300" />
-                  {siteData?.phone1}
+                  {phone1}
                 </Link>
-                {siteData?.phone2 && (
+                {phone2 && (
                   <Link
-                    href={`tel:${siteData?.phone2}`}
+                    href={`tel:${phone2}`}
                     className="flex items-center gap-3 hover:text-[#DC25FF] transition-colors duration-300"
                   >
                     <FaPhone className="text-gray-300" />
-                    {siteData?.phone2}
+                    {phone2}
                   </Link>
                 )}
                 <Link
-                  href={`mailto:${siteData?.email}`}
+                  href={`mailto:${email}`}
                   className="flex items-center gap-3 hover:text-[#DC25FF] transition-colors duration-300"
                 >
                   <FaEnvelope className="text-gray-300" />
-                  {siteData?.email}
+                  {email}
                 </Link>
               </div>
             </div>
@@ -144,7 +215,7 @@ export default async function Footer() {
                       >
                         <span className="text-lg">{social.icon}</span>
                       </Link>
-                    )
+                    ),
                 )}
               </div>
             </div>
@@ -156,7 +227,7 @@ export default async function Footer() {
               </h3>
               <div className="text-sm leading-relaxed flex items-start gap-3">
                 <p className="text-gray-200 text-center md:text-left">
-                  {siteData?.address}
+                  {address}
                 </p>
               </div>
             </div>
@@ -170,17 +241,11 @@ export default async function Footer() {
                 সংরক্ষিত।
               </p>
               <div className="flex gap-4 mt-2 md:mt-0">
-                <Link
-                  href="#"
-                  className="hover:text-[#DC25FF] transition-colors"
-                >
+                <Link href="#" className="hover:text-[#DC25FF] transition-colors">
                   গোপনীয়তা নীতি
                 </Link>
                 <span>|</span>
-                <Link
-                  href="#"
-                  className="hover:text-[#DC25FF] transition-colors"
-                >
+                <Link href="#" className="hover:text-[#DC25FF] transition-colors">
                   শর্তাবলী
                 </Link>
               </div>
@@ -190,4 +255,6 @@ export default async function Footer() {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

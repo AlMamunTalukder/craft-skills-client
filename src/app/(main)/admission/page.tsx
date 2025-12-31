@@ -6,27 +6,15 @@ import Banner from "@/src/components/home/Banner";
 import HomePageContent from "@/src/components/HomePageContent";
 import FAQSection from "@/src/components/home/FAQSection";
 import AdmissionForm from "@/src/components/Forms/AdmissionForm";
-import { BannerType } from "@/types";
 import { getActiveBatch, getCourses, getSiteData } from "@/src/lib/api";
-
-async function getBanner(): Promise<BannerType | null> {
-  try {
-    // Replace with your actual banner fetch logic
-    return null;
-  } catch (error) {
-    console.error('Error fetching banner:', error);
-    return null;
-  }
-}
 
 export const revalidate = 60;
 
 export default async function AdmissionPage() {
-  const [batch, courses, siteData, banner] = await Promise.all([
+  const [batch, courses, siteData] = await Promise.all([
     getActiveBatch(),
     getCourses(),
     getSiteData(),
-    getBanner(),
   ]);
 
   return (
@@ -35,12 +23,9 @@ export default async function AdmissionPage() {
         <SubHeaderWrapper />
       </Suspense>
 
-    
       <Header />
 
-      <Banner siteData={siteData} bannerData={banner} />
-
-      
+      <Banner siteData={siteData} />
 
       <HomePageContent />
 

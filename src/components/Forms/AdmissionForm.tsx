@@ -260,8 +260,8 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
   };
 
   const onSubmit = async (data: AdmissionFormData) => {
-    console.log("✅ Form submit triggered!");
-    console.log("Form data:", data);
+    // console.log("✅ Form submit triggered!");
+    // console.log("Form data:", data);
 
     if (!batch?.isActive) {
       toast.error("This batch is not currently accepting admissions");

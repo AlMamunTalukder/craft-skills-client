@@ -23,7 +23,7 @@ export default async function Testimonials() {
 
   return (
     <div id="reviews" className="bg-[#4F0187] pb-20">
-      {/* <SectionTitle text="লিখিত মতামত" className="text-white" /> */}
+      <SectionTitle text="লিখিত মতামত" className="text-white" />
       <ImageGalleryWithSlider
         images={reviews.map((img) => img.image.src) as string[]}
       />
