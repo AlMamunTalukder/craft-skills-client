@@ -1,10 +1,10 @@
 // "use client";
-// import AddNewButton from "@/components/FormInputs/AddNewButton";
+
 // import React, { useEffect } from "react";
-// import Select from "react-tailwindcss-select";
-// import { Option, Options } from "react-tailwindcss-select/dist/components/type";
 // import { Controller, useFormContext, useWatch } from "react-hook-form";
 // import { GraduationCap } from "lucide-react";
+// import AddNewButton from "./AddNewButton";
+// import { Select } from "@/components/ui/select";
 
 // type FormSelectInputProps = {
 //   name: string;

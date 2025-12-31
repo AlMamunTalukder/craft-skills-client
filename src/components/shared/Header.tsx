@@ -1,3 +1,4 @@
+// src/components/shared/Header.tsx
 "use client";
 
 import { useState } from "react";
@@ -9,8 +10,14 @@ import { usePathname } from "next/navigation";
 import UserMenu from "../user-menu";
 import { useSession } from "next-auth/react";
 import logo from "../../../public/img/headerlogo.png";
+import { SiteContent } from "@/types";
 
-const Header = () => {
+interface HeaderProps {
+  siteData?: SiteContent;
+  logo?: string;
+}
+
+const Header = ({ siteData, logo: logoUrl }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathName = usePathname();
   const user = useSession().data?.user || null;
@@ -21,6 +28,9 @@ const Header = () => {
     { name: "Review", href: "#reviews" },
   ];
 
+  // Use provided logo or default
+  const displayLogo = logoUrl || logo;
+
   return (
     <div className="top-0 z-50 w-full shadow-sm bg-white">
       <Container>
@@ -28,16 +38,26 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/">
-              <div className="relative ">
-                <Image
-                  src={logo} 
-                  alt="Logo"
-                  height={150}
-                  width={150}
-                  priority
-                  className="object-contain"
-                  
-                />
+              <div className="relative">
+                {typeof displayLogo === 'string' ? (
+                  <Image
+                    src={displayLogo}
+                    alt={siteData?.name || "Logo"}
+                    height={150}
+                    width={150}
+                    priority
+                    className="object-contain"
+                  />
+                ) : (
+                  <Image
+                    src={logo}
+                    alt={siteData?.name || "Logo"}
+                    height={150}
+                    width={150}
+                    priority
+                    className="object-contain"
+                  />
+                )}
               </div>
             </Link>
           </div>

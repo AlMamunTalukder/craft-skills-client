@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import dynamic from "next/dynamic";
@@ -18,18 +16,14 @@ import Container from "./Container";
 import "./subheader.css";
 import { Seminar, SiteContent } from "@/types";
 
-
-const CountdownTimer = dynamic(
-  () => import("../home/CountdownTimer"),
-  { ssr: false },
-);
+const CountdownTimer = dynamic(() => import("../home/CountdownTimer"), {
+  ssr: false,
+});
 
 type Props = {
   siteData: Partial<SiteContent>;
   seminar: Partial<Seminar> | null;
 };
-
-
 
 export default function SubHeader({ siteData, seminar }: Props) {
   const [isMobile, setIsMobile] = useState(false);
@@ -102,14 +96,14 @@ export default function SubHeader({ siteData, seminar }: Props) {
     // Seminar is active if it's marked as active AND
     // the registration deadline has not passed
     return seminar.isActive && deadlineDate && now < deadlineDate;
-  }; 
+  };
 
   return (
     <div
       className={`sticky top-0 z-50 w-full shadow-sm transition-all duration-300 responsive-header ${
         isScrolled
-          ? "bg-gradient-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
-          : " bg-gradient-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
+          ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
+          : " bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
       }`}
     >
       <Container>
@@ -139,12 +133,8 @@ export default function SubHeader({ siteData, seminar }: Props) {
             {/* Right side - Registration button */}
             <div className="w-[222px] md:w-[150px] px-4 md:px-0">
               <Link
-                href={
-                  pathName === "/admission"
-                    ? "#admission"
-                    : "#registration-form"
-                }
-                className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#DC25FF] to-[#3C016F] border-2 md:border border-white px-2 md:px-1 py-1 rounded-full md:rounded-lg text-white hover:shadow-lg hover:shadow-[#DC25FF]/20 transition-all duration-300 w-full"
+                href={"#registration-form"}
+                className="flex items-center justify-center gap-2 bg-linear-to-r from-[#DC25FF] to-[#3C016F] border-2 md:border border-white px-2 md:px-1 py-1 rounded-full md:rounded-lg text-white hover:shadow-lg hover:shadow-[#DC25FF]/20 transition-all duration-300 w-full"
                 aria-label="Register Now"
               >
                 <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />
@@ -182,31 +172,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
             </div>
           </div>
         ) : (
-          // **ELSE (SEMINAR NOT ACTIVE): Show only social icons**
-          <div className="flex justify-center md:justify-end py-2 md:py-0">
-            {/* Note: Removed 'hidden' class to show on mobile */}
-            <div className="flex items-center gap-3 md:gap-2">
-              {socialLinks.map((social, index) => (
-                <Link
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs md:text-sm transition-all duration-300 flex items-center justify-center h-6 md:h-9 w-6 md:w-9 rounded-full bg-white/10 hover:bg-white/20 shadow-md"
-                  aria-label={social.label}
-                  style={{
-                    color: "white",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = social.color)
-                  }
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "white")}
-                >
-                  {social.icon}
-                </Link>
-              ))}
-            </div>
-          </div>
+          <></>
         )}
       </Container>
     </div>

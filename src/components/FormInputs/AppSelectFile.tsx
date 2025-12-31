@@ -2,7 +2,7 @@
 // import { Button } from "@/components/ui/button";
 // import { Card, CardContent } from "@/components/ui/card";
 // import { FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-// import { cn } from "@/lib/utils";
+// import { cn } from "@/src/lib/utils";
 // import { ImagePlusIcon, File, Trash } from "lucide-react";
 // import { Accept, useDropzone } from "react-dropzone";
 // import { Controller, useFormContext } from "react-hook-form";

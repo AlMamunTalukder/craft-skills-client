@@ -1,159 +1,256 @@
-// "use client";
+// src/components/Forms/SeminarRegistrationForm.tsx
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import {
-//   Calendar,
-//   Facebook,
-//   FileText,
-//   Link as LinkIcon,
-//   Loader2,
-//   MessageCircle,
-//   MessageCircleHeart,
-// } from "lucide-react";
-// import { useRouter } from "next/navigation";
-// import toast from "react-hot-toast";
-// import { z } from "zod";
+import { seminarFormSchema as seminarSchema } from "@/schemas/seminar/registration";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Briefcase, Loader2, Mail, Phone, User } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
+import { z } from "zod";
+import SubmitButton from "../FormInputs/SubmitButton";
+import { FaArrowCircleRight } from "react-icons/fa";
+import AppForm from "./AppForm";
+import TextInput from "../FormInputs/TextInput";
+import TextArea from "../FormInputs/TextAreaInput";
 
-// import SubmitButton from "../FormInputs/SubmitButton";
-// import TextInput from "../FormInputs/TextInput";
-// import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+export type SeminarFormData = z.infer<typeof seminarSchema>;
 
-// import { createSeminar, updateSeminar } from "@/queries/seminar";
-// import { seminarSchema } from "@/schemas/seminar";
-// import { Seminar } from "@prisma/client";
-// import { DateTimePickerForm } from "../FormInputs/DateTimePicker";
-// import TextArea from "../FormInputs/TextAreaInput";
-// import AppForm from "./AppForm";
-// import { BsTelegram } from "react-icons/bs";
+export default function SeminarForm({
+  seminarId,
+}: {
+  seminarId?: string;
+}) {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [activeSeminarId, setActiveSeminarId] = useState<string | null>(null);
+  const [isLoadingSeminar, setIsLoadingSeminar] = useState(true);
 
-// export type SeminarFormData = z.infer<typeof seminarSchema>;
+  // Fetch active seminar if no seminarId is provided
+  useEffect(() => {
+    if (seminarId) {
+      setActiveSeminarId(seminarId);
+      setIsLoadingSeminar(false);
+      return;
+    }
 
-// type Props = {
-//   initialValues?: Partial<Seminar>;
-//   loading?: boolean;
-// };
+    const fetchActiveSeminar = async () => {
+      try {
+        const response = await fetch("/seminars/active");
+        const result = await response.json();
 
-// export default function SeminarForm({ initialValues, loading = false }: Props) {
-//   const router = useRouter();
+        if (result.success && result.data) {
+          setActiveSeminarId(result.data._id || result.data.id);
+        } else {
+          toast.error("No active seminar found");
+        }
+      } catch (error: any) {
+        console.error("Error fetching active seminar:", error);
+        toast.error("Failed to load seminar information");
+      } finally {
+        setIsLoadingSeminar(false);
+      }
+    };
 
-//   const onSubmit = async (data: SeminarFormData) => {
-//     const toastId = toast.loading("Saving seminar...");
-//     try {
-//       if (initialValues?.id) { 
-//         await updateSeminar({
-//           id: initialValues.id,
-//           data,
-//         });
-//         toast.success("Seminar updated successfully", { id: toastId });
-//       } else {
-//         await createSeminar(data);
-//         toast.success("Seminar created successfully", { id: toastId });
-//       }
+    fetchActiveSeminar();
+  }, [seminarId]);
+  
+  
+  
+  
+  // In handleSubmit function, change this:
+const handleSubmit = async (data: SeminarFormData) => {
+  if (!activeSeminarId) {
+    toast.error("No active seminar available for registration");
+    return;
+  }
 
-//       router.push("/dashboard/seminar/list");
-//     } catch (error: any) {
-//       toast.error(error.message || "Something went wrong", {
-//         id: toastId,
-//       });
-//     }
-//   };
+  setIsSubmitting(true);
+  const toastId = toast.loading("Registering...");
 
-//   return (
-//     <Card className="shadow-sm">
-//       <CardHeader>
-//         <CardTitle>{initialValues ? "Edit" : "Create"} Seminar</CardTitle>
-//       </CardHeader>
-//       <CardContent>
-//         <AppForm
-//           resolver={zodResolver(seminarSchema)}
-//           onSubmit={onSubmit}
-//           defaultValues={initialValues}
-//         >
-//           <div className="space-y-6">
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-//               <TextInput
-//                 label="Serial Number (optional)"
-//                 name="sl"
-//                 placeholder="১৭ নং সেমিনার"
-//                 icon={Calendar}
-//               />
-//               <TextInput
-//                 label="Title"
-//                 name="title"
-//                 placeholder="Enter seminar title"
-//                 icon={FileText}
-//               />
-//               <TextArea
-//                 label="Description"
-//                 name="description"
-//                 placeholder="Enter seminar description"
-//               />
-//               <DateTimePickerForm label="Seminar Start Date" name="date" />
-//               <DateTimePickerForm
-//                 label="Registration Deadline"
-//                 name="registrationDeadline"
-//               />
-//               {/* <TextInput
-//                 label="Link (optional)"
-//                 name="link"
-//                 placeholder="https://example.com"
-//                 icon={LinkIcon}
-//               /> */}
+  try {
+    // FIX: Use the correct API endpoint
+    const API_URL = process.env.NEXT_PUBLIC_API_URL 
+      ? `${process.env.NEXT_PUBLIC_API_URL}/seminars/register`
+      : 'http://localhost:5000/api/v1/seminars/register';
 
-//               <TextInput
-//                 label="Free Seminar Facebook Group Link"
-//                 name="facebookSecretGroup"
-//                 placeholder="Free Seminar Facebook Group Link"
-//                 icon={Facebook}
-//               />
-//               <TextInput
-//                 label="Free Seminar WhatsApp Group Link"
-//                 name="whatsappSecretGroup"
-//                 placeholder="Free Seminar WhatsApp Group Link"
-//                 icon={MessageCircle}
-//               />
-//               {/* <TextInput
-//                 label="Messenger Secret Group Link"
-//                 name="messengerSecretGroup"
-//                 placeholder="Messenger secret group link"
-//                 icon={MessageCircleHeart}
-//               /> */}
+    console.log("Sending to API:", API_URL);
 
-//               {/* Public Groups */}
-//               {/* <TextInput
-//                 label="Facebook Public Group Link"
-//                 name="facebookPublicGroup"
-//                 placeholder="Facebook public group link"
-//                 icon={Facebook}
-//               /> */}
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...data,
+        seminarId: activeSeminarId,
+      }),
+    });
 
-//               {/* <TextInput
-//                 label="WhatsApp Public Group Link"
-//                 name="whatsappPublicGroup"
-//                 placeholder="WhatsApp public group link"
-//                 icon={MessageCircle}
-//               /> */}
+    // Get response as text first to debug
+    const responseText = await response.text();
+    console.log("Response status:", response.status);
+    
+    // Check if it's HTML
+    if (responseText.startsWith('<!DOCTYPE') || responseText.startsWith('<html')) {
+      console.error("Got HTML instead of JSON. Full response:", responseText.substring(0, 500));
+      throw new Error(`API returned HTML. Status: ${response.status}. Check the endpoint URL.`);
+    }
 
-//               <TextInput
-//                 label="Free Seminar Telegram Group Link"
-//                 name="telegramGroup"
-//                 placeholder="Free Seminar Telegram group link"
-//                 icon={BsTelegram}
-//               />
-//             </div>
+    // Parse as JSON
+    const result = JSON.parse(responseText);
+    console.log("Parsed result:", result);
 
-//             <div className="pt-4 flex justify-end">
-//               <SubmitButton
-//                 title={initialValues ? "Update Seminar" : "Create Seminar"}
-//                 loadingTitle="Saving..."
-//                 loading={loading}
-//                 className="px-6"
-//                 loaderIcon={Loader2}
-//               />
-//             </div>
-//           </div>
-//         </AppForm>
-//       </CardContent>
-//     </Card>
-//   );
-// }
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || `Registration failed: ${response.status}`);
+    }
+
+    toast.success("Successfully registered for the seminar.", {
+      id: toastId,
+    });
+
+    router.push(
+      `/seminar-registration/success?name=${encodeURIComponent(
+        data.name
+      )}&seminarId=${encodeURIComponent(activeSeminarId)}`
+    );
+  } catch (err: any) {
+    console.error("Registration error:", err);
+    toast.error(err.message || "Registration failed. Please try again.", {
+      id: toastId,
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+  // Also update the fetch in useEffect:
+  useEffect(() => {
+    if (seminarId) {
+      setActiveSeminarId(seminarId);
+      setIsLoadingSeminar(false);
+      return;
+    }
+
+    const fetchActiveSeminar = async () => {
+      try {
+        // Use consistent API endpoint
+        const response = await fetch("/seminars/active");
+        const result = await response.json();
+
+        if (result.success && result.data) {
+          setActiveSeminarId(result.data._id);
+        } else {
+          toast.error("No active seminar found");
+        }
+      } catch (error: any) {
+        console.error("Error fetching active seminar:", error);
+        toast.error("Failed to load seminar information");
+      } finally {
+        setIsLoadingSeminar(false);
+      }
+    };
+
+    fetchActiveSeminar();
+  }, [seminarId]);
+
+  if (isLoadingSeminar) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-purple-600" />
+        <span className="ml-2">Loading seminar information...</span>
+      </div>
+    );
+  }
+
+  if (!activeSeminarId) {
+    return (
+      <div className="text-center py-10">
+        <h2 className="text-2xl font-bold text-red-600">No Active Seminar</h2>
+        <p className="mt-2">
+          Currently, there is no active seminar for registration.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <AppForm onSubmit={handleSubmit} resolver={zodResolver(seminarSchema)}>
+      <>
+        <h1 className="text-[36px] text-center font-[500]">রেজিস্ট্রেশন ফরম</h1>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5 text-white">
+          <div>
+            <TextInput
+              label="নাম"
+              name="name"
+              placeholder="আপনার নাম লিখুন"
+              icon={User}
+              labelClassName="text-white"
+              className="bg-white"
+            />
+          </div>
+          <div>
+            <TextInput
+              label="মোবাইল নাম্বার (ইংরেজি)"
+              name="phone"
+              placeholder="01XXXXXXXXX"
+              icon={Phone}
+              labelClassName="text-white"
+              className="bg-white"
+            />
+          </div>
+          <div>
+            <TextInput
+              label="WhatsApp নাম্বার (ইংরেজি)"
+              name="whatsapp"
+              placeholder="01XXXXXXXXX"
+              icon={Phone}
+              labelClassName="text-white"
+              className="bg-white"
+            />
+          </div>
+          <div>
+            <TextInput
+              label="ই-মেইল"
+              name="email"
+              placeholder="example@email.com"
+              icon={Mail}
+              labelClassName="text-white"
+              className="bg-white"
+            />
+          </div>
+          <div>
+            <TextInput
+              label="পেশা"
+              name="occupation"
+              placeholder="আপনার পেশা লিখুন"
+              icon={Briefcase}
+              labelClassName="text-white"
+              className="bg-white"
+            />
+          </div>
+          <div>
+            <TextArea
+              name="address"
+              label="ঠিকানা"
+              placeholder="আপনার ঠিকানা লিখুন"
+              rows={2}
+            />
+          </div>
+        </div>
+
+        <div className="pt-4 flex justify-center">
+          <SubmitButton
+            title=" জমা দিন"
+            loadingTitle="প্রক্রিয়া চলছে..."
+            className="flex content-center items-center justify-center gap-2 w-[200px] bg-[#FFCB2C] text-lg py-3 rounded-md text-black transition-all duration-200 shadow-md hover:shadow-lg"
+            loaderIcon={Loader2}
+            buttonIcon={FaArrowCircleRight}
+          />
+        </div>
+      </>
+    </AppForm>
+  );
+}

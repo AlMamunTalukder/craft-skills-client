@@ -1,4 +1,6 @@
-import SeminarRegistrationForm from "@/src/components/Forms/SeminarRegistrationForm";
+import AdmissionForm from "@/src/components/Forms/AdmissionForm";
+import SeminarRegistrationForm from "@/src/components/Forms/AdmissionForm";
+import SeminarForm from "@/src/components/Forms/SeminarForm";
 import Banner from "@/src/components/home/Banner";
 import FAQSection from "@/src/components/home/FAQSection";
 import HomePageContent from "@/src/components/HomePageContent";
@@ -70,8 +72,6 @@ export default async function HomePage() {
     getBanner(),
   ]);
 
-  
-
   return (
     <>
       <SubHeader
@@ -89,42 +89,14 @@ export default async function HomePage() {
       {/* Banner-এ siteData পাঠান */}
       <Banner siteData={siteData} bannerData={banner} />
       <HomePageContent />
-      
-      {seminar && seminar.isActive ? (
+
+      {seminar && (
         <Container>
           <div
             id="registration-form"
             className="scroll-mt-[180px] md:scroll-mt-[140px] border-purple-600 bg-[#4F0187] border-t-4 p-5 md:p-10 my-10 rounded-lg shadow-lg shadow-purple-500/50 text-white"
           >
-            
-            <SeminarRegistrationForm seminarId={seminar._id} />
-           
-          </div>
-        </Container>
-      ) : seminar ? (
-        // Seminar exists but not active
-        <Container>
-          <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-8 my-10 text-center">
-            <h3 className="text-xl font-bold text-yellow-700 mb-4">
-              Seminar Registration Closed
-            </h3>
-            <p className="text-yellow-600 mb-4">
-              The seminar {seminar.title} is currently not accepting
-              registrations.
-            </p>
-            <p className="text-sm text-yellow-500">No seminar is active.</p>
-          </div>
-        </Container>
-      ) : (
-        // No seminar found
-        <Container>
-          <div className="bg-gray-100 border border-gray-300 rounded-lg p-8 my-10 text-center">
-            <h3 className="text-xl font-bold text-gray-700 mb-4">
-              No Seminar Available
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Currently, there is no seminar available for registration.
-            </p>
+            <SeminarForm seminarId={seminar._id} />
           </div>
         </Container>
       )}

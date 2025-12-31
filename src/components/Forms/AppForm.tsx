@@ -4,10 +4,10 @@
 import { ReactNode } from "react";
 import {
   FieldValues,
-  FormProvider,
   SubmitHandler,
   useForm,
   UseFormReturn,
+  FormProvider,
 } from "react-hook-form";
 
 type TFormConfig = {
@@ -17,7 +17,7 @@ type TFormConfig = {
 
 type TFormProps = {
   onSubmit?: SubmitHandler<FieldValues | any>;
-  children: ReactNode | ((methods: UseFormReturn<FieldValues>) => ReactNode);
+  children: ReactNode;
 } & TFormConfig;
 
 const AppForm = ({
@@ -39,18 +39,28 @@ const AppForm = ({
   const methods = useForm(formConfig);
 
   const submit: SubmitHandler<FieldValues> = async (data) => {
+    console.log("📤 Form submission started in AppForm");
+    console.log("Data:", data);
+    
     try {
-      onSubmit && (await onSubmit(data));
-      // methods.reset();
-    } catch (error) {
-      console.error(error);
+      if (onSubmit) {
+        await onSubmit(data);
+        console.log("✅ Form submission successful in AppForm");
+      }
+    } catch (error: any) {
+      console.error("❌ Form submission error in AppForm:", error);
+      throw error;
     }
   };
 
   return (
-    <FormProvider {...methods} setError={methods.setError}>
-      <form onSubmit={methods.handleSubmit(submit)} className="space-y-4">
-        {typeof children === "function" ? children(methods) : children}
+    <FormProvider {...methods}>
+      <form 
+        onSubmit={methods.handleSubmit(submit)} 
+        className="space-y-4"
+        noValidate
+      >
+        {children}
       </form>
     </FormProvider>
   );
