@@ -6,11 +6,13 @@ import Container from "@/src/components/shared/Container";
 import Header from "@/src/components/shared/Header";
 import SubHeader from "@/src/components/shared/SubHeader";
 import { activeSeminar, getSiteData } from "@/src/lib/api";
+import { currentUser } from "@/src/lib/currentUser";
 
 export default async function HomePage() {
-  const [siteData, seminar] = await Promise.all([
+  const [siteData, seminar, user] = await Promise.all([
     getSiteData(),
     activeSeminar(),
+    currentUser(),
   ]);
 
   return (
@@ -26,7 +28,7 @@ export default async function HomePage() {
         seminar={seminar}
       />
 
-      <Header />
+      <Header user={user} />
 
       <Banner siteData={siteData} />
 
@@ -44,8 +46,6 @@ export default async function HomePage() {
       )}
 
       <FAQSection />
-
-      
     </>
   );
 }

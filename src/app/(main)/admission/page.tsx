@@ -1,4 +1,3 @@
-// app/admission/page.tsx
 import { Suspense } from "react";
 import SubHeaderWrapper from "./_components/SubHeaderWrapper";
 import Header from "@/src/components/shared/Header";
@@ -7,14 +6,16 @@ import HomePageContent from "@/src/components/HomePageContent";
 import FAQSection from "@/src/components/home/FAQSection";
 import AdmissionForm from "@/src/components/Forms/AdmissionForm";
 import { getActiveBatch, getCourses, getSiteData } from "@/src/lib/api";
+import { currentUser } from "@/src/lib/currentUser";
 
 export const revalidate = 60;
 
 export default async function AdmissionPage() {
-  const [batch, courses, siteData] = await Promise.all([
+  const [batch, courses, siteData, user] = await Promise.all([
     getActiveBatch(),
     getCourses(),
     getSiteData(),
+    currentUser(),
   ]);
 
   return (
@@ -23,7 +24,7 @@ export default async function AdmissionPage() {
         <SubHeaderWrapper />
       </Suspense>
 
-      <Header />
+      <Header user={user} />
 
       <Banner siteData={siteData} />
 

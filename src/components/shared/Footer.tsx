@@ -11,18 +11,10 @@ import Image from "next/image";
 import Container from "./Container";
 import Link from "next/link";
 import bg from "@/public/img/bg.webp";
-import { SiteContent } from "@/types";
-import logofooter from "../../../public/img/footerlogo.png";
 import { getSiteData } from "@/src/lib/api";
 
-
-
 export default async function Footer() {
-
-  const [siteData] = await Promise.all([getSiteData()]);
-
-
-  // const { email, phone1, phone2, address } = siteData;
+  const siteData = await getSiteData();
 
   const socialLinks = [
     {
@@ -79,7 +71,7 @@ export default async function Footer() {
             <div className="flex flex-col items-center md:items-start">
               <Link href="/">
                 <Image
-                  src={logofooter}
+                  src="/img/footerlogo.png"
                   alt="Craft Institute Logo"
                   width={180}
                   height={100}
@@ -144,7 +136,7 @@ export default async function Footer() {
                       >
                         <span className="text-lg">{social.icon}</span>
                       </Link>
-                    )
+                    ),
                 )}
               </div>
             </div>

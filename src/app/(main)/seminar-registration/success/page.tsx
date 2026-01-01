@@ -2,27 +2,21 @@
 // src/app/seminar-registration/success/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import click from "@/public/img/touch.png";
+import Container from "@/src/components/shared/Container";
 import {
-  CheckCircle,
   ArrowRight,
-  PhoneCall,
+  CheckCircle,
   Mail,
+  PhoneCall,
   Smartphone,
 } from "lucide-react";
-import Link from "next/link";
 import Image from "next/image";
-import {
-  FaFacebookF,
-  FaMobileAlt,
-  FaTelegramPlane,
-  FaWhatsapp,
-} from "react-icons/fa";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FaFacebookF, FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import Header from "@/src/components/shared/Header";
-import Container from "@/src/components/shared/Container";
-import click from "@/public/img/touch.png";
 
 export default function SeminarRegistrationSuccessPage() {
   const searchParams = useSearchParams();
@@ -38,13 +32,13 @@ export default function SeminarRegistrationSuccessPage() {
       try {
         // Fetch active seminar
         const seminarResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`
+          `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`,
         );
         const seminarResult = await seminarResponse.json();
 
         // Fetch site data
         const siteResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/site`
+          `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/site`,
         );
         const siteResult = await siteResponse.json();
 
@@ -74,7 +68,6 @@ export default function SeminarRegistrationSuccessPage() {
   ];
 
   const socialLinks = [
-   
     {
       name: "ফ্রি সেমিনার Facebook গ্রুপে যুক্ত হতে ক্লিক করুন",
       icon: (
@@ -107,7 +100,6 @@ export default function SeminarRegistrationSuccessPage() {
   if (loading) {
     return (
       <>
-        <Header />
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-white to-purple-50">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#3C016F] mx-auto mb-4"></div>
@@ -120,8 +112,6 @@ export default function SeminarRegistrationSuccessPage() {
 
   return (
     <>
-      <Header />
-
       <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-50 py-8 px-4">
         <Container>
           <div className="max-w-2xl mx-auto">

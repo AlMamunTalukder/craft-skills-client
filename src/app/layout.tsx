@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { ThemeProvider } from "../components/theme-provider";
-import QueryProvider from "../components/QueryProvider";
-import Providers from "../components/Providers";
-import { Toaster } from "react-hot-toast";
 import { Hind_Siliguri } from "next/font/google";
+import { Toaster } from "react-hot-toast";
+import QueryProvider from "../components/QueryProvider";
+import { ThemeProvider } from "../components/theme-provider";
+import "./globals.css";
 
 const siliguri = Hind_Siliguri({
   weight: "400",
@@ -23,14 +22,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${siliguri.className}` }>
+      <body className={`${siliguri.className}`}>
         <>
           <ThemeProvider>
             <QueryProvider>
-              <Providers>
+              <>
                 <Toaster position="top-center" reverseOrder={false} />
                 {children}
-              </Providers>
+              </>
             </QueryProvider>
           </ThemeProvider>
         </>

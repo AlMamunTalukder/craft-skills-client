@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/components/shared/Header.tsx
 "use client";
 
@@ -8,19 +9,18 @@ import { HiMenu, HiX } from "react-icons/hi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import UserMenu from "../user-menu";
-import { useSession } from "next-auth/react";
 import logo from "../../../public/img/headerlogo.png";
 import { SiteContent } from "@/types";
 
 interface HeaderProps {
   siteData?: SiteContent;
   logo?: string;
+  user: any;
 }
 
-const Header = ({ siteData, logo: logoUrl }: HeaderProps) => {
+const Header = ({ siteData, logo: logoUrl, user }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathName = usePathname();
-  const user = useSession().data?.user || null;
 
   const menuItems = [
     { name: "Home", href: "/" },
@@ -39,7 +39,7 @@ const Header = ({ siteData, logo: logoUrl }: HeaderProps) => {
           <div className="flex items-center">
             <Link href="/">
               <div className="relative">
-                {typeof displayLogo === 'string' ? (
+                {typeof displayLogo === "string" ? (
                   <Image
                     src={displayLogo}
                     alt={siteData?.name || "Logo"}
@@ -87,7 +87,7 @@ const Header = ({ siteData, logo: logoUrl }: HeaderProps) => {
             </ul>
             <UserMenu user={user} />
           </nav>
-          
+
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button

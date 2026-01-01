@@ -1,6 +1,6 @@
-import { z } from "zod";
+import * as z from "zod";
 
-export const seminarFormSchema = z.object({
+export const seminarRegistrationSchema = z.object({
   name: z
     .string({
       required_error: "অনুগ্রহ করে আপনার পূর্ণ নাম প্রদান করুন।",
@@ -19,7 +19,6 @@ export const seminarFormSchema = z.object({
     })
     .min(11, "অনুগ্রহ করে একটি ১১-সংখ্যার WhatsApp নম্বর প্রদান করুন।"),
 
-
   email: z
     .string()
     .email("অনুগ্রহ করে সঠিক ই-মেইল ঠিকানা প্রদান করুন।")
@@ -37,9 +36,7 @@ export const seminarFormSchema = z.object({
     })
     .min(1, "অনুগ্রহ করে আপনার পেশা উল্লেখ করুন।"),
 
-
-  address: z
-    .string()
-    .min(1, "অনুগ্রহ করে ঠিকানা প্রদান করুন।")
-    .optional(),
+  address: z.string().min(1, "অনুগ্রহ করে ঠিকানা প্রদান করুন।").optional(),
 });
+
+export type SeminarRegistration = z.infer<typeof seminarRegistrationSchema>;
