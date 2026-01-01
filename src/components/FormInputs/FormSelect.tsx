@@ -132,16 +132,24 @@ export default function FormSelect({
                   value={option.value}
                   disabled={option.disabled}
                   className={cn(
-                    "text-base py-3 cursor-pointer transition-colors",
+                    "text-base py-0 cursor-pointer transition-colors",
                     itemClassName
                   )}
                 >
                   {option.label}
                 </SelectItem>
               ))}
+              
             </SelectContent>
+            {error && (
+                <p className="mt-0 text-xs text-red-600" id={`${name}-error`}>
+                  {error.message}
+                </p>
+              )}
           </Select>
+          
           <FormMessage className="text-red-500 text-sm" />
+          
         </FormItem>
       )}
     />

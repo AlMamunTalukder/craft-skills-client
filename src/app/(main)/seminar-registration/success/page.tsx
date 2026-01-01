@@ -114,7 +114,7 @@ export default function SeminarRegistrationSuccessPage() {
     <>
       <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-50 py-8 px-4">
         <Container>
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto"> 
             {/* Success Card */}
             <div className="bg-white rounded-2xl overflow-hidden border border-purple-100 shadow-lg">
               {/* Header with decorative elements */}

@@ -1,5 +1,5 @@
 import * as z from "zod";
-
+ 
 export const seminarRegistrationSchema = z.object({
   name: z
     .string({
@@ -23,12 +23,6 @@ export const seminarRegistrationSchema = z.object({
     .string()
     .email("অনুগ্রহ করে সঠিক ই-মেইল ঠিকানা প্রদান করুন।")
     .optional(),
-
-  // email: z
-  //   .string({
-  //     required_error: "ই-মেইল ঠিকানা প্রদান করা আবশ্যক।",
-  //   })
-  //   .email("অনুগ্রহ করে সঠিক ই-মেইল ঠিকানা প্রদান করুন।").optional(),
 
   occupation: z
     .string({

@@ -13,7 +13,7 @@ import AppForm from "./AppForm";
 import TextInput from "../FormInputs/TextInput";
 import TextArea from "../FormInputs/TextAreaInput";
 import { seminarRegistrationSchema } from "@/schemas/seminar-registration";
-
+ 
 export type SeminarFormData = z.infer<typeof seminarRegistrationSchema>;
 
 export default function SeminarForm({ seminarId }: { seminarId?: string }) {

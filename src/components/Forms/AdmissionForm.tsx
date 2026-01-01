@@ -2,7 +2,7 @@
 // src/components/Forms/AdmissionForm.tsx
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -14,13 +14,11 @@ import {
   Mail,
   Briefcase,
   Book,
-  Calendar,
   CreditCard,
   Sparkles,
   GraduationCap,
   Tag,
   AlertCircle,
-  ArrowRight,
   Send,
   MessageSquare,
   CheckCircle,
@@ -36,24 +34,7 @@ import { Batch, Course } from "@/types";
 import Image from "next/image";
 import FormSelect from "../FormInputs/FormSelect";
 import { validateCoupon } from "@/src/app/api/coupons/couponapply";
-
-// Admission form schema
-const admissionFormSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email").optional().or(z.literal("")),
-  phone: z.string().min(1, "Phone is required"),
-  whatsapp: z.string().optional(),
-  occupation: z.string().optional(),
-  address: z.string().optional(),
-  courseId: z.string().min(1, "Course selection is required"),
-  batchId: z.string().min(1, "Batch is required"),
-  paymentMethod: z.string().min(1, "Payment method is required"),
-  senderNumber: z.string().min(1, "Sender number is required"),
-  couponCode: z.string().optional(),
-  amount: z.string().optional(),
-});
-
-export type AdmissionFormData = z.infer<typeof admissionFormSchema>;
+import { courseAdmissionSchema } from "@/schemas/admission";
 
 interface AdmissionFormProps {
   batch: Batch | null;
@@ -103,6 +84,8 @@ interface CouponState {
     validTo: string;
   };
 }
+
+export type admissionFormData = z.infer<typeof courseAdmissionSchema>;
 
 export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
   const router = useRouter();
@@ -237,7 +220,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
         toast.error(result.message || "কুপনটি ভ্যালিড নয়");
       }
     } catch (error) {
-      console.error("Coupon application error:", error);
+      // console.error("Coupon application error:", error);
       setCouponState((prev) => ({
         ...prev,
         error: "কুপন যাচাই করা যায়নি",
@@ -259,7 +242,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
     toast.success("কুপন সরানো হয়েছে");
   };
 
-  const onSubmit = async (data: AdmissionFormData) => {
+  const onSubmit = async (data: admissionFormData) => {
     // console.log("✅ Form submit triggered!");
     // console.log("Form data:", data);
 
@@ -317,9 +300,9 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
       toast.success("Admission submitted successfully!", { id: toastId });
 
       router.push(
-        `/admission-registration/success?name=${encodeURIComponent(data.name)}&batch=${
-          batch.name
-        }&amount=${finalPrice}`
+        `/admission-registration/success?name=${encodeURIComponent(
+          data.name
+        )}&batch=${batch.name}&amount=${finalPrice}`
       );
     } catch (error: any) {
       // console.error("❌ [Admission Submit] Error:", error);
@@ -342,7 +325,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
         id: toastId,
         duration: 5000,
       });
-      
+
       // Re-throw the error for AppForm to handle
       throw error;
     } finally {
@@ -352,21 +335,33 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
   };
 
   // Prepare course options for the select dropdown
-  const courseOptions = courses.map((course) => {
-    const discountedPrice =
-      course.price - (course.price * (course.discount || 0)) / 100;
-    const totalPrice = Math.round(
-      discountedPrice + (course.paymentCharge || 0)
-    );
+  // const courseOptions = courses.map((course) => {
+  //   const discountedPrice =
+  //     course.price - (course.price * (course.discount || 0)) / 100;
+  //   const totalPrice = Math.round(
+  //     discountedPrice + (course.paymentCharge || 0)
+  //   );
 
-    return {
-      label: `${course.name} - ৳${totalPrice.toLocaleString()}`,
-      value: course.id,
-      originalPrice: course.price,
-      discount: course.discount || 0,
-      finalPrice: totalPrice,
-    };
-  });
+  //   return {
+  //     label: `${course.name} - ৳${totalPrice.toLocaleString()}`,
+  //     value: course.id,
+  //     originalPrice: course.price,
+  //     discount: course.discount || 0,
+  //     finalPrice: totalPrice,
+  //   };
+  // });
+
+  const courseOptions = useMemo(
+  () =>
+    courses.map(c => ({
+      label: `${c.name} - ৳${Math.round(
+        c.price - (c.price * (c.discount || 0)) / 100 + (c.paymentCharge || 0)
+      ).toLocaleString()}`,
+      value: c.id,
+    })),
+  [courses]
+);
+
 
   // Calculate original price without coupon
   const originalPrice = selectedCourse
@@ -396,7 +391,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#4f0187]/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-6xl mx-auto relative">
+      <div className="max-w-4xl mx-auto relative">
         {/* Main Form */}
         <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden">
           {/* Form Header */}
@@ -421,9 +416,9 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
           <div className="p-2 md:p-8">
             {/* Pass resolver to AppForm - AppForm will handle the form context */}
-            <AppForm 
+            <AppForm
               onSubmit={onSubmit}
-              resolver={zodResolver(admissionFormSchema)}
+              resolver={zodResolver(courseAdmissionSchema)}
               defaultValues={{
                 batchId: batch.id, // Set default value for batchId
               }}
@@ -497,8 +492,8 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                       কোন কোর্স পাওয়া যায়নি
                     </h3>
                     <p className="text-gray-600">
-                      দুঃখিত, এই মুহূর্তে কোন কোর্স উপলব্ধ নেই। অনুগ্রহ করে
-                      পরে চেষ্টা করুন।
+                      দুঃখিত, এই মুহূর্তে কোন কোর্স উপলব্ধ নেই। অনুগ্রহ করে পরে
+                      চেষ্টা করুন।
                     </p>
                   </div>
                 )}
@@ -512,11 +507,11 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                       options={courseOptions}
                       placeholder="কোর্স নির্বাচন করুন"
                       required={true}
-                      icon={<Book className="w-5 h-5 text-[#4f0187]" />}
+                      // icon={<Book className="w-5 h-5 text-[#4f0187]" />}
                       variant="outline"
                       size="md"
-                      className="mt-2"
-                      labelClassName="text-[#4f0187] mb-3 font-semibold flex items-center gap-2 text-lg"
+                      className="mt-0"
+                      labelClassName="text-[#4f0187] mb-0 font-semibold flex items-center gap-2 text-lg"
                       onValueChange={(value) => {
                         handleCourseChange(value);
                       }}
@@ -530,9 +525,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                   <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-4 md:p-6 border border-green-100">
                     <div className="flex items-center gap-2 mb-4">
                       <Tag className="w-5 h-5 text-green-600" />
-                      <h3 className="font-semibold text-green-800">
-                        কুপন কোড
-                      </h3>
+                      <h3 className="font-semibold text-green-800">কুপন কোড</h3>
                       {couponState.applied && (
                         <span className="ml-2 px-2 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
                           {couponState.discountAmount} ৳ ছাড়
@@ -540,6 +533,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                       )}
                     </div>
 
+                    {/* Coupon */}
                     <div className="flex flex-col md:flex-row gap-3 items-center">
                       <div className="flex-1 w-full">
                         <div className="relative">
@@ -794,9 +788,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                       options={paymentMethods}
                       placeholder="পেমেন্ট মেথড নির্বাচন করুন"
                       required={true}
-                      icon={
-                        <CreditCard className="w-5 h-5 text-emerald-600" />
-                      }
+                      icon={<CreditCard className="w-5 h-5 text-emerald-600" />}
                       variant="outline"
                       size="md"
                       labelClassName="text-emerald-700 font-medium"
@@ -837,9 +829,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                 {!batch?.isActive && (
                   <div className="text-center text-red-600 bg-red-50 py-4 rounded-2xl border border-red-100">
                     <AlertCircle className="w-6 h-6 mx-auto mb-2" />
-                    <p className="font-medium">
-                      এই ব্যাচে ভর্তি বন্ধ রয়েছে।
-                    </p>
+                    <p className="font-medium">এই ব্যাচে ভর্তি বন্ধ রয়েছে।</p>
                   </div>
                 )}
               </div>

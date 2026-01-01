@@ -24,11 +24,11 @@ export default function AdmissionSuccessPage() {
     const fetchData = async () => {
       try {
         // Fetch active batch
-        const batchResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/v1/course-batches/active`);
+        const batchResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/course-batches/active`);
         const batchResult = await batchResponse.json();
 
         // Fetch site data
-        const siteResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/v1/site`);
+        const siteResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/site`);
         const siteResult = await siteResponse.json();
 
         if (batchResult.success) setBatch(batchResult.data);
@@ -54,11 +54,11 @@ export default function AdmissionSuccessPage() {
       icon: <FaFacebookMessenger className="h-5 w-5 text-[#1877F2]" />,
       url: batch?.messengerSecretGroup || "#",
     },
-    {
-      name: "WhatsApp গ্রুপে যুক্ত হতে ক্লিক করুন",
-      icon: <FaWhatsapp className="h-5 w-5 text-[#25D366]" />,
-      url: batch?.whatsappSecretGroup || "#",
-    },
+    // {
+    //   name: "WhatsApp গ্রুপে যুক্ত হতে ক্লিক করুন",
+    //   icon: <FaWhatsapp className="h-5 w-5 text-[#25D366]" />,
+    //   url: batch?.whatsappSecretGroup || "#",
+    // },
   ];
 
   if (loading) {
@@ -77,73 +77,43 @@ export default function AdmissionSuccessPage() {
 
   return (
     <>
-      {/* {siteData && <Header siteData={siteData} logo={siteData.logoLight || ""} />} */}
+      {/* {siteData && <Header siteData={siteData} user={user}/>} */}
       
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 px-4">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-xl mx-auto">
           {/* Success Card */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
             {/* Header */}
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 p-8 text-center relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-full bg-white/10"></div>
-              <div className="relative">
-                <div className="bg-white rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 shadow-lg">
-                  <CheckCircle className="w-16 h-16 text-purple-600" />
-                </div>
-                <h1 className="text-3xl font-bold text-white mb-2">
-                  ভর্তি নিশ্চিত হয়েছে!
-                </h1>
-                {participantName && (
-                  <p className="text-xl text-purple-100 mb-1">
-                    অভিনন্দন, {decodeURIComponent(participantName)}
+           
+            <div className="relative bg-gradient-to-r from-[#3C016F] to-purple-800">
+                {/* <div className="absolute inset-0 bg-[#3C016F] opacity-90"></div> */}
+                <div className="absolute inset-0 bg-[url('/api/placeholder/800/300')] opacity-10 bg-cover bg-center"></div>
+
+                {/* Purple circles decoration */}
+                <div className="absolute -top-10 -left-10 w-40 h-40 bg-purple-300 rounded-full opacity-20"></div>
+                <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-purple-400 rounded-full opacity-20"></div>
+
+                <div className="relative p-8 text-center">
+                  <div className="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <CheckCircle className="w-12 h-12 text-[#3C016F]" />
+                  </div>
+                  <h1 className="text-3xl font-bold text-white mb-2">
+                    ভর্তি নিশ্চিত হয়েছে!
+                  </h1>
+                  {participantName && (
+                    <p className="text-xl font-medium text-purple-200 mb-1">
+                      অভিনন্দন, {decodeURIComponent(participantName)}
+                    </p>
+                  )}
+                  <p className="text-purple-100">
+                    আপনার ভর্তি আবেদন সফলভাবে জমা হয়েছে
                   </p>
-                )}
-                <p className="text-purple-100">
-                  আপনার ভর্তি আবেদন সফলভাবে জমা হয়েছে
-                </p>
+                </div>
               </div>
-            </div>
 
             {/* Content */}
             <div className="p-6 md:p-8 space-y-6">
-              {/* Batch Info */}
-              {batch && (
-                <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
-                  <h3 className="font-bold text-lg text-purple-800 mb-2">
-                    {batch.name}
-                  </h3>
-                  <div className="text-gray-700 space-y-1">
-                    <p className="flex items-center">
-                      <Users className="h-4 w-4 mr-2 text-purple-600" />
-                      <span>ব্যাচ: {batch.code}</span>
-                    </p>
-                    <p className="text-sm">
-                      {batch.description}
-                    </p>
-                  </div>
-                </div>
-              )}
-
-              {/* Next Steps */}
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                <h4 className="font-bold text-blue-800 mb-3 text-lg">
-                  পরবর্তী ধাপসমূহ:
-                </h4>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 shrink-0" />
-                    <span>আমাদের টিম আপনার সাথে যোগাযোগ করবে</span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 shrink-0" />
-                    <span>ক্লাসের বিস্তারিত তথ্য নিচের গ্রুপগুলোতে পাবেন</span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 shrink-0" />
-                    <span>পেমেন্ট প্রক্রিয়া সম্পন্ন করার নির্দেশনা পাবেন</span>
-                  </li>
-                </ul>
-              </div>
+              
 
               {/* Group Links */}
               <div className="bg-white border border-gray-200 rounded-xl p-4">
@@ -184,20 +154,20 @@ export default function AdmissionSuccessPage() {
                     className="w-full justify-start"
                     asChild
                   >
-                    <a href="tel:01310726000">
+                    <Link href="tel:01310726000">
                       <PhoneCall className="h-5 w-5 mr-3 text-purple-600" />
                       01310726000
-                    </a>
+                    </Link>
                   </Button>
                   <Button
                     variant="outline"
                     className="w-full justify-start"
                     asChild
                   >
-                    <a href="tel:01700999093">
+                    <Link href="tel:01700999093">
                       <PhoneCall className="h-5 w-5 mr-3 text-purple-600" />
                       01700999093
-                    </a>
+                    </Link>
                   </Button>
                   {siteData?.email && (
                     <Button
@@ -205,10 +175,10 @@ export default function AdmissionSuccessPage() {
                       className="w-full justify-start"
                       asChild
                     >
-                      <a href={`mailto:${siteData.email}`}>
+                      <Link href={`mailto:${siteData.email}`}>
                         <Mail className="h-5 w-5 mr-3 text-purple-600" />
                         {siteData.email}
-                      </a>
+                      </Link>
                     </Button>
                   )}
                 </div>
@@ -224,10 +194,14 @@ export default function AdmissionSuccessPage() {
             </div>
 
             {/* Footer */}
-            <div className="border-t border-gray-100 p-4 text-center text-sm text-gray-500">
-              <p>ধন্যবাদ, Craft Institute বাংলাদেশ</p>
-              <p className="mt-1">আপনার শিক্ষা যাত্রা শুভ হোক!</p>
-            </div>
+            <div className="border-t border-gray-100 p-4 flex justify-between items-center text-sm">
+                <p className="text-gray-500">ধন্যবাদ</p>
+                <div className="flex space-x-3">
+                  <div className="w-2 h-2 rounded-full bg-[#3C016F]"></div>
+                  <div className="w-2 h-2 rounded-full bg-purple-300"></div>
+                  <div className="w-2 h-2 rounded-full bg-purple-100"></div>
+                </div>
+              </div>
           </div>
         </div>
       </div>

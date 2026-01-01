@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { cookies } from "next/headers";
+
 
 import { Schedule, Seminar, SiteContent } from "@/types";
 
@@ -29,10 +29,11 @@ export async function getActiveBatch() {
   try {
     const response = await fetch(`${API_URL}/course-batches/active`, {
       cache: "force-cache",
-      next: { revalidate: 1000 * 60 * 1 }, // 1 minute
+      next: { revalidate: 1000 * 60 * 1 }, 
     });
 
     const result = await response.json();
+    console.log(result)
 
     if (result.success && result.data) {
       return {
