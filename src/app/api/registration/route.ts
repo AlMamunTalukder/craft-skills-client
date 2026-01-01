@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const API_URL = process.env.API_URL || 'http://localhost:5000/api/v1';
     const body = await request.json();
     
-    console.log('Sending admission data to backend:', body);
+    // console.log('Sending admission data to backend:', body);
     
     const response = await fetch(`${API_URL}/admissions/register`, {
       method: 'POST',

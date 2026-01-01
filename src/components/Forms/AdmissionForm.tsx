@@ -322,7 +322,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
         }&amount=${finalPrice}`
       );
     } catch (error: any) {
-      console.error("❌ [Admission Submit] Error:", error);
+      // console.error("❌ [Admission Submit] Error:", error);
 
       let errorMessage = "Admission failed. Please try again.";
 
@@ -346,7 +346,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
       // Re-throw the error for AppForm to handle
       throw error;
     } finally {
-      console.log("Form submission completed");
+      // console.log("Form submission completed");
       setIsSubmitting(false);
     }
   };

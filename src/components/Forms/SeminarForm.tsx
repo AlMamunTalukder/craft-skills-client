@@ -75,7 +75,7 @@ const handleSubmit = async (data: SeminarFormData) => {
       ? `${process.env.NEXT_PUBLIC_API_URL}/seminars/register`
       : 'http://localhost:5000/api/v1/seminars/register';
 
-    console.log("Sending to API:", API_URL);
+    // console.log("Sending to API:", API_URL);
 
     const response = await fetch(API_URL, {
       method: "POST",
@@ -90,7 +90,7 @@ const handleSubmit = async (data: SeminarFormData) => {
 
     // Get response as text first to debug
     const responseText = await response.text();
-    console.log("Response status:", response.status);
+    // console.log("Response status:", response.status);
     
     // Check if it's HTML
     if (responseText.startsWith('<!DOCTYPE') || responseText.startsWith('<html')) {
@@ -100,7 +100,7 @@ const handleSubmit = async (data: SeminarFormData) => {
 
     // Parse as JSON
     const result = JSON.parse(responseText);
-    console.log("Parsed result:", result);
+    // console.log("Parsed result:", result);
 
     if (!response.ok || !result.success) {
       throw new Error(result.message || `Registration failed: ${response.status}`);

@@ -33,7 +33,7 @@ const Banner = ({ siteData }: Props) => {
   };
 
   const bannerContent = getBannerContent();
-  console.log("banner content", bannerContent);
+  // console.log("banner content", bannerContent);
 
   return (
     <div className="relative min-h-[500px] lg:min-h-[600px] flex items-center py-16 md:py-20 lg:py-28 overflow-hidden">

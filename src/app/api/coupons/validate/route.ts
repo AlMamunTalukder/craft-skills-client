@@ -6,8 +6,8 @@ export async function POST(request: NextRequest) {
     const API_URL = process.env.API_URL || 'http://localhost:5000';
     const body = await request.json();
     
-    console.log('Validating coupon at:', `${API_URL}/api/v1/coupons/apply`);
-    console.log('Coupon validation data:', body);
+    // console.log('Validating coupon at:', `${API_URL}/api/v1/coupons/apply`);
+    // console.log('Coupon validation data:', body);
     
     const response = await fetch(`${API_URL}/api/v1/coupons/apply`, {
       method: 'POST',
