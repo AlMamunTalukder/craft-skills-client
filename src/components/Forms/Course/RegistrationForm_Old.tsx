@@ -132,9 +132,9 @@
 //     <div className="md:max-w-6xl mx-auto my-12">
 //       <div className="relative">
 //         {/* Main card */}
-//         <Card className="border border-purple-300/30 shadow-xl overflow-hidden bg-gradient-to-b from-[#4F0187] to-[#3A0161] relative z-10">
+//         <Card className="border border-purple-300/30 shadow-xl overflow-hidden bg-linear-to-b from-[#4F0187] to-[#3A0161] relative z-10">
 //           {/* Header badge */}
-//           {/* <div className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-yellow-400 to-amber-500 text-black font-bold py-2 px-6 rounded-b-lg shadow-lg z-20">
+//           {/* <div className="absolute top-0 left-1/2 transform -translate-x-1/2 bg-linear-to-r from-yellow-400 to-amber-500 text-black font-bold py-2 px-6 rounded-b-lg shadow-lg z-20">
 //             <span className="flex items-center gap-2">
 //               <GraduationCap size={18} />
 //               <span>ব্যাচ {batch?.name || ""}</span>
@@ -200,7 +200,7 @@
 //                         </div>
 //                       )}
 
-//                       <div className="p-5 bg-gradient-to-br from-purple-900/50 to-purple-700/30 backdrop-blur-sm">
+//                       <div className="p-5 bg-linear-to-br from-purple-900/50 to-purple-700/30 backdrop-blur-sm">
 //                         <h4 className="text-xl font-bold text-white mb-4">
 //                           {course.name}
 //                         </h4>
@@ -273,7 +273,7 @@
 //                 {paymentOptions.map((option) => (
 //                   <div
 //                     key={option.id}
-//                     className="bg-gradient-to-br from-white/10 to-white/5 p-3 md:p-6 rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 transform hover:-translate-y-1"
+//                     className="bg-linear-to-br from-white/10 to-white/5 p-3 md:p-6 rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300 transform hover:-translate-y-1"
 //                   >
 //                     <div className="flex md:flex-col items-center md:items-start gap-3 md:gap-0">
 //                       <div className="flex items-center gap-3 md:mb-0">
@@ -316,7 +316,7 @@
 //             </div>
 
 //             {/* Registration Form Section */}
-//             <div className="bg-gradient-to-b from-[#370165]/40 to-[#2D014C]/60 p-4 md:p-8 backdrop-blur-lg">
+//             <div className="bg-linear-to-b from-[#370165]/40 to-[#2D014C]/60 p-4 md:p-8 backdrop-blur-lg">
 //               <AppForm
 //                 resolver={zodResolver(courseRegistrationSchema)}
 //                 onSubmit={onSubmit}
@@ -418,7 +418,7 @@
 //                       title="ভর্তি সম্পন্ন করুন"
 //                       loadingTitle="প্রক্রিয়া চলছে..."
 //                       loading={loading}
-//                       className="px-10 py-4 bg-gradient-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-black font-bold rounded-lg transition-all duration-300 shadow-lg text-xl flex items-center gap-2"
+//                       className="px-10 py-4 bg-linear-to-r from-yellow-400 to-amber-500 hover:from-yellow-500 hover:to-amber-600 text-black font-bold rounded-lg transition-all duration-300 shadow-lg text-xl flex items-center gap-2"
 //                       loaderIcon={ArrowRight}
 //                     />
 //                   </div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/components/Forms/AdmissionForm.tsx
 "use client";
@@ -13,7 +14,6 @@ import {
   Phone,
   Mail,
   Briefcase,
-  Book,
   CreditCard,
   Sparkles,
   GraduationCap,
@@ -384,8 +384,8 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 py-12 px-2 md:px-4">
-      {/* Background decorative elements */}
+    <div className="min-h-screen bg-linear-to-br from-purple-50 via-white to-purple-50 py-12 px-2 md:px-4">
+      {/* Background decorative elements */} 
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#4f0187]/5 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#4f0187]/5 rounded-full blur-3xl"></div>
@@ -395,7 +395,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
         {/* Main Form */}
         <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden">
           {/* Form Header */}
-          <div className="bg-gradient-to-r from-[#4f0187] to-[#6d0b99] p-3 md:p-6 text-white text-center">
+          <div className="bg-linear-to-r from-[#4f0187] to-[#6d0b99] p-3 md:p-6 text-white text-center">
             <div className="flex items-center justify-center content-center md:gap-3">
               <Sparkles className="w-6 h-6" />
               <h2 className="md:text-xl font-semibold">
@@ -427,7 +427,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                 {/* কোর্স বিবরণ Section - Course Details Cards */}
                 {courses.length > 0 ? (
                   <div className="flex gap-5 w-full">
-                    <div className="w-full bg-gradient-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10">
+                    <div className="w-full bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10">
                       <h3 className="text-[#4f0187] mb-2 flex items-center gap-2">
                         <span className="bg-white/20 rounded-md">
                           <GraduationCap className="" />
@@ -486,7 +486,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                     </div>
                   </div>
                 ) : (
-                  <div className="bg-gradient-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-6 border border-[#4f0187]/10 text-center">
+                  <div className="bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-6 border border-[#4f0187]/10 text-center">
                     <AlertCircle className="w-12 h-12 text-[#4f0187]/50 mx-auto mb-4" />
                     <h3 className="text-[#4f0187] font-semibold mb-2">
                       কোন কোর্স পাওয়া যায়নি
@@ -500,7 +500,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
                 {/* Course Selection */}
                 {courses.length > 0 && (
-                  <div className="bg-gradient-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10">
+                  <div className="bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10">
                     <FormSelect
                       name="courseId"
                       label="কোর্স নির্বাচন করুন"
@@ -522,7 +522,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
                 {/* Coupon Code Section */}
                 {selectedCourse && (
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-4 md:p-6 border border-green-100">
+                  <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl p-4 md:p-6 border border-green-100">
                     <div className="flex items-center gap-2 mb-4">
                       <Tag className="w-5 h-5 text-green-600" />
                       <h3 className="font-semibold text-green-800">কুপন কোড</h3>
@@ -624,7 +624,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
                 {/* Price Summary */}
                 {selectedCourse && finalPrice !== null && (
-                  <div className="bg-gradient-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-4 md:p-6 border border-[#4f0187]/20">
+                  <div className="bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-4 md:p-6 border border-[#4f0187]/20">
                     <h3 className="font-semibold text-[#4f0187] mb-4 flex items-center gap-2">
                       <CreditCard className="w-5 h-5" />
                       মূল্য বিবরণ
@@ -665,7 +665,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                 )}
 
                 {/* Personal Information */}
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-4 md:p-6 border border-blue-100">
+                <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl p-4 md:p-6 border border-blue-100">
                   <h3 className="font-semibold text-blue-800 mb-4 flex items-center gap-2">
                     <User className="w-5 h-5" />
                     ব্যক্তিগত তথ্য
@@ -735,7 +735,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                 </div>
 
                 {/* Payment Numbers Section */}
-                <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-4 md:p-6 border border-emerald-100">
+                <div className="bg-linear-to-br from-emerald-50 to-green-50 rounded-2xl p-4 md:p-6 border border-emerald-100">
                   <h3 className="font-semibold text-emerald-800 mb-4 flex items-center gap-2">
                     <CreditCard className="w-5 h-5" />
                     পেমেন্ট নাম্বার সমূহ
@@ -775,7 +775,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                 </div>
 
                 {/* Payment Information */}
-                <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-4 md:p-6 border border-emerald-100">
+                <div className="bg-linear-to-br from-emerald-50 to-green-50 rounded-2xl p-4 md:p-6 border border-emerald-100">
                   <h3 className="font-semibold text-emerald-800 mb-4 flex items-center gap-2">
                     <CreditCard className="w-5 h-5" />
                     পেমেন্ট তথ্য
@@ -822,7 +822,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                   <SubmitButton
                     title="ভর্তি ফরম জমা দিন"
                     loadingTitle="প্রক্রিয়া চলছে..."
-                    className="w-full py-4 bg-gradient-to-r from-[#4f0187] to-[#6d0b99] text-white font-bold rounded-2xl text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 border-0"
+                    className="w-full py-4 bg-linear-to-r from-[#4f0187] to-[#6d0b99] text-white font-bold rounded-2xl text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 border-0"
                   />
                 </div>
 

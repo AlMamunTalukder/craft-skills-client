@@ -100,7 +100,7 @@ export default function SeminarRegistrationSuccessPage() {
   if (loading) {
     return (
       <>
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-white to-purple-50">
+        <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-100 via-white to-purple-50">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#3C016F] mx-auto mb-4"></div>
             <p className="text-gray-600">লোড হচ্ছে...</p>
@@ -112,7 +112,7 @@ export default function SeminarRegistrationSuccessPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-purple-100 via-white to-purple-50 py-8 px-4">
+      <div className="min-h-screen bg-linear-to-br from-purple-100 via-white to-purple-50 py-8 px-4">
         <Container>
           <div className="max-w-2xl mx-auto"> 
             {/* Success Card */}
@@ -120,7 +120,7 @@ export default function SeminarRegistrationSuccessPage() {
               {/* Header with decorative elements */}
 
               {/* Header with decorative elements */}
-              <div className="relative bg-gradient-to-r from-[#3C016F] to-purple-800">
+              <div className="relative bg-linear-to-r from-[#3C016F] to-purple-800">
                 {/* <div className="absolute inset-0 bg-[#3C016F] opacity-90"></div> */}
                 <div className="absolute inset-0 bg-[url('/api/placeholder/800/300')] opacity-10 bg-cover bg-center"></div>
 

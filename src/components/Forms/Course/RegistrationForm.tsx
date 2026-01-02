@@ -210,7 +210,7 @@
 //   };
 
 //   return (
-//     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-50 py-12 px-2 md:px-4">
+//     <div className="min-h-screen bg-linear-to-br from-purple-50 via-white to-purple-50 py-12 px-2 md:px-4">
 //       {/* Background decorative elements */}
 //       <div className="fixed inset-0 overflow-hidden pointer-events-none">
 //         <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#4f0187]/5 rounded-full blur-3xl"></div>
@@ -223,7 +223,7 @@
 //         {/* Main Form */}
 //         <div className="bg-white rounded-3xl  border border-gray-100 overflow-hidden">
 //           {/* Form Header */}
-//           <div className="bg-gradient-to-r from-[#4f0187] to-[#6d0b99] p-3 md:p-6 text-white text-center">
+//           <div className="bg-linear-to-r from-[#4f0187] to-[#6d0b99] p-3 md:p-6 text-white text-center">
 //             <div className="flex items-center justify-center content-center md:gap-3">
 //               <Sparkles className="w-6 h-6" />
 //               <h2 className=" md:text-xl font-semibold">
@@ -251,7 +251,7 @@
 //                 <div className="space-y-6 mt-5 md:mt-0">
 //                   {/* Course Details */}
 //                   <div className="flex gap-5 w-full">
-//                     <div className="w-full bg-gradient-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10">
+//                     <div className="w-full bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10">
 //                       <h3 className=" text-[#4f0187] mb-2 flex items-center gap-2">
 //                         <span className="bg-white/20 rounded-md">
 //                           <GraduationCap className="" />
@@ -311,7 +311,7 @@
 //                   </div>
 
 //                   {/* Course Selection */}
-//                   <div className="bg-gradient-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10">
+//                   <div className="bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10">
 //                     <FormSelectInputWithWatch
 //                       label="কোর্স নির্বাচন করুন"
 //                       name="course"
@@ -328,7 +328,7 @@
 //                   </div>
 
 //                   {/* Coupon Section */}
-//                   <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-2 md:p-4 border border-green-100">
+//                   <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl p-2 md:p-4 border border-green-100">
 //                     <div className="flex items-center gap-2 mb-4">
 //                       <Tag className="w-5 h-5 text-green-600" />
 //                       <h3 className="font-semibold text-green-800">কুপন কোড</h3>
@@ -388,7 +388,7 @@
 
 //                   {/* Price Summary */}
 //                   {selectedCourse && finalPrice !== null && (
-//                     <div className="bg-gradient-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-6 border border-[#4f0187]/20">
+//                     <div className="bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-6 border border-[#4f0187]/20">
 //                       <h3 className="font-semibold text-[#4f0187] mb-4 flex items-center gap-2">
 //                         <CreditCard className="w-5 h-5" />
 //                         মূল্য বিবরণ
@@ -424,7 +424,7 @@
 //                   )}
 
 //                   {/* Personal Information */}
-//                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-2 md:p-4 border border-blue-100">
+//                   <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl p-2 md:p-4 border border-blue-100">
 //                     <h3 className="font-semibold text-blue-800 mb-4 flex items-center gap-2">
 //                       <User className="w-5 h-5" />
 //                       ব্যক্তিগত তথ্য
@@ -477,7 +477,7 @@
 //                     </div>
 //                   </div>
 
-//                   <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-2 md:p-4 border border-emerald-100">
+//                   <div className="bg-linear-to-br from-emerald-50 to-green-50 rounded-2xl p-2 md:p-4 border border-emerald-100">
 //                     <h3 className="font-semibold text-blue-800 mb-3 flex items-center gap-2">
 //                       <CreditCard className="w-5 h-5" />
 //                       পেমেন্ট নাম্বার সমূহ
@@ -513,7 +513,7 @@
 //                   </div>
 
 //                   {/* Payment Information */}
-//                   <div className="bg-gradient-to-br from-emerald-50 to-green-50 rounded-2xl p-2 md:p-4 border border-emerald-100">
+//                   <div className="bg-linear-to-br from-emerald-50 to-green-50 rounded-2xl p-2 md:p-4 border border-emerald-100">
 //                     <h3 className="font-semibold text-emerald-800 mb-4 flex items-center gap-2">
 //                       <CreditCard className="w-5 h-5" />
 //                       পেমেন্ট তথ্য
@@ -550,7 +550,7 @@
 //                       title="ভর্তি সম্পন্ন করুন"
 //                       loadingTitle="প্রক্রিয়া চলছে..."
 //                       loading={loading}
-//                       className="w-full py-4 bg-gradient-to-r from-[#4f0187] to-[#6d0b99] text-white font-bold rounded-2xl text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+//                       className="w-full py-4 bg-linear-to-r from-[#4f0187] to-[#6d0b99] text-white font-bold rounded-2xl text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
 //                       loaderIcon={ArrowRight}
 //                     />
 //                   </div>

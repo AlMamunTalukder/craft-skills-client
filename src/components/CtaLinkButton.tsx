@@ -22,7 +22,7 @@ const CtaLinkButton = () => {
   return (
     <Link
       href={getHref()}
-      className="flex items-center gap-2 bg-gradient-to-r from-[#DC25FF] to-[#3C016F] hover:from-[#3C016F] hover:to-[#DC25FF] transition-all duration-300 border border-white px-6 py-3 rounded-lg text-white font-medium text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+      className="flex items-center gap-2 bg-linear-to-r from-[#DC25FF] to-[#3C016F] hover:from-[#3C016F] hover:to-[#DC25FF] transition-all duration-300 border border-white px-6 py-3 rounded-lg text-white font-medium text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1"
     >
       {pathname === "/" ? (
         <span className="text-sm md:text-base font-semibold whitespace-nowrap">

@@ -100,8 +100,8 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
     <div
       className={`sticky top-0 z-50 w-full shadow-sm transition-all duration-300 ${
         isScrolled
-          ? "bg-gradient-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
-          : "bg-gradient-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
+          ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
+          : "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
       }`}
     >
       <div className="max-w-[1100px] w-full mx-auto px-5 ">
@@ -126,7 +126,7 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
           <div className="w-[222px] md:w-[170px] px-4 md:px-0">
             <Link
               href={"#admission"}
-              className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#DC25FF] to-[#3C016F] border-2 md:border border-white px-2 md:px-1 py-1 rounded-full md:rounded-lg text-white hover:shadow-lg hover:shadow-[#DC25FF]/20 transition-all duration-300 w-full"
+              className="flex items-center justify-center gap-2 bg-linear-to-r from-[#DC25FF] to-[#3C016F] border-2 md:border border-white px-2 md:px-1 py-1 rounded-full md:rounded-lg text-white hover:shadow-lg hover:shadow-[#DC25FF]/20 transition-all duration-300 w-full"
               aria-label="Register Now"
             >
               <FaHandPointRight className="text-white text-[16px] md:text-[16px]" />

@@ -20,7 +20,7 @@
 //     <>
 //       <Header siteData={siteData} logo={siteData.logoLight || ""} />
 
-//       <div className="bg-gradient-to-br from-purple-100 via-white to-purple-50 pb-20">
+//       <div className="bg-linear-to-br from-purple-100 via-white to-purple-50 pb-20">
 //         {/* Grid of 2x2 images */}
 //         <SectionTitle text="কোর্স রিভিউ" className="text-[#4F0187]" />
 

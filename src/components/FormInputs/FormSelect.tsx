@@ -71,7 +71,7 @@ export default function FormSelect({
     default: "border-gray-300 bg-white",
     outline: "border-2 border-[#4f0187]/20 focus:border-[#4f0187]",
     filled: "bg-gray-50 border-gray-200",
-    gradient: "bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200",
+    gradient: "bg-linear-to-r from-purple-50 to-indigo-50 border-purple-200",
   };
 
   const focusClasses = {

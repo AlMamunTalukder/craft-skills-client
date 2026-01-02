@@ -79,13 +79,13 @@ export default function AdmissionSuccessPage() {
     <>
       {/* {siteData && <Header siteData={siteData} user={user}/>} */}
       
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 px-4">
+      <div className="min-h-screen bg-linear-to-b from-gray-50 to-white py-8 px-4">
         <div className="max-w-xl mx-auto">
           {/* Success Card */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
             {/* Header */}
            
-            <div className="relative bg-gradient-to-r from-[#3C016F] to-purple-800">
+            <div className="relative bg-linear-to-r from-[#3C016F] to-purple-800">
                 {/* <div className="absolute inset-0 bg-[#3C016F] opacity-90"></div> */}
                 <div className="absolute inset-0 bg-[url('/api/placeholder/800/300')] opacity-10 bg-cover bg-center"></div>
 
@@ -186,7 +186,7 @@ export default function AdmissionSuccessPage() {
 
               {/* Back to Home */}
               <Link href="/">
-                <Button className="w-full py-6 text-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                <Button className="w-full py-6 text-lg bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
                   হোমপেজে ফিরে যান
                   <ArrowRight className="ml-3 h-6 w-6" />
                 </Button>
