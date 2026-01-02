@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import {
@@ -5,12 +6,10 @@ import {
   LayoutDashboard,
   LogIn,
   LogOut,
-  Settings,
+  User,
 } from "lucide-react";
-import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,31 +19,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Session } from "next-auth";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { logout } from "../lib/currentUser";
 
 type UserMenuProps = {
-  user: Session["user"] | null;
+  user: any | null;
 };
 
-const menuItems = {
-  ADMIN: [{ label: "Dashboard", icon: Settings, href: "/dashboard" }],
-  Teacher: [
-    { label: "Dashboard", icon: LayoutDashboard, href: "/teacher/dashboard" },
-  ],
-  USER: [
-    { label: "Dashboard", icon: LayoutDashboard, href: "/student/dashboard" },
-  ],
-};
+const studentMenuItems = [
+  { label: "Dashboard", icon: LayoutDashboard, href: "/profile" },
+  { label: "My Profile", icon: User, href: "/profile" },
+];
 
 export default function UserMenu({ user }: UserMenuProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); 
 
   const handleSignOut = async () => {
     await logout();
-    // Optionally, you can also redirect the user after logout
     window.location.href = "/login";
   };
 
@@ -79,8 +71,6 @@ export default function UserMenu({ user }: UserMenuProps) {
       </Button>
     );
   }
-
-  // const currentItems = menuItems[user.role as keyof typeof menuItems] || [];
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -124,7 +114,10 @@ export default function UserMenu({ user }: UserMenuProps) {
                 {user.name || "User"}
               </span>
               <span className="text-muted-foreground truncate text-xs mt-0.5">
-                {/* {user.email || user.phone || "No contact info"} */}
+                {user.email || user.phone || "No contact info"}
+              </span>
+              <span className="text-xs text-blue-600 mt-0.5">
+                Student • Batch {user.batchNumber || "N/A"}
               </span>
             </div>
           </div>
@@ -133,14 +126,18 @@ export default function UserMenu({ user }: UserMenuProps) {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup className="px-1">
-          {/* {currentItems.map((item) => (
-            <DropdownMenuItem key={item.label} className="gap-3 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-accent/50">
-              <item.icon className="size-4" />
-              <Link href={item.href} className="font-medium text-sm">
-                {item.label}
+          {studentMenuItems.map((item) => (
+            <DropdownMenuItem 
+              key={item.label} 
+              className="gap-3 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-accent/50"
+              asChild
+            >
+              <Link href={item.href}>
+                <item.icon className="size-4" />
+                <span className="font-medium text-sm">{item.label}</span>
               </Link>
             </DropdownMenuItem>
-          ))} */}
+          ))}
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />

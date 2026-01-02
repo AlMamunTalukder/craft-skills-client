@@ -87,7 +87,7 @@ export async function getCourses() {
 export async function activeSeminar(): Promise<Seminar | null> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`,
+      `${API_URL}/seminars/active`,
       { cache: "no-store", next: { revalidate: 1000 * 60 * 1 } },
     );
 
@@ -103,7 +103,7 @@ export async function activeSeminar(): Promise<Seminar | null> {
 export async function getClassSchedule(): Promise<Schedule[] | null> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/class-schedule`,
+      `${API_URL}/class-schedule`,
       {
         cache: "force-cache",
         next: { revalidate: 1000 * 60 * 5 }, // 5 minutes
@@ -123,15 +123,24 @@ export async function registration(
   data: any,
 ): Promise<{ success: boolean; message: string }> {
   try {
+    // Transform data for server
+    const registrationData = {
+      name: data.name,
+      email: data.email || "",
+      phone: data.phone || "",
+      password: data.password,
+      batchNumber: data.batchNumber,
+    };
+
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/auth/register`,
+      `${API_URL}/auth/register`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
-      },
+        body: JSON.stringify(registrationData),
+      }
     );
 
     if (!response.ok) {
@@ -153,7 +162,7 @@ export async function login(
 ): Promise<{ success: boolean; message: string; token?: string }> {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || ""}/auth/login`,
+      `${API_URL}/auth/login`,
       {
         method: "POST",
         credentials: "include",
@@ -177,3 +186,28 @@ export async function login(
     };
   }
 }
+
+export async function checkBatchExists(batchNumber: string): Promise<{ exists: boolean }> {
+  try {
+    const response = await fetch(
+      `${API_URL}/course-batches/check/${batchNumber}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      return { exists: false };
+    }
+
+    const result = await response.json();
+    return { exists: result.exists || false };
+  } catch (error: any) {
+    console.error("Error checking batch:", error);
+    return { exists: false };
+  }
+}
+

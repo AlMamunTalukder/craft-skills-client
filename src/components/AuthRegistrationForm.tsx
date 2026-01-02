@@ -21,21 +21,34 @@ const AuthRegistrationForm = () => {
     setLoading(true);
 
     try {
-      const registrationData = await registration(data);
-      if (registrationData.success) {
-        toast.success("সফলভাবে রেজিস্টার হয়েছে!");
+      // Determine if identifier is email or phone
+      const isEmail = data.identifier.includes('@');
+      
+      const registrationData = {
+        name: data.name,
+        email: isEmail ? data.identifier : "", // Empty string if not email
+        phone: !isEmail ? data.identifier : "", // Empty string if not phone
+        password: data.password,
+        batchNumber: data.batchNumber,
+      };
+
+      const registrationResult = await registration(registrationData);
+      
+      if (registrationResult.success) {
+        toast.success("Successfully registered!");
         router.push("/login");
       } else {
-        toast.error(
-          registrationData.message ||
-            "রেজিস্ট্রেশনের সময় একটি ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
-        );
+        // Show user-friendly error messages
+        if (registrationResult.message.includes("email")) {
+          toast.error("Email already registered. Please use a different email or log in.");
+        } else if (registrationResult.message.includes("phone")) {
+          toast.error("Phone number already registered. Please use a different phone or log in.");
+        } else {
+          toast.error(registrationResult.message || "Registration failed. Please try again.");
+        }
       }
     } catch (error: any) {
-      toast.error(
-        error?.message ||
-          "রেজিস্ট্রেশনের সময় একটি ত্রুটি ঘটেছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
-      );
+      toast.error(error?.message || "An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -44,59 +57,44 @@ const AuthRegistrationForm = () => {
   return (
     <AppForm resolver={zodResolver(registerFormSchema)} onSubmit={onSubmit}>
       <TextInput
-        label="আপনার পূর্ণ নাম"
-        name="firstName"
+        label="Full Name"
+        name="name"
         icon={User}
-        placeholder="জন ডো"
+        placeholder="John Doe"
       />
 
       <TextInput
-        label="ব্যবহারকারীর নাম"
-        name="lastName"
-        icon={User}
-        placeholder="আপনার পছন্দের ব্যবহারকারীর নাম"
-      />
-
-      <TextInput
-        label="ইমেইল"
-        name="email"
+        label="Email or Phone Number"
+        name="identifier"
         icon={ShieldCheck}
-        placeholder="example@email.com"
-        toolTipText="রেজিস্ট্রেশনের সময় যে ইমেইল ও পাসওয়ার্ড ব্যবহার করেছিলেন, সেটিই এখানে দিতে হবে"
-      />
-
-      <TextInput
-        label="ফোন নম্বর"
-        name="phone"
-        icon={ShieldCheck}
-        placeholder="01XXXXXXXXX"
-        toolTipText="রেজিস্ট্রেশনের সময় যে ফোন নম্বর ও পাসওয়ার্ড ব্যবহার করেছিলেন, সেটিই এখানে দিতে হবে"
+        placeholder="example@email.com or 018XXXXXXXX"
+        toolTipText="Enter either your email OR Bangladesh phone number"
       />
 
       <PasswordInput
-        label="পাসওয়ার্ড"
+        label="Password"
         name="password"
         icon={Lock}
         placeholder="••••••••"
       />
+
       <PasswordInput
-        label="পাসওয়ার্ড নিশ্চিত করুন"
+        label="Confirm Password"
         name="confirmPassword"
         icon={Lock}
         placeholder="••••••••"
       />
 
       <TextInput
-        label="ব্যাচ নম্বর"
-        name="batch"
+        label="Batch Number"
+        name="batchNumber"
         icon={User}
-        placeholder="আপনার ব্যাচ নম্বর লিখুন"
-        type="number"
+        placeholder="Enter your batch number"
       />
 
       <SubmitButton
-        title="রেজিস্টার"
-        loadingTitle="অ্যাকাউন্ট তৈরি হচ্ছে..."
+        title="Register"
+        loadingTitle="Creating account..."
         loading={loading}
         className="w-full mt-4"
         loaderIcon={Loader2}
