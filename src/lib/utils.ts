@@ -159,5 +159,5 @@ export function processIdentifier(identifier: string): {
     };
   }
   
-  return null; // Return null for invalid identifiers
+  return null; 
 }

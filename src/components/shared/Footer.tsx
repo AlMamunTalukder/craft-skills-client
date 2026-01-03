@@ -14,6 +14,7 @@ import bg from "@/public/img/bg.webp";
 import { getSiteData } from "@/src/lib/api";
 
 export default async function Footer() {
+  
   const siteData = await getSiteData();
 
   const socialLinks = [

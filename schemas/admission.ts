@@ -7,9 +7,6 @@ export const courseAdmissionSchema = z.object({
     })
     .min(1, "কোর্স নির্বাচন করুন।"),
 
-
-
-
   name: z
     .string({
       required_error: "আপনার পুরো নাম লিখুন।",
@@ -51,3 +48,6 @@ export const courseAdmissionSchema = z.object({
     })
     .min(1, "পেমেন্ট প্রেরণকারীর মোবাইল নম্বর লিখতে হবে।"),
 });
+
+
+export type admissionFormData = z.infer<typeof courseAdmissionSchema>;

@@ -105,7 +105,7 @@ export default function FormSelect({
             <FormControl>
               <SelectTrigger
                 className={cn(
-                  "w-full transition-all duration-300 gap-2",
+                  "w-full transition-all duration-300 gap-2 bg-white",
                   sizeClasses[size],
                   variantClasses[variant],
                   focusClasses[variant],

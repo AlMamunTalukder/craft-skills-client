@@ -1,3 +1,4 @@
+// /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { google } from "googleapis";
 
 // const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID!;
@@ -33,7 +34,7 @@
 //     const meta = await sheets.spreadsheets.get({
 //       spreadsheetId: SPREADSHEET_ID,
 //     });
-//     const existingTabs = meta.data.sheets?.map((s) => s.properties?.title);
+//     const existingTabs = meta.data.sheets?.map((s:any) => s.properties?.title);
 
 //     // If tab doesn't exist, create it and add headers
 //     if (!existingTabs?.includes(sanitizedTitle)) {

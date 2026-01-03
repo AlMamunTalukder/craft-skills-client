@@ -1,7 +1,5 @@
 import Container from "../shared/Container";
 
-import React from "react";
-
 const departments = [
   {
     name: "মেইন ক্লাস",

@@ -1,23 +1,23 @@
 import ImageGalleryWithSlider from "./SwiperClient";
 import SectionTitle from "../shared/SectionTitle";
-import nesar from "../../../public/img/review/Screenshot_1-1.webp";
-import samapan from "../../../public/img/review/Screenshot_2-1-1.webp";
-import imteaz from "../../../public/img/review/Screenshot_5-1.webp";
-import salim from "../../../public/img/review/WhatsApp-Image-2024-06-11-at-01.webp";
+import r1 from "../../../public/img/review/Screenshot_1-1.webp";
+import r2 from "../../../public/img/review/Screenshot_2-1-1.webp";
+import r3 from "../../../public/img/review/Screenshot_5-1.webp";
+import r4 from "../../../public/img/review/WhatsApp-Image-2024-06-11-at-01.webp";
 
 export default async function Testimonials() {
   const reviews = [
     {
-      image: nesar,
+      image: r1,
     },
     {
-      image: samapan,
+      image: r2,
     },
     {
-      image: imteaz,
+      image: r3,
     },
     {
-      image: salim,
+      image: r4,
     },
   ];
 
