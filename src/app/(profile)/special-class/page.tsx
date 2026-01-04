@@ -1,7 +1,15 @@
+// app/special-class/page.tsx
 "use client";
 
-import { useState } from "react";
-import { CheckCircle, XCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CheckCircle, XCircle, Save, Clock } from "lucide-react";
+import toast from "react-hot-toast";
+
+const studentId = "your-student-id";
+const batchId = "36";
+
+// Use the actual attendance routine ID from your database
+const ATTENDANCE_ROUTINE_ID = "694ea462045fcf9aeda56247";
 
 export default function SpecialClassAttendance() {
   const [attendance, setAttendance] = useState([
@@ -11,11 +19,85 @@ export default function SpecialClassAttendance() {
     { className: "Special Class 4", attended: false },
     { className: "Special Class 5", attended: false },
   ]);
+  
+  const [saving, setSaving] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  useEffect(() => {
+    loadSavedAttendance();
+  }, []);
+
+  const loadSavedAttendance = async () => {
+    try {
+      console.log('Loading saved special class attendance...');
+      const response = await fetch(`/api/student-attendance/my-attendance?batchId=${batchId}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Saved special class attendance data:', data);
+        if (data.success && data.data && data.data.length > 0) {
+          const latestAttendance = data.data[0];
+          if (latestAttendance.attendanceData?.specialClasses) {
+            setAttendance(latestAttendance.attendanceData.specialClasses);
+            toast.success('Loaded saved special class attendance from database');
+          }
+        }
+      } else {
+        console.error('Failed to load special attendance:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Failed to load saved special attendance:', error);
+    }
+  };
 
   const toggleAttendance = (index: number) => {
     const newAttendance = [...attendance];
     newAttendance[index].attended = !newAttendance[index].attended;
     setAttendance(newAttendance);
+    setHasUnsavedChanges(true);
+    toast.success('Special class attendance updated!');
+  };
+
+  const saveAttendance = async () => {
+    setSaving(true);
+    try {
+      console.log('Saving special class attendance...', {
+        studentId,
+        attendanceRoutineId: ATTENDANCE_ROUTINE_ID,
+        batchId,
+        attendanceType: 'specialClasses',
+        attendanceData: attendance
+      });
+
+      const response = await fetch('/api/student-attendance/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          studentId,
+          attendanceRoutineId: ATTENDANCE_ROUTINE_ID,
+          attendanceData: attendance,
+          batchId,
+          attendanceType: 'specialClasses'
+        }),
+      });
+
+      const result = await response.json();
+      console.log('Save response:', result);
+
+      if (result.success) {
+        toast.success('Special class attendance saved to database!');
+        setHasUnsavedChanges(false);
+        loadSavedAttendance(); // Reload to confirm save
+      } else {
+        toast.error(result.message || 'Failed to save special attendance');
+      }
+    } catch (error) {
+      console.error('Save error:', error);
+      toast.error('Failed to save special class attendance');
+    } finally {
+      setSaving(false);
+    }
   };
 
   const totalClasses = attendance.length;
@@ -62,23 +144,66 @@ export default function SpecialClassAttendance() {
               }`}
               onClick={() => toggleAttendance(index)}
             >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-bold text-gray-800">
-                  {cls.className}
-                </h3>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="font-medium text-gray-800">
+                    {cls.className}
+                  </div>
+
+                  <div
+                    className={`text-sm font-medium ${
+                      cls.attended
+                        ? "text-green-600"
+                        : "text-gray-500"
+                    }`}
+                  >
+                    ({cls.attended ? "Attended ✓" : "Not Attended"})
+                  </div>
+                </div>
+
                 {cls.attended ? (
-                  <CheckCircle className="text-green-500" size={28} />
+                  <CheckCircle className="text-green-500" size={24} />
                 ) : (
-                  <XCircle className="text-gray-400" size={28} />
+                  <XCircle className="text-gray-400" size={24} />
                 )}
-              </div>
-              <div className={`text-center font-medium text-lg ${
-                cls.attended ? "text-green-600" : "text-gray-500"
-              }`}>
-                {cls.attended ? "Attended ✓" : "Not Attended"}
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Save Button */}
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+              <p className={`font-medium ${hasUnsavedChanges ? 'text-blue-600' : 'text-green-600'}`}>
+                {hasUnsavedChanges ? '⚠️ Unsaved changes' : '✓ All changes saved'}
+              </p>
+              <p className="text-sm text-gray-500">
+                {hasUnsavedChanges ? 'Click save to store in database' : 'Special attendance saved'}
+              </p>
+            </div>
+            <button
+              onClick={saveAttendance}
+              disabled={saving || !hasUnsavedChanges}
+              className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
+                hasUnsavedChanges && !saving
+                  ? 'bg-green-600 hover:bg-green-700 text-white'
+                  : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+              }`}
+            >
+              {saving ? (
+                <>
+                  <Clock className="h-5 w-5 animate-spin" />
+                  Saving to Database...
+                </>
+              ) : (
+                <>
+                  <Save className="h-5 w-5" />
+                  Save Special Attendance
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>

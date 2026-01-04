@@ -211,3 +211,37 @@ export async function checkBatchExists(batchNumber: string): Promise<{ exists: b
   }
 }
 
+
+
+// lib/api.ts
+// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+// const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION || 'v1';
+
+export const api = {
+  async getAttendance(batchId: string) {
+    const response = await fetch(
+      `${API_URL}/student-attendance/my-attendance?batchId=${batchId}`,
+      {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+        }
+      }
+    );
+    return response.json();
+  },
+
+  async saveAttendance(data: any) {
+    const response = await fetch(
+      `${API_URL}/student-attendance/save`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
+        },
+        body: JSON.stringify(data)
+      }
+    );
+    return response.json();
+  }
+};
