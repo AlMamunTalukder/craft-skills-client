@@ -1,276 +1,173 @@
-// app/guest-class/page.tsx
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState, useEffect } from "react";
-import { CheckCircle, XCircle, User, Save, Clock } from "lucide-react";
-import toast from "react-hot-toast";
+import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { CheckCircle, XCircle, Save, User } from 'lucide-react';
+import { attendanceService } from '@/src/services/attendance';
 
-const studentId = "your-student-id";
-const batchId = "36";
+const BATCH_ID = '36';
 
-// Use the actual attendance routine ID from your database
-const ATTENDANCE_ROUTINE_ID = "694ea462045fcf9aeda56247";
+const GUEST_CLASSES = [
+  { className: 'Guest Class 1', guestName: 'Guest Speaker 1', type: 'guest_lecture' },
+  { className: 'Guest Class 2', guestName: 'Guest Speaker 2', type: 'guest_lecture' },
+  { className: 'Guest Class 3', guestName: 'Guest Speaker 3', type: 'guest_lecture' },
+  { className: 'Guest Class 4', guestName: 'Guest Speaker 4', type: 'guest_lecture' },
+  { className: 'Guest Class 5', guestName: 'Guest Speaker 5', type: 'guest_lecture' }
+];
 
 export default function GuestClassAttendance() {
-  const [attendance, setAttendance] = useState([
-    {
-      className: "Guest Class 1",
-      guestName: "Guest Speaker 1",
-      sessions: [
-        { type: "Guest Lecture Session", attended: false },
-        { type: "Q&A Session", attended: false },
-        { type: "Networking Session", attended: false },
-      ],
-    },
-    {
-      className: "Guest Class 2",
-      guestName: "Guest Speaker 2",
-      sessions: [
-        { type: "Guest Lecture Session", attended: false },
-        { type: "Q&A Session", attended: false },
-        { type: "Networking Session", attended: false },
-      ],
-    },
-    {
-      className: "Guest Class 3",
-      guestName: "Guest Speaker 3",
-      sessions: [
-        { type: "Guest Lecture Session", attended: false },
-        { type: "Q&A Session", attended: false },
-        { type: "Networking Session", attended: false },
-      ],
-    },
-    {
-      className: "Guest Class 4",
-      guestName: "Guest Speaker 4",
-      sessions: [
-        { type: "Guest Lecture Session", attended: false },
-        { type: "Q&A Session", attended: false },
-        { type: "Networking Session", attended: false },
-      ],
-    },
-    {
-      className: "Guest Class 5",
-      guestName: "Guest Speaker 5",
-      sessions: [
-        { type: "Guest Lecture Session", attended: false },
-        { type: "Q&A Session", attended: false },
-        { type: "Networking Session", attended: false },
-      ],
-    },
-  ]);
-  
+  const [attendance, setAttendance] = useState<Record<string, boolean>>({});
+  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   useEffect(() => {
-    loadSavedAttendance();
+    loadAttendance();
   }, []);
 
-  const loadSavedAttendance = async () => {
+  const loadAttendance = async () => {
     try {
-      console.log('Loading saved guest attendance...');
-      const response = await fetch(`/api/student-attendance/my-attendance?batchId=${batchId}`);
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Saved guest attendance data:', data);
-        if (data.success && data.data && data.data.length > 0) {
-          const latestAttendance = data.data[0];
-          if (latestAttendance.attendanceData?.guestClasses) {
-            setAttendance(latestAttendance.attendanceData.guestClasses);
-            toast.success('Loaded saved guest attendance from database');
-          }
-        }
-      } else {
-        console.error('Failed to load guest attendance:', response.statusText);
+      setLoading(true);
+      const result = await attendanceService.getAttendance(BATCH_ID, 'guest');
+      
+      if (result.success) {
+        const attendanceMap: Record<string, boolean> = {};
+        result.data.forEach((item: any) => {
+          const key = `${item.className}-${item.sessionType}`;
+          attendanceMap[key] = item.attended;
+        });
+        setAttendance(attendanceMap);
       }
     } catch (error) {
-      console.error('Failed to load saved guest attendance:', error);
+      console.error('Failed to load attendance:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const toggleAttendance = (classIndex: number, sessionIndex: number) => {
-    const newAttendance = [...attendance];
-    newAttendance[classIndex].sessions[sessionIndex].attended =
-      !newAttendance[classIndex].sessions[sessionIndex].attended;
-    setAttendance(newAttendance);
-    setHasUnsavedChanges(true);
-    toast.success('Guest attendance updated!');
+  const toggleAttendance = (className: string, type: string) => {
+    const key = `${className}-${type}`;
+    setAttendance(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
   };
 
   const saveAttendance = async () => {
     setSaving(true);
+    
     try {
-      console.log('Saving guest class attendance...', {
-        studentId,
-        attendanceRoutineId: ATTENDANCE_ROUTINE_ID,
-        batchId,
-        attendanceType: 'guestClasses',
-        attendanceData: attendance
+      const promises = GUEST_CLASSES.map(cls => {
+        const key = `${cls.className}-${cls.type}`;
+        return attendanceService.saveAttendance({
+          className: cls.className,
+          batchId: BATCH_ID,
+          attendanceType: 'guest',
+          sessionType: cls.type,
+          attended: attendance[key] || false
+        });
       });
 
-      const response = await fetch('/api/student-attendance/save', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          studentId,
-          attendanceRoutineId: ATTENDANCE_ROUTINE_ID,
-          attendanceData: attendance,
-          batchId,
-          attendanceType: 'guestClasses'
-        }),
-      });
-
-      const result = await response.json();
-      console.log('Save response:', result);
-
-      if (result.success) {
-        toast.success('Guest class attendance saved to database!');
-        setHasUnsavedChanges(false);
-        loadSavedAttendance(); // Reload to confirm save
-      } else {
-        toast.error(result.message || 'Failed to save guest attendance');
-      }
+      await Promise.all(promises);
+      toast.success('Guest class attendance saved!');
+      await loadAttendance();
     } catch (error) {
-      console.error('Save error:', error);
-      toast.error('Failed to save guest attendance');
+      toast.error('Failed to save attendance');
     } finally {
       setSaving(false);
     }
   };
 
-  const totalSessions = attendance.reduce(
-    (total, cls) => total + cls.sessions.length,
-    0
-  );
-  const attendedSessions = attendance.reduce(
-    (total, cls) => total + cls.sessions.filter((s) => s.attended).length,
-    0
-  );
-  const percentage =
-    totalSessions > 0
-      ? Math.round((attendedSessions / totalSessions) * 100)
-      : 0;
+  const total = GUEST_CLASSES.length;
+  const attended = GUEST_CLASSES.filter(cls => {
+    const key = `${cls.className}-${cls.type}`;
+    return attendance[key];
+  }).length;
+  const percentage = total > 0 ? Math.round((attended / total) * 100) : 0;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading guest class attendance...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="p-4 lg:p-6">
-      <div className="mb-6 lg:mb-8">
-        <h1 className="text-2xl lg:text-3xl font-bold text-gray-800">
-          Guest Class Attendance
-        </h1>
-        <p className="text-gray-600 mt-2">
-          Track your guest lecture attendance
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-800">Guest Class Attendance</h1>
+          <p className="text-gray-600 mt-2">Batch {BATCH_ID}</p>
+        </div>
 
-      {/* Stats Card */}
-      <div className="bg-gradient-to-r from-green-500 to-teal-600 rounded-xl lg:rounded-2xl shadow-lg p-6 lg:p-8 text-white mb-6 lg:mb-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between">
-          <div>
-            <h2 className="text-xl lg:text-2xl font-bold mb-2">Attendance Summary</h2>
-            <p className="text-green-100">Your guest class attendance record</p>
-          </div>
-          <div className="mt-4 lg:mt-0 text-center lg:text-right">
-            <div className="text-4xl lg:text-5xl font-bold">{percentage}%</div>
-            <div className="text-lg">
-              {attendedSessions}/{totalSessions} Sessions
+        <div className="bg-gradient-to-r from-green-500 to-teal-600 rounded-2xl shadow-lg p-6 text-white mb-8">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold mb-2">Guest Classes Summary</h2>
+              <p className="text-green-100">Your guest lecture attendance</p>
+            </div>
+            <div className="mt-4 md:mt-0 text-center md:text-right">
+              <div className="text-5xl font-bold">{percentage}%</div>
+              <div className="text-xl">{attended}/{total} Classes</div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Attendance List */}
-      <div className="bg-white rounded-xl shadow-lg p-6 lg:p-8 border border-gray-100">
-        <div className="space-y-6">
-          {attendance.map((cls, classIndex) => (
-            <div
-              key={cls.className}
-              className="border-b border-gray-200 pb-6 last:border-0 last:pb-0"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg lg:text-xl font-bold text-gray-800">
-                  {cls.className}
-                </h3>
-                <div className="flex items-center gap-2 text-blue-600">
-                  <User size={20} />
-                  <span className="text-sm font-medium">{cls.guestName}</span>
-                </div>
-              </div>
+        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+          <div className="space-y-6">
+            {GUEST_CLASSES.map(cls => {
+              const key = `${cls.className}-${cls.type}`;
+              const isAttended = attendance[key] || false;
+              
+              return (
+                <div key={cls.className} className="border-b border-gray-200 pb-6 last:border-0 last:pb-0">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-bold text-gray-800">{cls.className}</h3>
+                    <div className="flex items-center gap-2 text-blue-600">
+                      <User size={20} />
+                      <span className="text-sm font-medium">{cls.guestName}</span>
+                    </div>
+                  </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {cls.sessions.map((session, sessionIndex) => (
                   <div
-                    key={session.type}
+                    onClick={() => toggleAttendance(cls.className, cls.type)}
                     className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                      session.attended
+                      isAttended
                         ? "border-green-500 bg-green-50"
                         : "border-gray-200 hover:border-blue-300 hover:bg-blue-50"
                     }`}
-                    onClick={() => toggleAttendance(classIndex, sessionIndex)}
                   >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="font-medium text-gray-800">
-                          {session.type}
-                        </div>
-
-                        <div
-                          className={`text-sm font-medium ${
-                            session.attended
-                              ? "text-green-600"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          ({session.attended ? "Attended" : "Not Attended"})
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="font-medium text-gray-800">Guest Lecture Session</div>
+                        <div className={`text-sm mt-1 ${isAttended ? 'text-green-600' : 'text-gray-500'}`}>
+                          {isAttended ? 'Attended' : 'Not Attended'}
                         </div>
                       </div>
-
-                      {session.attended ? (
+                      {isAttended ? (
                         <CheckCircle className="text-green-500" size={24} />
                       ) : (
                         <XCircle className="text-gray-400" size={24} />
                       )}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+                </div>
+              );
+            })}
+          </div>
 
-        {/* Save Button */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>
-              <p className={`font-medium ${hasUnsavedChanges ? 'text-blue-600' : 'text-green-600'}`}>
-                {hasUnsavedChanges ? '⚠️ Unsaved changes' : '✓ All changes saved'}
-              </p>
-              <p className="text-sm text-gray-500">
-                {hasUnsavedChanges ? 'Click save to store in database' : 'Guest attendance saved'}
-              </p>
-            </div>
+          <div className="mt-8 pt-6 border-t border-gray-200">
             <button
               onClick={saveAttendance}
-              disabled={saving || !hasUnsavedChanges}
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${
-                hasUnsavedChanges && !saving
-                  ? 'bg-green-600 hover:bg-green-700 text-white'
-                  : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-              }`}
+              disabled={saving}
+              className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {saving ? (
-                <>
-                  <Clock className="h-5 w-5 animate-spin" />
-                  Saving to Database...
-                </>
-              ) : (
-                <>
-                  <Save className="h-5 w-5" />
-                  Save Guest Attendance
-                </>
-              )}
+              <Save size={20} />
+              {saving ? 'Saving...' : 'Save Guest Class Attendance'}
             </button>
           </div>
         </div>
