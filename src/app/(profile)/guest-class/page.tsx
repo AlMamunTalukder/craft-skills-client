@@ -3,23 +3,17 @@
 
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { CheckCircle, XCircle, Save, User } from 'lucide-react';
-import { attendanceService } from '@/src/services/attendance';
-
-const BATCH_ID = '36';
-
-const GUEST_CLASSES = [
-  { className: 'Guest Class 1', guestName: 'Guest Speaker 1', type: 'guest_lecture' },
-  { className: 'Guest Class 2', guestName: 'Guest Speaker 2', type: 'guest_lecture' },
-  { className: 'Guest Class 3', guestName: 'Guest Speaker 3', type: 'guest_lecture' },
-  { className: 'Guest Class 4', guestName: 'Guest Speaker 4', type: 'guest_lecture' },
-  { className: 'Guest Class 5', guestName: 'Guest Speaker 5', type: 'guest_lecture' }
-];
+import { CheckCircle, XCircle, User } from 'lucide-react';
+import { studentAttendanceService } from '@/src/services/studentAttendance';
+import { currentUser } from '@/src/lib/currentUser';
 
 export default function GuestClassAttendance() {
-  const [attendance, setAttendance] = useState<Record<string, boolean>>({});
+  const [attendance, setAttendance] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [saving, setSaving] = useState<string | null>(null);
+  const [batchId, setBatchId] = useState<string>('');
+
+  const guestClasses = Array.from({ length: 5 }, (_, i) => `Guest Class ${i + 1}`);
 
   useEffect(() => {
     loadAttendance();
@@ -28,69 +22,74 @@ export default function GuestClassAttendance() {
   const loadAttendance = async () => {
     try {
       setLoading(true);
-      const result = await attendanceService.getAttendance(BATCH_ID, 'guest');
+      // Get user data to extract batch ID
+      const userData = await currentUser();
+      const userBatchId = userData?.batchNumber || '36';
+      setBatchId(userBatchId);
+      
+      const result = await studentAttendanceService.getAttendance(userBatchId);
       
       if (result.success) {
-        const attendanceMap: Record<string, boolean> = {};
-        result.data.forEach((item: any) => {
-          const key = `${item.className}-${item.sessionType}`;
-          attendanceMap[key] = item.attended;
-        });
-        setAttendance(attendanceMap);
+        setAttendance(result.data);
       }
     } catch (error) {
-      console.error('Failed to load attendance:', error);
+      console.error('Load error:', error);
+      toast.error('Failed to load attendance');
     } finally {
       setLoading(false);
     }
   };
 
-  const toggleAttendance = (className: string, type: string) => {
-    const key = `${className}-${type}`;
-    setAttendance(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
-  };
-
-  const saveAttendance = async () => {
-    setSaving(true);
-    
+  const toggleAttendance = async (className: string) => {
     try {
-      const promises = GUEST_CLASSES.map(cls => {
-        const key = `${cls.className}-${cls.type}`;
-        return attendanceService.saveAttendance({
-          className: cls.className,
-          batchId: BATCH_ID,
-          attendanceType: 'guest',
-          sessionType: cls.type,
-          attended: attendance[key] || false
-        });
-      });
+      setSaving(className);
+      
+      const current = attendance?.guestClasses?.[className]?.attended || false;
+      const newValue = !current;
 
-      await Promise.all(promises);
-      toast.success('Guest class attendance saved!');
-      await loadAttendance();
+      const result = await studentAttendanceService.updateGuestClass(
+        className,
+        newValue,
+        batchId
+      );
+
+      if (result.success) {
+        setAttendance(result.data);
+        toast.success(`${className} ${newValue ? 'marked attended' : 'marked not attended'}`);
+      } else {
+        toast.error('Failed to update');
+      }
     } catch (error) {
-      toast.error('Failed to save attendance');
+      console.error('Toggle error:', error);
+      toast.error('Failed to update attendance');
     } finally {
-      setSaving(false);
+      setSaving(null);
     }
   };
 
-  const total = GUEST_CLASSES.length;
-  const attended = GUEST_CLASSES.filter(cls => {
-    const key = `${cls.className}-${cls.type}`;
-    return attendance[key];
-  }).length;
-  const percentage = total > 0 ? Math.round((attended / total) * 100) : 0;
+  // Calculate stats
+  const calculateStats = () => {
+    if (!attendance) return { attended: 0, total: 5, percentage: 0 };
+    
+    let attended = 0;
+    Object.values(attendance.guestClasses || {}).forEach((cls: any) => {
+      if (cls.attended) attended++;
+    });
+    
+    const total = 5;
+    const percentage = Math.round((attended / total) * 100);
+    
+    return { attended, total, percentage };
+  };
+
+  const stats = calculateStats();
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading guest class attendance...</p>
+          <p className="mt-4 text-gray-600">Loading guest classes...</p>
         </div>
       </div>
     );
@@ -99,53 +98,59 @@ export default function GuestClassAttendance() {
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Guest Class Attendance</h1>
-          <p className="text-gray-600 mt-2">Batch {BATCH_ID}</p>
+        {/* Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Guest Class Attendance</h1>
+          <p className="text-gray-600 mt-2">Batch {batchId}</p>
         </div>
 
-        <div className="bg-gradient-to-r from-green-500 to-teal-600 rounded-2xl shadow-lg p-6 text-white mb-8">
+        {/* Stats Card */}
+        <div className="bg-gradient-to-r from-green-500 to-teal-600 rounded-xl p-6 text-white mb-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold mb-2">Guest Classes Summary</h2>
-              <p className="text-green-100">Your guest lecture attendance</p>
+              <h2 className="text-xl font-bold mb-2">Guest Classes Summary</h2>
+              <p className="text-green-100">Your guest lecture progress</p>
             </div>
             <div className="mt-4 md:mt-0 text-center md:text-right">
-              <div className="text-5xl font-bold">{percentage}%</div>
-              <div className="text-xl">{attended}/{total} Classes</div>
+              <div className="text-4xl md:text-5xl font-bold">{stats.percentage}%</div>
+              <div className="text-lg">{stats.attended}/{stats.total} Classes</div>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+        {/* Attendance List */}
+        <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 border border-gray-100">
           <div className="space-y-6">
-            {GUEST_CLASSES.map(cls => {
-              const key = `${cls.className}-${cls.type}`;
-              const isAttended = attendance[key] || false;
+            {guestClasses.map((className) => {
+              const guestClass = attendance?.guestClasses?.[className];
+              const isAttended = guestClass?.attended || false;
+              const guestName = guestClass?.guestName || 'Guest Speaker';
+              const isSaving = saving === className;
               
               return (
-                <div key={cls.className} className="border-b border-gray-200 pb-6 last:border-0 last:pb-0">
+                <div key={className} className="border-b border-gray-200 pb-6 last:border-0">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-gray-800">{cls.className}</h3>
+                    <h3 className="text-lg md:text-xl font-bold text-gray-800">{className}</h3>
                     <div className="flex items-center gap-2 text-blue-600">
                       <User size={20} />
-                      <span className="text-sm font-medium">{cls.guestName}</span>
+                      <span className="text-sm font-medium">{guestName}</span>
                     </div>
                   </div>
 
-                  <div
-                    onClick={() => toggleAttendance(cls.className, cls.type)}
-                    className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 ${
+                  <button
+                    onClick={() => toggleAttendance(className)}
+                    disabled={isSaving}
+                    className={`w-full border rounded-lg p-4 transition-all duration-300 ${
                       isAttended
-                        ? "border-green-500 bg-green-50"
-                        : "border-gray-200 hover:border-blue-300 hover:bg-blue-50"
-                    }`}
+                        ? 'border-green-500 bg-green-50 hover:bg-green-100'
+                        : 'border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-blue-300'
+                    } ${isSaving ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                   >
                     <div className="flex items-center justify-between">
-                      <div>
+                      <div className="text-left">
                         <div className="font-medium text-gray-800">Guest Lecture Session</div>
                         <div className={`text-sm mt-1 ${isAttended ? 'text-green-600' : 'text-gray-500'}`}>
-                          {isAttended ? 'Attended' : 'Not Attended'}
+                          {isAttended ? '✓ Attended Guest Lecture' : 'Click to mark guest lecture attendance'}
                         </div>
                       </div>
                       {isAttended ? (
@@ -154,21 +159,10 @@ export default function GuestClassAttendance() {
                         <XCircle className="text-gray-400" size={24} />
                       )}
                     </div>
-                  </div>
+                  </button>
                 </div>
               );
             })}
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <button
-              onClick={saveAttendance}
-              disabled={saving}
-              className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Save size={20} />
-              {saving ? 'Saving...' : 'Save Guest Class Attendance'}
-            </button>
           </div>
         </div>
       </div>

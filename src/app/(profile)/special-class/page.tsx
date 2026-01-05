@@ -3,23 +3,17 @@
 
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { CheckCircle, XCircle, Save } from 'lucide-react';
-import { attendanceService } from '@/src/services/attendance';
-
-const BATCH_ID = '36';
-
-const SPECIAL_CLASSES = [
-  { className: 'Special Class 1', type: 'special_session' },
-  { className: 'Special Class 2', type: 'special_session' },
-  { className: 'Special Class 3', type: 'special_session' },
-  { className: 'Special Class 4', type: 'special_session' },
-  { className: 'Special Class 5', type: 'special_session' }
-];
+import { CheckCircle, XCircle } from 'lucide-react';
+import { studentAttendanceService } from '@/src/services/studentAttendance';
+import { currentUser } from '@/src/lib/currentUser';
 
 export default function SpecialClassAttendance() {
-  const [attendance, setAttendance] = useState<Record<string, boolean>>({});
+  const [attendance, setAttendance] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [saving, setSaving] = useState<string | null>(null);
+  const [batchId, setBatchId] = useState<string>('');
+
+  const specialClasses = Array.from({ length: 5 }, (_, i) => `Special Class ${i + 1}`);
 
   useEffect(() => {
     loadAttendance();
@@ -28,69 +22,74 @@ export default function SpecialClassAttendance() {
   const loadAttendance = async () => {
     try {
       setLoading(true);
-      const result = await attendanceService.getAttendance(BATCH_ID, 'special');
+      // Get user data to extract batch ID
+      const userData = await currentUser();
+      const userBatchId = userData?.batchNumber || '36';
+      setBatchId(userBatchId);
+      
+      const result = await studentAttendanceService.getAttendance(userBatchId);
       
       if (result.success) {
-        const attendanceMap: Record<string, boolean> = {};
-        result.data.forEach((item: any) => {
-          const key = `${item.className}-${item.sessionType}`;
-          attendanceMap[key] = item.attended;
-        });
-        setAttendance(attendanceMap);
+        setAttendance(result.data);
       }
     } catch (error) {
-      console.error('Failed to load attendance:', error);
+      console.error('Load error:', error);
+      toast.error('Failed to load attendance');
     } finally {
       setLoading(false);
     }
   };
 
-  const toggleAttendance = (className: string) => {
-    const key = `${className}-special_session`;
-    setAttendance(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
-  };
-
-  const saveAttendance = async () => {
-    setSaving(true);
-    
+  const toggleAttendance = async (className: string) => {
     try {
-      const promises = SPECIAL_CLASSES.map(cls => {
-        const key = `${cls.className}-special_session`;
-        return attendanceService.saveAttendance({
-          className: cls.className,
-          batchId: BATCH_ID,
-          attendanceType: 'special',
-          sessionType: 'special_session',
-          attended: attendance[key] || false
-        });
-      });
+      setSaving(className);
+      
+      const current = attendance?.specialClasses?.[className]?.attended || false;
+      const newValue = !current;
 
-      await Promise.all(promises);
-      toast.success('Special class attendance saved!');
-      await loadAttendance();
+      const result = await studentAttendanceService.updateSpecialClass(
+        className,
+        newValue,
+        batchId
+      );
+
+      if (result.success) {
+        setAttendance(result.data);
+        toast.success(`${className} ${newValue ? 'marked attended' : 'marked not attended'}`);
+      } else {
+        toast.error('Failed to update');
+      }
     } catch (error) {
-      toast.error('Failed to save attendance');
+      console.error('Toggle error:', error);
+      toast.error('Failed to update attendance');
     } finally {
-      setSaving(false);
+      setSaving(null);
     }
   };
 
-  const total = SPECIAL_CLASSES.length;
-  const attended = SPECIAL_CLASSES.filter(cls => {
-    const key = `${cls.className}-special_session`;
-    return attendance[key];
-  }).length;
-  const percentage = total > 0 ? Math.round((attended / total) * 100) : 0;
+  // Calculate stats
+  const calculateStats = () => {
+    if (!attendance) return { attended: 0, total: 5, percentage: 0 };
+    
+    let attended = 0;
+    Object.values(attendance.specialClasses || {}).forEach((cls: any) => {
+      if (cls.attended) attended++;
+    });
+    
+    const total = 5;
+    const percentage = Math.round((attended / total) * 100);
+    
+    return { attended, total, percentage };
+  };
+
+  const stats = calculateStats();
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading special class attendance...</p>
+          <p className="mt-4 text-gray-600">Loading special classes...</p>
         </div>
       </div>
     );
@@ -99,45 +98,55 @@ export default function SpecialClassAttendance() {
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Special Class Attendance</h1>
-          <p className="text-gray-600 mt-2">Batch {BATCH_ID}</p>
+        {/* Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Special Class Attendance</h1>
+          <p className="text-gray-600 mt-2">Batch {batchId}</p>
         </div>
 
-        <div className="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl shadow-lg p-6 text-white mb-8">
+        {/* Stats Card */}
+        <div className="bg-gradient-to-r from-orange-500 to-red-600 rounded-xl p-6 text-white mb-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold mb-2">Special Classes Summary</h2>
-              <p className="text-orange-100">Your special class attendance</p>
+              <h2 className="text-xl font-bold mb-2">Special Classes Summary</h2>
+              <p className="text-orange-100">Your special class progress</p>
             </div>
             <div className="mt-4 md:mt-0 text-center md:text-right">
-              <div className="text-5xl font-bold">{percentage}%</div>
-              <div className="text-xl">{attended}/{total} Classes</div>
+              <div className="text-4xl md:text-5xl font-bold">{stats.percentage}%</div>
+              <div className="text-lg">{stats.attended}/{stats.total} Classes</div>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+        {/* Attendance Grid */}
+        <div className="bg-white rounded-xl shadow-lg p-4 md:p-6 border border-gray-100">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {SPECIAL_CLASSES.map(cls => {
-              const key = `${cls.className}-special_session`;
-              const isAttended = attendance[key] || false;
+            {specialClasses.map((className) => {
+              const isAttended = attendance?.specialClasses?.[className]?.attended || false;
+              const isSaving = saving === className;
               
               return (
-                <div
-                  key={cls.className}
-                  onClick={() => toggleAttendance(cls.className)}
-                  className={`border rounded-lg p-6 cursor-pointer transition-all duration-300 ${
+                <button
+                  key={className}
+                  onClick={() => toggleAttendance(className)}
+                  disabled={isSaving}
+                  className={`relative border rounded-xl p-6 transition-all duration-300 hover:scale-105 ${
                     isAttended
-                      ? "border-green-500 bg-green-50"
-                      : "border-gray-200 hover:border-orange-300 hover:bg-orange-50"
-                  }`}
+                      ? 'border-green-500 bg-green-50 hover:bg-green-100'
+                      : 'border-gray-200 bg-gray-50 hover:bg-gray-100 hover:border-orange-300'
+                  } ${isSaving ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                 >
+                  {isSaving && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 rounded-xl">
+                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-600"></div>
+                    </div>
+                  )}
+
                   <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium text-gray-800">{cls.className}</div>
-                      <div className={`text-sm mt-1 ${isAttended ? 'text-green-600' : 'text-gray-500'}`}>
-                        {isAttended ? 'Attended' : 'Not Attended'}
+                    <div className="text-left">
+                      <div className="font-bold text-gray-800">{className}</div>
+                      <div className={`text-sm mt-2 ${isAttended ? 'text-green-600' : 'text-gray-500'}`}>
+                        {isAttended ? '✓ Attended' : 'Click to mark attended'}
                       </div>
                     </div>
                     {isAttended ? (
@@ -146,20 +155,9 @@ export default function SpecialClassAttendance() {
                       <XCircle className="text-gray-400" size={24} />
                     )}
                   </div>
-                </div>
+                </button>
               );
             })}
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <button
-              onClick={saveAttendance}
-              disabled={saving}
-              className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Save size={20} />
-              {saving ? 'Saving...' : 'Save Special Class Attendance'}
-            </button>
           </div>
         </div>
       </div>
