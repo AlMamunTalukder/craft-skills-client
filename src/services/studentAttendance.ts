@@ -128,43 +128,96 @@ export const studentAttendanceService = {
     }
   },
 
+  // async updateSpecialClass(
+  //   className: string,
+  //   attended: boolean
+  // ): Promise<{
+  //   success: boolean;
+  //   data?: any;
+  //   message?: string;
+  // }> {
+  //   try {
+  //     const response = await fetch(
+  //       `${API_URL}/student-attendance/special-class`,
+  //       {
+  //         method: 'POST',
+  //         credentials: 'include',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           className,
+  //           attended,
+  //         }),
+  //       }
+  //     );
+
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //     }
+
+  //     return await response.json();
+  //   } catch (error: any) {
+  //     console.error('Error updating special class:', error);
+  //     return {
+  //       success: false,
+  //       message: error.message || 'Failed to update special class',
+  //     };
+  //   }
+  // },
+
+
   async updateSpecialClass(
-    className: string,
-    attended: boolean
-  ): Promise<{
-    success: boolean;
-    data?: any;
-    message?: string;
-  }> {
-    try {
-      const response = await fetch(
-        `${API_URL}/student-attendance/special-class`,
-        {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            className,
-            attended,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+  className: string,
+  attended: boolean
+) {
+  try {
+    console.log('Updating special class:', { className, attended });
+    
+    const response = await fetch(
+      `${API_URL}/student-attendance/special-class`,
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          className,
+          attended,
+        }),
       }
+    );
 
-      return await response.json();
-    } catch (error: any) {
-      console.error('Error updating special class:', error);
-      return {
-        success: false,
-        message: error.message || 'Failed to update special class',
-      };
+    if (!response.ok) {
+      // Try to get error message
+      const errorText = await response.text();
+      console.error('Special class API error:', {
+        status: response.status,
+        statusText: response.statusText,
+        error: errorText
+      });
+      
+      let errorMessage = `HTTP error! status: ${response.status}`;
+      try {
+        const errorData = JSON.parse(errorText);
+        errorMessage = errorData.message || errorMessage;
+      } catch {
+        if (errorText) errorMessage = errorText;
+      }
+      
+      throw new Error(errorMessage);
     }
-  },
+
+    return await response.json();
+  } catch (error: any) {
+    console.error('Error updating special class:', error);
+    return {
+      success: false,
+      message: error.message || 'Failed to update special class',
+    };
+  }
+},
 
   // Update guest class attendance
   async updateGuestClass(
