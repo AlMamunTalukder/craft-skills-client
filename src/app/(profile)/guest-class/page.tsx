@@ -36,12 +36,13 @@ export default function GuestClassAttendance() {
         const { attendanceStats: stats } = dashboardResult.data;
         setAttendanceStats(stats);
         
-        // Load today's sessions to check which guest classes are attended
+        // Load attendance history to check which guest classes are attended
         const sessionsResult = await studentAttendanceService.getAttendanceHistory(100);
         if (sessionsResult.success && sessionsResult.data) {
           const guestClassAttendance = guestClassList.map((className, index) => {
+            // Filter for guest classes by checking sessionType
             const attendedRecord = sessionsResult.data.find((record: any) => 
-              record.className === className && record.attendanceType === 'guest'
+              record.className === className && record.sessionType === 'guest'
             );
             
             return {
@@ -79,7 +80,7 @@ export default function GuestClassAttendance() {
         // Update local state
         setGuestClasses(prev => prev.map(cls => 
           cls.className === className 
-            ? { ...cls, attended: !currentStatus }
+            ? { ...cls, attended: !currentStatus, date: new Date() }
             : cls
         ));
         

@@ -29,12 +29,13 @@ export default function SpecialClassAttendance() {
         const { attendanceStats: stats } = dashboardResult.data;
         setAttendanceStats(stats);
         
-        // Load today's sessions to check which special classes are attended
+        // Load attendance history to check which special classes are attended
         const sessionsResult = await studentAttendanceService.getAttendanceHistory(100);
         if (sessionsResult.success && sessionsResult.data) {
           const specialClassAttendance = specialClassList.map(className => {
+            // Filter for special classes by checking sessionType
             const attendedRecord = sessionsResult.data.find((record: any) => 
-              record.className === className && record.attendanceType === 'special'
+              record.className === className && record.sessionType === 'special'
             );
             
             return {
@@ -71,7 +72,7 @@ export default function SpecialClassAttendance() {
         // Update local state
         setSpecialClasses(prev => prev.map(cls => 
           cls.className === className 
-            ? { ...cls, attended: !currentStatus }
+            ? { ...cls, attended: !currentStatus, date: new Date() }
             : cls
         ));
         
