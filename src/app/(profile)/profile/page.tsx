@@ -170,6 +170,7 @@ export default function DashboardPage() {
   }
 
   const { user, attendanceStats } = dashboardData;
+
   const today = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
@@ -251,96 +252,10 @@ export default function DashboardPage() {
             </div>
           )}
 
-          {user.admissionId && (
-            <div className="mt-4">
-              <h4 className="font-semibold text-gray-700 mb-3">Payment Information</h4>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="text-sm text-gray-600">Payment Method</div>
-                    <div className="font-medium">{user.admissionId.paymentMethod}</div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-600">Payment Status</div>
-                    <div className={`px-2 py-1 rounded text-sm font-medium inline-block ${
-                      user.admissionId.paymentStatus === 'paid'
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-yellow-100 text-yellow-800'
-                    }`}>
-                      {user.admissionId.paymentStatus}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+        
         </div>
 
-        {/* Today's Sessions */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-              <Calendar size={24} />
-              Todays Sessions ({today})
-            </h2>
-            <div className="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
-              {todaySessions.filter(s => s.attended).length} of {todaySessions.length} marked
-            </div>
-          </div>
-
-          {todaySessions.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {todaySessions.map((session, index) => (
-                <div
-                  key={index}
-                  className={`border-2 rounded-xl p-5 transition-all ${
-                    session.attended
-                      ? 'border-green-500 bg-green-50'
-                      : 'border-gray-300 bg-white hover:border-blue-400'
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <h3 className="font-bold text-gray-800 text-lg">{session.className}</h3>
-                      <p className="text-gray-600 capitalize">{session.sessionType}</p>
-                      <p className="text-sm text-gray-500 mt-2">{session.topic}</p>
-                    </div>
-                    <div className={`p-2 rounded-full ${session.attended ? 'bg-green-100' : 'bg-gray-100'}`}>
-                      {session.attended ? (
-                        <CheckCircle className="text-green-600" size={20} />
-                      ) : (
-                        <XCircle className="text-gray-400" size={20} />
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <Clock size={16} />
-                      <span className="text-sm">{session.time}</span>
-                    </div>
-                    <button
-                      onClick={() => handleMarkAttendance(session)}
-                      className={`px-3 py-1.5 rounded text-sm font-medium ${
-                        session.attended
-                          ? 'bg-green-100 text-green-800 hover:bg-green-200'
-                          : 'bg-blue-600 text-white hover:bg-blue-700'
-                      }`}
-                    >
-                      {session.attended ? '✓ Attended' : 'Mark Attendance'}
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="bg-white rounded-xl p-8 text-center border border-gray-200">
-              <Calendar size={48} className="text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-700 mb-2">No sessions today</h3>
-              <p className="text-gray-600">Check back tomorrow for scheduled sessions.</p>
-            </div>
-          )}
-        </div>
+       
 
         {/* Attendance Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
