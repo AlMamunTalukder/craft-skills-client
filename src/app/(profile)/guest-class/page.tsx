@@ -3,172 +3,239 @@
 
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { CheckCircle, XCircle, Save, User } from 'lucide-react';
-import { attendanceService } from '@/src/services/attendance';
-
-const BATCH_ID = '36';
-
-const GUEST_CLASSES = [
-  { className: 'Guest Class 1', guestName: 'Guest Speaker 1', type: 'guest_lecture' },
-  { className: 'Guest Class 2', guestName: 'Guest Speaker 2', type: 'guest_lecture' },
-  { className: 'Guest Class 3', guestName: 'Guest Speaker 3', type: 'guest_lecture' },
-  { className: 'Guest Class 4', guestName: 'Guest Speaker 4', type: 'guest_lecture' },
-  { className: 'Guest Class 5', guestName: 'Guest Speaker 5', type: 'guest_lecture' }
-];
+import { CheckCircle, XCircle, Users, RefreshCw, User } from 'lucide-react';
+import { studentAttendanceService } from '@/src/services/studentAttendance';
 
 export default function GuestClassAttendance() {
-  const [attendance, setAttendance] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [guestClasses, setGuestClasses] = useState<any[]>([]);
+  const [attendanceStats, setAttendanceStats] = useState<any>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const guestClassList = Array.from({ length: 5 }, (_, i) => `Guest Class ${i + 1}`);
+  const guestSpeakers = [
+    'Industry Expert A',
+    'Senior Developer B',
+    'Tech Lead C',
+    'CTO D',
+    'Product Manager E'
+  ];
 
   useEffect(() => {
-    loadAttendance();
+    loadGuestClassData();
   }, []);
 
-  const loadAttendance = async () => {
+  const loadGuestClassData = async () => {
     try {
       setLoading(true);
-      const result = await attendanceService.getAttendance(BATCH_ID, 'guest');
       
-      if (result.success) {
-        const attendanceMap: Record<string, boolean> = {};
-        result.data.forEach((item: any) => {
-          const key = `${item.className}-${item.sessionType}`;
-          attendanceMap[key] = item.attended;
-        });
-        setAttendance(attendanceMap);
+      // Load dashboard data for stats
+      const dashboardResult = await studentAttendanceService.getDashboard();
+      
+      if (dashboardResult.success && dashboardResult.data) {
+        const { attendanceStats: stats } = dashboardResult.data;
+        setAttendanceStats(stats);
+        
+        // Load attendance history to check which guest classes are attended
+        const sessionsResult = await studentAttendanceService.getAttendanceHistory(100);
+        if (sessionsResult.success && sessionsResult.data) {
+          const guestClassAttendance = guestClassList.map((className, index) => {
+            // Filter for guest classes by checking sessionType
+            const attendedRecord = sessionsResult.data.find((record: any) => 
+              record.className === className && record.sessionType === 'guest'
+            );
+            
+            return {
+              className,
+              attended: attendedRecord?.attended || false,
+              attendanceId: attendedRecord?._id,
+              date: attendedRecord?.date,
+              guestName: guestSpeakers[index] || 'Guest Speaker',
+              topic: `Guest Lecture on ${['Web Development', 'Career Growth', 'Industry Trends', 'Project Management', 'Soft Skills'][index] || 'Professional Development'}`
+            };
+          });
+          
+          setGuestClasses(guestClassAttendance);
+        }
       }
+      
+      toast.success('Guest class data loaded');
     } catch (error) {
-      console.error('Failed to load attendance:', error);
+      console.error('Load error:', error);
+      toast.error('Failed to load guest classes');
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
-  const toggleAttendance = (className: string, type: string) => {
-    const key = `${className}-${type}`;
-    setAttendance(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
-  };
-
-  const saveAttendance = async () => {
-    setSaving(true);
-    
+  const toggleAttendance = async (className: string, currentStatus: boolean) => {
     try {
-      const promises = GUEST_CLASSES.map(cls => {
-        const key = `${cls.className}-${cls.type}`;
-        return attendanceService.saveAttendance({
-          className: cls.className,
-          batchId: BATCH_ID,
-          attendanceType: 'guest',
-          sessionType: cls.type,
-          attended: attendance[key] || false
-        });
-      });
+      const result = await studentAttendanceService.updateGuestClass(
+        className,
+        !currentStatus
+      );
 
-      await Promise.all(promises);
-      toast.success('Guest class attendance saved!');
-      await loadAttendance();
+      if (result.success) {
+        // Update local state
+        setGuestClasses(prev => prev.map(cls => 
+          cls.className === className 
+            ? { ...cls, attended: !currentStatus, date: new Date() }
+            : cls
+        ));
+        
+        // Update stats if available
+        if (result.data) {
+          setAttendanceStats(result.data);
+        }
+        
+        toast.success(`Guest class ${!currentStatus ? 'marked' : 'unmarked'} successfully`);
+      } else {
+        toast.error(result.message || 'Failed to update');
+      }
     } catch (error) {
-      toast.error('Failed to save attendance');
-    } finally {
-      setSaving(false);
+      console.error('Toggle error:', error);
+      toast.error('Failed to update attendance');
     }
   };
 
-  const total = GUEST_CLASSES.length;
-  const attended = GUEST_CLASSES.filter(cls => {
-    const key = `${cls.className}-${cls.type}`;
-    return attendance[key];
-  }).length;
-  const percentage = total > 0 ? Math.round((attended / total) * 100) : 0;
+  const calculateGuestClassStats = () => {
+    const attended = guestClasses.filter(cls => cls.attended).length;
+    const total = 5;
+    const percentage = Math.round((attended / total) * 100);
+    
+    return { attended, total, percentage };
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-teal-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading guest class attendance...</p>
+          <p className="mt-4 text-gray-600 font-medium">Loading guest classes...</p>
         </div>
       </div>
     );
   }
 
+  const stats = calculateGuestClassStats();
+
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 p-4 md:p-6">
       <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Guest Class Attendance</h1>
-          <p className="text-gray-600 mt-2">Batch {BATCH_ID}</p>
+          <div className="flex justify-between items-start flex-wrap gap-4">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Guest Class Attendance</h1>
+              <p className="text-gray-600 mt-2">Learn from industry experts and guest speakers</p>
+            </div>
+            <button
+              onClick={() => {
+                setRefreshing(true);
+                loadGuestClassData();
+              }}
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
+              disabled={refreshing}
+            >
+              <RefreshCw size={18} className={refreshing ? 'animate-spin' : ''} />
+              {refreshing ? 'Refreshing...' : 'Refresh'}
+            </button>
+          </div>
         </div>
 
-        <div className="bg-gradient-to-r from-green-500 to-teal-600 rounded-2xl shadow-lg p-6 text-white mb-8">
+        {/* Stats Card */}
+        <div className="bg-gradient-to-r from-green-600 to-teal-700 rounded-xl p-6 text-white mb-6 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold mb-2">Guest Classes Summary</h2>
-              <p className="text-green-100">Your guest lecture attendance</p>
+              <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
+                <Users size={24} />
+                Guest Classes Progress
+              </h2>
+              <p className="text-green-100">5 guest lectures with industry professionals</p>
             </div>
             <div className="mt-4 md:mt-0 text-center md:text-right">
-              <div className="text-5xl font-bold">{percentage}%</div>
-              <div className="text-xl">{attended}/{total} Classes</div>
+              <div className="text-4xl md:text-5xl font-bold">{stats.percentage}%</div>
+              <div className="text-lg">{stats.attended}/{stats.total} Classes Attended</div>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
+        {/* Guest Classes List */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-100">
+          <h3 className="text-xl font-bold text-gray-800 mb-6">Guest Lecture Sessions</h3>
+          
           <div className="space-y-6">
-            {GUEST_CLASSES.map(cls => {
-              const key = `${cls.className}-${cls.type}`;
-              const isAttended = attendance[key] || false;
-              
-              return (
-                <div key={cls.className} className="border-b border-gray-200 pb-6 last:border-0 last:pb-0">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-gray-800">{cls.className}</h3>
-                    <div className="flex items-center gap-2 text-blue-600">
-                      <User size={20} />
-                      <span className="text-sm font-medium">{cls.guestName}</span>
+            {guestClasses.map((guestClass, index) => (
+              <div
+                key={index}
+                className={`border-2 rounded-xl p-6 transition-all duration-200 ${
+                  guestClass.attended
+                    ? 'border-green-500 bg-gradient-to-br from-green-50 to-emerald-50'
+                    : 'border-green-300 bg-green-50 hover:border-green-400 hover:shadow-lg'
+                }`}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-gray-800 text-lg">{guestClass.className}</h4>
+                      <div className="flex items-center gap-2 text-blue-600">
+                        <User size={18} />
+                        <span className="text-sm font-medium">{guestClass.guestName}</span>
+                      </div>
+                    </div>
+                    <p className="text-gray-600 text-sm mt-2">{guestClass.topic}</p>
+                    <div className="mt-2 text-xs text-gray-500">
+                      {guestClass.date ? 
+                        `Attended on ${new Date(guestClass.date).toLocaleDateString()}` : 
+                        'Not attended yet'}
                     </div>
                   </div>
-
-                  <div
-                    onClick={() => toggleAttendance(cls.className, cls.type)}
-                    className={`border rounded-lg p-4 cursor-pointer transition-all duration-300 ${
-                      isAttended
-                        ? "border-green-500 bg-green-50"
-                        : "border-gray-200 hover:border-blue-300 hover:bg-blue-50"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <div className="font-medium text-gray-800">Guest Lecture Session</div>
-                        <div className={`text-sm mt-1 ${isAttended ? 'text-green-600' : 'text-gray-500'}`}>
-                          {isAttended ? 'Attended' : 'Not Attended'}
-                        </div>
-                      </div>
-                      {isAttended ? (
-                        <CheckCircle className="text-green-500" size={24} />
-                      ) : (
-                        <XCircle className="text-gray-400" size={24} />
-                      )}
-                    </div>
+                  <div className={`ml-4 p-3 rounded-full ${guestClass.attended ? 'bg-green-100' : 'bg-green-100'}`}>
+                    {guestClass.attended ? (
+                      <CheckCircle className="text-green-600" size={24} />
+                    ) : (
+                      <Users className="text-green-600" size={24} />
+                    )}
                   </div>
                 </div>
-              );
-            })}
-          </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <button
-              onClick={saveAttendance}
-              disabled={saving}
-              className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Save size={20} />
-              {saving ? 'Saving...' : 'Save Guest Class Attendance'}
-            </button>
+                <button
+                  onClick={() => toggleAttendance(guestClass.className, guestClass.attended)}
+                  className={`w-full py-3 rounded-lg font-medium transition ${
+                    guestClass.attended
+                      ? 'bg-green-100 text-green-800 hover:bg-green-200'
+                      : 'bg-gradient-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800'
+                  }`}
+                >
+                  {guestClass.attended ? '✓ Attended Guest Lecture' : 'Mark Guest Lecture Attendance'}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Progress Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-800">{stats.attended}</div>
+              <div className="text-sm text-gray-600">Attended</div>
+            </div>
+          </div>
+          
+          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-800">{stats.total - stats.attended}</div>
+              <div className="text-sm text-gray-600">Remaining</div>
+            </div>
+          </div>
+          
+          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-800">{stats.total}</div>
+              <div className="text-sm text-gray-600">Total Guest Classes</div>
+            </div>
           </div>
         </div>
       </div>

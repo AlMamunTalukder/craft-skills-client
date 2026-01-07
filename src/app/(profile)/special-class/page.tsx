@@ -3,163 +3,225 @@
 
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { CheckCircle, XCircle, Save } from 'lucide-react';
-import { attendanceService } from '@/src/services/attendance';
-
-const BATCH_ID = '36';
-
-const SPECIAL_CLASSES = [
-  { className: 'Special Class 1', type: 'special_session' },
-  { className: 'Special Class 2', type: 'special_session' },
-  { className: 'Special Class 3', type: 'special_session' },
-  { className: 'Special Class 4', type: 'special_session' },
-  { className: 'Special Class 5', type: 'special_session' }
-];
+import { CheckCircle, XCircle, Star, RefreshCw } from 'lucide-react';
+import { studentAttendanceService } from '@/src/services/studentAttendance';
 
 export default function SpecialClassAttendance() {
-  const [attendance, setAttendance] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [specialClasses, setSpecialClasses] = useState<any[]>([]);
+  const [attendanceStats, setAttendanceStats] = useState<any>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const specialClassList = Array.from({ length: 5 }, (_, i) => `Special Class ${i + 1}`);
 
   useEffect(() => {
-    loadAttendance();
+    loadSpecialClassData();
   }, []);
 
-  const loadAttendance = async () => {
+  const loadSpecialClassData = async () => {
     try {
       setLoading(true);
-      const result = await attendanceService.getAttendance(BATCH_ID, 'special');
       
-      if (result.success) {
-        const attendanceMap: Record<string, boolean> = {};
-        result.data.forEach((item: any) => {
-          const key = `${item.className}-${item.sessionType}`;
-          attendanceMap[key] = item.attended;
-        });
-        setAttendance(attendanceMap);
+      // Load dashboard data for stats
+      const dashboardResult = await studentAttendanceService.getDashboard();
+      
+      if (dashboardResult.success && dashboardResult.data) {
+        const { attendanceStats: stats } = dashboardResult.data;
+        setAttendanceStats(stats);
+        
+        // Load attendance history to check which special classes are attended
+        const sessionsResult = await studentAttendanceService.getAttendanceHistory(100);
+        if (sessionsResult.success && sessionsResult.data) {
+          const specialClassAttendance = specialClassList.map(className => {
+            // Filter for special classes by checking sessionType
+            const attendedRecord = sessionsResult.data.find((record: any) => 
+              record.className === className && record.sessionType === 'special'
+            );
+            
+            return {
+              className,
+              attended: attendedRecord?.attended || false,
+              attendanceId: attendedRecord?._id,
+              date: attendedRecord?.date,
+              guestName: 'Special Instructor'
+            };
+          });
+          
+          setSpecialClasses(specialClassAttendance);
+        }
       }
+      
+      toast.success('Special class data loaded');
     } catch (error) {
-      console.error('Failed to load attendance:', error);
+      console.error('Load error:', error);
+      toast.error('Failed to load special classes');
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
-  const toggleAttendance = (className: string) => {
-    const key = `${className}-special_session`;
-    setAttendance(prev => ({
-      ...prev,
-      [key]: !prev[key]
-    }));
-  };
-
-  const saveAttendance = async () => {
-    setSaving(true);
-    
+  const toggleAttendance = async (className: string, currentStatus: boolean) => {
     try {
-      const promises = SPECIAL_CLASSES.map(cls => {
-        const key = `${cls.className}-special_session`;
-        return attendanceService.saveAttendance({
-          className: cls.className,
-          batchId: BATCH_ID,
-          attendanceType: 'special',
-          sessionType: 'special_session',
-          attended: attendance[key] || false
-        });
-      });
+      const result = await studentAttendanceService.updateSpecialClass(
+        className,
+        !currentStatus
+      );
 
-      await Promise.all(promises);
-      toast.success('Special class attendance saved!');
-      await loadAttendance();
+      if (result.success) {
+        // Update local state
+        setSpecialClasses(prev => prev.map(cls => 
+          cls.className === className 
+            ? { ...cls, attended: !currentStatus, date: new Date() }
+            : cls
+        ));
+        
+        // Update stats if available
+        if (result.data) {
+          setAttendanceStats(result.data);
+        }
+        
+        toast.success(`Special class ${!currentStatus ? 'marked' : 'unmarked'} successfully`);
+      } else {
+        toast.error(result.message || 'Failed to update');
+      }
     } catch (error) {
-      toast.error('Failed to save attendance');
-    } finally {
-      setSaving(false);
+      console.error('Toggle error:', error);
+      toast.error('Failed to update attendance');
     }
   };
 
-  const total = SPECIAL_CLASSES.length;
-  const attended = SPECIAL_CLASSES.filter(cls => {
-    const key = `${cls.className}-special_session`;
-    return attendance[key];
-  }).length;
-  const percentage = total > 0 ? Math.round((attended / total) * 100) : 0;
+  const calculateSpecialClassStats = () => {
+    const attended = specialClasses.filter(cls => cls.attended).length;
+    const total = 5;
+    const percentage = Math.round((attended / total) * 100);
+    
+    return { attended, total, percentage };
+  };
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-red-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading special class attendance...</p>
+          <p className="mt-4 text-gray-600 font-medium">Loading special classes...</p>
         </div>
       </div>
     );
   }
 
+  const stats = calculateSpecialClassStats();
+
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-6">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 p-4 md:p-6">
       <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Special Class Attendance</h1>
-          <p className="text-gray-600 mt-2">Batch {BATCH_ID}</p>
+          <div className="flex justify-between items-start flex-wrap gap-4">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Special Class Attendance</h1>
+              <p className="text-gray-600 mt-2">Exclusive sessions with expert instructors</p>
+            </div>
+            <button
+              onClick={() => {
+                setRefreshing(true);
+                loadSpecialClassData();
+              }}
+              className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition disabled:opacity-50"
+              disabled={refreshing}
+            >
+              <RefreshCw size={18} className={refreshing ? 'animate-spin' : ''} />
+              {refreshing ? 'Refreshing...' : 'Refresh'}
+            </button>
+          </div>
         </div>
 
-        <div className="bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl shadow-lg p-6 text-white mb-8">
+        {/* Stats Card */}
+        <div className="bg-gradient-to-r from-orange-600 to-red-600 rounded-xl p-6 text-white mb-6 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold mb-2">Special Classes Summary</h2>
-              <p className="text-orange-100">Your special class attendance</p>
+              <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
+                <Star size={24} />
+                Special Classes Progress
+              </h2>
+              <p className="text-orange-100">5 exclusive sessions with industry experts</p>
             </div>
             <div className="mt-4 md:mt-0 text-center md:text-right">
-              <div className="text-5xl font-bold">{percentage}%</div>
-              <div className="text-xl">{attended}/{total} Classes</div>
+              <div className="text-4xl md:text-5xl font-bold">{stats.percentage}%</div>
+              <div className="text-lg">{stats.attended}/{stats.total} Classes Attended</div>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {SPECIAL_CLASSES.map(cls => {
-              const key = `${cls.className}-special_session`;
-              const isAttended = attendance[key] || false;
-              
-              return (
-                <div
-                  key={cls.className}
-                  onClick={() => toggleAttendance(cls.className)}
-                  className={`border rounded-lg p-6 cursor-pointer transition-all duration-300 ${
-                    isAttended
-                      ? "border-green-500 bg-green-50"
-                      : "border-gray-200 hover:border-orange-300 hover:bg-orange-50"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="font-medium text-gray-800">{cls.className}</div>
-                      <div className={`text-sm mt-1 ${isAttended ? 'text-green-600' : 'text-gray-500'}`}>
-                        {isAttended ? 'Attended' : 'Not Attended'}
-                      </div>
+        {/* Special Classes Grid */}
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-100">
+          <h3 className="text-xl font-bold text-gray-800 mb-6">Special Classes</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {specialClasses.map((specialClass, index) => (
+              <div
+                key={index}
+                className={`border-2 rounded-xl p-6 transition-all duration-200 ${
+                  specialClass.attended
+                    ? 'border-green-500 bg-gradient-to-br from-green-50 to-emerald-50'
+                    : 'border-orange-300 bg-orange-50 hover:border-orange-400 hover:shadow-lg'
+                }`}
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h4 className="font-bold text-gray-800 text-lg">{specialClass.className}</h4>
+                    <p className="text-gray-600 text-sm mt-1">With {specialClass.guestName}</p>
+                    <div className="mt-2 text-xs text-gray-500">
+                      {specialClass.date ? 
+                        new Date(specialClass.date).toLocaleDateString() : 
+                        'Not attended yet'}
                     </div>
-                    {isAttended ? (
-                      <CheckCircle className="text-green-500" size={24} />
+                  </div>
+                  <div className={`p-3 rounded-full ${specialClass.attended ? 'bg-green-100' : 'bg-orange-100'}`}>
+                    {specialClass.attended ? (
+                      <CheckCircle className="text-green-600" size={24} />
                     ) : (
-                      <XCircle className="text-gray-400" size={24} />
+                      <Star className="text-orange-600" size={24} />
                     )}
                   </div>
                 </div>
-              );
-            })}
-          </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <button
-              onClick={saveAttendance}
-              disabled={saving}
-              className="flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Save size={20} />
-              {saving ? 'Saving...' : 'Save Special Class Attendance'}
-            </button>
+                <button
+                  onClick={() => toggleAttendance(specialClass.className, specialClass.attended)}
+                  className={`w-full py-3 rounded-lg font-medium transition ${
+                    specialClass.attended
+                      ? 'bg-green-100 text-green-800 hover:bg-green-200'
+                      : 'bg-gradient-to-r from-orange-600 to-orange-700 text-white hover:from-orange-700 hover:to-orange-800'
+                  }`}
+                >
+                  {specialClass.attended ? '✓ Attended' : 'Mark as Attended'}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Progress Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-800">{stats.attended}</div>
+              <div className="text-sm text-gray-600">Attended</div>
+            </div>
+          </div>
+          
+          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-800">{stats.total - stats.attended}</div>
+              <div className="text-sm text-gray-600">Remaining</div>
+            </div>
+          </div>
+          
+          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gray-800">{stats.total}</div>
+              <div className="text-sm text-gray-600">Total Special Classes</div>
+            </div>
           </div>
         </div>
       </div>
