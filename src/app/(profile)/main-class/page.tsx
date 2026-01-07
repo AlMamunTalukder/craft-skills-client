@@ -62,10 +62,10 @@ export default function MainClassAttendance() {
         setAttendance(attendanceMap);
         
         // Load summary
-        const summaryResult = await attendanceService.getSummary(BATCH_ID, 'main');
-        if (summaryResult.success) {
-          setSummary(summaryResult.data);
-        }
+        // const summaryResult = await attendanceService.getSummary(BATCH_ID, 'main');
+        // if (summaryResult.success) {
+        //   setSummary(summaryResult.data);
+        // }
       }
     } catch (error) {
       console.error('Failed to load attendance:', error);
