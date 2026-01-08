@@ -212,11 +212,6 @@ export async function checkBatchExists(batchNumber: string): Promise<{ exists: b
 }
 
 
-
-// lib/api.ts
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-// const API_VERSION = process.env.NEXT_PUBLIC_API_VERSION || 'v1';
-
 export const api = {
   async getAttendance(batchId: string) {
     const response = await fetch(
@@ -245,3 +240,25 @@ export const api = {
     return response.json();
   }
 };
+
+// Add this to your lib/api.ts file if not already there
+export async function getActiveSeminar() {
+  try {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+    const response = await fetch(`${API_URL}/seminars/active`, {
+      cache: "no-store",
+      next: { revalidate: 60 }
+    });
+    
+    if (!response.ok) {
+      console.error(`API error: ${response.status}`);
+      return null;
+    }
+    
+    const result = await response.json();
+    return result.success ? result.data : null;
+  } catch (error) {
+    console.error("Error fetching active seminar:", error);
+    return null;
+  }
+}
