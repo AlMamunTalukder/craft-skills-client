@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/services/studentAttendance.ts
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
 export interface AttendanceData {
   className: string;
-  sessionType: 'regular' | 'problemSolving' | 'practice';
+  sessionType: "regular" | "problemSolving" | "practice";
   attended: boolean;
 }
 
 export interface TodaySession {
   className: string;
-  sessionType: 'regular' | 'problemSolving' | 'practice';
+  sessionType: "regular" | "problemSolving" | "practice";
   time: string;
   topic: string;
   attended: boolean;
@@ -19,22 +20,22 @@ export interface TodaySession {
 
 export const studentAttendanceService = {
   // Get dashboard data
-   async getDashboard() {
+  async getDashboard() {
     try {
       const response = await fetch(`${API_URL}/student-attendance/dashboard`, {
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
       });
 
       if (!response.ok) {
         // Try to get error message from response
         const errorText = await response.text();
-        console.error('Dashboard API Error:', {
+        console.error("Dashboard API Error:", {
           status: response.status,
           statusText: response.statusText,
-          error: errorText
+          error: errorText,
         });
-        
+
         let errorMessage = `HTTP error! status: ${response.status}`;
         try {
           const errorData = JSON.parse(errorText);
@@ -43,16 +44,17 @@ export const studentAttendanceService = {
           // If not JSON, use the text
           if (errorText) errorMessage = errorText;
         }
-        
+
         throw new Error(errorMessage);
       }
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching dashboard:', error);
+      console.error("Error fetching dashboard:", error);
       return {
         success: false,
-        message: error instanceof Error ? error.message : 'Failed to load dashboard',
+        message:
+          error instanceof Error ? error.message : "Failed to load dashboard",
       };
     }
   },
@@ -61,9 +63,9 @@ export const studentAttendanceService = {
   async markAttendance(data: AttendanceData) {
     try {
       const response = await fetch(`${API_URL}/student-attendance/mark`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
@@ -73,10 +75,10 @@ export const studentAttendanceService = {
 
       return await response.json();
     } catch (error) {
-      console.error('Error marking attendance:', error);
+      console.error("Error marking attendance:", error);
       return {
         success: false,
-        message: 'Failed to mark attendance',
+        message: "Failed to mark attendance",
       };
     }
   },
@@ -84,10 +86,13 @@ export const studentAttendanceService = {
   // Get today's sessions
   async getTodaySessions() {
     try {
-      const response = await fetch(`${API_URL}/student-attendance/today-sessions`, {
-        credentials: 'include',
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const response = await fetch(
+        `${API_URL}/student-attendance/today-sessions`,
+        {
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -95,7 +100,7 @@ export const studentAttendanceService = {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching today sessions:', error);
+      console.error("Error fetching today sessions:", error);
       return {
         success: false,
         data: [] as TodaySession[],
@@ -109,8 +114,8 @@ export const studentAttendanceService = {
       const response = await fetch(
         `${API_URL}/student-attendance/history?limit=${limit}`,
         {
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
         }
       );
 
@@ -120,7 +125,7 @@ export const studentAttendanceService = {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching attendance history:', error);
+      console.error("Error fetching attendance history:", error);
       return {
         success: false,
         data: [],
@@ -166,58 +171,54 @@ export const studentAttendanceService = {
   //   }
   // },
 
+  async updateSpecialClass(className: string, attended: boolean) {
+    try {
+      console.log("Updating special class:", { className, attended });
 
-  async updateSpecialClass(
-  className: string,
-  attended: boolean
-) {
-  try {
-    console.log('Updating special class:', { className, attended });
-    
-    const response = await fetch(
-      `${API_URL}/student-attendance/special-class`,
-      {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          className,
-          attended,
-        }),
-      }
-    );
+      const response = await fetch(
+        `${API_URL}/student-attendance/special-class`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            className,
+            attended,
+          }),
+        }
+      );
 
-    if (!response.ok) {
-      // Try to get error message
-      const errorText = await response.text();
-      console.error('Special class API error:', {
-        status: response.status,
-        statusText: response.statusText,
-        error: errorText
-      });
-      
-      let errorMessage = `HTTP error! status: ${response.status}`;
-      try {
-        const errorData = JSON.parse(errorText);
-        errorMessage = errorData.message || errorMessage;
-      } catch {
-        if (errorText) errorMessage = errorText;
+      if (!response.ok) {
+        // Try to get error message
+        const errorText = await response.text();
+        console.error("Special class API error:", {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorText,
+        });
+
+        let errorMessage = `HTTP error! status: ${response.status}`;
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          if (errorText) errorMessage = errorText;
+        }
+
+        throw new Error(errorMessage);
       }
-      
-      throw new Error(errorMessage);
+
+      return await response.json();
+    } catch (error: any) {
+      console.error("Error updating special class:", error);
+      return {
+        success: false,
+        message: error.message || "Failed to update special class",
+      };
     }
-
-    return await response.json();
-  } catch (error: any) {
-    console.error('Error updating special class:', error);
-    return {
-      success: false,
-      message: error.message || 'Failed to update special class',
-    };
-  }
-},
+  },
 
   // Update guest class attendance
   async updateGuestClass(
@@ -232,10 +233,10 @@ export const studentAttendanceService = {
       const response = await fetch(
         `${API_URL}/student-attendance/guest-class`,
         {
-          method: 'POST',
-          credentials: 'include',
+          method: "POST",
+          credentials: "include",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             className,
@@ -250,12 +251,41 @@ export const studentAttendanceService = {
 
       return await response.json();
     } catch (error: any) {
-      console.error('Error updating guest class:', error);
+      console.error("Error updating guest class:", error);
       return {
         success: false,
-        message: error.message || 'Failed to update guest class',
+        message: error.message || "Failed to update guest class",
       };
     }
   },
 
+  async getMyBatches() {
+    try {
+      console.log("Fetching user batches...");
+
+      const response = await fetch(`${API_URL}/users/my-batches`, {
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Get batches error:", errorText);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Batches fetched:", result);
+
+      return result;
+    } catch (error) {
+      console.error("Error fetching batches:", error);
+      return {
+        success: false,
+        data: { batches: [], totalBatches: 0 },
+        message:
+          error instanceof Error ? error.message : "Failed to fetch batches",
+      };
+    }
+  },
 };
