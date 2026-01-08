@@ -22,7 +22,10 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import AppForm from "./AppForm";
 import TextInput from "../FormInputs/TextInput";
 import TextArea from "../FormInputs/TextAreaInput";
-import { seminarConfirmationSchema, type SeminarConfirmationFormData } from "@/schemas/seminar-confirmation";
+import {
+  seminarConfirmationSchema,
+  type SeminarConfirmationFormData,
+} from "@/schemas/seminar-confirmation";
 
 interface SeminarPDFDownloadFormProps {
   seminar: {
@@ -33,10 +36,12 @@ interface SeminarPDFDownloadFormProps {
   };
 }
 
-export default function SeminarPDFDownloadForm({ seminar }: SeminarPDFDownloadFormProps) {
+export default function SeminarPDFDownloadForm({
+  seminar,
+}: SeminarPDFDownloadFormProps) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const seminarId = seminar._id || seminar.id;
   const seminarTitle = seminar.title || "সেমিনার";
 
@@ -50,9 +55,19 @@ export default function SeminarPDFDownloadForm({ seminar }: SeminarPDFDownloadFo
     const toastId = toast.loading("প্রক্রিয়া চলছে...");
 
     try {
+      // const API_URL = process.env.NEXT_PUBLIC_API_URL
+      //   ? `${process.env.NEXT_PUBLIC_API_URL}/seminars/confirm`
+      //   : "http://localhost:5000/api/v1/seminars/confirm";
+
       const API_URL = process.env.NEXT_PUBLIC_API_URL
-        ? `${process.env.NEXT_PUBLIC_API_URL}/seminars/confirm`
-        : "http://localhost:5000/api/v1/seminars/confirm";
+        ? `${process.env.NEXT_PUBLIC_API_URL}/seminar-confirmations/confirm`
+        : "http://localhost:5000/api/v1/seminar-confirmations/confirm";
+
+      console.log("Submitting to:", API_URL);
+      console.log("Data:", {
+        ...data,
+        seminarId: seminarId,
+      });
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -66,18 +81,25 @@ export default function SeminarPDFDownloadForm({ seminar }: SeminarPDFDownloadFo
       });
 
       const result = await response.json();
-console.log("result",result)
+      console.log("result", result);
       if (!response.ok || !result.success) {
         throw new Error(result.message || `Failed: ${response.status}`);
       }
 
       toast.success("সফলভাবে জমা হয়েছে!", { id: toastId });
 
+      // In your handleSubmit function, change the redirect:
       router.push(
         `/seminar-confirmation/success?name=${encodeURIComponent(
           data.name
-        )}&seminar=${encodeURIComponent(seminarTitle)}`
+        )}&seminar=${encodeURIComponent(seminarTitle)}&timestamp=${Date.now()}`
       );
+
+      // router.push(
+      //   `/seminar-confirmation/success?name=${encodeURIComponent(
+      //     data.name
+      //   )}&seminar=${encodeURIComponent(seminarTitle)}`
+      // );
     } catch (err: any) {
       console.error("Confirmation error:", err);
       toast.error(err.message || "জমা দিতে ব্যর্থ। আবার চেষ্টা করুন।", {
