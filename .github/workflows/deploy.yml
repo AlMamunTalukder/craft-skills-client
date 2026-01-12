@@ -7,7 +7,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup SSH for Deployment
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+        shell: bash
+
       - name: Deploy to VPS using SSH
         uses: appleboy/ssh-action@master
         with:
@@ -16,27 +28,30 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-
+            # Navigate to project
             cd /var/www/html/craft/client
 
-             # Fetch latest changes and reset to main branch
-             git fetch --all
-             git reset --hard origin/main
+            # Reset branch and pull latest
+            git fetch --all
+            git reset --hard origin/main
 
-             # Setup environment and dependencies
-             cp .env.example .env
+            # Copy .env if it doesn't exist
+            if [ ! -f .env ]; then
+              cp .env.example .env
+            fi
 
-             npm install
-             npm run build
+            # Install dependencies and build
+            npm install
+            npm run build
 
-             # Manage PM2 process
-             if pm2 list | grep -q "skills-client"; then
-               echo "PM2 process already exists. Restarting..."
-               pm2 restart skills-client
-             else
-               echo "No PM2 process found. Starting..."
-               pm2 start npm --name "skills-client" -- start
-             fi
+            # Restart or start PM2 process
+            if pm2 list | grep -q "skills-client"; then
+              echo "Restarting existing PM2 process..."
+              pm2 restart skills-client
+            else
+              echo "Starting new PM2 process..."
+              pm2 start npm --name "skills-client" -- start
+            fi
 
-             # Save PM2 process list
-             pm2 save
+            # Save PM2 process list
+            pm2 save
