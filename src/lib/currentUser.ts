@@ -40,7 +40,7 @@ export const currentUser = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/users/profile`,
       {
-        cache: "no-store",
+    
         headers: {
           Cookie: cookieHeader,
           "Content-Type": "application/json",

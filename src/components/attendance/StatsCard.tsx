@@ -23,7 +23,7 @@
 // }: StatsCardProps) => {
 //     return (
 //         <div 
-//             className={`bg-gradient-to-r ${gradientFrom} ${gradientTo} rounded-xl lg:rounded-2xl shadow-lg p-6 lg:p-8 text-white mb-6 lg:mb-8`}
+//             className={`bg-linear-to-r ${gradientFrom} ${gradientTo} rounded-xl lg:rounded-2xl shadow-lg p-6 lg:p-8 text-white mb-6 lg:mb-8`}
 //         >
 //             <div className="flex flex-col lg:flex-row items-center justify-between">
 //                 <div>

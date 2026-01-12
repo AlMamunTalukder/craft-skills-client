@@ -109,7 +109,7 @@ export default function GuestClassAttendance() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-teal-50">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-green-50 to-teal-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto"></div>
           <p className="mt-4 text-gray-600 font-medium">Loading guest classes...</p>
@@ -121,7 +121,7 @@ export default function GuestClassAttendance() {
   const stats = calculateGuestClassStats();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-teal-50 p-4 md:p-6">
+    <div className="min-h-screen bg-linear-to-br from-green-50 to-teal-50 p-4 md:p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -145,7 +145,7 @@ export default function GuestClassAttendance() {
         </div>
 
         {/* Stats Card */}
-        <div className="bg-gradient-to-r from-green-600 to-teal-700 rounded-xl p-6 text-white mb-6 shadow-lg">
+        <div className="bg-linear-to-r from-green-600 to-teal-700 rounded-xl p-6 text-white mb-6 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
               <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
@@ -171,7 +171,7 @@ export default function GuestClassAttendance() {
                 key={index}
                 className={`border-2 rounded-xl p-6 transition-all duration-200 ${
                   guestClass.attended
-                    ? 'border-green-500 bg-gradient-to-br from-green-50 to-emerald-50'
+                    ? 'border-green-500 bg-linear-to-br from-green-50 to-emerald-50'
                     : 'border-green-300 bg-green-50 hover:border-green-400 hover:shadow-lg'
                 }`}
               >
@@ -205,7 +205,7 @@ export default function GuestClassAttendance() {
                   className={`w-full py-3 rounded-lg font-medium transition ${
                     guestClass.attended
                       ? 'bg-green-100 text-green-800 hover:bg-green-200'
-                      : 'bg-gradient-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800'
+                      : 'bg-linear-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800'
                   }`}
                 >
                   {guestClass.attended ? '✓ Attended Guest Lecture' : 'Mark Guest Lecture Attendance'}

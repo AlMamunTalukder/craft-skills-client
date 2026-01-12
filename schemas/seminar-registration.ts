@@ -1,3 +1,5 @@
+// schemas/seminar-registration.ts
+
 import * as z from "zod";
  
 export const seminarRegistrationSchema = z.object({

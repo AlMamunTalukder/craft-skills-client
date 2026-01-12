@@ -1,3 +1,5 @@
+// sechemas/admission.ts
+
 import { z } from "zod";
 
 export const courseAdmissionSchema = z.object({

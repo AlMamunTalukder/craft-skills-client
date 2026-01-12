@@ -32,6 +32,7 @@ export interface SiteContent {
   admissionHeaderTitle?: string;
   admissionHeaderDescription?: string;
   admissionDeadline?: Date;
+   showPdfMenu?: boolean;
 }
 
 export interface Batch {

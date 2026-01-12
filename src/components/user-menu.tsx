@@ -54,7 +54,7 @@ export default function UserMenu({ user }: UserMenuProps) {
   const getAvatarUrl = () => {
     if (user?.image) return user.image;
     return `https://ui-avatars.com/api/?name=${encodeURIComponent(
-      user?.name || "User",
+      user?.name ,
     )}&background=6366f1&color=ffffff&size=128`;
   };
 
@@ -80,13 +80,13 @@ export default function UserMenu({ user }: UserMenuProps) {
           className="gap-2 px-3 py-2 h-auto hover:bg-accent/50"
         >
           <Avatar className="size-7 rounded-lg ring-1 ring-border/20">
-            <AvatarImage src={getAvatarUrl()} alt={user.name || "User"} />
+            <AvatarImage src={getAvatarUrl()} alt={user.name} />
             <AvatarFallback className="rounded-lg bg-primary text-primary-foreground text-xs">
               {getInitials(user.name)}
             </AvatarFallback>
           </Avatar>
           <div className="truncate max-w-32 text-sm font-medium">
-            {user.name || "User"}
+            {user.name }
           </div>
           <ChevronDown
             className={`size-4 transition-transform ${
@@ -104,20 +104,20 @@ export default function UserMenu({ user }: UserMenuProps) {
         <DropdownMenuLabel className="p-0 font-normal">
           <div className="flex items-center gap-3 px-3 py-3">
             <Avatar className="size-10 rounded-xl ring-2 ring-border/10">
-              <AvatarImage src={getAvatarUrl()} alt={user.name || "User"} />
+              <AvatarImage src={getAvatarUrl()} alt={user.name  } />
               <AvatarFallback className="rounded-xl bg-primary text-primary-foreground font-semibold">
                 {getInitials(user.name)}
               </AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left leading-tight">
               <span className="truncate font-semibold text-sm">
-                {user.name || "User"}
+                {user.name}
               </span>
               <span className="text-muted-foreground truncate text-xs mt-0.5">
-                {user.email || user.phone || "No contact info"}
+                {user.email || user.phone }
               </span>
               <span className="text-xs text-blue-600 mt-0.5">
-                Student • Batch {user.batchNumber || "N/A"}
+                {user.batchNumber}
               </span>
             </div>
           </div>

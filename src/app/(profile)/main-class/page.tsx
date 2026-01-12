@@ -217,7 +217,7 @@ export default function MainClassAttendancePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-blue-50">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-blue-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600 font-medium">
@@ -256,7 +256,7 @@ export default function MainClassAttendancePage() {
   const mainClassStats = calculateMainClassStats();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-4 md:p-6">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 p-4 md:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -278,7 +278,7 @@ export default function MainClassAttendancePage() {
         </div>
 
         {/* Main Class Stats */}
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-700 rounded-xl p-6 text-white mb-6 shadow-lg">
+        <div className="bg-linear-to-r from-indigo-600 to-purple-700 rounded-xl p-6 text-white mb-6 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
               <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
