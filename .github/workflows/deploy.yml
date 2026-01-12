@@ -1,0 +1,42 @@
+name: Node.js Deployment with NGINX and SSL
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS using SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+
+            cd /var/www/html/craft/client
+
+             # Fetch latest changes and reset to main branch
+             git fetch --all
+             git reset --hard origin/main
+
+             # Setup environment and dependencies
+             cp .env.example .env
+
+             npm install
+             npm run build
+
+             # Manage PM2 process
+             if pm2 list | grep -q "skills-client"; then
+               echo "PM2 process already exists. Restarting..."
+               pm2 restart skills-client
+             else
+               echo "No PM2 process found. Starting..."
+               pm2 start npm --name "skills-client" -- start
+             fi
+
+             # Save PM2 process list
+             pm2 save

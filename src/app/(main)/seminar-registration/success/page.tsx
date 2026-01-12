@@ -13,32 +13,29 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaFacebookF, FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
+export const dynamic = "force-dynamic";
+
 export default function SeminarRegistrationSuccessPage() {
-  const searchParams = useSearchParams();
   const [seminar, setSeminar] = useState<any>(null);
   const [siteData, setSiteData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-
-  const seminarId = searchParams.get("seminarId");
-  const participantName = searchParams.get("name");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch active seminar
         const seminarResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`,
+          `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`
         );
         const seminarResult = await seminarResponse.json();
 
         // Fetch site data
         const siteResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/site`,
+          `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/site`
         );
         const siteResult = await siteResponse.json();
 
@@ -114,17 +111,10 @@ export default function SeminarRegistrationSuccessPage() {
     <>
       <div className="min-h-screen bg-linear-to-br from-purple-100 via-white to-purple-50 py-8 px-4">
         <Container>
-          <div className="max-w-2xl mx-auto"> 
+          <div className="max-w-2xl mx-auto">
             {/* Success Card */}
             <div className="bg-white rounded-2xl overflow-hidden border border-purple-100 shadow-lg">
-              {/* Header with decorative elements */}
-
-              {/* Header with decorative elements */}
               <div className="relative bg-linear-to-r from-[#3C016F] to-purple-800">
-                {/* <div className="absolute inset-0 bg-[#3C016F] opacity-90"></div> */}
-                <div className="absolute inset-0 bg-[url('/api/placeholder/800/300')] opacity-10 bg-cover bg-center"></div>
-
-                {/* Purple circles decoration */}
                 <div className="absolute -top-10 -left-10 w-40 h-40 bg-purple-300 rounded-full opacity-20"></div>
                 <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-purple-400 rounded-full opacity-20"></div>
 
@@ -135,13 +125,9 @@ export default function SeminarRegistrationSuccessPage() {
                   <h1 className="text-3xl font-bold text-white mb-2">
                     রেজিস্ট্রেশন সম্পন্ন!
                   </h1>
-                  {participantName && (
-                    <p className="text-xl font-medium text-purple-200 mb-1">
-                      ধন্যবাদ, {decodeURIComponent(participantName)}
-                    </p>
-                  )}
-                  <p className="text-purple-100">
-                    আপনার সেমিনার রেজিস্ট্রেশন সফলভাবে সম্পন্ন হয়েছে
+
+                  <p className="text-xl font-medium text-purple-200 mb-1">
+                    ধন্যবাদ, আপনার সেমিনার রেজিস্ট্রেশন সফলভাবে সম্পন্ন হয়েছে
                   </p>
                 </div>
               </div>
@@ -239,7 +225,7 @@ export default function SeminarRegistrationSuccessPage() {
                 {/* Back to Home Button */}
                 <Link
                   href="/"
-                  className="block w-full py-4 bg-[#3C016F] hover:bg-purple-900 text-white rounded-xl flex items-center justify-center transition-all shadow-md hover:shadow-lg text-lg font-semibold"
+                  className="w-full py-4 bg-[#3C016F] hover:bg-purple-900 text-white rounded-xl flex items-center justify-center transition-all shadow-md hover:shadow-lg text-lg font-semibold"
                 >
                   হোমপেজে ফিরে যান
                   <ArrowRight className="ml-3 h-6 w-6" />

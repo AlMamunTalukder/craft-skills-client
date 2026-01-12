@@ -55,19 +55,15 @@ export default function SeminarPDFDownloadForm({
     const toastId = toast.loading("প্রক্রিয়া চলছে...");
 
     try {
-      // const API_URL = process.env.NEXT_PUBLIC_API_URL
-      //   ? `${process.env.NEXT_PUBLIC_API_URL}/seminars/confirm`
-      //   : "http://localhost:5000/api/v1/seminars/confirm";
-
       const API_URL = process.env.NEXT_PUBLIC_API_URL
         ? `${process.env.NEXT_PUBLIC_API_URL}/seminar-confirmations/confirm`
         : "http://localhost:5000/api/v1/seminar-confirmations/confirm";
 
-      console.log("Submitting to:", API_URL);
-      console.log("Data:", {
-        ...data,
-        seminarId: seminarId,
-      });
+      // console.log("Submitting to:", API_URL);
+      // console.log("Data:", {
+      //   ...data,
+      //   seminarId: seminarId,
+      // });
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -81,7 +77,7 @@ export default function SeminarPDFDownloadForm({
       });
 
       const result = await response.json();
-      console.log("result", result);
+      // console.log("result", result);
       if (!response.ok || !result.success) {
         throw new Error(result.message || `Failed: ${response.status}`);
       }
@@ -95,13 +91,9 @@ export default function SeminarPDFDownloadForm({
         )}&seminar=${encodeURIComponent(seminarTitle)}&timestamp=${Date.now()}`
       );
 
-      // router.push(
-      //   `/seminar-confirmation/success?name=${encodeURIComponent(
-      //     data.name
-      //   )}&seminar=${encodeURIComponent(seminarTitle)}`
-      // );
+    
     } catch (err: any) {
-      console.error("Confirmation error:", err);
+      // console.error("Confirmation error:", err);
       toast.error(err.message || "জমা দিতে ব্যর্থ। আবার চেষ্টা করুন।", {
         id: toastId,
       });
@@ -111,7 +103,7 @@ export default function SeminarPDFDownloadForm({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 py-12 px-2 md:px-4">
+    <div className="min-h-screen bg-linear-to-br from-purple-50 via-white to-blue-50 py-12 px-2 md:px-4">
       {/* Background decoration */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#4f0187]/5 rounded-full blur-3xl"></div>
@@ -121,23 +113,16 @@ export default function SeminarPDFDownloadForm({
       <div className="max-w-2xl mx-auto relative">
         <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-xl">
           {/* Header Section */}
-          <div className="bg-gradient-to-r from-[#4f0187] to-[#6d0b99] p-4 md:p-8 text-white text-center">
+          <div className="bg-linear-to-r from-[#4f0187] to-[#6d0b99] p-4 md:p-8 text-white text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
               <Sparkles className="w-8 h-8 text-yellow-300" />
               <h2 className="text-xl md:text-2xl font-bold">
                 সেমিনার PDF ডাউনলোড
               </h2>
             </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <FileText className="w-5 h-5" />
-                <h3 className="text-lg font-bold">{seminarTitle}</h3>
-              </div>
-              <p className="text-sm opacity-90">
-                PDF ফাইল ডাউনলোড করতে ফরমটি পূরণ করুন
-              </p>
-            </div>
+            <p className="text-sm opacity-90">
+              PDF ফাইল ডাউনলোড করতে ফরমটি পূরণ করুন
+            </p>
           </div>
 
           {/* Form Content Section */}
@@ -214,7 +199,7 @@ export default function SeminarPDFDownloadForm({
                 </div>
 
                 {/* Download Info Banner */}
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-100">
+                <div className="bg-linear-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-100">
                   <h4 className="font-bold text-green-800 mb-2 flex items-center gap-2">
                     <Download className="w-5 h-5" />
                     ডাউনলোড সুবিধা
@@ -229,7 +214,7 @@ export default function SeminarPDFDownloadForm({
                   <SubmitButton
                     title="PDF ডাউনলোড করুন"
                     loadingTitle="প্রক্রিয়া চলছে..."
-                    className="w-full py-4 bg-gradient-to-r from-[#4f0187] to-[#6d0b99] hover:from-[#3d0169] hover:to-[#55087a] text-white font-bold rounded-xl text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full py-4 bg-linear-to-r from-[#4f0187] to-[#6d0b99] hover:from-[#3d0169] hover:to-[#55087a] text-white font-bold rounded-xl text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
                     loaderIcon={Loader2}
                     buttonIcon={FaArrowCircleRight}
                     loading={isSubmitting}

@@ -207,7 +207,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Overall Stats */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl p-6 text-white mb-6 shadow-lg">
+        <div className="bg-linear-to-r from-blue-600 to-indigo-700 rounded-xl p-6 text-white mb-6 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
               <h2 className="text-xl font-bold mb-2">Overall Attendance</h2>

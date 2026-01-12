@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 // src/components/shared/Header.tsx
 "use client";
 
@@ -13,7 +14,7 @@ import logo from "../../../public/img/headerlogo.png";
 import { SiteContent } from "@/types";
 
 interface HeaderProps {
-  siteData?: SiteContent;
+  siteData: SiteContent | null;
   logo?: string;
   user: any;
 }
@@ -22,14 +23,24 @@ const Header = ({ siteData, logo: logoUrl, user }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathName = usePathname();
 
-  const menuItems = [
+  const displayLogo = logoUrl || logo;
+
+  const showPdfMenu = siteData?.showPdfMenu !== false;
+
+  const baseMenuItems = [
     { name: "Home", href: "/" },
     { name: "Admission", href: "/admission" },
     { name: "Review", href: "#reviews" },
   ];
 
-  // Use provided logo or default
-  const displayLogo = logoUrl || logo;
+  const pdfMenuItem = {
+    name: "PDF Download",
+    href: "/seminar-confirmation",
+  };
+
+  const menuItems = showPdfMenu
+    ? [...baseMenuItems, pdfMenuItem]
+    : baseMenuItems;
 
   return (
     <div className="top-0 z-50 w-full shadow-sm bg-white">

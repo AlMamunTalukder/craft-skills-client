@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
@@ -9,18 +10,21 @@ const API_URL =
 export async function getSiteData(): Promise<SiteContent | null> {
   try {
     const response = await fetch(`${API_URL}/site`, {
-      cache: "force-cache",
-      next: { revalidate: 3600 },
+     
     });
 
     const result = await response.json();
+    
     if (result.success && result.data) {
-      return result.data;
+      return {
+        ...result.data,
+        showPdfMenu: result.data.showPdfMenu !== false,
+      };
     }
 
     return null;
   } catch (error) {
-    console.error("Error fetching site data:", error);
+    // console.error("Error fetching site data:", error);
     return null;
   }
 }
@@ -33,7 +37,7 @@ export async function getActiveBatch() {
     });
 
     const result = await response.json();
-    console.log(result)
+    // console.log(result)
 
     if (result.success && result.data) {
       return {
@@ -52,7 +56,7 @@ export async function getActiveBatch() {
 
     return null;
   } catch (error) {
-    console.error("Error fetching active batch:", error);
+    // console.error("Error fetching active batch:", error);
     return null;
   }
 }
@@ -79,7 +83,7 @@ export async function getCourses() {
 
     return [];
   } catch (error) {
-    console.error("Error fetching courses:", error);
+    // console.error("Error fetching courses:", error);
     return [];
   }
 }
@@ -88,7 +92,7 @@ export async function activeSeminar(): Promise<Seminar | null> {
   try {
     const response = await fetch(
       `${API_URL}/seminars/active`,
-      { cache: "no-store", next: { revalidate: 1000 * 60 * 1 } },
+      {  },
     );
 
     if (!response.ok) return null;
@@ -206,7 +210,7 @@ export async function checkBatchExists(batchNumber: string): Promise<{ exists: b
     const result = await response.json();
     return { exists: result.exists || false };
   } catch (error: any) {
-    console.error("Error checking batch:", error);
+    // console.error("Error checking batch:", error);
     return { exists: false };
   }
 }
@@ -244,21 +248,63 @@ export const api = {
 // Add this to your lib/api.ts file if not already there
 export async function getActiveSeminar() {
   try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
     const response = await fetch(`${API_URL}/seminars/active`, {
-      cache: "no-store",
-      next: { revalidate: 60 }
+     
     });
     
     if (!response.ok) {
-      console.error(`API error: ${response.status}`);
+      // console.error(`API error: ${response.status}`);
       return null;
     }
     
     const result = await response.json();
     return result.success ? result.data : null;
   } catch (error) {
-    console.error("Error fetching active seminar:", error);
+    // console.error("Error fetching active seminar:", error);
     return null;
+  }
+}
+
+
+export async function updateSiteSettings(data: any): Promise<{ success: boolean; data?: any; message: string }> {
+  try {
+    
+    const response = await fetch(`${API_URL}/site`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    // console.error('Error updating site settings:', error);
+    return {
+      success: false,
+      message: 'Failed to update site settings',
+    };
+  }
+}
+
+export async function updatePdfSettings(showPdfMenu: boolean): Promise<{ success: boolean; data?: any; message: string }> {
+  try {
+    const response = await fetch('/api/site/pdf-settings', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',   
+      },
+      body: JSON.stringify({ showPdfMenu }),
+    });
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error updating PDF settings:', error);
+    return {
+      success: false,
+      message: 'Failed to update PDF settings',
+    };
   }
 }

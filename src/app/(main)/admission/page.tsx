@@ -8,10 +8,10 @@ import { getActiveBatch, getCourses, getSiteData } from "@/src/lib/api";
 import { currentUser } from "@/src/lib/currentUser";
 import AdmissionForm from "@/src/components/Forms/Admission/AdmissionForm";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function AdmissionPage() {
-  const [user, siteData, batch, courses ] = await Promise.all([
+  const [user, siteData, batch, courses] = await Promise.all([
     currentUser(),
     getSiteData(),
     getActiveBatch(),
@@ -24,7 +24,7 @@ export default async function AdmissionPage() {
         <SubHeaderWrapper />
       </Suspense>
 
-      <Header user={user} />
+      <Header user={user} siteData={siteData} />
 
       <Banner siteData={siteData} />
 
@@ -45,7 +45,6 @@ export default async function AdmissionPage() {
         )}
       </div>
 
-      
       <FAQSection />
     </>
   );

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description: "কথার জাদুতে মুগ্ধ করুন ক্রাফট স্কিলসের সাথে।",
     images: [
       {
-        url: "https://craftskillsbd.com/img/logo.jpg",
+        url: "https://craftskillsbd.com/public/img/logo.jpg",
         width: 1200,
         height: 630,
         alt: "Craft Skills",
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Craft Skills",
     description: "কথার জাদুতে মুগ্ধ করুন ক্রাফট স্কিলসের সাথে।",
-    images: ["https://craftskillsbd.com/img/logo.jpg"],
+    images: ["https://craftskillsbd.com/public/img/logo.jpg"],
   },
   // Add optional metadata for better compatibility
   metadataBase: new URL("https://craftskillsbd.com/"),

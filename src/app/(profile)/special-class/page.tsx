@@ -101,7 +101,7 @@ export default function SpecialClassAttendance() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 to-red-50">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-orange-50 to-red-50">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
           <p className="mt-4 text-gray-600 font-medium">Loading special classes...</p>
@@ -113,7 +113,7 @@ export default function SpecialClassAttendance() {
   const stats = calculateSpecialClassStats();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 p-4 md:p-6">
+    <div className="min-h-screen bg-linear-to-br from-orange-50 to-red-50 p-4 md:p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -137,7 +137,7 @@ export default function SpecialClassAttendance() {
         </div>
 
         {/* Stats Card */}
-        <div className="bg-gradient-to-r from-orange-600 to-red-600 rounded-xl p-6 text-white mb-6 shadow-lg">
+        <div className="bg-linear-to-r from-orange-600 to-red-600 rounded-xl p-6 text-white mb-6 shadow-lg">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div>
               <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
@@ -163,7 +163,7 @@ export default function SpecialClassAttendance() {
                 key={index}
                 className={`border-2 rounded-xl p-6 transition-all duration-200 ${
                   specialClass.attended
-                    ? 'border-green-500 bg-gradient-to-br from-green-50 to-emerald-50'
+                    ? 'border-green-500 bg-linear-to-br from-green-50 to-emerald-50'
                     : 'border-orange-300 bg-orange-50 hover:border-orange-400 hover:shadow-lg'
                 }`}
               >
@@ -191,7 +191,7 @@ export default function SpecialClassAttendance() {
                   className={`w-full py-3 rounded-lg font-medium transition ${
                     specialClass.attended
                       ? 'bg-green-100 text-green-800 hover:bg-green-200'
-                      : 'bg-gradient-to-r from-orange-600 to-orange-700 text-white hover:from-orange-700 hover:to-orange-800'
+                      : 'bg-linear-to-r from-orange-600 to-orange-700 text-white hover:from-orange-700 hover:to-orange-800'
                   }`}
                 >
                   {specialClass.attended ? '✓ Attended' : 'Mark as Attended'}

@@ -8,6 +8,8 @@ import SubHeader from "@/src/components/shared/SubHeader";
 import { activeSeminar, getSiteData } from "@/src/lib/api";
 import { currentUser } from "@/src/lib/currentUser";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [siteData, seminar, user] = await Promise.all([
     getSiteData(),
@@ -28,7 +30,7 @@ export default async function HomePage() {
         seminar={seminar}
       />
 
-      <Header user={user} />
+      <Header user={user} siteData={siteData} />
 
       <Banner siteData={siteData} />
 
