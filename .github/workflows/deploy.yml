@@ -25,47 +25,30 @@ jobs:
           script: |
             echo "Starting deployment to VPS..."
 
-            # Navigate to the project directory
             cd /var/www/html/craft/client || exit
 
-            # Ensure Git is available
             if ! command -v git &> /dev/null; then
               echo "Git is not installed. Please install Git."
               exit 1
             fi
 
-            echo "Fetching latest code from GitHub..."
             git fetch --all
             git reset --hard origin/main
 
-            echo "Setting up environment variables..."
             if [ ! -f .env ]; then
-              echo ".env file not found. Copying from .env.example..."
               cp .env.example .env
             fi
 
-            echo "Installing dependencies..."
             npm install
-
-            echo "Building Next.js application..."
             npm run build
 
-            # Restart application using PM2
             if command -v pm2 &> /dev/null; then
-              echo "Restarting application using PM2..."
               pm2 restart skills-client || pm2 start npm --name "skills-client" -- run start
+              pm2 save
             else
               echo "PM2 not found. Please install it using 'npm install -g pm2'."
               exit 1
             fi
 
-            # Restart NGINX to apply changes
-            if sudo systemctl restart nginx; then
-              echo "NGINX restarted successfully."
-            else
-              echo "Failed to restart NGINX. Check for issues using 'sudo systemctl status nginx'."
-              exit 1
-            fi
-
+            sudo systemctl restart nginx
             echo "Deployment completed successfully!"
-          
