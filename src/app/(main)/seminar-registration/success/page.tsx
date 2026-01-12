@@ -117,7 +117,7 @@ export default function SeminarRegistrationSuccessPage() {
               <div className="relative bg-linear-to-r from-[#3C016F] to-purple-800">
                 <div className="absolute -top-10 -left-10 w-40 h-40 bg-purple-300 rounded-full opacity-20"></div>
                 <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-purple-400 rounded-full opacity-20"></div>
-{/* comment */}
+
                 <div className="relative p-8 text-center">
                   <div className="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <CheckCircle className="w-12 h-12 text-[#3C016F]" />
