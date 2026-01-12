@@ -10,15 +10,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup SSH for Deployment
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
-        shell: bash
+      - name: Install SSH Client
+        run: sudo apt-get update && sudo apt-get install -y openssh-client
 
       - name: Deploy to VPS using SSH
         uses: appleboy/ssh-action@master
@@ -28,30 +23,49 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            # Navigate to project
-            cd /var/www/html/craft/client
+            echo "Starting deployment to VPS..."
 
-            # Reset branch and pull latest
+            # Navigate to the project directory
+            cd /var/www/html/craft/client || exit
+
+            # Ensure Git is available
+            if ! command -v git &> /dev/null; then
+              echo "Git is not installed. Please install Git."
+              exit 1
+            fi
+
+            echo "Fetching latest code from GitHub..."
             git fetch --all
             git reset --hard origin/main
 
-            # Copy .env if it doesn't exist
+            echo "Setting up environment variables..."
             if [ ! -f .env ]; then
+              echo ".env file not found. Copying from .env.example..."
               cp .env.example .env
             fi
 
-            # Install dependencies and build
+            echo "Installing dependencies..."
             npm install
+
+            echo "Building Next.js application..."
             npm run build
 
-            # Restart or start PM2 process
-            if pm2 list | grep -q "skills-client"; then
-              echo "Restarting existing PM2 process..."
-              pm2 restart skills-client
+            # Restart application using PM2
+            if command -v pm2 &> /dev/null; then
+              echo "Restarting application using PM2..."
+              pm2 restart skills-client || pm2 start npm --name "skills-client" -- run start
             else
-              echo "Starting new PM2 process..."
-              pm2 start npm --name "skills-client" -- start
+              echo "PM2 not found. Please install it using 'npm install -g pm2'."
+              exit 1
             fi
 
-            # Save PM2 process list
-            pm2 save
+            # Restart NGINX to apply changes
+            if sudo systemctl restart nginx; then
+              echo "NGINX restarted successfully."
+            else
+              echo "Failed to restart NGINX. Check for issues using 'sudo systemctl status nginx'."
+              exit 1
+            fi
+
+            echo "Deployment completed successfully!"
+          
