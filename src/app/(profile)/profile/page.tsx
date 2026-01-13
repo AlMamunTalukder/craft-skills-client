@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { BookOpen, Star, Users, RefreshCw, Calendar, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { BookOpen, Star, Users, RefreshCw, XCircle } from 'lucide-react';
 import { studentAttendanceService } from '@/src/services/studentAttendance';
 
 interface DashboardData {
@@ -87,40 +87,7 @@ export default function DashboardPage() {
     }
   };
 
-  const handleMarkAttendance = async (session: TodaySession) => {
-    try {
-      const result = await studentAttendanceService.markAttendance({
-        className: session.className,
-        sessionType: session.sessionType,
-        attended: !session.attended,
-      });
-
-      if (result.success) {
-        // Update local state
-        const updatedSessions = todaySessions.map(s =>
-          s.className === session.className && s.sessionType === session.sessionType
-            ? { ...s, attended: !s.attended }
-            : s
-        );
-        setTodaySessions(updatedSessions);
-
-        // Update dashboard stats if available
-        if (result.data && dashboardData) {
-          setDashboardData({
-            ...dashboardData,
-            attendanceStats: result.data,
-          });
-        }
-
-        alert(`Attendance ${!session.attended ? 'marked' : 'unmarked'} successfully!`);
-      } else {
-        alert(result.message || 'Failed to update attendance');
-      }
-    } catch (err) {
-      console.error('Error marking attendance:', err);
-      alert('Failed to update attendance');
-    }
-  };
+  
 
   if (loading) {
     return (
@@ -171,12 +138,7 @@ export default function DashboardPage() {
 
   const { user, attendanceStats } = dashboardData;
 
-  const today = new Date().toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+ 
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
