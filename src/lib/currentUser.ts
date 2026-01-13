@@ -9,7 +9,7 @@ export async function logout(): Promise<{ success: boolean; message: string }> {
       {
         method: "POST",
         credentials: "include",
-      }, 
+      },
     );
 
     const cookieStore = await cookies();

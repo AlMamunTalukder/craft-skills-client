@@ -21,7 +21,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { logout } from "../lib/currentUser";
+// import { logout } from "../lib/currentUser";
+import { clientLogout } from "../lib/client-logout";
 
 type UserMenuProps = {
   user: any | null;
@@ -35,10 +36,16 @@ const studentMenuItems = [
 export default function UserMenu({ user }: UserMenuProps) {
   const [open, setOpen] = useState(false); 
 
+
   const handleSignOut = async () => {
-    await logout();
+    await clientLogout(); // Use client version
     window.location.href = "/login";
   };
+
+  // const handleSignOut = async () => {
+  //   await logout();
+  //   window.location.href = "/login";
+  // };
 
   const getInitials = (name: string | null | undefined): string => {
     return (
