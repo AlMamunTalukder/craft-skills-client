@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { CheckCircle, XCircle, Users, RefreshCw, User } from 'lucide-react';
+import { CheckCircle, Users, RefreshCw, User } from 'lucide-react';
 import { studentAttendanceService } from '@/src/services/studentAttendance';
 
 export default function GuestClassAttendance() {
@@ -13,13 +14,13 @@ export default function GuestClassAttendance() {
   const [refreshing, setRefreshing] = useState(false);
 
   const guestClassList = Array.from({ length: 5 }, (_, i) => `Guest Class ${i + 1}`);
-  const guestSpeakers = [
-    'Industry Expert A',
-    'Senior Developer B',
-    'Tech Lead C',
-    'CTO D',
-    'Product Manager E'
-  ];
+  // const guestSpeakers = [
+  //   'Industry Expert A',
+  //   'Senior Developer B',
+  //   'Tech Lead C',
+  //   'CTO D',
+  //   'Product Manager E'
+  // ];
 
   useEffect(() => {
     loadGuestClassData();
@@ -50,7 +51,7 @@ export default function GuestClassAttendance() {
               attended: attendedRecord?.attended || false,
               attendanceId: attendedRecord?._id,
               date: attendedRecord?.date,
-              guestName: guestSpeakers[index] || 'Guest Speaker',
+              // guestName: guestSpeakers[index] || 'Guest Speaker',
               topic: `Guest Lecture on ${['Web Development', 'Career Growth', 'Industry Trends', 'Project Management', 'Soft Skills'][index] || 'Professional Development'}`
             };
           });
