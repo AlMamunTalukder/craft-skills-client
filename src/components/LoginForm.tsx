@@ -4,7 +4,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { LoginFormData, loginFormSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Lock, ShieldCheck } from "lucide-react";
-import Link from "next/link";
+// import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -72,14 +72,14 @@ export default function LoginForm() {
       />
 
       {/* Forgot Password Link */}
-      <div className="flex justify-end">
+      {/* <div className="flex justify-end">
         <Link
           href="/forgot-password"
           className="text-sm text-blue-600 hover:underline"
         >
           পাসওয়ার্ড ভুলে গেছেন?
         </Link>
-      </div>
+      </div> */}
 
       <SubmitButton
         title="লগইন"
