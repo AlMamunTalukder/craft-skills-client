@@ -148,11 +148,26 @@ export default function StudentLayout({
     window.location.reload();
   };
 
-  const handleSignOut = () => {
+ const handleSignOut = async () => {
+  try {
+    const API_URL =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+
+    await fetch(`${API_URL}/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+  } catch (error) {
+    console.error("Logout failed:", error);
+  } finally {
+    // Clear local state
     localStorage.removeItem("selectedBatchId");
     localStorage.removeItem("selectedBatchNumber");
+
+    // Force full reload to reset auth state
     window.location.href = "/";
-  };
+  }
+};
 
   // In layout.tsx, add this test function
   const testEndpoints = async () => {
@@ -488,7 +503,7 @@ export default function StudentLayout({
         {/* Main Content */}
         <main className="flex-1">
           {/* Batch Context Banner - Shows current batch */}
-          <div className="bg-linear-to-r from-blue-600 to-indigo-600 text-white py-3 px-6">
+          {/* <div className="bg-linear-to-r from-blue-600 to-indigo-600 text-white py-3 px-6">
             <div className="max-w-7xl mx-auto flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium">
@@ -509,7 +524,7 @@ export default function StudentLayout({
                 Refresh
               </button>
             </div>
-          </div>
+          </div> */}
 
           {children}
         </main>
