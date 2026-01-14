@@ -1,11 +1,11 @@
 import { currentUser } from "@/src/lib/currentUser";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 import { CheckCircle, XCircle, Clock } from "lucide-react";
 
 export default async function ResultsPage() {
   const user = await currentUser();
 
-  if (!user) redirect("/login"); // will now work correctly
+  // if (!user) redirect("/login");
 
   const result = {
     status: "Pending",
