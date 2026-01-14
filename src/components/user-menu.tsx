@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // /* eslint-disable @typescript-eslint/no-explicit-any */
 // "use client";
@@ -195,7 +196,7 @@ const clientLogout = async () => {
       ? 'https://server.craftskillsbd.com/api/v1'
       : process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
     
-    console.log('Logout from:', API_URL);
+    // console.log('Logout from:', API_URL);
     
     const response = await fetch(`${API_URL}/auth/logout`, {
       method: "POST", 
@@ -237,9 +238,9 @@ export default function UserMenu() {
           ? 'https://server.craftskillsbd.com/api/v1'
           : process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
         
-        console.log('UserMenu fetching user from:', API_URL);
-        console.log('Current hostname:', window.location.hostname);
-        console.log('Cookies:', document.cookie);
+        // console.log('UserMenu fetching user from:', API_URL);
+        // console.log('Current hostname:', window.location.hostname);
+        // console.log('Cookies:', document.cookie);
         
         const response = await fetch(`${API_URL}/users/profile`, {
           credentials: 'include',
@@ -249,11 +250,11 @@ export default function UserMenu() {
           cache: 'no-store',
         });
         
-        console.log('Profile response status:', response.status);
+        // console.log('Profile response status:', response.status);
         
         if (response.ok) {
           const data = await response.json();
-          console.log('Profile data:', data);
+          // console.log('Profile data:', data);
           
           if (data.success && data.data) {
             setUser(data.data);
@@ -266,12 +267,12 @@ export default function UserMenu() {
             localStorage.removeItem('currentUser');
           }
         } else {
-          console.log('Profile fetch failed:', response.status);
+          // console.log('Profile fetch failed:', response.status);
           setUser(null);
           localStorage.removeItem('currentUser');
         }
       } catch (error) {
-        console.error('Error fetching user:', error);
+        // console.error('Error fetching user:', error);
         setUser(null);
         localStorage.removeItem('currentUser');
       } finally {
@@ -306,7 +307,7 @@ export default function UserMenu() {
     // Listen for login/logout events
     const handleAuthEvent = (event: StorageEvent) => {
       if (event.key === 'auth-state-changed') {
-        console.log('Auth state changed, refetching user...');
+        // console.log('Auth state changed, refetching user...');
         fetchUser();
       }
     };

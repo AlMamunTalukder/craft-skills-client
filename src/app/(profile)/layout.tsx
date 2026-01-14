@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -56,7 +57,7 @@ export default function StudentLayout({
       const API_URL =
         process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
-      console.log("Loading student batches...");
+      // console.log("Loading student batches...");
 
       // Try multiple endpoints in order
       const endpoints = [
@@ -66,7 +67,7 @@ export default function StudentLayout({
 
       for (const endpoint of endpoints) {
         try {
-          console.log(`Trying ${endpoint}...`);
+          // console.log(`Trying ${endpoint}...`);
           const response = await fetch(`${API_URL}${endpoint}`, {
             credentials: "include",
             headers: {
@@ -76,7 +77,7 @@ export default function StudentLayout({
 
           if (response.ok) {
             const data = await response.json();
-            console.log(`Success from ${endpoint}:`, data);
+            // console.log(`Success from ${endpoint}:`, data);
 
             if (
               endpoint === "/users/student-batches" &&
@@ -117,7 +118,7 @@ export default function StudentLayout({
               }
             }
           } else {
-            console.log(`${endpoint} failed:`, response.status);
+            // console.log(`${endpoint} failed:`, response.status);
           }
         } catch (err) {
           console.error(`Error with ${endpoint}:`, err);
@@ -125,10 +126,10 @@ export default function StudentLayout({
       }
 
       // If nothing works, set empty
-      console.log("No batch info found, setting empty");
+      // console.log("No batch info found, setting empty");
       setUserBatches([]);
     } catch (error) {
-      console.error("Error in loadUserBatches:", error);
+      // console.error("Error in loadUserBatches:", error);
       setUserBatches([]);
     } finally {
       setLoading(false);
@@ -158,47 +159,47 @@ export default function StudentLayout({
     const API_URL =
       process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
-    console.log("=== Testing Endpoints ===");
+    // console.log("=== Testing Endpoints ===");
 
     try {
       // Test 1: Simple endpoint
       const test1 = await fetch(`${API_URL}/debug/test`, {
         credentials: "include",
       });
-      console.log("Test 1 (/debug/test):", await test1.json());
+      // console.log("Test 1 (/debug/test):", await test1.json());
 
       // Test 2: Always success
       const test2 = await fetch(`${API_URL}/debug/always-success`, {
         credentials: "include",
       });
-      console.log("Test 2 (/debug/always-success):", await test2.json());
+      // console.log("Test 2 (/debug/always-success):", await test2.json());
 
       // Test 3: Profile endpoint (should work)
       const test3 = await fetch(`${API_URL}/users/profile`, {
         credentials: "include",
       });
-      console.log("Test 3 (/users/profile) status:", test3.status);
-      if (test3.ok) {
-        console.log("Test 3 data:", await test3.json());
-      }
+      // console.log("Test 3 (/users/profile) status:", test3.status);
+      // if (test3.ok) {
+      //   console.log("Test 3 data:", await test3.json());
+      // }
 
       // Test 4: Try my-batches with error handling
       const test4 = await fetch(`${API_URL}/users/my-batches`, {
         credentials: "include",
       });
-      console.log("Test 4 (/users/my-batches) status:", test4.status);
-      console.log("Test 4 headers:", test4.headers.get("content-type"));
+      // console.log("Test 4 (/users/my-batches) status:", test4.status);
+      // console.log("Test 4 headers:", test4.headers.get("content-type"));
 
       if (test4.ok) {
-        console.log("Test 4 data:", await test4.json());
+        // console.log("Test 4 data:", await test4.json());
       } else {
         const errorText = await test4.text();
-        console.log("Test 4 error response:", errorText);
+        // console.log("Test 4 error response:", errorText);
         try {
           const errorJson = JSON.parse(errorText);
-          console.log("Test 4 error JSON:", errorJson);
+          // console.log("Test 4 error JSON:", errorJson);
         } catch {
-          console.log("Test 4 error text (not JSON):", errorText);
+          // console.log("Test 4 error text (not JSON):", errorText);
         }
       }
     } catch (error) {

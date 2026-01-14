@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -133,12 +134,12 @@ export default function MainClassAttendancePage() {
       const currentStatus = currentClass[sessionType];
       const newStatus = !currentStatus;
 
-      console.log("Marking attendance:", {
-        className,
-        sessionType,
-        currentStatus,
-        newStatus,
-      });
+      // console.log("Marking attendance:", {
+      //   className,
+      //   sessionType,
+      //   currentStatus,
+      //   newStatus,
+      // });
 
       const result = await studentAttendanceService.markAttendance({
         className: className,
@@ -146,7 +147,7 @@ export default function MainClassAttendancePage() {
         attended: newStatus,
       });
 
-      console.log("Mark attendance result:", result);
+      // console.log("Mark attendance result:", result);
 
       if (result.success) {
         // Update main classes state immediately

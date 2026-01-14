@@ -173,7 +173,7 @@ export const studentAttendanceService = {
 
   async updateSpecialClass(className: string, attended: boolean) {
     try {
-      console.log("Updating special class:", { className, attended });
+      // console.log("Updating special class:", { className, attended });
 
       const response = await fetch(
         `${API_URL}/student-attendance/special-class`,
@@ -261,7 +261,7 @@ export const studentAttendanceService = {
 
   async getMyBatches() {
     try {
-      console.log("Fetching user batches...");
+      // console.log("Fetching user batches...");
 
       const response = await fetch(`${API_URL}/users/my-batches`, {
         credentials: "include",
@@ -275,7 +275,7 @@ export const studentAttendanceService = {
       }
 
       const result = await response.json();
-      console.log("Batches fetched:", result);
+      // console.log("Batches fetched:", result);
 
       return result;
     } catch (error) {

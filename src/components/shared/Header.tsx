@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // src/components/shared/Header.tsx
@@ -24,9 +25,9 @@ const Header = ({ siteData, logo: logoUrl, user }: HeaderProps) => {
   const pathName = usePathname();
 
   // Add debug logging
-  console.log('Header - User data:', user);
-  console.log('Header - User exists?', !!user);
-  console.log('Header - User properties:', user ? Object.keys(user) : 'No user');
+  // console.log('Header - User data:', user);
+  // console.log('Header - User exists?', !!user);
+  // console.log('Header - User properties:', user ? Object.keys(user) : 'No user');
 
   const displayLogo = logoUrl || logo;
 

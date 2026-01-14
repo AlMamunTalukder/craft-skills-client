@@ -9,7 +9,7 @@ export async function clientLogout(): Promise<{ success: boolean; message: strin
       ? 'https://server.craftskillsbd.com/api/v1'
       : process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
     
-    console.log('Client logout calling:', `${API_URL}/auth/logout`);
+    // console.log('Client logout calling:', `${API_URL}/auth/logout`);
     
     const response = await fetch(`${API_URL}/auth/logout`, {
       method: "POST",
