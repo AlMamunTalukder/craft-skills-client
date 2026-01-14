@@ -3,9 +3,19 @@ import { currentUser } from "@/src/lib/currentUser";
 import { CheckCircle, XCircle, Clock } from "lucide-react";
 
 export default async function ResultsPage() {
-  const user = await currentUser();
+ const user = await currentUser();
 
-  // if (!user) redirect("/login");
+if (!user) {
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-8 text-center">
+      <h2 className="text-2xl font-semibold text-gray-900 mb-4">
+        You are not logged in
+      </h2>
+      <p className="text-gray-600">Please <a href="/login" className="text-blue-600 underline">login</a> to view your results.</p>
+    </div>
+  );
+}
+
 
   const result = {
     status: "Pending",

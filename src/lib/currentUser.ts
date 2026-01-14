@@ -51,10 +51,11 @@ export const currentUser = async () => {
     );
 
     if (!response.ok) return null;
-
     const data = await response.json();
     return data.success ? data.data : null;
-  } catch {
+  } catch (err) {
+    console.error("currentUser fetch error:", err);
     return null;
   }
+
 };
