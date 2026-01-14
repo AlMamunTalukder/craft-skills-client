@@ -19,7 +19,7 @@ export default function LoginForm() {
   const [error, setError] = useState("");
 
   const params = useSearchParams();
-  const returnUrl = params.get("returnUrl") || "/";
+  const returnUrl = params.get("returnUrl") || "/profile";
   const router = useRouter();
 
   async function onSubmit(data: LoginFormData) {
