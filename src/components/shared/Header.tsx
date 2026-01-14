@@ -23,6 +23,11 @@ const Header = ({ siteData, logo: logoUrl, user }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathName = usePathname();
 
+  // Add debug logging
+  console.log('Header - User data:', user);
+  console.log('Header - User exists?', !!user);
+  console.log('Header - User properties:', user ? Object.keys(user) : 'No user');
+
   const displayLogo = logoUrl || logo;
 
   const showPdfMenu = siteData?.showPdfMenu !== false;

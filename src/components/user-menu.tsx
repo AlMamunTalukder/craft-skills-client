@@ -349,6 +349,11 @@ export default function UserMenu() {
     }
   };
 
+  // const handleSignOut = async () => {
+  //   await logout();
+  //   window.location.href = "/login";
+  // };
+
   const getInitials = (name: string | null | undefined): string => {
     return (
       name
