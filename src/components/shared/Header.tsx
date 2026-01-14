@@ -96,7 +96,7 @@ const Header = ({ siteData, logo: logoUrl, user }: HeaderProps) => {
                 </li>
               ))}
             </ul>
-            <UserMenu user={user} />
+            <UserMenu  />
           </nav>
 
           {/* Mobile Menu Button */}
@@ -127,7 +127,7 @@ const Header = ({ siteData, logo: logoUrl, user }: HeaderProps) => {
                 </li>
               ))}
               <li className="flex justify-center items-center">
-                <UserMenu user={user} />
+                <UserMenu  />
               </li>
             </ul>
           </div>
