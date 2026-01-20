@@ -3,8 +3,46 @@
 
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { CheckCircle, XCircle, Star, RefreshCw } from 'lucide-react';
+import { CheckCircle, Star, RefreshCw } from 'lucide-react';
 import { studentAttendanceService } from '@/src/services/studentAttendance';
+import { Skeleton } from '@/components/ui/skeleton';
+
+function SpecialClassAttendanceSkeleton() {
+  return (
+    <div className="min-h-screen bg-linear-to-br from-orange-50 to-red-50 p-4 md:p-6">
+      <div className="max-w-6xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="flex justify-between items-start">
+          <div className="space-y-2">
+            <Skeleton className="h-8 w-72" />
+            <Skeleton className="h-4 w-80" />
+          </div>
+          <Skeleton className="h-10 w-32 rounded-lg" />
+        </div>
+
+        {/* Stats Card */}
+        <Skeleton className="h-40 w-full rounded-xl" />
+
+        {/* Special Class Grid */}
+        <div className="bg-white rounded-xl p-6 space-y-6">
+          <Skeleton className="h-6 w-56" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(5)].map((_, i) => (
+              <Skeleton key={i} className="h-56 w-full rounded-xl" />
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[...Array(3)].map((_, i) => (
+            <Skeleton key={i} className="h-24 w-full rounded-lg" />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function SpecialClassAttendance() {
   const [loading, setLoading] = useState(true);
@@ -101,12 +139,7 @@ export default function SpecialClassAttendance() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-orange-50 to-red-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 font-medium">Loading special classes...</p>
-        </div>
-      </div>
+      <SpecialClassAttendanceSkeleton/>
     );
   }
 

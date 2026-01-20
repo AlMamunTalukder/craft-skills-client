@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { CheckCircle, XCircle, RefreshCw, BarChart3 } from "lucide-react";
 import { studentAttendanceService } from "@/src/services/studentAttendance";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface MainClass {
   className: string;
@@ -14,12 +15,38 @@ interface MainClass {
   practice: boolean;
 }
 
+function MainClassAttendanceSkeleton() {
+  return (
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 p-4 md:p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="flex justify-between items-start">
+          <div className="space-y-2">
+            <Skeleton className="h-8 w-64" />
+          </div>
+          <Skeleton className="h-10 w-36 rounded-lg" />
+        </div>
+
+        {/* Stats Card */}
+        <Skeleton className="h-48 w-full rounded-xl" />
+
+        {/* Classes */}
+        <div className="bg-white rounded-xl p-6 space-y-6">
+          <Skeleton className="h-6 w-56" />
+          {[...Array(5)].map((_, i) => (
+            <Skeleton key={i} className="h-40 w-full rounded-lg" />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function MainClassAttendancePage() {
   const [loading, setLoading] = useState(true);
   const [dashboardData, setDashboardData] = useState<any>(null);
   const [mainClasses, setMainClasses] = useState<MainClass[]>([]);
   const [attendanceHistory, setAttendanceHistory] = useState<any[]>([]);
-  
 
   // Generate 15 main classes
   const generateMainClasses = () => {
@@ -67,7 +94,7 @@ export default function MainClassAttendancePage() {
                 record.className === cls.className &&
                 (record.sessionType === "regular" ||
                   record.sessionType === "problemSolving" ||
-                  record.sessionType === "practice")
+                  record.sessionType === "practice"),
             );
 
             // Find the latest record for each session type
@@ -76,7 +103,7 @@ export default function MainClassAttendancePage() {
               .sort(
                 (a: any, b: any) =>
                   new Date(b.markedAt).getTime() -
-                  new Date(a.markedAt).getTime()
+                  new Date(a.markedAt).getTime(),
               )[0];
 
             const problemSolvingRecord = classHistory
@@ -84,7 +111,7 @@ export default function MainClassAttendancePage() {
               .sort(
                 (a: any, b: any) =>
                   new Date(b.markedAt).getTime() -
-                  new Date(a.markedAt).getTime()
+                  new Date(a.markedAt).getTime(),
               )[0];
 
             const practiceRecord = classHistory
@@ -92,7 +119,7 @@ export default function MainClassAttendancePage() {
               .sort(
                 (a: any, b: any) =>
                   new Date(b.markedAt).getTime() -
-                  new Date(a.markedAt).getTime()
+                  new Date(a.markedAt).getTime(),
               )[0];
 
             return {
@@ -122,12 +149,12 @@ export default function MainClassAttendancePage() {
 
   const markAttendance = async (
     className: string,
-    sessionType: "regular" | "problemSolving" | "practice"
+    sessionType: "regular" | "problemSolving" | "practice",
   ) => {
     try {
       // Find current attendance status
       const currentClass = mainClasses.find(
-        (cls) => cls.className === className
+        (cls) => cls.className === className,
       );
       if (!currentClass) return;
 
@@ -155,8 +182,8 @@ export default function MainClassAttendancePage() {
           prev.map((cls) =>
             cls.className === className
               ? { ...cls, [sessionType]: newStatus }
-              : cls
-          )
+              : cls,
+          ),
         );
 
         // Update dashboard stats if available
@@ -177,7 +204,7 @@ export default function MainClassAttendancePage() {
         toast.success(
           `Attendance ${
             newStatus ? "marked" : "unmarked"
-          } for ${className} - ${sessionType}`
+          } for ${className} - ${sessionType}`,
         );
       } else {
         toast.error(result.message || "Failed to mark attendance");
@@ -217,19 +244,7 @@ export default function MainClassAttendancePage() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-blue-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 font-medium">
-            Loading your attendance...
-          </p>
-          <p className="text-sm text-gray-500">
-            Fetching your profile and attendance data
-          </p>
-        </div>
-      </div>
-    );
+    return <MainClassAttendanceSkeleton />;
   }
 
   if (!dashboardData) {
@@ -266,7 +281,6 @@ export default function MainClassAttendancePage() {
               <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
                 Main Class Attendance
               </h1>
-              
             </div>
             <button
               onClick={loadAllData}
