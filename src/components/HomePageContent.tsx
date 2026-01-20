@@ -12,7 +12,7 @@ import Testimonials from "./home/Testimonials";
 import TotalClass from "./home/TotalClass";
 import TrainerSection from "./home/TrainerSection";
 import WhyCourse from "./home/WhyCourse";
-import { getClassSchedule } from "../lib/api";
+import { getClassSchedule } from "@/lib/api";
 
 
 const HomePageContent = async () => {

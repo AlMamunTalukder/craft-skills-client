@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/tooltip";
 import { CircleHelp, MonitorUp } from "lucide-react";
 import { Controller, useFormContext } from "react-hook-form";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 
 
 type TextInputProps = {

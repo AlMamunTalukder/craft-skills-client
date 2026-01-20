@@ -11,7 +11,7 @@ import Image from "next/image";
 import Container from "./Container";
 import Link from "next/link";
 import bg from "@/public/img/bg.webp";
-import { getSiteData } from "@/src/lib/api";
+import { getSiteData } from "@/lib/api";
 
 export default async function Footer() {
   

@@ -15,6 +15,7 @@ import {
   Home,
   ChevronDown,
 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface Batch {
   _id: string;
@@ -22,6 +23,30 @@ interface Batch {
   name: string;
   isActive: boolean;
   admissionId?: string;
+}
+
+
+function StudentLayoutSkeleton() {
+  return (
+    <div className="min-h-screen flex bg-gray-50">
+      {/* Sidebar */}
+      <aside className="hidden lg:block w-64 bg-gray-900 p-6 space-y-4">
+        <Skeleton className="h-6 w-32 bg-gray-700" />
+        <Skeleton className="h-10 w-full bg-gray-700" />
+        <div className="space-y-3 mt-6">
+          {[...Array(5)].map((_, i) => (
+            <Skeleton key={i} className="h-10 w-full bg-gray-700" />
+          ))}
+        </div>
+      </aside>
+
+      {/* Main content */}
+      <main className="flex-1 p-6">
+        <Skeleton className="h-8 w-64 mb-6" />
+        <Skeleton className="h-40 w-full rounded-xl" />
+      </main>
+    </div>
+  );
 }
 
 export default function StudentLayout({
@@ -168,25 +193,20 @@ export default function StudentLayout({
 
   if (loading || !currentBatch) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your batches...</p>
-        </div>
-      </div>
+   <StudentLayoutSkeleton/>
     );
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your batches...</p>
-        </div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+  //       <div className="text-center">
+  //         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+  //         <p className="text-gray-600">Loading your batches...</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   if (!currentBatch && userBatches.length === 0) {
     return (

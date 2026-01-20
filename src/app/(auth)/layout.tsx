@@ -1,4 +1,4 @@
-import { currentUser } from "@/src/lib/currentUser";
+import { currentUser } from "@/lib/currentUser";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 

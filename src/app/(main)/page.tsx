@@ -5,8 +5,8 @@ import HomePageContent from "@/src/components/HomePageContent";
 import Container from "@/src/components/shared/Container";
 import Header from "@/src/components/shared/Header";
 import SubHeader from "@/src/components/shared/SubHeader";
-import { activeSeminar, getSiteData } from "@/src/lib/api";
-import { currentUser } from "@/src/lib/currentUser";
+import { activeSeminar, getSiteData } from "@/lib/api";
+import { currentUser } from "@/lib/currentUser";
 
 export const dynamic = "force-dynamic";
 

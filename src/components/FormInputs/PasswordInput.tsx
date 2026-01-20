@@ -10,7 +10,7 @@ import {
 import { CircleHelp, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { Controller, useFormContext } from "react-hook-form";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 
 type PasswordInputProps = {
   name: string;

@@ -4,8 +4,8 @@ import Header from "@/src/components/shared/Header";
 import Banner from "@/src/components/home/Banner";
 import HomePageContent from "@/src/components/HomePageContent";
 import FAQSection from "@/src/components/home/FAQSection";
-import { getActiveBatch, getCourses, getSiteData } from "@/src/lib/api";
-import { currentUser } from "@/src/lib/currentUser";
+import { getActiveBatch, getCourses, getSiteData } from "@/lib/api";
+import { currentUser } from "@//lib/currentUser";
 import AdmissionForm from "@/src/components/Forms/Admission/AdmissionForm";
 
 export const dynamic = "force-dynamic";

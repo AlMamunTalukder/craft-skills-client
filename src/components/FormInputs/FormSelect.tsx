@@ -14,7 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
 interface Option {

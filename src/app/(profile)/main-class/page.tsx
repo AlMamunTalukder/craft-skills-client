@@ -335,9 +335,9 @@ export default function MainClassAttendancePage() {
             {mainClasses.map((cls, index) => (
               <div
                 key={index}
-                className="border border-gray-200 rounded-lg p-5 hover:border-blue-300 transition"
+                className="border border-gray-200 rounded-lg p-5 hover:border-blue-300 transition "
               >
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-4 ">
                   <h4 className="text-lg font-bold text-gray-800">
                     {cls.className}
                   </h4>
@@ -376,7 +376,7 @@ export default function MainClassAttendancePage() {
                   {/* Regular Session */}
                   <button
                     onClick={() => markAttendance(cls.className, "regular")}
-                    className={`border-2 rounded-lg p-4 transition-all duration-200 flex items-center justify-between ${
+                    className={`border-2 rounded-lg p-4 transition-all duration-200 flex items-center justify-between cursor-pointer ${
                       cls.regular
                         ? "border-green-500 bg-green-50 hover:bg-green-100"
                         : "border-orange-300 bg-orange-50 hover:bg-orange-100 hover:border-orange-400"
@@ -412,7 +412,7 @@ export default function MainClassAttendancePage() {
                     onClick={() =>
                       markAttendance(cls.className, "problemSolving")
                     }
-                    className={`border-2 rounded-lg p-4 transition-all duration-200 flex items-center justify-between ${
+                    className={`border-2 rounded-lg p-4 transition-all duration-200 flex items-center justify-between cursor-pointer ${
                       cls.problemSolving
                         ? "border-green-500 bg-green-50 hover:bg-green-100"
                         : "border-orange-300 bg-orange-50 hover:bg-orange-100 hover:border-orange-400"
@@ -448,7 +448,7 @@ export default function MainClassAttendancePage() {
                   {/* Practice Session */}
                   <button
                     onClick={() => markAttendance(cls.className, "practice")}
-                    className={`border-2 rounded-lg p-4 transition-all duration-200 flex items-center justify-between ${
+                    className={`border-2 rounded-lg p-4 transition-all duration-200 flex items-center justify-between cursor-pointer ${
                       cls.practice
                         ? "border-green-500 bg-green-50 hover:bg-green-100"
                         : "border-orange-300 bg-orange-50 hover:bg-orange-100 hover:border-orange-400"

@@ -1,6 +1,6 @@
 // app/admission/_components/SubHeaderWrapper.tsx
 import SubHeaderAdmission from "@/src/components/shared/SubHeaderAdmission";
-import { getActiveBatch, getSiteData } from "@/src/lib/api";
+import { getActiveBatch, getSiteData } from "@/lib/api";
 
 export default async function SubHeaderWrapper() {
   const [batch, siteData] = await Promise.all([

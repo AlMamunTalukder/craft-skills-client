@@ -11,7 +11,7 @@ import TextInput from "./FormInputs/TextInput";
 import PasswordInput from "./FormInputs/PasswordInput";
 import SubmitButton from "./FormInputs/SubmitButton";
 import { RegisterFormData, registerFormSchema } from "@/schemas/auth";
-import { registration } from "../lib/api";
+import { registration } from "@/lib/api";
 
 const AuthRegistrationForm = () => {
   const [loading, setLoading] = useState(false);

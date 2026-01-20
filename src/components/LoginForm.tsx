@@ -12,7 +12,8 @@ import AppForm from "./Forms/AppForm";
 import TextInput from "./FormInputs/TextInput";
 import PasswordInput from "./FormInputs/PasswordInput";
 import SubmitButton from "./FormInputs/SubmitButton";
-import { login } from "../lib/api";
+import { login } from "@/lib/api";
+
 
 export default function LoginForm() {
   const [loading, setLoading] = useState(false);

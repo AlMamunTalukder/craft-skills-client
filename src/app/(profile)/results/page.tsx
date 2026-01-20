@@ -65,6 +65,7 @@
 
 import { useState, useEffect } from "react";
 import { CheckCircle, Clock, AlertCircle } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
@@ -87,6 +88,27 @@ async function getStudentResult() {
     console.error("Error fetching result:", error);
     return { success: false, data: null, message: "Failed to fetch result" };
   }
+}
+
+function ResultSkeleton() {
+  return (
+    <div className="max-w-3xl mx-auto px-4 py-8 space-y-10">
+      {/* Header */}
+      <div className="space-y-3">
+        <Skeleton className="h-8 w-64" />
+        <Skeleton className="h-4 w-48" />
+        <Skeleton className="h-4 w-40" />
+      </div>
+
+      {/* Result Card */}
+      <div className="rounded-2xl bg-gray-50 p-8 space-y-6">
+        <Skeleton className="h-14 w-14 rounded-full mx-auto" />
+        <Skeleton className="h-10 w-52 mx-auto" />
+        <Skeleton className="h-5 w-64 mx-auto" />
+        <Skeleton className="h-4 w-40 mx-auto" />
+      </div>
+    </div>
+  );
 }
 
 export default function ResultsPage() {
@@ -172,14 +194,7 @@ export default function ResultsPage() {
   };
 
   if (loading) {
-    return (
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading result...</p>
-        </div>
-      </div>
-    );
+    return <ResultSkeleton />;
   }
 
   if (error) {
@@ -255,8 +270,6 @@ export default function ResultsPage() {
           ).toLocaleDateString()}
         </p>
       </div>
-
-      
     </div>
   );
 }

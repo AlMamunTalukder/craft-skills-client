@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { getActiveSeminar, getSiteData } from "@/src/lib/api";
+import { getActiveSeminar, getSiteData } from "@/lib/api";
 import Header from "@/src/components/shared/Header";
-import { currentUser } from "@/src/lib/currentUser";
+import { currentUser } from "@/lib/currentUser";
 import SeminarPDFDownloadForm from "@/src/components/Forms/SeminarConfirmationForm";
 
 export const dynamic = "force-dynamic";
