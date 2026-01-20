@@ -9,14 +9,11 @@ export async function logout(): Promise<{ success: boolean; message: string }> {
       {
         method: "POST",
         credentials: "include",
-      }
+      },
     );
 
     const cookieStore = await cookies();
-    cookieStore.delete("craftskills.session");
-
-    // const cookieStore = await cookies();
-    // cookieStore.delete("connect.sid");
+    cookieStore.delete("connect.sid");
 
     if (!response.ok) {
       return response.json();
@@ -43,19 +40,19 @@ export const currentUser = async () => {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/users/profile`,
       {
+    
         headers: {
           Cookie: cookieHeader,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     if (!response.ok) return null;
+
     const data = await response.json();
     return data.success ? data.data : null;
-  } catch (err) {
-    console.error("currentUser fetch error:", err);
+  } catch {
     return null;
   }
-
 };

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -15,7 +14,6 @@ import {
   X,
   Home,
   ChevronDown,
-  RefreshCw,
 } from "lucide-react";
 
 interface Batch {
@@ -57,84 +55,78 @@ export default function StudentLayout({
       const API_URL =
         process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
-      // console.log("Loading student batches...");
+      try {
+        const response = await fetch(`${API_URL}/users/my-batches`, {
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-      // Try multiple endpoints in order
-      const endpoints = [
-        "/users/student-batches", // New endpoint if you add it
-        "/users/profile", // Fallback to profile
-      ];
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.data.batches.length > 0) {
+            const batches = data.data.batches;
+            setUserBatches(batches);
+            setCurrentBatch(batches[0]);
 
-      for (const endpoint of endpoints) {
-        try {
-          // console.log(`Trying ${endpoint}...`);
-          const response = await fetch(`${API_URL}${endpoint}`, {
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+            localStorage.setItem("selectedBatchId", batches[0]._id);
+            localStorage.setItem("selectedBatchNumber", batches[0].batchNumber);
+            return;
+          }
+        }
+      } catch (err) {
+        console.error("Error loading batches:", err);
+      }
 
-          if (response.ok) {
-            const data = await response.json();
-            // console.log(`Success from ${endpoint}:`, data);
+      // Fallback: try profile endpoint
+      try {
+        const response = await fetch(`${API_URL}/users/profile`, {
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-            if (
-              endpoint === "/users/student-batches" &&
-              data.success &&
-              data.data.batches.length > 0
-            ) {
-              // Handle student-batches response
-              const batches = data.data.batches;
-              setUserBatches(batches);
-              setCurrentBatch(batches[0]);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success && data.data) {
+            const user = data.data;
+            if (user.batchNumber) {
+              const batch = {
+                _id: user.batchId || `temp-${user._id}`,
+                batchNumber: user.batchNumber,
+                name: `Batch ${user.batchNumber}`,
+                isActive: user.status === "active",
+                admissionId: user.admissionId,
+              };
 
-              localStorage.setItem("selectedBatchId", batches[0]._id);
-              localStorage.setItem(
-                "selectedBatchNumber",
-                batches[0].batchNumber
-              );
+              setUserBatches([batch]);
+              setCurrentBatch(batch);
+
+              localStorage.setItem("selectedBatchId", batch._id);
+              localStorage.setItem("selectedBatchNumber", batch.batchNumber);
               return;
             }
-
-            if (endpoint === "/users/profile" && data.success && data.data) {
-              // Create batch from profile data
-              const user = data.data;
-              if (user.batchNumber) {
-                const batch = {
-                  _id: user.batchId || `temp-${user._id}`,
-                  batchNumber: user.batchNumber,
-                  name: `Batch ${user.batchNumber}`,
-                  isActive: user.status === "active",
-                  admissionId: user.admissionId,
-                };
-
-                setUserBatches([batch]);
-                setCurrentBatch(batch);
-
-                localStorage.setItem("selectedBatchId", batch._id);
-                localStorage.setItem("selectedBatchNumber", batch.batchNumber);
-                return;
-              }
-            }
-          } else {
-            // console.log(`${endpoint} failed:`, response.status);
           }
-        } catch (err) {
-          console.error(`Error with ${endpoint}:`, err);
         }
+      } catch (err) {
+        console.error("Error loading profile:", err);
       }
 
       // If nothing works, set empty
-      // console.log("No batch info found, setting empty");
       setUserBatches([]);
     } catch (error) {
-      // console.error("Error in loadUserBatches:", error);
+      console.error("Error in loadUserBatches:", error);
       setUserBatches([]);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadUserBatches();
+  }, []);
 
   const switchBatch = (batch: Batch) => {
     setCurrentBatch(batch);
@@ -148,83 +140,29 @@ export default function StudentLayout({
     window.location.reload();
   };
 
- const handleSignOut = async () => {
-  try {
-    const API_URL =
-      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
-
-    await fetch(`${API_URL}/auth/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
-  } catch (error) {
-    console.error("Logout failed:", error);
-  } finally {
-    // Clear local state
-    localStorage.removeItem("selectedBatchId");
-    localStorage.removeItem("selectedBatchNumber");
-
-    // Force full reload to reset auth state
-    window.location.href = "/";
-  }
-};
-
-  // In layout.tsx, add this test function
-  const testEndpoints = async () => {
-    const API_URL =
-      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
-
-    // console.log("=== Testing Endpoints ===");
-
+  const handleSignOut = async () => {
     try {
-      // Test 1: Simple endpoint
-      const test1 = await fetch(`${API_URL}/debug/test`, {
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+
+      await fetch(`${API_URL}/auth/logout`, {
+        method: "POST",
         credentials: "include",
       });
-      // console.log("Test 1 (/debug/test):", await test1.json());
-
-      // Test 2: Always success
-      const test2 = await fetch(`${API_URL}/debug/always-success`, {
-        credentials: "include",
-      });
-      // console.log("Test 2 (/debug/always-success):", await test2.json());
-
-      // Test 3: Profile endpoint (should work)
-      const test3 = await fetch(`${API_URL}/users/profile`, {
-        credentials: "include",
-      });
-      // console.log("Test 3 (/users/profile) status:", test3.status);
-      // if (test3.ok) {
-      //   console.log("Test 3 data:", await test3.json());
-      // }
-
-      // Test 4: Try my-batches with error handling
-      const test4 = await fetch(`${API_URL}/users/my-batches`, {
-        credentials: "include",
-      });
-      // console.log("Test 4 (/users/my-batches) status:", test4.status);
-      // console.log("Test 4 headers:", test4.headers.get("content-type"));
-
-      if (test4.ok) {
-        // console.log("Test 4 data:", await test4.json());
-      } else {
-        const errorText = await test4.text();
-        // console.log("Test 4 error response:", errorText);
-        try {
-          const errorJson = JSON.parse(errorText);
-          // console.log("Test 4 error JSON:", errorJson);
-        } catch {
-          // console.log("Test 4 error text (not JSON):", errorText);
-        }
-      }
     } catch (error) {
-      console.error("Test error:", error);
+      console.error("Logout failed:", error);
+    } finally {
+      // Clear local state
+      localStorage.removeItem("selectedBatchId");
+      localStorage.removeItem("selectedBatchNumber");
+
+      // Force full reload to reset auth state
+      window.location.href = "/";
     }
   };
 
   // Call this in useEffect
   useEffect(() => {
-    testEndpoints();
     loadUserBatches();
   }, []);
 
@@ -501,33 +439,7 @@ export default function StudentLayout({
         )}
 
         {/* Main Content */}
-        <main className="flex-1">
-          {/* Batch Context Banner - Shows current batch */}
-          {/* <div className="bg-linear-to-r from-blue-600 to-indigo-600 text-white py-3 px-6">
-            <div className="max-w-7xl mx-auto flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm font-medium">
-                  Batch {currentBatch.batchNumber}
-                </div>
-                <span className="text-sm opacity-90">{currentBatch.name}</span>
-                {!currentBatch.isActive && (
-                  <span className="bg-yellow-500 bg-opacity-30 px-2 py-1 rounded text-xs">
-                    Completed
-                  </span>
-                )}
-              </div>
-              <button
-                onClick={() => window.location.reload()}
-                className="flex items-center gap-2 px-3 py-1 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg text-sm transition"
-              >
-                <RefreshCw size={14} />
-                Refresh
-              </button>
-            </div>
-          </div> */}
-
-          {children}
-        </main>
+        <main className="flex-1">{children}</main>
       </div>
     </div>
   );
