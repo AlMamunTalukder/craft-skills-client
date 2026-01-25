@@ -4,7 +4,7 @@ import { IoMdChatbubbles } from "react-icons/io";
 const ChatBot = () => {
   return (
     <button
-      className="fixed bottom-3 right-6 p-2 text-white bg-[#4F6ACA] rounded-full shadow-lg transition-all duration-300 z-50"
+      className="fixed bottom-3 right-6 p-2 text-white bg-[#4F6ACA] rounded-full shadow-lg transition-all duration-300 z-50 cursor-pointer"
       aria-label="Scroll to Top"
     >
       <IoMdChatbubbles className="h-7 w-7" />
