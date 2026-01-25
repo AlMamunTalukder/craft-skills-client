@@ -56,11 +56,11 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
     const discountAmount = (basePrice * discountPercent) / 100;
     const priceAfterCourseDiscount = basePrice - discountAmount;
     const totalWithCharge = Math.round(
-      priceAfterCourseDiscount + paymentCharge,
+      priceAfterCourseDiscount + paymentCharge
     );
     const finalTotal = Math.max(
       0,
-      totalWithCharge - couponState.discountAmount,
+      totalWithCharge - couponState.discountAmount
     );
 
     return {
@@ -94,7 +94,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
       const result = await validateCoupon(
         couponInput.trim(),
         priceDetails.totalWithCharge,
-        selectedCourse.id,
+        selectedCourse.id
       );
       if (result.valid && result.success) {
         setCouponState({
@@ -158,7 +158,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
       toast.success("Success!", { id: toastId });
       router.push(
-        `/admission-registration/success?name=${data.name}&amount=${priceDetails?.finalTotal}`,
+        `/admission-registration/success?name=${data.name}&amount=${priceDetails?.finalTotal}`
       );
     } catch (error: any) {
       toast.error(error.message || "Failed", { id: toastId });
@@ -189,7 +189,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                 শেষ তারিখ:{" "}
                 {(() => {
                   const rawDate = batch.registrationEnd;
-                  // Extract date string whether it's a string, Date object, or MongoDB {$date: ...} object
+
                   const dateValue =
                     typeof rawDate === "object" &&
                     rawDate !== null &&
@@ -199,7 +199,6 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
                   const parsedDate = new Date(dateValue);
 
-                  // If parsing fails, don't show a fake date
                   if (isNaN(parsedDate.getTime())) return "নির্ধারিত নয়";
 
                   return parsedDate.toLocaleDateString("bn-BD", {

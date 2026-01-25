@@ -133,44 +133,6 @@ export const studentAttendanceService = {
     }
   },
 
-  // async updateSpecialClass(
-  //   className: string,
-  //   attended: boolean
-  // ): Promise<{
-  //   success: boolean;
-  //   data?: any;
-  //   message?: string;
-  // }> {
-  //   try {
-  //     const response = await fetch(
-  //       `${API_URL}/student-attendance/special-class`,
-  //       {
-  //         method: 'POST',
-  //         credentials: 'include',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           className,
-  //           attended,
-  //         }),
-  //       }
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! status: ${response.status}`);
-  //     }
-
-  //     return await response.json();
-  //   } catch (error: any) {
-  //     console.error('Error updating special class:', error);
-  //     return {
-  //       success: false,
-  //       message: error.message || 'Failed to update special class',
-  //     };
-  //   }
-  // },
-
   async updateSpecialClass(className: string, attended: boolean) {
     try {
       // console.log("Updating special class:", { className, attended });
