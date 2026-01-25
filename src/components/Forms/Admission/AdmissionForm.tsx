@@ -6,9 +6,7 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import { Sparkles } from "lucide-react"; 
-
-
+import { Sparkles } from "lucide-react";
 import SubmitButton from "../../FormInputs/SubmitButton";
 import CourseSelection from "./CourseSelection";
 import CouponSection from "./CouponSection";
@@ -57,10 +55,21 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
     const paymentCharge = selectedCourse.paymentCharge || 0;
     const discountAmount = (basePrice * discountPercent) / 100;
     const priceAfterCourseDiscount = basePrice - discountAmount;
-    const totalWithCharge = Math.round(priceAfterCourseDiscount + paymentCharge);
-    const finalTotal = Math.max(0, totalWithCharge - couponState.discountAmount);
+    const totalWithCharge = Math.round(
+      priceAfterCourseDiscount + paymentCharge,
+    );
+    const finalTotal = Math.max(
+      0,
+      totalWithCharge - couponState.discountAmount,
+    );
 
-    return { basePrice, discountPercent, paymentCharge, totalWithCharge, finalTotal };
+    return {
+      basePrice,
+      discountPercent,
+      paymentCharge,
+      totalWithCharge,
+      finalTotal,
+    };
   }, [selectedCourse, couponState.discountAmount]);
 
   // Handlers
@@ -68,7 +77,13 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
     const course = courses.find((c) => c.id === courseId);
     setSelectedCourse(course || null);
     setCouponInput("");
-    setCouponState({ code: "", applied: false, discountAmount: 0, error: null, loading: false });
+    setCouponState({
+      code: "",
+      applied: false,
+      discountAmount: 0,
+      error: null,
+      loading: false,
+    });
   };
 
   const handleCouponApply = async () => {
@@ -76,7 +91,11 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
     setCouponState((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
-      const result = await validateCoupon(couponInput.trim(), priceDetails.totalWithCharge, selectedCourse.id);
+      const result = await validateCoupon(
+        couponInput.trim(),
+        priceDetails.totalWithCharge,
+        selectedCourse.id,
+      );
       if (result.valid && result.success) {
         setCouponState({
           code: couponInput.trim(),
@@ -87,17 +106,31 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
         });
         toast.success("Coupon applied!");
       } else {
-        setCouponState((prev) => ({ ...prev, error: result.message, loading: false }));
+        setCouponState((prev) => ({
+          ...prev,
+          error: result.message,
+          loading: false,
+        }));
         toast.error(result.message);
       }
     } catch (error) {
-      setCouponState((prev) => ({ ...prev, error: "Validation failed", loading: false }));
+      setCouponState((prev) => ({
+        ...prev,
+        error: "Validation failed",
+        loading: false,
+      }));
     }
   };
 
   const handleRemoveCoupon = () => {
     setCouponInput("");
-    setCouponState({ code: "", applied: false, discountAmount: 0, error: null, loading: false });
+    setCouponState({
+      code: "",
+      applied: false,
+      discountAmount: 0,
+      error: null,
+      loading: false,
+    });
   };
 
   const onSubmit = async (data: admissionFormData) => {
@@ -124,7 +157,9 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
       if (!result.success) throw new Error(result.message);
 
       toast.success("Success!", { id: toastId });
-      router.push(`/admission-registration/success?name=${data.name}&amount=${priceDetails?.finalTotal}`);
+      router.push(
+        `/admission-registration/success?name=${data.name}&amount=${priceDetails?.finalTotal}`,
+      );
     } catch (error: any) {
       toast.error(error.message || "Failed", { id: toastId });
     }
@@ -141,20 +176,38 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
       <div className="max-w-4xl mx-auto relative">
         <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-xl">
-          
           {/* Header Section */}
           <div className="bg-linear-to-r from-[#4f0187] to-[#6d0b99] p-4 md:p-8 text-white text-center">
             <div className="flex items-center justify-center content-center md:gap-3 mb-2">
               <Sparkles className="w-6 h-6 text-yellow-300" />
-              <h2 className="text-lg md:text-2xl font-bold">ভর্তি নিশ্চিত করতে ফরমটি পূরণ করুন</h2>
+              <h2 className="text-lg md:text-2xl font-bold">
+                ভর্তি নিশ্চিত করতে ফরমটি পূরণ করুন
+              </h2>
             </div>
             {batch?.registrationEnd && (
               <span className="inline-block bg-white/10 px-4 py-1 rounded-full text-yellow-300 text-sm md:text-base border border-white/20">
-                শেষ তারিখ: {new Date(batch.registrationEnd).toLocaleDateString("bn-BD", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+                শেষ তারিখ:{" "}
+                {(() => {
+                  const rawDate = batch.registrationEnd;
+                  // Extract date string whether it's a string, Date object, or MongoDB {$date: ...} object
+                  const dateValue =
+                    typeof rawDate === "object" &&
+                    rawDate !== null &&
+                    "$date" in rawDate
+                      ? (rawDate as any).$date
+                      : rawDate;
+
+                  const parsedDate = new Date(dateValue);
+
+                  // If parsing fails, don't show a fake date
+                  if (isNaN(parsedDate.getTime())) return "নির্ধারিত নয়";
+
+                  return parsedDate.toLocaleDateString("bn-BD", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  });
+                })()}
               </span>
             )}
           </div>
@@ -168,7 +221,10 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
             >
               <div className="space-y-6">
                 {/* 1. Course Selection */}
-                <CourseSelection courses={courses} onCourseSelect={handleCourseChange} />
+                <CourseSelection
+                  courses={courses}
+                  onCourseSelect={handleCourseChange}
+                />
 
                 {/* 2. Coupon Section */}
                 <CouponSection
@@ -205,7 +261,6 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
             </AppForm>
           </div>
           {/* End Form Content */}
-
         </div>
       </div>
     </div>

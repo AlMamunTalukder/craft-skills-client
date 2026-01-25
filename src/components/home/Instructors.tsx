@@ -23,7 +23,7 @@ const Instructors = async () => {
   {
     "name": "আহমেদ ইমতিয়াজ সাব্বির",
     "image": imteaz,
-    "designation": "ডাবিং ডিরেক্টর"
+    "designation": "ডাবিং আর্টিস্ট"
   },
   {
     "name": "মোহাম্মদ সেলিম",

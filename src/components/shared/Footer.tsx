@@ -159,7 +159,7 @@ export default async function Footer() {
           <div className="border-t border-gray-700/50 mt-10 pt-6 text-center md:text-left">
             <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-300">
               <p>
-                © {new Date().getFullYear()} ক্রাফট ইনস্টিটিউট। সর্বস্বত্ব
+                © {new Date().getFullYear()} ক্রাফট স্কিলস। সর্বস্বত্ব
                 সংরক্ষিত।
               </p>
               <div className="flex gap-4 mt-2 md:mt-0">

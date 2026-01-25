@@ -33,12 +33,12 @@ export default function PersonalInfo() {
           icon={MessageSquare}
           className="border-blue-200"
         />
-        <TextInput
+        {/* <TextInput
           label="পেশা"
           name="occupation"
           icon={Briefcase}
           className="border-blue-200"
-        />
+        /> */}
         <TextInput
           label="ফেসবুক প্রোফাইল"
           name="facebook"
@@ -46,9 +46,9 @@ export default function PersonalInfo() {
           className="border-blue-200"
         />
       </div>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <TextArea name="address" label="ঠিকানা" rows={3} />
-      </div>
+      </div> */}
     </div>
   );
 }
