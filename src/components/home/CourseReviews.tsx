@@ -1,14 +1,8 @@
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
 import CourseStats from "./CourseStats";
-// import { db } from "@/prisma/db";
 
 const CourseReviews = async () => {
-  // const data = await db.siteContent.findFirst();
-
-  // if (!data) {
-  //   return null;
-  // }
 
   return (
     <div className="bg-[#4F0187] py-5 text-white mt-20 relative">
@@ -35,7 +29,7 @@ const CourseReviews = async () => {
           <div className="grid grid-cols-2 gap-5 mb-20">
             <div className="w-full h-full">
               <iframe
-                className="w-full h-[80px] md:h-60 rounded-md"
+                className="w-full h-20 md:h-60 rounded-md"
                 src="https://www.youtube.com/embed/YJCLej4So28?si=pwDvFDQLW5d6ZkAf"
                 title="Student Review 1"
                 frameBorder="0"
@@ -44,7 +38,7 @@ const CourseReviews = async () => {
             </div>
             <div className="w-full h-full">
               <iframe
-                className="w-full h-[80px] md:h-60 rounded-md"
+                className="w-full h-20 md:h-60 rounded-md"
                 src="https://www.youtube.com/embed/iWgUXArA9F8?si=MdpC_QdBlFbF5aDJ"
                 title="Student Review 1"
                 frameBorder="0"
@@ -55,7 +49,7 @@ const CourseReviews = async () => {
         </div>
       </Container>
       <div className="absolute -top-60 left-1/2 transform -translate-x-1/2 w-full">
-        {/* <CourseStats data={data} /> */}
+      
         <CourseStats />
       </div>
     </div>
