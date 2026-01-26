@@ -15,27 +15,17 @@ export default function AdmissionSuccessPage() {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [batch, setBatch] = useState<Batch | null>(null);
-  // const [siteData, setSiteData] = useState<SiteContent | null>(null);
 
   const participantName = searchParams.get("name");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch active batch
         const batchResponse = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL || ""}/course-batches/active`,
         );
         const batchResult = await batchResponse.json();
-
-        // Fetch site data
-        // const siteResponse = await fetch(
-        //   `${process.env.NEXT_PUBLIC_API_URL || ""}/site`,
-        // );
-        // const siteResult = await siteResponse.json();
-
         if (batchResult.success) setBatch(batchResult.data);
-        // if (siteResult.success) setSiteData(siteResult.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -138,13 +128,13 @@ export default function AdmissionSuccessPage() {
 
               {/* Contact Info */}
               <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm relative overflow-hidden">
-                {/* Subtle decorative background element */}
+               
                 <div className="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-full -mr-12 -mt-12 opacity-50"></div>
 
                 <h4 className="font-bold text-gray-800 mb-5 text-lg flex items-center justify-center gap-2">
-                  <span className="w-8 h-[2px] bg-purple-200"></span>
+                  <span className="w-8 h-0.5 bg-purple-200"></span>
                   কোন সাহায্য প্রয়োজন?
-                  <span className="w-8 h-[2px] bg-purple-200"></span>
+                  <span className="w-8 h-0.5 bg-purple-200"></span>
                 </h4>
 
                 <div className="space-y-4 relative">
@@ -154,7 +144,7 @@ export default function AdmissionSuccessPage() {
                     className="w-full h-auto py-3 justify-start border-purple-100 hover:border-purple-600 hover:bg-purple-50 transition-all duration-300 group"
                     asChild
                   >
-                    <Link href="tel:01310726000" className="flex items-center">
+                    <Link href="tel:01700999093" className="flex items-center">
                       <div className="bg-purple-100 p-2 rounded-lg mr-3 group-hover:bg-purple-600 transition-colors">
                         <PhoneCall className="h-5 w-5 text-purple-600 group-hover:text-white" />
                       </div>
@@ -163,7 +153,7 @@ export default function AdmissionSuccessPage() {
                           সরাসরি কল করুন
                         </span>
                         <span className="text-gray-800 font-bold">
-                          01310726000
+                          01700999093
                         </span>
                       </div>
                     </Link>
@@ -176,7 +166,7 @@ export default function AdmissionSuccessPage() {
                     asChild
                   >
                     <Link
-                      href="https://wa.me/8801310726000"
+                      href="https://wa.me/8801700999093"
                       target="_blank"
                       className="flex items-center"
                     >
@@ -188,7 +178,7 @@ export default function AdmissionSuccessPage() {
                           হোয়াটসঅ্যাপ ম্যাসেজ
                         </span>
                         <span className="text-gray-800 font-bold">
-                          01310726000
+                          01700999093
                         </span>
                         <span className="text-[10px] md:text-xs text-green-700 mt-1 leading-tight">
                           স্ক্রিনশট সহ আমাদের ম্যাসেজ করুন

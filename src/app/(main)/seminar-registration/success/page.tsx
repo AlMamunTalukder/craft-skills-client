@@ -2,6 +2,7 @@
 // src/app/seminar-registration/success/page.tsx
 "use client";
 
+import { Button } from "@/components/ui/button";
 import click from "@/public/img/touch.png";
 import Container from "@/src/components/shared/Container";
 import {
@@ -15,13 +16,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaFacebookF, FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
+
 
 export const dynamic = "force-dynamic";
 
 export default function SeminarRegistrationSuccessPage() {
   const [seminar, setSeminar] = useState<any>(null);
-  const [siteData, setSiteData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,18 +29,12 @@ export default function SeminarRegistrationSuccessPage() {
       try {
         // Fetch active seminar
         const seminarResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`
+          `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`,
         );
         const seminarResult = await seminarResponse.json();
 
-        // Fetch site data
-        const siteResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || ""}/api/v1/site`
-        );
-        const siteResult = await siteResponse.json();
-
         if (seminarResult.success) setSeminar(seminarResult.data);
-        if (siteResult.success) setSiteData(siteResult.data);
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -187,39 +181,72 @@ export default function SeminarRegistrationSuccessPage() {
                 </div>
 
                 {/* Contact Section */}
-                <div className="border border-gray-200 rounded-lg p-6 text-center">
-                  <h4 className="font-bold text-gray-800 mb-4 text-lg">
-                    কোন সাহায্য প্রয়োজন?
-                  </h4>
-                  <div className="space-y-3">
-                    <a
-                      href="tel:01700999093"
-                      className="inline-flex items-center justify-center text-[#3C016F] hover:text-purple-800 font-medium text-lg hover:underline"
-                    >
-                      <PhoneCall className="h-5 w-5 mr-2" />
-                      01700999093
-                    </a>
-                    <br />
-                    <a
-                      href="tel:01310726000"
-                      className="inline-flex items-center justify-center text-[#3C016F] hover:text-purple-800 font-medium text-lg hover:underline"
-                    >
-                      <PhoneCall className="h-5 w-5 mr-2" />
-                      01310726000
-                    </a>
-                  </div>
 
-                  {siteData?.email && (
-                    <div className="mt-4">
-                      <a
-                        href={`mailto:${siteData.email}`}
-                        className="inline-flex items-center justify-center text-[#3C016F] hover:text-purple-800 font-medium hover:underline"
+                <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm relative overflow-hidden">
+                  {/* Subtle decorative background element */}
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-full -mr-12 -mt-12 opacity-50"></div>
+
+                  <h4 className="font-bold text-gray-800 mb-5 text-lg flex items-center justify-center gap-2">
+                    <span className="w-8 h-0.5 bg-purple-200"></span>
+                    কোন সাহায্য প্রয়োজন?
+                    <span className="w-8 h-0.5 bg-purple-200"></span>
+                  </h4>
+
+                  <div className="space-y-4 relative">
+                    {/* Direct Call Button */}
+                    <Button
+                      variant="outline"
+                      className="w-full h-auto py-3 justify-start border-purple-100 hover:border-purple-600 hover:bg-purple-50 transition-all duration-300 group"
+                      asChild
+                    >
+                      <Link
+                        href="tel:01700999093"
+                        className="flex items-center"
                       >
-                        <MdEmail className="h-5 w-5 mr-2" />
-                        {siteData.email}
-                      </a>
-                    </div>
-                  )}
+                        <div className="bg-purple-100 p-2 rounded-lg mr-3 group-hover:bg-purple-600 transition-colors">
+                          <PhoneCall className="h-5 w-5 text-purple-600 group-hover:text-white" />
+                        </div>
+                        <div className="flex flex-col items-start">
+                          <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">
+                            সরাসরি কল করুন
+                          </span>
+                          <span className="text-gray-800 font-bold">
+                            01700999093
+                          </span>
+                        </div>
+                      </Link>
+                    </Button>
+
+                    {/* WhatsApp Button */}
+                    <Button
+                      variant="outline"
+                      className="w-full h-auto py-3 justify-start border-green-100 hover:border-green-600 hover:bg-green-50 transition-all duration-300 group"
+                      asChild
+                    >
+                      <Link
+                        href="https://wa.me/8801700999093"
+                        target="_blank"
+                        className="flex items-center"
+                      >
+                        <div className="bg-green-100 p-2 rounded-lg mr-3 group-hover:bg-[#25D366] transition-colors">
+                          <FaWhatsapp className="h-5 w-5 text-[#25D366] group-hover:text-white" />
+                        </div>
+                        <div className="flex flex-col items-start">
+                          <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">
+                            হোয়াটসঅ্যাপ ম্যাসেজ
+                          </span>
+                          <span className="text-gray-800 font-bold">
+                            01700999093
+                          </span>
+                          <span className="text-[10px] md:text-xs text-green-700 mt-1 leading-tight">
+                            স্ক্রিনশট সহ আমাদের ম্যাসেজ করুন
+                          </span>
+                        </div>
+                      </Link>
+                    </Button>
+
+                   
+                  </div>
                 </div>
 
                 {/* Back to Home Button */}

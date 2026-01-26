@@ -36,7 +36,7 @@ const Header = ({ siteData, logo: logoUrl, user }: HeaderProps) => {
   const baseMenuItems = [
     { name: "Home", href: "/" },
     { name: "Admission", href: "/admission" },
-    { name: "Review", href: "#reviews" },
+    { name: "Review", href: "/reviews" },
   ];
 
   const pdfMenuItem = {

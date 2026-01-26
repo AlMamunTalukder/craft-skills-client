@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-
 import { Schedule, Seminar, SiteContent } from "@/types";
 
 const API_URL =
@@ -9,12 +8,10 @@ const API_URL =
 
 export async function getSiteData(): Promise<SiteContent | null> {
   try {
-    const response = await fetch(`${API_URL}/site`, {
-     
-    });
+    const response = await fetch(`${API_URL}/site`, {});
 
     const result = await response.json();
-    
+
     if (result.success && result.data) {
       return {
         ...result.data,
@@ -31,10 +28,7 @@ export async function getSiteData(): Promise<SiteContent | null> {
 
 export async function getActiveBatch() {
   try {
-    const response = await fetch(`${API_URL}/course-batches/active`, {
-      cache: "no-store",
-     
-    });
+    const response = await fetch(`${API_URL}/course-batches/active`);
 
     const result = await response.json();
     // console.log(result)
@@ -63,10 +57,7 @@ export async function getActiveBatch() {
 
 export async function getCourses() {
   try {
-    const response = await fetch(`${API_URL}/courses`, {
-      cache: "no-store",
-      
-    });
+    const response = await fetch(`${API_URL}/courses`);
 
     const result = await response.json();
 
@@ -90,10 +81,7 @@ export async function getCourses() {
 
 export async function activeSeminar(): Promise<Seminar | null> {
   try {
-    const response = await fetch(
-      `${API_URL}/seminars/active`,
-      {  },
-    );
+    const response = await fetch(`${API_URL}/seminars/active`);
 
     if (!response.ok) return null;
 
@@ -106,13 +94,7 @@ export async function activeSeminar(): Promise<Seminar | null> {
 
 export async function getClassSchedule(): Promise<Schedule[] | null> {
   try {
-    const response = await fetch(
-      `${API_URL}/class-schedule`,
-      {
-        cache: "no-store",
-     
-      },
-    );
+    const response = await fetch(`${API_URL}/class-schedule`);
 
     if (!response.ok) return null;
 
@@ -136,16 +118,13 @@ export async function registration(
       batchNumber: data.batchNumber,
     };
 
-    const response = await fetch(
-      `${API_URL}/auth/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(registrationData),
-      }
-    );
+    const response = await fetch(`${API_URL}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registrationData),
+    });
 
     if (!response.ok) {
       return response.json();
@@ -165,17 +144,14 @@ export async function login(
   data: any,
 ): Promise<{ success: boolean; message: string; token?: string }> {
   try {
-    const response = await fetch(
-      `${API_URL}/auth/login`,
-      {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+    const response = await fetch(`${API_URL}/auth/login`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify(data),
+    });
 
     if (!response.ok) {
       return response.json();
@@ -191,7 +167,9 @@ export async function login(
   }
 }
 
-export async function checkBatchExists(batchNumber: string): Promise<{ exists: boolean }> {
+export async function checkBatchExists(
+  batchNumber: string,
+): Promise<{ exists: boolean }> {
   try {
     const response = await fetch(
       `${API_URL}/course-batches/check/${batchNumber}`,
@@ -200,7 +178,7 @@ export async function checkBatchExists(batchNumber: string): Promise<{ exists: b
         headers: {
           "Content-Type": "application/json",
         },
-      }
+      },
     );
 
     if (!response.ok) {
@@ -215,48 +193,42 @@ export async function checkBatchExists(batchNumber: string): Promise<{ exists: b
   }
 }
 
-
 export const api = {
   async getAttendance(batchId: string) {
     const response = await fetch(
       `${API_URL}/student-attendance/my-attendance?batchId=${batchId}`,
       {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
-        }
-      }
+          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+        },
+      },
     );
     return response.json();
   },
 
   async saveAttendance(data: any) {
-    const response = await fetch(
-      `${API_URL}/student-attendance/save`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
-        },
-        body: JSON.stringify(data)
-      }
-    );
+    const response = await fetch(`${API_URL}/student-attendance/save`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+      },
+      body: JSON.stringify(data),
+    });
     return response.json();
-  }
+  },
 };
 
 // Add this to your lib/api.ts file if not already there
 export async function getActiveSeminar() {
   try {
-    const response = await fetch(`${API_URL}/seminars/active`, {
-     
-    });
-    
+    const response = await fetch(`${API_URL}/seminars/active`, {});
+
     if (!response.ok) {
       // console.error(`API error: ${response.status}`);
       return null;
     }
-    
+
     const result = await response.json();
     return result.success ? result.data : null;
   } catch (error) {
@@ -265,14 +237,14 @@ export async function getActiveSeminar() {
   }
 }
 
-
-export async function updateSiteSettings(data: any): Promise<{ success: boolean; data?: any; message: string }> {
+export async function updateSiteSettings(
+  data: any,
+): Promise<{ success: boolean; data?: any; message: string }> {
   try {
-    
     const response = await fetch(`${API_URL}/site`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
@@ -283,17 +255,19 @@ export async function updateSiteSettings(data: any): Promise<{ success: boolean;
     // console.error('Error updating site settings:', error);
     return {
       success: false,
-      message: 'Failed to update site settings',
+      message: "Failed to update site settings",
     };
   }
 }
 
-export async function updatePdfSettings(showPdfMenu: boolean): Promise<{ success: boolean; data?: any; message: string }> {
+export async function updatePdfSettings(
+  showPdfMenu: boolean,
+): Promise<{ success: boolean; data?: any; message: string }> {
   try {
-    const response = await fetch('/api/site/pdf-settings', {
-      method: 'PUT',
+    const response = await fetch("/api/site/pdf-settings", {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',   
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ showPdfMenu }),
     });
@@ -301,10 +275,10 @@ export async function updatePdfSettings(showPdfMenu: boolean): Promise<{ success
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Error updating PDF settings:', error);
+    console.error("Error updating PDF settings:", error);
     return {
       success: false,
-      message: 'Failed to update PDF settings',
+      message: "Failed to update PDF settings",
     };
   }
 }
