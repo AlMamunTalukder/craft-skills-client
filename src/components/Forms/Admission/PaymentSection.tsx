@@ -5,7 +5,7 @@ import FormSelect from "../../FormInputs/FormSelect";
 
 const paymentOptions = [
   { id: "bkash", name: "বিকাশ", logo: "/img/bkash.svg", number: "01830327579", type: "এজেন্ট (ক্যাশ আউট)" },
-  { id: "rocket", name: "রকেট", logo: "/img/Rocket.svg", number: "018211813339", type: "পার্সোনাল (সেন্ড মানি)" },
+  { id: "rocket", name: "রকেট", logo: "/img/rocket.svg", number: "018211813339", type: "পার্সোনাল (সেন্ড মানি)" },
   { id: "nagad", name: "নগদ", logo: "/img/nagad.svg", number: "01704682820", type: "পার্সোনাল (সেন্ড মানি)" },
 ];
 
