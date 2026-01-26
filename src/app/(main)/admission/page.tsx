@@ -31,17 +31,17 @@ export default async function AdmissionPage() {
       <HomePageContent />
 
       <div id="admission" className="scroll-mt-[140px]">
-        {/* FIX 2: Check if batch exists before rendering the form */}
         {batch ? (
           <AdmissionForm batch={batch} courses={courses} />
         ) : (
-          <></>
-          // <div className="py-16 text-center bg-gray-50 rounded-2xl border border-gray-200 mx-auto max-w-4xl">
-          //   <h2 className="text-2xl font-bold text-gray-600">
-          //     বর্তমানে কোনো ভর্তি কার্যক্রম চলছে না।
-          //   </h2>
-          //   <p className="text-gray-500 mt-2">পরবর্তী ব্যাচের জন্য অপেক্ষা করুন।</p>
-          // </div>
+          <div className="py-16 text-center bg-gray-50 rounded-2xl border border-gray-200 mx-auto max-w-4xl">
+            <h2 className="text-2xl font-bold text-gray-600">
+              বর্তমানে কোনো ভর্তি কার্যক্রম চলছে না।
+            </h2>
+            <p className="text-gray-500 mt-2">
+              পরবর্তী ব্যাচের জন্য অপেক্ষা করুন।
+            </p>
+          </div>
         )}
       </div>
 

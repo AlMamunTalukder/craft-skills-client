@@ -25,7 +25,6 @@ interface Batch {
   admissionId?: string;
 }
 
-
 function StudentLayoutSkeleton() {
   return (
     <div className="min-h-screen flex bg-gray-50">
@@ -192,21 +191,8 @@ export default function StudentLayout({
   }, []);
 
   if (loading || !currentBatch) {
-    return (
-   <StudentLayoutSkeleton/>
-    );
+    return <StudentLayoutSkeleton />;
   }
-
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-  //       <div className="text-center">
-  //         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-  //         <p className="text-gray-600">Loading your batches...</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   if (!currentBatch && userBatches.length === 0) {
     return (

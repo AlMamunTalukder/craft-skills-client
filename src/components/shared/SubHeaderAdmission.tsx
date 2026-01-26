@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // components/SubHeaderAdmission.tsx
 "use client";
 
@@ -105,10 +106,10 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
       }`}
     >
       <div className="max-w-[1100px] w-full mx-auto px-5 ">
-        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[2px] md:space-y-0">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-0.5 md:space-y-0">
           <div className="flex items-center md:items-start flex-col text-center md:text-left md:px-2">
             <h3 className="text-[13px] md:text-[17px] leading-tight">
-              {batch?.name}
+              {batch?.name} 
             </h3>
             <div className="flex items-center gap-1 text-xs sm:text-base text-gray-200 font-medium">
               <span>{batch?.description}</span>
@@ -137,7 +138,7 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
           </div>
 
           {/* Social Icon */}
-          <div className="flex justify-center md:justify-end mb-[6px] md:mb-2 pt-1">
+          <div className="flex justify-center md:justify-end mb-1.5 md:mb-2 pt-1">
             <div className="hidden md:flex items-center gap-3 md:gap-2">
               {socialLinks.map((social, index) => (
                 <Link
