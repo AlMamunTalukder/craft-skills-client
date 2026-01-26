@@ -32,8 +32,8 @@ export async function getSiteData(): Promise<SiteContent | null> {
 export async function getActiveBatch() {
   try {
     const response = await fetch(`${API_URL}/course-batches/active`, {
-      cache: "force-cache",
-      next: { revalidate: 1000 * 60 * 1 }, 
+      cache: "no-store",
+     
     });
 
     const result = await response.json();
@@ -64,8 +64,8 @@ export async function getActiveBatch() {
 export async function getCourses() {
   try {
     const response = await fetch(`${API_URL}/courses`, {
-      cache: "force-cache",
-      next: { revalidate: 1000 * 60 * 5 }, // 5 minutes
+      cache: "no-store",
+      
     });
 
     const result = await response.json();
@@ -109,8 +109,8 @@ export async function getClassSchedule(): Promise<Schedule[] | null> {
     const response = await fetch(
       `${API_URL}/class-schedule`,
       {
-        cache: "force-cache",
-        next: { revalidate: 1000 * 60 * 5 }, // 5 minutes
+        cache: "no-store",
+     
       },
     );
 
