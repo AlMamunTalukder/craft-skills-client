@@ -1,4 +1,4 @@
-import { CreditCard, Send } from "lucide-react";
+import { CreditCard, Send, Clock } from "lucide-react";
 import Image from "next/image";
 import TextInput from "../../FormInputs/TextInput";
 import FormSelect from "../../FormInputs/FormSelect";
@@ -19,7 +19,7 @@ export default function PaymentSection() {
   return (
     <>
       {/* Numbers Display */}
-      <div className="bg-emerald-50 rounded-2xl p-4 md:p-6 border border-emerald-100">
+      <div className="bg-emerald-50 rounded-2xl p-4 md:p-6 border border-emerald-100 mb-6">
         <h3 className="font-semibold text-emerald-800 mb-4 flex items-center gap-2">
           <CreditCard className="w-5 h-5" /> পেমেন্ট নাম্বার সমূহ
         </h3>
@@ -39,14 +39,26 @@ export default function PaymentSection() {
       </div>
 
       {/* Input Fields */}
-      <div className="bg-emerald-50 rounded-2xl p-4 md:p-6 border border-emerald-100">
-        <h3 className="font-semibold text-emerald-800 mb-4 flex items-center gap-2">
-          <CreditCard className="w-5 h-5" /> পেমেন্ট তথ্য
+      <div className="bg-emerald-50  rounded-2xl p-4 md:p-6 border border-gray-200 shadow-sm">
+        <h3 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <CreditCard className="w-5 h-5 text-emerald-600" /> পেমেন্ট তথ্য দিন
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <FormSelect name="paymentMethod" label="পেমেন্ট মেথড *" options={paymentMethods} required />
           <TextInput label="সেন্ডার নাম্বার *" name="senderNumber" icon={Send} />
         </div>
+
+        {/* UPDATED: Verification Checkbox Section */}
+        <div className="rounded-xl border border-orange-200 bg-orange-50/50 p-4 hover:bg-orange-50 transition-colors duration-300">
+          <label className="flex items-start gap-3 group select-none">
+            <div className="flex items-center gap-1.5 mt-1 text-xs md:text-sm text-orange-700 font-medium">
+                <Clock className="w-3.5 h-3.5" />
+                <span>আপনার পেমেন্ট ৬ ঘন্টার মধ্যে যাচাই করা হবে।</span>
+              </div>
+          </label>
+        </div>
+
       </div>
     </>
   );
