@@ -7,6 +7,7 @@ import Header from "@/src/components/shared/Header";
 import SubHeader from "@/src/components/shared/SubHeader";
 import { activeSeminar, getSiteData } from "@/lib/api";
 import { currentUser } from "@/lib/currentUser";
+import SectionTitle from "@/src/components/shared/SectionTitle";
 
 export const dynamic = "force-dynamic";
 
@@ -38,10 +39,14 @@ export default async function HomePage() {
 
       {seminar && (
         <Container>
+          
           <div
             id="registration-form"
-            className="scroll-mt-[180px] md:scroll-mt-[140px] border-purple-600 bg-[#4F0187] border-t-4 p-5 md:p-10 my-10 rounded-lg shadow-lg shadow-purple-500/50 text-white"
+            className="scroll-mt-[180px] md:scroll-mt-[140px] "
           >
+            <SectionTitle
+        text="রেজিস্ট্রেশন করুন"
+      />
             <SeminarForm seminarId={seminar._id} />
           </div>
         </Container>

@@ -35,7 +35,7 @@ export default function SubmitButton({
           type="button"
           disabled
           className={cn(
-            "flex items-center justify-center rounded-md bg-gray-800/70 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm cursor-not-allowed focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-gray-600",
+            "flex items-center justify-center rounded-md bg-gray-800/70 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-gray-600 cursor-pointer",
             className,
           )}
         >
@@ -43,11 +43,11 @@ export default function SubmitButton({
           {loadingTitle}
         </button>
       ) : (
-        <button
+        <button            
           disabled={loading || formState.isSubmitting}
           type="submit"
           className={cn(
-            "flex items-center justify-center rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-gray-600",
+            "flex items-center justify-center rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-gray-600 cursor-pointer",
             className,
           )}
         >
