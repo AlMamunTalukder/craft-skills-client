@@ -71,6 +71,14 @@ export default function MainClassAttendancePage() {
     try {
       setLoading(true);
 
+      // Get current batch from localStorage
+      const currentBatchNumber = localStorage.getItem("selectedBatchNumber");
+
+      if (!currentBatchNumber) {
+        toast.error("No batch selected. Please select a batch first.");
+        return;
+      }
+
       // 1. Load dashboard data
       const dashboardResult = await studentAttendanceService.getDashboard();
 
@@ -80,16 +88,21 @@ export default function MainClassAttendancePage() {
         // 2. Initialize main classes
         const generatedClasses = generateMainClasses();
 
-        // 3. Load attendance history and update class status
+        // 3. Load attendance history for current batch
         const historyResult =
           await studentAttendanceService.getAttendanceHistory(100);
-        if (historyResult.success && historyResult.data) {
-          setAttendanceHistory(historyResult.data || []);
 
-          // Update class attendance status based on history
-          // IMPORTANT: Only consider records where attended === true
+        if (historyResult.success && historyResult.data) {
+          // Filter history for current batch only
+          const batchHistory = historyResult.data.filter(
+            (record: any) => record.batchId === currentBatchNumber,
+          );
+
+          setAttendanceHistory(batchHistory);
+
+          // Update class attendance status based on batch history
           const updatedClasses = generatedClasses.map((cls) => {
-            const classHistory = historyResult.data.filter(
+            const classHistory = batchHistory.filter(
               (record: any) =>
                 record.className === cls.className &&
                 (record.sessionType === "regular" ||
@@ -134,8 +147,6 @@ export default function MainClassAttendancePage() {
         } else {
           setMainClasses(generatedClasses);
         }
-
-        // toast.success("All data loaded successfully");
       } else {
         toast.error(dashboardResult.message || "Failed to load dashboard data");
       }

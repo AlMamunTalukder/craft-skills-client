@@ -59,8 +59,9 @@ export const studentAttendanceService = {
     }
   },
 
-  // Mark attendance
-  async markAttendance(data: AttendanceData) {
+  // In studentAttendanceService.ts, update markAttendance:
+
+  async markAttendance(data: AttendanceData & { batchNumber?: string }) {
     try {
       const response = await fetch(`${API_URL}/student-attendance/mark`, {
         method: "POST",
@@ -70,6 +71,8 @@ export const studentAttendanceService = {
       });
 
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Mark attendance error:", errorText);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -91,7 +94,7 @@ export const studentAttendanceService = {
         {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -116,7 +119,7 @@ export const studentAttendanceService = {
         {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
-        }
+        },
       );
 
       if (!response.ok) {
@@ -132,7 +135,6 @@ export const studentAttendanceService = {
       };
     }
   },
-
 
   async updateSpecialClass(className: string, attended: boolean) {
     try {
@@ -150,7 +152,7 @@ export const studentAttendanceService = {
             className,
             attended,
           }),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -186,7 +188,7 @@ export const studentAttendanceService = {
   // Update guest class attendance
   async updateGuestClass(
     className: string,
-    attended: boolean
+    attended: boolean,
   ): Promise<{
     success: boolean;
     data?: any;
@@ -205,7 +207,7 @@ export const studentAttendanceService = {
             className,
             attended,
           }),
-        }
+        },
       );
 
       if (!response.ok) {
