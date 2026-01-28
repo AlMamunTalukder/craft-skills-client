@@ -4,7 +4,6 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { LoginFormData, loginFormSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Lock, ShieldCheck } from "lucide-react";
-// import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";

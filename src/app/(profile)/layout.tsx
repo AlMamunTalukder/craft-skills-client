@@ -16,6 +16,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import toast from "react-hot-toast";
 
 interface Batch {
   _id: string;
@@ -68,7 +69,6 @@ export default function StudentLayout({
     { name: "Results", href: "/results", icon: Award },
   ];
 
-  // Load user's batches on mount
   useEffect(() => {
     loadUserBatches();
   }, []);
@@ -91,70 +91,221 @@ export default function StudentLayout({
           const data = await response.json();
           if (data.success && data.data.batches.length > 0) {
             const batches = data.data.batches;
-            setUserBatches(batches);
-            setCurrentBatch(batches[0]);
 
-            localStorage.setItem("selectedBatchId", batches[0]._id);
-            localStorage.setItem("selectedBatchNumber", batches[0].batchNumber);
+            // Get current batch info
+            let currentBatch = batches[0];
+
+            // Try to find batch matching currentBatchId
+            if (data.data.currentBatch?.currentBatchId) {
+              const foundBatch = batches.find(
+                (batch: Batch) =>
+                  batch._id === data.data.currentBatch.currentBatchId,
+              );
+              if (foundBatch) {
+                currentBatch = foundBatch;
+              }
+            }
+
+            setUserBatches(batches);
+            setCurrentBatch(currentBatch);
+
+            localStorage.setItem("selectedBatchId", currentBatch._id);
+            localStorage.setItem(
+              "selectedBatchNumber",
+              currentBatch.batchNumber,
+            );
             return;
           }
+        } else {
+          // If 403 error, try the alternative endpoint
+          console.warn("my-batches endpoint failed, trying fallback...");
+          await loadUserBatchesFallback();
         }
       } catch (err) {
         console.error("Error loading batches:", err);
-      }
-
-      // Fallback: try profile endpoint
-      try {
-        const response = await fetch(`${API_URL}/users/profile`, {
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.success && data.data) {
-            const user = data.data;
-            if (user.batchNumber) {
-              const batch = {
-                _id: user.batchId || `temp-${user._id}`,
-                batchNumber: user.batchNumber,
-                name: `Batch ${user.batchNumber}`,
-                isActive: user.status === "active",
-                admissionId: user.admissionId,
-              };
-
-              setUserBatches([batch]);
-              setCurrentBatch(batch);
-
-              localStorage.setItem("selectedBatchId", batch._id);
-              localStorage.setItem("selectedBatchNumber", batch.batchNumber);
-              return;
-            }
-          }
-        }
-      } catch (err) {
-        console.error("Error loading profile:", err);
+        await loadUserBatchesFallback();
       }
 
       // If nothing works, set empty
       setUserBatches([]);
+      setCurrentBatch(null);
     } catch (error) {
       console.error("Error in loadUserBatches:", error);
       setUserBatches([]);
+      setCurrentBatch(null);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    loadUserBatches();
-  }, []);
+  // Fallback function if main endpoint fails
+  const loadUserBatchesFallback = async () => {
+    try {
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
-  const switchBatch = (batch: Batch) => {
-    setCurrentBatch(batch);
+      // Try to get user profile first
+      const profileResponse = await fetch(`${API_URL}/users/my-profile`, {
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (profileResponse.ok) {
+        const profileData = await profileResponse.json();
+        if (profileData.success) {
+          const user = profileData.data;
+
+          // Create batches array from user data
+          const batches: Batch[] = [];
+
+          if (user.batchNumbers && user.batchNumbers.length > 0) {
+            // Create batch objects from batch numbers
+            user.batchNumbers.forEach((batchNumber: string, index: number) => {
+              batches.push({
+                _id:
+                  user.currentBatchId?._id?.toString() ||
+                  `batch-${batchNumber}`,
+                batchNumber: batchNumber,
+                name: `Batch ${batchNumber}`,
+                isActive: true,
+                admissionId: user.admissionIds?.[index]?.toString(),
+              });
+            });
+          }
+
+          // Set current batch
+          let currentBatch = batches[0];
+          if (user.currentBatchNumber) {
+            const foundBatch = batches.find(
+              (batch) => batch.batchNumber === user.currentBatchNumber,
+            );
+            if (foundBatch) currentBatch = foundBatch;
+          }
+
+          setUserBatches(batches);
+          setCurrentBatch(currentBatch);
+
+          localStorage.setItem("selectedBatchId", currentBatch._id);
+          localStorage.setItem("selectedBatchNumber", currentBatch.batchNumber);
+        }
+      }
+    } catch (error) {
+      console.error("Error in fallback:", error);
+    }
+  };
+
+  // const loadUserBatches = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const API_URL =
+  //       process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+
+  //     try {
+  //       const response = await fetch(`${API_URL}/users/my-batches`, {
+  //         credentials: "include",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         if (data.success && data.data.batches.length > 0) {
+  //           const batches = data.data.batches;
+  //           setUserBatches(batches);
+  //           setCurrentBatch(batches[0]);
+
+  //           localStorage.setItem("selectedBatchId", batches[0]._id);
+  //           localStorage.setItem("selectedBatchNumber", batches[0].batchNumber);
+  //           return;
+  //         }
+  //       }
+  //     } catch (err) {
+  //       console.error("Error loading batches:", err);
+  //     }
+
+  //     // Fallback: try profile endpoint
+  //     try {
+  //       const response = await fetch(`${API_URL}/users/profile`, {
+  //         credentials: "include",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
+
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         if (data.success && data.data) {
+  //           const user = data.data;
+  //           if (user.batchNumber) {
+  //             const batch = {
+  //               _id: user.batchId || `temp-${user._id}`,
+  //               batchNumber: user.batchNumber,
+  //               name: `Batch ${user.batchNumber}`,
+  //               isActive: user.status === "active",
+  //               admissionId: user.admissionId,
+  //             };
+
+  //             setUserBatches([batch]);
+  //             setCurrentBatch(batch);
+
+  //             localStorage.setItem("selectedBatchId", batch._id);
+  //             localStorage.setItem("selectedBatchNumber", batch.batchNumber);
+  //             return;
+  //           }
+  //         }
+  //       }
+  //     } catch (err) {
+  //       console.error("Error loading profile:", err);
+  //     }
+
+  //     // If nothing works, set empty
+  //     setUserBatches([]);
+  //   } catch (error) {
+  //     console.error("Error in loadUserBatches:", error);
+  //     setUserBatches([]);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const switchBatch = async (batch: Batch) => {
+    setLoading(true);
     setBatchSwitcherOpen(false);
+
+    try {
+      // Option 1: If you have a backend endpoint to update current batch
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+
+      // Update current batch on server
+      const response = await fetch(`${API_URL}/users/switch-batch`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          batchId: batch._id,
+          batchNumber: batch.batchNumber,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          toast.success("Batch switched successfully!");
+        }
+      }
+    } catch (error) {
+      console.error("Error switching batch:", error);
+      toast.error("Failed to switch batch. Please try again.");
+    }
+
+    // Update local state
+    setCurrentBatch(batch);
 
     // Save to localStorage
     localStorage.setItem("selectedBatchId", batch._id);
@@ -163,6 +314,18 @@ export default function StudentLayout({
     // Reload the page to fetch new batch data
     window.location.reload();
   };
+
+  // const switchBatch = (batch: Batch) => {
+  //   setCurrentBatch(batch);
+  //   setBatchSwitcherOpen(false);
+
+  //   // Save to localStorage
+  //   localStorage.setItem("selectedBatchId", batch._id);
+  //   localStorage.setItem("selectedBatchNumber", batch.batchNumber);
+
+  //   // Reload the page to fetch new batch data
+  //   window.location.reload();
+  // };
 
   const handleSignOut = async () => {
     try {
