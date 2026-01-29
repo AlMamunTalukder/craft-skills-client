@@ -39,7 +39,7 @@ const OurActivitiesSlider = () => {
       </div>
       <div className="flex justify-end py-5">
           <Link href="#">
-            <button className="flex items-center gap-2 bg-linear-to-r from-[#DC25FF] to-[#3C016F] border border-white px-4 py-2 rounded text-white">
+            <button className="flex items-center gap-2 bg-linear-to-r from-[#DC25FF] to-[#3C016F] border border-white px-4 py-2 rounded text-white cursor-pointer">
               সব দেখুন <MdArrowForward />
             </button>
           </Link>

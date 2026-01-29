@@ -177,7 +177,7 @@ export default function SpecialClassAttendance() {
                 setRefreshing(true);
                 loadSpecialClassData();
               }}
-              className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition disabled:opacity-50"
+              className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition disabled:opacity-50 cursor-pointer"
               disabled={refreshing}
             >
               <RefreshCw
@@ -260,7 +260,7 @@ export default function SpecialClassAttendance() {
                       specialClass.attended,
                     )
                   }
-                  className={`w-full py-3 rounded-lg font-medium transition ${
+                  className={`w-full py-3 rounded-lg font-medium transition cursor-pointer ${
                     specialClass.attended
                       ? "bg-green-100 text-green-800 hover:bg-green-200"
                       : "bg-linear-to-r from-orange-600 to-orange-700 text-white hover:from-orange-700 hover:to-orange-800"

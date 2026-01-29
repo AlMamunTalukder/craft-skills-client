@@ -265,7 +265,7 @@ export default function MainClassAttendancePage() {
           </p>
           <button
             onClick={loadAllData}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer"
           >
             Try Again
           </button>
@@ -289,7 +289,7 @@ export default function MainClassAttendancePage() {
             </div>
             <button
               onClick={loadAllData}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-md hover:shadow-lg"
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-md hover:shadow-lg cursor-pointer"
             >
               <RefreshCw size={18} />
               Refresh Data

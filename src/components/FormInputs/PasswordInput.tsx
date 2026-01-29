@@ -57,7 +57,7 @@ export default function PasswordInput({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <button type="button">
+                <button type="button" className="cursor-pointer">
                   <CircleHelp className="w-4 h-4 text-slate-500" />
                 </button>
               </TooltipTrigger>
@@ -98,7 +98,7 @@ export default function PasswordInput({
                       prev === "password" ? "text" : "password",
                     )
                   }
-                  className="bg-white py-2 px-3 rounded-tr-md rounded-br-md absolute inset-y-0 right-1 my-[2px] flex items-center"
+                  className="bg-white py-2 px-3 rounded-tr-md rounded-br-md absolute inset-y-0 right-1 my-[2px] flex items-center cursor-pointer"
                 >
                   {passType === "password" ? (
                     <Eye className="w-4 h-4 text-slate-600" />

@@ -108,7 +108,7 @@ const Header = ({ siteData, logo: logoUrl, user }: HeaderProps) => {
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button
-              className="p-2 text-gray-600 hover:text-[#1ab69d] transition-colors duration-300"
+              className="p-2 text-gray-600 hover:text-[#1ab69d] transition-colors duration-300 cursor-pointer"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             >

@@ -161,7 +161,7 @@ export default function GuestClassAttendance() {
                 setRefreshing(true);
                 loadGuestClassData();
               }}
-              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50"
+              className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition disabled:opacity-50 cursor-pointer"
               disabled={refreshing}
             >
               <RefreshCw size={18} className={refreshing ? 'animate-spin' : ''} />
@@ -228,7 +228,7 @@ export default function GuestClassAttendance() {
 
                 <button
                   onClick={() => toggleAttendance(guestClass.className, guestClass.attended)}
-                  className={`w-full py-3 rounded-lg font-medium transition ${
+                  className={`w-full py-3 rounded-lg font-medium transition cursor-pointer ${
                     guestClass.attended
                       ? 'bg-green-100 text-green-800 hover:bg-green-200'
                       : 'bg-linear-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800'

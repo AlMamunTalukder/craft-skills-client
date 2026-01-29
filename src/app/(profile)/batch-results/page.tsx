@@ -172,7 +172,7 @@ export default function CurrentBatchResultsPage() {
           {state.authError && (
             <button
               onClick={() => router.push("/login")}
-              className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 rounded-lg hover:bg-red-100"
+              className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-700 rounded-lg hover:bg-red-100 cursor-pointer"
             >
               <LogIn size={18} /> <span>Login</span>
             </button>
@@ -180,7 +180,7 @@ export default function CurrentBatchResultsPage() {
           <button
             onClick={() => fetchResult(true)}
             disabled={state.refreshing}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100"
+            className="flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 cursor-pointer"
           >
             <RefreshCw
               size={18}

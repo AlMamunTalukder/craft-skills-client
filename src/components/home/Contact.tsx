@@ -86,7 +86,7 @@ const Contact = () => {
             <div className="flex justify-center content-center items-center md:col-span-2">
               <button
                 type="submit"
-                className=" flex content-center items-center justify-center gap-2 w-[200px] bg-[#FFCB2C] text-lg py-3 rounded-md text-black"
+                className=" flex content-center items-center justify-center gap-2 w-[200px] bg-[#FFCB2C] text-lg py-3 rounded-md text-black cursor-pointer" 
               >
                 <FaRegArrowAltCircleRight />
                 জমা দিন

@@ -66,7 +66,7 @@ export default function TextInput({
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <button type="button">
+                <button type="button" className="cursor-pointer">
                   <CircleHelp className="w-4 h-4 text-slate-500" />
                 </button>
               </TooltipTrigger>

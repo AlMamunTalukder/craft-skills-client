@@ -399,7 +399,7 @@ export default function StudentLayout({
         <div className="flex items-center justify-between">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 hover:bg-gray-100 rounded"
+            className="p-2 hover:bg-gray-100 rounded cursor-pointer"
           >
             {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -408,7 +408,7 @@ export default function StudentLayout({
           <div className="relative">
             <button
               onClick={() => setBatchSwitcherOpen(!batchSwitcherOpen)}
-              className="flex items-center gap-2 px-3 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition"
+              className="flex items-center gap-2 px-3 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition cursor-pointer"
             >
               <span className="font-semibold">
                 Batch {currentBatch.batchNumber}
@@ -427,7 +427,7 @@ export default function StudentLayout({
                   <button
                     key={batch._id}
                     onClick={() => switchBatch(batch)}
-                    className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition flex items-center justify-between ${
+                    className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition flex items-center justify-between cursor-pointer ${
                       currentBatch._id === batch._id ? "bg-blue-50" : ""
                     }`}
                   >
@@ -450,7 +450,7 @@ export default function StudentLayout({
 
           <button
             onClick={handleSignOut}
-            className="p-2 text-red-600 hover:bg-red-50 rounded"
+            className="p-2 text-red-600 hover:bg-red-50 rounded cursor-pointer"
           >
             <LogOut size={20} />
           </button>
@@ -467,7 +467,7 @@ export default function StudentLayout({
             <div className="mt-4 relative">
               <button
                 onClick={() => setBatchSwitcherOpen(!batchSwitcherOpen)}
-                className="w-full flex items-center justify-between px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition"
+                className="w-full flex items-center justify-between px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition cursor-pointer"
               >
                 <div className="text-left">
                   <div className="text-sm text-gray-400">Current Batch</div>
@@ -489,7 +489,7 @@ export default function StudentLayout({
                     <button
                       key={batch._id}
                       onClick={() => switchBatch(batch)}
-                      className={`w-full text-left px-4 py-3 hover:bg-gray-700 transition ${
+                      className={`w-full text-left px-4 py-3 hover:bg-gray-700 transition cursor-pointer ${
                         currentBatch._id === batch._id ? "bg-gray-700" : ""
                       }`}
                     >
@@ -549,7 +549,7 @@ export default function StudentLayout({
             </Link>
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-400 hover:bg-red-900 w-full"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-400 hover:bg-red-900 w-full cursor-pointer"
             >
               <LogOut size={20} />
               <span>Sign Out</span>
@@ -564,7 +564,7 @@ export default function StudentLayout({
               <div className="p-6 border-b border-gray-700">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-xl font-bold">Student Panel</h2>
-                  <button onClick={() => setSidebarOpen(false)}>
+                  <button onClick={() => setSidebarOpen(false)} className="cursor-pointer">
                     <X size={24} />
                   </button>
                 </div>
@@ -573,7 +573,7 @@ export default function StudentLayout({
                 <div className="relative">
                   <button
                     onClick={() => setBatchSwitcherOpen(!batchSwitcherOpen)}
-                    className="w-full flex items-center justify-between px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition"
+                    className="w-full flex items-center justify-between px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition cursor-pointer"
                   >
                     <div className="text-left">
                       <div className="text-sm text-gray-400">Current Batch</div>

@@ -136,7 +136,7 @@ const FAQSection = () => {
                 >
                   <button
                     onClick={() => toggleFAQLeft(index)}
-                    className={`w-full flex justify-between items-center px-[15px] md:px-5 py-4 text-left font-[400px] text-gray-800 focus:outline-none text-[18px]  ${isActive ? 'bg-[#E7E7E7]' : 'bg-white'
+                    className={`w-full flex justify-between items-center px-[15px] md:px-5 py-4 text-left font-[400px] text-gray-800 focus:outline-none text-[18px] cursor-pointer ${isActive ? 'bg-[#E7E7E7]' : 'bg-white'
                       }`}
 
                   >
@@ -196,7 +196,7 @@ const FAQSection = () => {
                   >
                     <button
                       onClick={() => toggleFAQRight(index)}
-                      className={`w-full flex justify-between items-center px-[15px] md:px-5 py-4 text-left font-medium text-gray-800 focus:outline-none text-[18px] ${isActive ? 'bg-[#E7E7E7]' : 'bg-white'
+                      className={`w-full flex justify-between items-center px-[15px] md:px-5 py-4 text-left font-medium text-gray-800 focus:outline-none text-[18px] cursor-pointer ${isActive ? 'bg-[#E7E7E7]' : 'bg-white'
                         }`}
                     >
                       <span>{faq.question}</span>
@@ -258,7 +258,7 @@ const FAQSection = () => {
                   >
                     <button
                       onClick={() => toggleFAQAdmission(index)}
-                      className={`w-full flex justify-between items-center px-[15px] md:px-5 py-4 text-left font-medium text-gray-800 focus:outline-none text-[18px] ${isActive ? 'bg-[#E7E7E7]' : 'bg-white'
+                      className={`w-full flex justify-between items-center px-[15px] md:px-5 py-4 text-left font-medium text-gray-800 focus:outline-none text-[18px] cursor-pointer ${isActive ? 'bg-[#E7E7E7]' : 'bg-white'
                         }`}
                     >
                       <span>{faqs.question}</span>

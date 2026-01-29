@@ -44,7 +44,7 @@ export default function CouponSection({ selectedCourse, couponInput, setCouponIn
         <button
           type="button"
           onClick={couponState.applied ? onRemove : onApply}
-          className={`px-6 py-3 text-white font-semibold rounded-lg flex items-center justify-center gap-2 ${
+          className={`px-6 py-3 text-white font-semibold rounded-lg flex items-center justify-center gap-2 cursor-pointer ${
             couponState.applied ? "bg-red-500 hover:bg-red-600" : "bg-[#4f0187] hover:bg-[#6d0b99]"
           }`}
           disabled={couponState.loading || (!couponInput && !couponState.applied)}
