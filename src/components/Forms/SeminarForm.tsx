@@ -178,7 +178,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
   }
 
    return (
-    <div className="min-h-screen w-full flex items-center justify-center  ">
+    <div className="w-full my-5">
       
       {/* Background Blobs (Visible on PC only to keep Mobile clean) */}
       <div className="absolute inset-0 opacity-10 pointer-events-none hidden md:block">
@@ -186,7 +186,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
          <div className="absolute bottom-10 right-10 w-72 h-72 bg-[#FFCB2C] rounded-full blur-[100px]"></div>
       </div>
 
-      <div className="relative w-full max-w-5xl bg-white rounded-2xl md:rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+      <div className="relative w-full max-w-5xl bg-white rounded-xl md:rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         
         {/* --- HEADER SECTION --- 
             Mobile: Top Banner (Colorful & Simple)

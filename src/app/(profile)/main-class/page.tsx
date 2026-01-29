@@ -172,12 +172,6 @@ export default function MainClassAttendancePage() {
       const currentStatus = currentClass[sessionType];
       const newStatus = !currentStatus;
 
-      // console.log("Marking attendance:", {
-      //   className,
-      //   sessionType,
-      //   currentStatus,
-      //   newStatus,
-      // });
 
       const result = await studentAttendanceService.markAttendance({
         className: className,

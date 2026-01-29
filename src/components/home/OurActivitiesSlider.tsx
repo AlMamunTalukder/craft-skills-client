@@ -14,7 +14,7 @@ const videoLinks = [
 
 const OurActivitiesSlider = () => {
   return (
-    <div className="md:mb-48">
+    <div className="md:mb-24">
     <Container>
       <SectionTitle
         text="আমাদের কার্যক্রম"

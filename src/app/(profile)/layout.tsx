@@ -66,7 +66,7 @@ export default function StudentLayout({
     { name: "Main Classes", href: "/main-class", icon: BookOpen },
     { name: "Special Classes", href: "/special-class", icon: Star },
     { name: "Guest Classes", href: "/guest-class", icon: Users },
-    { name: "Results", href: "/results", icon: Award },
+    { name: "Results", href: "/batch-results", icon: Award },
   ];
 
   useEffect(() => {
