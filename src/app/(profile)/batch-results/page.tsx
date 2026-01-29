@@ -98,8 +98,12 @@ export default function CurrentBatchResultsPage() {
     if (isRefresh) setState((prev) => ({ ...prev, refreshing: true }));
     try {
       const batchId = localStorage.getItem("selectedBatchId");
+
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+
       const res = await fetch(
-        `http://localhost:5000/api/v1/admissions/student/result${batchId ? `?batchId=${batchId}` : ""}`,
+        `${API_URL}/admissions/student/result${batchId ? `?batchId=${batchId}` : ""}`,
         {
           credentials: "include",
           headers: { "Content-Type": "application/json" },
