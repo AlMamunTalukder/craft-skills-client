@@ -6,10 +6,8 @@ import {
   Star,
   Users,
   XCircle,
-  Calendar,
   TrendingUp,
-  GraduationCap,
-  Download,
+  GraduationCap
 } from "lucide-react";
 import { studentAttendanceService } from "@/src/services/studentAttendance";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -217,37 +215,32 @@ export default function DashboardPage() {
           {/* RIGHT COLUMN: Dashboard & Stats */}
           <div className="lg:col-span-8 xl:col-span-9 space-y-6">
             {/* 1. Welcome Header Banner */}
-            <div className="bg-slate-900 rounded-[2rem] p-8 text-white shadow-xl shadow-slate-200 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full blur-3xl opacity-20 -mr-16 -mt-16"></div>
+            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white shadow-xl shadow-blue-200/50">
+              {/* --- 1. THE DOT PATTERN DESIGN --- */}
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+
+              {/* Optional: Subtle Glow on top right to add depth */}
+              <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
+
               <div className="relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                   <div>
-                    <p className="text-indigo-200 font-medium mb-1">
+                    <p className="text-blue-100 font-medium mb-1 tracking-wide text-sm opacity-90">
                       {currentDate}
                     </p>
+
                     {loading ? (
-                      <Skeleton className="h-10 w-64 bg-white/10" />
+                      <Skeleton className="h-10 w-64 bg-white/20 rounded-lg" />
                     ) : (
-                      <h1 className="text-3xl md:text-4xl font-bold">
+                      <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                         Welcome back, {user?.name.split(" ")[0]}! 👋
                       </h1>
                     )}
-                    <p className="text-slate-400 mt-2 max-w-md">
-                      Check your latest attendance stats and keep up the
-                      momentum for your upcoming sessions.
-                    </p>
-                  </div>
 
-                  {/* Quick Actions */}
-                  <div className="flex gap-3">
-                    <button className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-xl text-sm font-medium transition border border-white/5">
-                      <Calendar size={16} />
-                      Schedule
-                    </button>
-                    <button className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-medium transition shadow-lg shadow-indigo-900/20">
-                      <Download size={16} />
-                      Report
-                    </button>
+                    <p className="text-blue-100 mt-2 max-w-md text-lg opacity-90 leading-relaxed">
+                      Check your latest attendance stats and keep up the
+                      momentum.
+                    </p>
                   </div>
                 </div>
               </div>
