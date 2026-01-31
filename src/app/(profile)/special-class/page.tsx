@@ -9,51 +9,15 @@ import { CheckCircle, Star, RefreshCw } from "lucide-react";
 import { studentAttendanceService } from "@/src/services/studentAttendance";
 import { Skeleton } from "@/components/ui/skeleton";
 
-function SpecialClassAttendanceSkeleton() {
-  return (
-    <div className="min-h-screen bg-linear-to-br from-orange-50 to-red-50 p-4 md:p-6">
-      <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex justify-between items-start">
-          <div className="space-y-2">
-            <Skeleton className="h-8 w-72" />
-            <Skeleton className="h-4 w-80" />
-          </div>
-          <Skeleton className="h-10 w-32 rounded-lg" />
-        </div>
-
-        {/* Stats Card */}
-        <Skeleton className="h-40 w-full rounded-xl" />
-
-        {/* Special Class Grid */}
-        <div className="bg-white rounded-xl p-6 space-y-6">
-          <Skeleton className="h-6 w-56" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(5)].map((_, i) => (
-              <Skeleton key={i} className="h-56 w-full rounded-xl" />
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {[...Array(3)].map((_, i) => (
-            <Skeleton key={i} className="h-24 w-full rounded-lg" />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function SpecialClassAttendance() {
   const [loading, setLoading] = useState(true);
   const [specialClasses, setSpecialClasses] = useState<any[]>([]);
-  const [attendanceStats, setAttendanceStats] = useState<any>(null);
   const [refreshing, setRefreshing] = useState(false);
 
+  // Define the list of classes constant
+  const TOTAL_CLASSES = 5;
   const specialClassList = Array.from(
-    { length: 5 },
+    { length: TOTAL_CLASSES },
     (_, i) => `Special Class ${i + 1}`,
   );
 
@@ -63,41 +27,29 @@ export default function SpecialClassAttendance() {
 
   const loadSpecialClassData = async () => {
     try {
-      setLoading(true);
+      if (!refreshing) setLoading(true);
 
-      // Load dashboard data for stats
-      const dashboardResult = await studentAttendanceService.getDashboard();
+      // We mainly need the attendance history to build our local state
+      const sessionsResult = await studentAttendanceService.getAttendanceHistory(100);
+      
+      if (sessionsResult.success && sessionsResult.data) {
+        const specialClassAttendance = specialClassList.map((className) => {
+          const attendedRecord = sessionsResult.data.find(
+            (record: any) =>
+              record.className === className &&
+              record.sessionType === "special",
+          );
 
-      if (dashboardResult.success && dashboardResult.data) {
-        const { attendanceStats: stats } = dashboardResult.data;
-        setAttendanceStats(stats);
+          return {
+            className,
+            attended: attendedRecord?.attended || false,
+            attendanceId: attendedRecord?._id,
+            date: attendedRecord?.date
+          };
+        });
 
-        // Load attendance history to check which special classes are attended
-        const sessionsResult =
-          await studentAttendanceService.getAttendanceHistory(100);
-        if (sessionsResult.success && sessionsResult.data) {
-          const specialClassAttendance = specialClassList.map((className) => {
-            // Filter for special classes by checking sessionType
-            const attendedRecord = sessionsResult.data.find(
-              (record: any) =>
-                record.className === className &&
-                record.sessionType === "special",
-            );
-
-            return {
-              className,
-              attended: attendedRecord?.attended || false,
-              attendanceId: attendedRecord?._id,
-              date: attendedRecord?.date,
-              guestName: "Special Instructor",
-            };
-          });
-
-          setSpecialClasses(specialClassAttendance);
-        }
+        setSpecialClasses(specialClassAttendance);
       }
-
-      toast.success("Special class data loaded");
     } catch (error) {
       console.error("Load error:", error);
       toast.error("Failed to load special classes");
@@ -118,7 +70,7 @@ export default function SpecialClassAttendance() {
       );
 
       if (result.success) {
-        // Update local state
+        // Update local state immediately
         setSpecialClasses((prev) =>
           prev.map((cls) =>
             cls.className === className
@@ -126,11 +78,6 @@ export default function SpecialClassAttendance() {
               : cls,
           ),
         );
-
-        // Update stats if available
-        if (result.data) {
-          setAttendanceStats(result.data);
-        }
 
         toast.success(
           `Special class ${!currentStatus ? "marked" : "unmarked"} successfully`,
@@ -144,19 +91,25 @@ export default function SpecialClassAttendance() {
     }
   };
 
-  const calculateSpecialClassStats = () => {
-    const attended = specialClasses.filter((cls) => cls.attended).length;
-    const total = 5;
-    const percentage = Math.round((attended / total) * 100);
+  // --- FIX: Calculate Stats Locally ---
+  // This ensures the numbers always match the buttons on screen
+  const calculateStats = () => {
+    // If data is still loading and array is empty, return 0
+    if (loading && specialClasses.length === 0) {
+      return { attended: 0, total: TOTAL_CLASSES, percentage: 0 };
+    }
 
-    return { attended, total, percentage };
+    const attendedCount = specialClasses.filter(c => c.attended).length;
+    const percentage = Math.round((attendedCount / TOTAL_CLASSES) * 100);
+
+    return {
+      attended: attendedCount,
+      total: TOTAL_CLASSES,
+      percentage: percentage
+    };
   };
 
-  if (loading) {
-    return <SpecialClassAttendanceSkeleton />;
-  }
-
-  const stats = calculateSpecialClassStats();
+  const stats = calculateStats();
 
   return (
     <div className="min-h-screen bg-linear-to-br from-orange-50 to-red-50 p-4 md:p-6">
@@ -172,20 +125,7 @@ export default function SpecialClassAttendance() {
                 Exclusive sessions with expert instructors
               </p>
             </div>
-            <button
-              onClick={() => {
-                setRefreshing(true);
-                loadSpecialClassData();
-              }}
-              className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition disabled:opacity-50 cursor-pointer"
-              disabled={refreshing}
-            >
-              <RefreshCw
-                size={18}
-                className={refreshing ? "animate-spin" : ""}
-              />
-              {refreshing ? "Refreshing..." : "Refresh"}
-            </button>
+           
           </div>
         </div>
 
@@ -203,10 +143,18 @@ export default function SpecialClassAttendance() {
             </div>
             <div className="mt-4 md:mt-0 text-center md:text-right">
               <div className="text-4xl md:text-5xl font-bold">
-                {stats.percentage}%
+                {loading && specialClasses.length === 0 ? (
+                  <Skeleton className="h-12 w-24 bg-white/20 inline-block rounded-lg" />
+                ) : (
+                  `${stats.percentage}%`
+                )}
               </div>
-              <div className="text-lg">
-                {stats.attended}/{stats.total} Classes Attended
+              <div className="text-lg mt-1">
+                {loading && specialClasses.length === 0 ? (
+                   <Skeleton className="h-6 w-48 bg-white/20 inline-block rounded-lg" />
+                ) : (
+                   `${stats.attended}/${stats.total} Classes Attended`
+                )}
               </div>
             </div>
           </div>
@@ -219,88 +167,79 @@ export default function SpecialClassAttendance() {
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {specialClasses.map((specialClass, index) => (
-              <div
-                key={index}
-                className={`border-2 rounded-xl p-6 transition-all duration-200 ${
-                  specialClass.attended
-                    ? "border-green-500 bg-linear-to-br from-green-50 to-emerald-50"
-                    : "border-orange-300 bg-orange-50 hover:border-orange-400 hover:shadow-lg"
-                }`}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h4 className="font-bold text-gray-800 text-lg">
-                      {specialClass.className}
-                    </h4>
-                    <p className="text-gray-600 text-sm mt-1">
-                      With {specialClass.guestName}
-                    </p>
-                    <div className="mt-2 text-xs text-gray-500">
-                      {specialClass.date
-                        ? new Date(specialClass.date).toLocaleDateString()
-                        : "Not attended yet"}
+            {loading && specialClasses.length === 0
+              ? /* SKELETON LOADING STATE */
+                Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} className="border-2 border-gray-100 rounded-xl p-5">
+                    <div className="space-y-3">
+                      <Skeleton className="h-6 w-3/4 rounded" />
+                      <Skeleton className="h-4 w-1/2 rounded" />
+                    </div>
+                    <div className="flex justify-between items-center mt-4">
+                      <Skeleton className="h-4 w-24 rounded" />
+                      <Skeleton className="h-10 w-10 rounded-full" />
                     </div>
                   </div>
-                  <div
-                    className={`p-3 rounded-full ${specialClass.attended ? "bg-green-100" : "bg-orange-100"}`}
+                ))
+              : /* ACTUAL DATA */
+                specialClasses.map((specialClass, index) => (
+                  <button
+                    key={index}
+                    onClick={() =>
+                      toggleAttendance(specialClass.className, specialClass.attended)
+                    }
+                    className={`border-2 rounded-xl p-5 transition-all duration-200 flex items-center justify-between cursor-pointer group text-left ${
+                      specialClass.attended
+                        ? "border-green-500 bg-green-50 hover:bg-green-100"
+                        : "border-orange-300 bg-orange-50 hover:bg-orange-100 hover:border-orange-400"
+                    }`}
                   >
-                    {specialClass.attended ? (
-                      <CheckCircle className="text-green-600" size={24} />
-                    ) : (
-                      <Star className="text-orange-600" size={24} />
-                    )}
-                  </div>
-                </div>
-
-                <button
-                  onClick={() =>
-                    toggleAttendance(
-                      specialClass.className,
-                      specialClass.attended,
-                    )
-                  }
-                  className={`w-full py-3 rounded-lg font-medium transition cursor-pointer ${
-                    specialClass.attended
-                      ? "bg-green-100 text-green-800 hover:bg-green-200"
-                      : "bg-linear-to-r from-orange-600 to-orange-700 text-white hover:from-orange-700 hover:to-orange-800"
-                  }`}
-                >
-                  {specialClass.attended ? "✓ Attended" : "Mark as Attended"}
-                </button>
-              </div>
-            ))}
+                    <div className="text-left">
+                      <div className="font-bold text-gray-800 text-lg">
+                        {specialClass.className}
+                      </div>
+                      
+                      <div
+                        className={`text-sm mt-2 font-medium ${
+                          specialClass.attended ? "text-green-600" : "text-orange-600"
+                        }`}
+                      >
+                        {specialClass.attended ? "✓ Attended" : "○ Not Attended"}
+                      </div>
+                    </div>
+                    
+                    <div
+                      className={`p-3 rounded-full ${
+                        specialClass.attended ? "bg-green-100" : "bg-orange-100"
+                      }`}
+                    >
+                      {specialClass.attended ? (
+                        <CheckCircle className="text-green-600" size={24} />
+                      ) : (
+                        <div className="w-6 h-6 rounded-full border-2 border-orange-400"></div>
+                      )}
+                    </div>
+                  </button>
+              ))}
           </div>
         </div>
 
-        {/* Progress Stats */}
+        {/* Bottom Progress Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-gray-800">
-                {stats.attended}
+          {[
+            { label: "Attended", value: stats.attended },
+            { label: "Remaining", value: stats.total - stats.attended },
+            { label: "Total Special Classes", value: stats.total }
+          ].map((item, i) => (
+            <div key={i} className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-800 flex justify-center">
+                   {loading && specialClasses.length === 0 ? <Skeleton className="h-8 w-8 rounded" /> : item.value}
+                </div>
+                <div className="text-sm text-gray-600 mt-1">{item.label}</div>
               </div>
-              <div className="text-sm text-gray-600">Attended</div>
             </div>
-          </div>
-
-          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-gray-800">
-                {stats.total - stats.attended}
-              </div>
-              <div className="text-sm text-gray-600">Remaining</div>
-            </div>
-          </div>
-
-          <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-gray-800">
-                {stats.total}
-              </div>
-              <div className="text-sm text-gray-600">Total Special Classes</div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
