@@ -1,6 +1,7 @@
 
 import ClassDescription from "./home/ClassDescription";
-import ClassRoutine from "./home/ClassRoutine";
+import { ClassRoutine } from "./home/ClassRoutine";
+// import ClassRoutine from "./home/ClassRoutine";
 import ComparisonTable from "./home/ComparisonTable";
 import CourseFeatures from "./home/CourseFeatures";
 import CourseOutline from "./home/CourseOutline";

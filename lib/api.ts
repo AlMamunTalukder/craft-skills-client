@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Schedule, Seminar, SiteContent } from "@/types";
+import { ScheduleGroup, Seminar, SiteContent } from "@/types";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
@@ -92,7 +92,7 @@ export async function activeSeminar(): Promise<Seminar | null> {
   }
 }
 
-export async function getClassSchedule(): Promise<Schedule[] | null> {
+export async function getClassSchedule(): Promise<ScheduleGroup[] | null> {
   try {
     const response = await fetch(`${API_URL}/class-schedule`);
 

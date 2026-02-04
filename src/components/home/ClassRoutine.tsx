@@ -1,25 +1,30 @@
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
-import { Schedule } from "@/types";
+import { ScheduleGroup } from "@/types";
 
-const border = "border-[5px] border-white px-2 md:px-4 md:py-2";
+const border =
+  "border-[3px] md:border-[5px] border-white px-3 py-3 md:px-4 md:py-4";
 
 type Props = {
-  scheduleData: Schedule[] | null;
+  scheduleData: ScheduleGroup[] | ScheduleGroup | null;
 };
 
-const ClassRoutine = ({ scheduleData }: Props) => {
-  const schedule = scheduleData || [];
+export const ClassRoutine = ({ scheduleData }: Props) => {
+  const dataArray = Array.isArray(scheduleData)
+    ? scheduleData
+    : scheduleData
+      ? [scheduleData]
+      : [];
 
-  if (schedule.length === 0) {
+  const displaySchedule =
+    dataArray.find((item) => item.isActive) || dataArray[0];
+
+  if (!displaySchedule || !displaySchedule.schedules?.length) {
     return (
       <Container>
-        <div className="mt-8 md:mt-20">
+        <div className="mt-8 md:mt-20 text-center py-16 text-gray-500">
           <SectionTitle text="ক্লাস শিডিউল" />
-          <div className="text-center py-16 text-gray-500">
-            শীঘ্রই ক্লাস শিডিউল আপডেট করা হবে
-          </div>
-          <div className="border-dashed border-b border-gray-400 pb-10 md:pb-20" />
+          <p>শীঘ্রই ক্লাস শিডিউল আপডেট করা হবে</p>
         </div>
       </Container>
     );
@@ -28,45 +33,44 @@ const ClassRoutine = ({ scheduleData }: Props) => {
   return (
     <Container>
       <div className="mt-8 md:mt-20">
-        <SectionTitle text="ক্লাস শিডিউল" />
+        <div className="flex flex-col justify-between items-start md:items-center mb-6">
+          <SectionTitle text="ক্লাস শিডিউল" />
+        </div>
 
-        <div className="w-[280px] md:w-[770px] mx-auto overflow-x-auto">
-          <table className="min-w-full text-center">
+        <div className="w-full max-w-[850px] mx-auto overflow-x-auto">
+          <table className="min-w-full text-center border-collapse">
             <thead className="bg-[#4F0187] text-white">
               <tr>
-                <th className={border}>ক্লাস</th>
-                <th className={border}>বার</th>
-                <th className={border}>সময়</th>
+                <th className={`${border} font-bold`}>ক্লাস</th>
+                <th className={`${border} font-bold`}>বার</th>
+                <th className={`${border} font-bold`}>সময়</th>
               </tr>
             </thead>
-
-            <tbody className="text-gray-800 text-[12px] md:text-[19px]">
-              {schedule.map((routine) => (
+            <tbody className="text-gray-800">
+              {displaySchedule.schedules.map((routine) => (
                 <tr key={routine._id} className="bg-gray-100">
-                  <td className={border}>{routine.className}</td>
+                  <td className={`${border} font-semibold`}>
+                    {routine.className}
+                  </td>
                   <td className={border}>{routine.days}</td>
-                  <td className={border}>{routine.time}</td>
+                  <td className={`${border} font-medium`}>{routine.time}</td>
                 </tr>
               ))}
-
-              {schedule[0]?.holidays && (
+              {displaySchedule.holidays && (
                 <tr className="bg-gray-100">
                   <td
                     colSpan={3}
-                    className="border-[5px] border-white px-4 py-2 font-medium"
+                    className={`${border} font-bold text-gray-800`}
                   >
-                    {schedule[0].holidays}
+                    {displaySchedule.holidays}
                   </td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
-
-        <div className="border-dashed border-b border-gray-400 pb-10 md:pb-20" />
+        <div className="border-dashed border-b border-gray-400 pb-10 md:pb-20 mt-10" />
       </div>
     </Container>
   );
 };
-
-export default ClassRoutine;

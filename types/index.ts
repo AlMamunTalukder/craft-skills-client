@@ -87,10 +87,15 @@ export interface Seminar {
   description?: string;
 }
 
-export interface Schedule {
+export interface ScheduleGroup {
   _id: string;
-  className: string;
-  days: string;
-  time: string;
-  holidays?: string;
+  weekNumber: number;
+  isActive: boolean;
+  holidays: string;
+  schedules: {
+    _id: string;
+    className: string;
+    days: string;
+    time: string;
+  }[];
 }
