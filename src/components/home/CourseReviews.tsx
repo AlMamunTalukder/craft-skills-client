@@ -5,9 +5,9 @@ import CourseStats from "./CourseStats";
 const CourseReviews = async () => {
 
   return (
-    <div className="bg-[#4F0187] py-5 text-white mt-20 relative">
+    <div className="bg-[#4F0187] py-5 text-white  ">
       <Container>
-        <div className="max-w-3xl mx-auto pt-10 md:pt-48 ">
+        <div className="max-w-3xl mx-auto pt-10 md:pt-0 ">
           {/* Section Title */}
           <SectionTitle
             text="কোর্স নিয়ে শিক্ষার্থীদের মতামত"
@@ -48,10 +48,9 @@ const CourseReviews = async () => {
           </div>
         </div>
       </Container>
-      <div className="absolute -top-60 left-1/2 transform -translate-x-1/2 w-full">
-      
+      {/* <div className="absolute left-1/2 transform -translate-x-1/2 w-full">
         <CourseStats />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -60,7 +60,7 @@ export const ClassRoutine = ({ scheduleData }: Props) => {
                 <tr className="bg-gray-100">
                   <td
                     colSpan={3}
-                    className={`${border} font-bold text-gray-800`}
+                    className={`${border} text-gray-800`}
                   >
                     {displaySchedule.holidays}
                   </td>

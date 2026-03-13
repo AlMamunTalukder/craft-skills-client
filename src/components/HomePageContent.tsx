@@ -6,6 +6,7 @@ import ComparisonTable from "./home/ComparisonTable";
 import CourseFeatures from "./home/CourseFeatures";
 import CourseOutline from "./home/CourseOutline";
 import CourseReviews from "./home/CourseReviews";
+import CourseStats from "./home/CourseStats";
 import CourseStory from "./home/CourseStory";
 import Instructors from "./home/Instructors";
 import OurActivities from "./home/OurActivities";
@@ -31,6 +32,7 @@ const HomePageContent = async () => {
       <ComparisonTable />
       <Instructors />
       <TrainerSection />
+      <CourseStats /> 
       <CourseReviews />
       <Testimonials />
       <OurActivities />

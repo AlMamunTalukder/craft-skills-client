@@ -28,7 +28,7 @@ type Props = {
 export default function SubHeader({ siteData, seminar }: Props) {
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const pathName = usePathname();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -138,8 +138,11 @@ export default function SubHeader({ siteData, seminar }: Props) {
               </Link>
             </div>
 
-            {/* Social Icon */}
-            <div className="flex justify-center md:justify-end mb-[6px] md:mb-2 pt-1">
+            
+          </div>
+        ) : (
+          <>{/* Social Icon */}
+            <div className="flex justify-center md:justify-end mb-[6px] md:mb-0 pt-1 md:pt-0">
               <div className=" hidden md:flex items-center gap-3 md:gap-2">
                 {socialLinks.map((social, index) => (
                   <Link
@@ -163,10 +166,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
                   </Link>
                 ))}
               </div>
-            </div>
-          </div>
-        ) : (
-          <></>
+            </div></>
         )}
       </Container>
     </div>
