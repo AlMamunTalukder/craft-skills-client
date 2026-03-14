@@ -134,7 +134,7 @@ const ClassDescription = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -8 }}
-                className="group relative p-8 rounded-[32px] bg-slate-50 border border-slate-100 transition-all duration-300 hover:bg-white hover:shadow-[0_20px_50px_rgba(79,1,135,0.1)] hover:border-purple-200"
+                className="group relative p-8 rounded-[32px] bg-slate-50 border border-purple-100 transition-all duration-300 hover:bg-white hover:shadow-[0_20px_50px_rgba(79,1,135,0.1)] hover:border-purple-200"
               >
                 {/* Icon Header */}
                 <div className="flex items-center gap-4 mb-5">
@@ -152,8 +152,8 @@ const ClassDescription = () => {
                 </p>
 
                 {/* Corner Decoration */}
-                <div className="absolute top-4 right-4 text-slate-200 group-hover:text-purple-100 transition-colors">
-                   <span className="text-4xl font-black opacity-20">0{index + 1}</span>
+                <div className="absolute top-4 right-4 text-purple-200 group-hover:text-purple-100 transition-colors">
+                   <span className="text-4xl font-black opacity-40">0{index + 1}</span>
                 </div>
               </motion.div>
             ))}

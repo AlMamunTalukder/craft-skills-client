@@ -134,28 +134,24 @@ import { motion, useInView, useSpring, useTransform } from "framer-motion";
 import { useRef, useEffect } from "react";
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
-import { GraduationCap, Users, Star, UserCheck } from "lucide-react"; // Standard LMS Icons
+import { GraduationCap, Users, Star, UserCheck } from "lucide-react";
 
 const stats = [
   { 
     id: 1, 
     value: 36, 
     suffix: "+", 
-    label: "মোট আবর্তন", 
+    label: "মোট ব্যাচ সম্পন্ন", 
     icon: <Users className="w-6 h-6" />,
-    borderColor: "border-blue-200",
-    iconBg: "bg-blue-50",
-    iconColor: "text-blue-600"
+    theme: "indigo"
   },
   { 
     id: 2, 
     value: 2500, 
     suffix: "+", 
-    label: "কোর্স সম্পন্ন", 
+    label: "সফল শিক্ষার্থী", 
     icon: <GraduationCap className="w-6 h-6" />,
-    borderColor: "border-indigo-200",
-    iconBg: "bg-indigo-50",
-    iconColor: "text-indigo-600"
+    theme: "purple"
   },
   { 
     id: 3, 
@@ -163,27 +159,22 @@ const stats = [
     suffix: "%", 
     label: "সন্তুষ্টির হার", 
     icon: <Star className="w-6 h-6" />,
-    borderColor: "border-amber-200",
-    iconBg: "bg-amber-50",
-    iconColor: "text-amber-600"
+    theme: "amber"
   },
   { 
     id: 4, 
     value: 15, 
     suffix: "+", 
-    label: "প্রশিক্ষক", 
+    label: "প্রশিক্ষক মণ্ডলী", 
     icon: <UserCheck className="w-6 h-6" />,
-    borderColor: "border-emerald-200",
-    iconBg: "bg-emerald-50",
-    iconColor: "text-emerald-600"
+    theme: "emerald"
   },
 ];
 
-// Smooth Animated Counter
 const AnimatedNumber = ({ value }: { value: number }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-  const spring = useSpring(0, { stiffness: 45, damping: 20 });
+  const isInView = useInView(ref, { once: true });
+  const spring = useSpring(0, { stiffness: 40, damping: 20 });
   const display = useTransform(spring, (current) => 
     value % 1 === 0 ? Math.floor(current).toLocaleString() : current.toFixed(1)
   );
@@ -197,42 +188,48 @@ const AnimatedNumber = ({ value }: { value: number }) => {
 
 const CourseStats = () => {
   return (
-    <section className="py-20 bg-[#F8FAFC]"> {/* Light gray background to make white cards pop */}
+    <section className="py-20 bg-slate-50"> 
       <Container>
-        <div className="flex flex-col items-center">
-          
-          <div className="text-center mb-16">
-            <SectionTitle text="আমাদের অর্জিত সাফল্য" />
-            
-          </div>
+        <div className="max-w-6xl mx-auto">
+          {/* Header with Academic Alignment */}
+              <SectionTitle text="আমাদের অর্জিত সাফল্য" />
+         
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className={`bg-white p-8 rounded-2xl border ${stat.borderColor} shadow-sm hover:shadow-md transition-shadow duration-300 relative group`}
+                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="bg-white border border-slate-200 rounded-2xl p-8 hover:border-[#4F0187]/30 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/5 group"
               >
-                {/* Top Corner Icon */}
-                <div className={`inline-flex p-3 rounded-xl ${stat.iconBg} ${stat.iconColor} mb-6 transition-transform group-hover:scale-110 duration-300`}>
+                {/* Icon with Professional LMS Framing */}
+                <div className="w-12 h-12 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600 group-hover:bg-[#4F0187] group-hover:text-white transition-colors duration-500 mb-6">
                   {stat.icon}
                 </div>
 
                 <div className="space-y-1">
-                  <h3 className="text-4xl font-extrabold text-slate-800 tracking-tight">
+                  <h3 className="text-3xl md:text-4xl font-black text-slate-900 flex items-baseline gap-1">
                     <AnimatedNumber value={stat.value} />
-                    <span className="text-2xl ml-1 font-bold text-slate-400">{stat.suffix}</span>
+                    <span className="text-xl font-bold text-[#4F0187]">{stat.suffix}</span>
                   </h3>
-                  <p className="text-slate-600 font-medium text-lg">
+                  
+                  <p className="text-slate-500 font-semibold text-sm md:text-base tracking-tight uppercase">
                     {stat.label}
                   </p>
                 </div>
 
-                {/* Subtle bottom accent line */}
-                <div className={`absolute bottom-0 left-0 h-1 bg-current opacity-20 w-full rounded-b-2xl ${stat.iconColor}`} />
+                {/* Subtle Modern Accent */}
+                <div className="mt-6 w-full h-[2px] bg-slate-100 overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "100%" }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                    className="h-full bg-[#4F0187]"
+                  />
+                </div>
               </motion.div>
             ))}
           </div>

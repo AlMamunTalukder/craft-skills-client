@@ -238,7 +238,7 @@ export default function UserMenu() {
       >
         <Link href="/login">
           <LogIn className="size-4" />
-          Sign in
+          {/* Sign in */}
         </Link>
       </Button>
     );

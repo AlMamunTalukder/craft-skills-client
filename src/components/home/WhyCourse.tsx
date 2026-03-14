@@ -97,8 +97,8 @@ const WhyCourse = () => {
                 className="relative inline-block"
               >
                 {/* Decorative lines around heading */}
-                <div className="absolute -left-10 top-1/2 w-8 h-[2px] bg-purple-300 hidden md:block" />
-                <div className="absolute -right-10 top-1/2 w-8 h-[2px] bg-purple-300 hidden md:block" />
+                {/* <div className="absolute -left-10 top-1/2 w-8 h-[2px] bg-purple-300 hidden md:block" />
+                <div className="absolute -right-10 top-1/2 w-8 h-[2px] bg-purple-300 hidden md:block" /> */}
                 
                 <div className="bg-[#4F0187] text-white px-12 py-5 rounded-2xl text-2xl md:text-3xl font-extrabold shadow-2xl">
                   কোর্সটি কেন প্রয়োজন?

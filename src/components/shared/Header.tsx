@@ -80,30 +80,34 @@ const Header = ({ siteData, logo: logoUrl, user }: HeaderProps) => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-3">
-            <ul className="flex gap-6">
-              {menuItems.map((item, index) => (
-                <li key={index}>
-                  <Link
-                    href={item.href}
-                    className={`
-                      text-base px-1 py-2
-                      transition-all duration-300
-                      hover:text-[#1ab69d] font-semibold
-                      ${
-                        pathName === item.href
-                          ? "text-[#1ab69d]"
-                          : "text-gray-700"
-                      }
-                    `}
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <UserMenu  />
-          </nav>
+          <div className="hidden md:flex items-center gap-8">
+            <nav>
+              <ul className="flex items-center gap-1">
+                {menuItems.map((item, index) => {
+                  const isActive = pathName === item.href;
+                  return (
+                    <li key={index}>
+                      <Link
+                        href={item.href}
+                        className={`relative px-4 py-2 text-sm font-bold transition-all duration-300 rounded-full group
+                          ${isActive ? "text-[#4F0187]" : "text-slate-600 hover:text-[#4F0187]"}`}
+                      >
+                        {item.name}
+                        {/* Underline Animation */}
+                        <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-1 bg-[#4F0187] rounded-full transition-all duration-300 
+                          ${isActive ? "w-4" : "w-0 group-hover:w-4"}`} 
+                        />
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+            
+            <div className="h-6 w-[1px] bg-slate-200 mx-2" /> {/* Divider */}
+            
+            <UserMenu />
+          </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">

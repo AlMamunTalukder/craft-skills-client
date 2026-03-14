@@ -1,7 +1,8 @@
+import React from 'react';
 import { FaCheck } from "react-icons/fa";
+import { RxCross2 } from "react-icons/rx";
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
-import { RxCross2 } from "react-icons/rx";
 
 const ComparisonTable = () => {
   const data = [
@@ -19,55 +20,75 @@ const ComparisonTable = () => {
   ];
 
   return (
-    <div className="bg-[#fff6ef] py-10 md:py-20 mt-10 md:mt-20">
+    <div className="bg-[#fcfaff] py-16 my-5">
       <Container>
-        <SectionTitle
-          text=" আমাদের সাথে অন্যান্য কোর্সের পার্থক্য"
-          lineWidth="lg"
-          hasLineBreak={true}
-        />
-        <div className=" md:w-[770px] mx-auto overflow-x-auto border-[3px] border-[#fff6ef] rounded-md">
-          <table className="w-full text-center bg-white rounded-md overflow-hidden">
-            <thead className="bg-[#4F0187] text-white border-[3px] border-[#fff6ef]">
-              <tr >
-                <th className="py-3 px-4 text-[14px] md:text-[20px] font-[500px] border-[3px] border-[#fff6ef] ">
-                  কোর্সে যা রয়েছে
-                </th>
-                <th className="py-3 px-4 text-[14px] md:text-[20px] font-[500px] border-[3px] border-[#fff6ef]">
-                  আমাদের কোর্স
-                </th>
-                <th className="py-3 px-4 text-[14px] md:text-[20px] font-[500px] border-[3px] border-[#fff6ef]">
-                  অন্যান্য কোর্স
-                </th>
-              </tr>
-            </thead>
-            <tbody className="border-[3px] border-[#fff6ef] text-black">
-              {data.map((row, i) => (
-                <tr
-                  key={i}
-                  className="border-[3px] border-[#fff6ef]  even:bg-gray-50 text-sm md:text-base "
-                >
-                  <td className="py-3 md:px-4 text-[14px] md:text-[19px] font-[400px] border-[3px] border-[#fff6ef]">{row.feature}</td>
-                  <td className="py-3 px-4  border-[3px] border-[#fff6ef]">
-                    {row.our ? (
-                      <span className="flex justify-center content-center items-center text-green-600  text-base md:text-xl"><FaCheck /></span>
-                    ) : (
-                      <span className="flex justify-center content-center items-center text-red-600 text-xl">
-                        <RxCross2 />
-                      </span>
-                    )}
-                  </td>
-                  <td className="py-3 px-4 border-[3px] border-[#fff6ef]">
-                    {row.others ? (
-                      <span className="flex justify-center content-center items-center text-green-600 text-base md:text-xl"><FaCheck /></span>
-                    ) : (
-                      <span className="flex justify-center content-center items-center text-red-500 text-base md:text-xl"><RxCross2 className="stroke-[2px]"/></span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="text-center mb-12">
+          <SectionTitle
+            text="আমাদের সাথে অন্যান্য কোর্সের পার্থক্য"
+            lineWidth="lg"
+            hasLineBreak={true}
+          />
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          {/* Table Header */}
+          <div className="grid grid-cols-12 items-stretch text-center">
+            <div className="col-span-6 md:col-span-5 bg-white p-5 md:p-8 rounded-tl-3xl border-b border-r border-slate-100 flex items-center justify-start">
+              <span className="text-slate-400 font-bold uppercase tracking-wider text-xs md:text-sm">কোর্সের সুবিধাসমূহ</span>
+            </div>
+            
+            {/* Focal Point: Our Course Header */}
+            <div className="col-span-3 md:col-span-2.5 bg-[#4F0187] text-white p-5 md:p-8 rounded-t-3xl shadow-[0_-10px_25px_-5px_rgba(79,1,135,0.2)]">
+              <span className="font-bold text-sm md:text-lg block pt-1">আমাদের কোর্স</span>
+            </div>
+
+            <div className="col-span-3 md:col-span-4 bg-white p-5 md:p-8 rounded-tr-3xl border-b border-slate-100 flex items-center justify-center">
+              <span className="text-slate-400 font-bold text-sm md:text-lg pt-1">অন্যান্য</span>
+            </div>
+          </div>
+
+          {/* Table Body */}
+          <div className="bg-white shadow-xl shadow-purple-100/20 rounded-b-3xl overflow-hidden border border-slate-100">
+            {data.map((row, i) => (
+              <div key={i} className="grid grid-cols-12 items-center group">
+                
+                {/* Feature Name */}
+                <div className="col-span-6 md:col-span-5 p-4 md:p-6 border-b border-slate-50 flex items-center">
+                  <span className="text-slate-700 font-semibold text-sm md:text-lg leading-tight pt-1 group-hover:text-[#4F0187] transition-colors">
+                    {row.feature}
+                  </span>
+                </div>
+
+                {/* Our Column (Highlighted) */}
+                <div className="col-span-3 md:col-span-2.5 bg-purple-50/30 border-x border-purple-100/50 p-4 md:p-6 flex justify-center items-center border-b border-purple-50">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg shadow-green-100">
+                    <FaCheck className="text-xs md:text-sm" />
+                  </div>
+                </div>
+
+                {/* Others Column */}
+                <div className="col-span-3 md:col-span-2.5 p-4 md:p-6 flex justify-center items-center border-b border-slate-50">
+                  {row.others ? (
+                    <div className="w-8 h-8 rounded-full border border-slate-200 text-slate-400 flex items-center justify-center">
+                      <FaCheck className="text-[10px]" />
+                    </div>
+                  ) : (
+                    <div className="text-rose-300">
+                      <RxCross2 className="text-xl md:text-2xl" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Branding Badge */}
+          <div className="mt-8 flex justify-center">
+            <div className="bg-white px-6 py-3 rounded-full border border-purple-100 shadow-sm flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <p className="text-[#4F0187] font-bold text-sm md:text-base pt-1">আপনার সফলতার জন্য আমরাই সেরা মাধ্যম</p>
+            </div>
+          </div>
         </div>
       </Container>
     </div>
