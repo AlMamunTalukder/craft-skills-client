@@ -21,120 +21,120 @@ const ComparisonTable = () => {
     "কোর্স শেষে লাইফটাইম সাপোর্ট",
   ];
 
-  const ourFeatures = [true, true, true, true, true, true, true, true, true, true, true];
   const othersFeatures = [true, false, false, false, false, false, false, true, false, false, false];
 
   return (
-    <section className="py-24 bg-[#0B001A] overflow-hidden relative">
-      {/* Background Decorative Elements */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-rose-600/10 rounded-full blur-[120px] -z-10" />
+    // Lightened Background with Soft Gradient
+    <section className="py-24 bg-gradient-to-b from-[#e7e4f0] via-[#9b5fdb] to-[#564097] overflow-hidden relative">
+      {/* Decorative Blobs */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300/20 rounded-full blur-[100px] -z-10" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-rose-200/20 rounded-full blur-[100px] -z-10" />
 
       <Container>
         <div className="text-center mb-16">
           <SectionTitle text="কেন আমরাই সেরা?" />
-          <p className="text-purple-200/60 mt-4 max-w-lg mx-auto">
+          <p className="text-slate-500 mt-4 max-w-lg mx-auto font-medium">
             অন্যান্য কোর্সের সাথে আমাদের পার্থক্য এক নজরে দেখে নিন
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-0 relative">
+        <div className="flex flex-col lg:flex-row items-stretch justify-center gap-0 relative">
           
-          {/* OTHERS CARD (Left - Muted) */}
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            className="w-full lg:w-[32%] bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-[2rem] lg:rounded-r-none opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
-          >
-            <div className="text-center mb-10">
-              <h3 className="text-gray-400 text-xl font-bold uppercase tracking-widest">সাধারণ কোর্স</h3>
-            </div>
-            <ul className="space-y-6">
-              {features.map((_, idx) => (
-                <li key={idx} className="flex justify-center items-center h-8">
-                  {othersFeatures[idx] ? (
-                    <FaCheck className="text-gray-500 text-lg" />
-                  ) : (
-                    <HiOutlineXCircle className="text-rose-500/50 text-2xl" />
-                  )}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+          {/* OTHERS CARD (Left) */}
+<motion.div 
+  initial={{ opacity: 0, x: -30 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  // Changed bg-white/60 to bg-white/90 and added a stronger border
+  className="w-full lg:w-[30%] bg-white/90 backdrop-blur-xl border border-white p-8 rounded-[2.5rem] lg:rounded-r-none shadow-2xl z-10"
+>
+  <div className="text-center mb-10 h-16 flex items-center justify-center border-b border-purple-400">
+    {/* Darkened text color from slate-400 to slate-600 for readability */}
+    <h3 className="text-slate-600 text-xl font-bold uppercase tracking-widest">সাধারণ কোর্স</h3>
+  </div>
+  <ul className="space-y-4">
+    {features.map((_, idx) => (
+      <li key={idx} className="flex justify-center items-center h-12 border-b border-purple-300 last:border-0">
+        {othersFeatures[idx] ? (
+          // Darkened the checkmark so it's visible on white
+          <FaCheck className="text-slate-400 text-lg" />
+        ) : (
+          // Kept the rose color but made it slightly deeper
+          <HiOutlineXCircle className="text-rose-400 text-2xl" />
+        )}
+      </li>
+    ))}
+  </ul>
+</motion.div>
 
           {/* OUR CARD (Center - The Hero) */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="w-full lg:w-[36%] relative z-20"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="w-full lg:w-[38%] relative z-20 -my-4 lg:my-[-20px]"
           >
-            {/* Gradient Border Wrapper */}
-            <div className="absolute -inset-1 bg-gradient-to-b from-[#F300E7] to-[#4F0187] rounded-[2.5rem] blur-sm opacity-50 animate-pulse" />
+            {/* Glow effect for the hero card */}
+            <div className="absolute -inset-1 bg-gradient-to-b from-[#D223F6] to-[#4F0187] rounded-[3rem] blur-md opacity-30" />
             
-            <div className="relative bg-[#1A0B2E] border border-white/20 p-8 lg:p-10 rounded-[2.5rem] shadow-2xl">
-              <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#F300E7] to-[#A855F7] px-6 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                <FaCrown className="text-white animate-bounce" />
-                <span className="text-white font-bold text-sm tracking-tighter">PREMIUM CHOICE</span>
+            <div className="relative bg-[#2D0B5A] border border-white/10 p-8 lg:p-12 rounded-[3rem] shadow-[0_20px_50px_rgba(79,1,135,0.3)]">
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#F300E7] to-[#A855F7] px-8 py-2 rounded-full flex items-center gap-2 shadow-xl border border-white/20">
+                <FaCrown className="text-white animate-bounce text-sm" />
+                <span className="text-white font-black text-xs md:text-sm tracking-wider uppercase">Best Choice</span>
               </div>
 
-              <div className="text-center mb-10">
-                <h3 className="text-white text-2xl md:text-3xl font-black pt-2">আমাদের কোর্স</h3>
-                <div className="h-1 w-20 bg-[#F300E7] mx-auto mt-2 rounded-full" />
+              <div className="text-center mb-10 h-16 flex flex-col items-center justify-center border-b border-white/10">
+                <h3 className="text-white text-2xl md:text-3xl font-black">আমাদের কোর্স</h3>
+                <div className="h-1 w-12 bg-[#F300E7] mt-2 rounded-full" />
               </div>
 
-              <ul className="space-y-6">
+              <ul className="space-y-4">
                 {features.map((feature, idx) => (
-                  <li key={idx} className="flex flex-col items-center gap-2 group">
+                  <li key={idx} className="flex items-center justify-center h-12 border-b border-white/5 last:border-0 group">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center border border-green-500/50">
-                        <FaCheck className="text-green-400 text-sm" />
+                      <div className="hidden md:flex w-6 h-6 rounded-full bg-green-500/20 items-center justify-center border border-green-500/50">
+                        <FaCheck className="text-green-400 text-[10px]" />
                       </div>
-                      <span className="text-purple-50 text-sm md:text-base font-medium text-center">
+                      <span className="text-purple-50 text-sm md:text-lg font-bold text-center group-hover:text-[#F300E7] transition-colors">
                         {feature}
                       </span>
                     </div>
-                    {idx !== features.length - 1 && (
-                      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent mt-2" />
-                    )}
                   </li>
                 ))}
               </ul>
             </div>
           </motion.div>
 
-          {/* FEATURE LABELS (Overlay for Desktop, Muted Right Card for Mobile logic) */}
-          {/* This design uses the labels inside the center card for better readability on mobile, but we can add a visual 'others' column on the right for symmetry */}
-          <motion.div 
-             initial={{ opacity: 0, x: 50 }}
-             whileInView={{ opacity: 1, x: 0 }}
-             className="hidden lg:block w-full lg:w-[32%] bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-l-none rounded-[2rem] opacity-60"
-          >
-            <div className="text-center mb-10">
-              <h3 className="text-gray-400 text-xl font-bold uppercase tracking-widest">সাধারণ কোর্স</h3>
-            </div>
-             <ul className="space-y-6">
-              {features.map((_, idx) => (
-                <li key={idx} className="flex justify-center items-center h-8">
-                  {othersFeatures[idx] ? (
-                    <FaCheck className="text-gray-500 text-lg" />
-                  ) : (
-                    <HiOutlineXCircle className="text-rose-500/50 text-2xl" />
-                  )}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+        {/* OTHERS CARD (Right) */}
+<motion.div 
+   initial={{ opacity: 0, x: 30 }}
+   whileInView={{ opacity: 1, x: 0 }}
+   className="hidden lg:block w-full lg:w-[30%] bg-white/90 backdrop-blur-xl border border-white p-8 rounded-l-none rounded-[2.5rem] shadow-2xl z-10"
+>
+  <div className="text-center mb-10 h-16 flex items-center justify-center border-b border-purple-400">
+    <h3 className="text-slate-600 text-xl font-bold uppercase tracking-widest">সাধারণ কোর্স</h3>
+  </div>
+   <ul className="space-y-4">
+    {features.map((_, idx) => (
+      <li key={idx} className="flex justify-center items-center h-12 border-b border-purple-300 last:border-0">
+        {othersFeatures[idx] ? (
+          <FaCheck className="text-slate-400 text-lg" />
+        ) : (
+          <HiOutlineXCircle className="text-rose-400 text-2xl" />
+        )}
+      </li>
+    ))}
+  </ul>
+</motion.div>
         </div>
 
         {/* Bottom CTA Area */}
-        <div className="mt-16 text-center">
+        <div className="mt-24 text-center">
            <motion.div 
             whileHover={{ scale: 1.05 }}
-            className="inline-flex items-center gap-4 bg-white/5 border border-white/10 px-8 py-4 rounded-full backdrop-blur-sm"
+            className="inline-flex items-center gap-4 bg-white px-10 py-5 rounded-full shadow-lg border border-purple-100"
            >
               <div className="w-3 h-3 bg-green-500 rounded-full animate-ping" />
-              <p className="text-purple-100 font-semibold italic">
-                আপনার স্বপ্ন পূরণে আমরাই এক ধাপ এগিয়ে
+              <p className="text-[#4F0187] font-extrabold text-lg">
+                আপনার সফলতার জন্য আমরাই সেরা মাধ্যম
               </p>
            </motion.div>
         </div>
