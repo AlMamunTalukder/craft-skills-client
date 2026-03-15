@@ -26,14 +26,8 @@ const CourseStory = () => {
           </h2>
         </div>
         <div className="border-dashed border-b border-gray-400 pb-8 lg:py-20">
-          <div className="w-[280px] md:w-[831px] mx-auto ">
-            {/* <Image
-              src="/img/outline.webp"
-              height={600}
-              width={670}
-              alt="decorative shape"
-              className="mt-20"
-            /> */}
+          <div className="">
+           
             <RoadmapDesign/>
           </div>
         </div>

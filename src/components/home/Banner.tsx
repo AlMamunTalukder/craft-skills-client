@@ -35,7 +35,7 @@ const Banner = ({ siteData }: Props) => {
     if (pathname === "/admission") {
       return {
         tag: "Skills Development",
-        title: "ইসলামি ও আধুনিক শিক্ষার সমন্বয়ে",
+        title: "ইন্টারভিউ, প্রেজেন্টেশন, ভয়েসওভার, মিডিয়ায়",
         mainTitle: "বিশেষ ছাড়ে ভর্তি চলছে...!!",
         highlight: "৫০ দিনের চ্যালেঞ্জ",
         subtitle: "ডিসকাউন্ট পেতে দ্রুত ভর্তি নিশ্চিত করুন",
@@ -44,7 +44,7 @@ const Banner = ({ siteData }: Props) => {
     } else {
       return {
         tag: "Skills Development",
-        title: "ইসলামি ও আধুনিক শিক্ষার সমন্বয়ে",
+        title: "ইন্টারভিউ, প্রেজেন্টেশন, ভয়েসওভার, মিডিয়ায়",
         mainTitle: "কথার জাদুতে মুগ্ধ করার",
         highlight: "৫০ দিনের চ্যালেঞ্জ",
         subtitle: "",
@@ -133,14 +133,14 @@ const Banner = ({ siteData }: Props) => {
 
             {/* Headlines */}
             <div className="space-y-4">
-              {/* <motion.h3 
+              <motion.h3 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-xl md:text-3xl font-medium text-purple-200"
+                className="text-xl md:text-2xl font-medium text-purple-200"
               >
                 {bannerContent.title}
-              </motion.h3> */}
+              </motion.h3>
 
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}

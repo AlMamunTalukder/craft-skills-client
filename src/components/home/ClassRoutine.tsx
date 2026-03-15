@@ -119,7 +119,7 @@ export const ClassRoutine = ({ scheduleData }: Props) => {
             <span>সাপ্তাহিক রুটিন</span>
           </div>
           <SectionTitle text="আমাদের ক্লাস শিডিউল" />
-          <div className="h-1.5 w-24 bg-purple-600 rounded-full mt-4" />
+          {/* <div className="h-1.5 w-24 bg-purple-600 rounded-full mt-4" /> */}
         </div>
 
         {/* Modern Schedule Grid */}

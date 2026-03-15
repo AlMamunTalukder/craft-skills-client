@@ -48,39 +48,46 @@ const ComparisonTable = () => {
           </div>
 
           {/* Table Body */}
-          <div className="bg-white shadow-xl shadow-purple-100/20 rounded-b-3xl overflow-hidden border border-slate-100">
-            {data.map((row, i) => (
-              <div key={i} className="grid grid-cols-12 items-center group">
-                
-                {/* Feature Name */}
-                <div className="col-span-6 md:col-span-5 p-4 md:p-6 border-b border-slate-50 flex items-center">
-                  <span className="text-slate-700 font-semibold text-sm md:text-lg leading-tight pt-1 group-hover:text-[#4F0187] transition-colors">
-                    {row.feature}
-                  </span>
-                </div>
+          {/* Table Body */}
+<div className="bg-white shadow-xl shadow-purple-100/20 rounded-b-3xl overflow-hidden border border-slate-100">
+  {data.map((row, i) => (
+    <div key={i} className="grid grid-cols-12 items-stretch group">
+      
+      {/* Feature Name */}
+      <div className="col-span-6 md:col-span-5 p-4 md:p-6 border-b border-slate-50 flex items-center">
+        <span className="text-slate-700 font-semibold text-sm md:text-lg leading-tight pt-1 group-hover:text-[#4F0187] transition-colors">
+          {row.feature}
+        </span>
+      </div>
 
-                {/* Our Column (Highlighted) */}
-                <div className="col-span-3 md:col-span-2.5 bg-purple-50/30 border-x border-purple-100/50 p-4 md:p-6 flex justify-center items-center border-b border-purple-50">
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg shadow-green-100">
-                    <FaCheck className="text-xs md:text-sm" />
-                  </div>
-                </div>
+      {/* Our Column (High Focus) */}
+      <div className="col-span-3 md:col-span-3.5 bg-purple-50/40 border-x border-purple-100/50 p-4 md:p-6 flex justify-center items-center border-b border-purple-50 relative">
+        <div className="w-9 h-9 md:w-11 md:h-11 rounded-full bg-green-500 text-white flex items-center justify-center shadow-[0_5px_15px_-3px_rgba(34,197,94,0.4)] group-hover:scale-110 transition-transform">
+          <FaCheck className="text-sm md:text-base stroke-[2]" />
+        </div>
+      </div>
 
-                {/* Others Column */}
-                <div className="col-span-3 md:col-span-2.5 p-4 md:p-6 flex justify-center items-center border-b border-slate-50">
-                  {row.others ? (
-                    <div className="w-8 h-8 rounded-full border border-slate-200 text-slate-400 flex items-center justify-center">
-                      <FaCheck className="text-[10px]" />
-                    </div>
-                  ) : (
-                    <div className="text-rose-300">
-                      <RxCross2 className="text-xl md:text-2xl" />
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
+      {/* Others Column (Muted/Focus on Missing) */}
+      <div className="col-span-3 md:col-span-3.5 bg-slate-50/30 p-4 md:p-6 flex justify-center items-center border-b border-slate-50">
+        {row.others ? (
+          <div className="flex flex-col items-center gap-1 opacity-40">
+            <div className="w-6 h-6 rounded-full border border-slate-300 text-slate-400 flex items-center justify-center">
+              <FaCheck className="text-[8px]" />
+            </div>
+            <span className="text-[10px] font-bold text-slate-400 uppercase hidden md:block">Limited</span>
           </div>
+        ) : (
+          <div className="flex flex-col items-center gap-1">
+            <div className="w-9 h-9 md:w-11 md:h-11 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center border border-rose-100 shadow-sm">
+              <RxCross2 className="text-xl md:text-2xl stroke-[1]" />
+            </div>
+            <span className="text-[10px] font-bold text-rose-400 uppercase hidden md:block tracking-tighter">Not Available</span>
+          </div>
+        )}
+      </div>
+    </div>
+  ))}
+</div>
 
           {/* Bottom Branding Badge */}
           <div className="mt-8 flex justify-center">
