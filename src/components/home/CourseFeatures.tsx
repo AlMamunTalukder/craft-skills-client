@@ -51,7 +51,6 @@ const CourseFeatures = () => {
       <Container>
         <div className="text-center mb-20">
           <SectionTitle text="কোর্সের বৈশিষ্ট্য" />
-         
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8">
@@ -59,48 +58,47 @@ const CourseFeatures = () => {
             const Icon = feature.icon;
             return (
               <motion.div
-  key={index}
-  className="relative group h-full pt-4" // Added top padding to give the icon room
->
-  {/* 1. The Glowing Background (Behind everything) */}
-  <div 
-    className="absolute inset-0 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
-    style={{ backgroundColor: feature.color }}
-  />
+                key={index}
+                className="relative group h-full pt-4" // Added top padding to give the icon room
+              >
+                {/* 1. The Glowing Background (Behind everything) */}
+                <div
+                  className="absolute inset-0 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                  style={{ backgroundColor: feature.color }}
+                />
 
-  {/* 2. THE FLOATING ICON (Moved outside the overflow container) */}
-  <div 
-    className="absolute -top-2 left-8 w-16 h-16 rounded-2xl flex items-center justify-center z-30 transition-all duration-500 group-hover:-translate-y-4"
-    style={{ 
-      backgroundColor: feature.color,
-      boxShadow: `0 15px 30px -5px ${feature.color}66` 
-    }}
-  >
-    <Icon className="w-8 h-8 text-white" />
-  </div>
+                {/* 2. THE FLOATING ICON (Moved outside the overflow container) */}
+                <div
+                  className="absolute -top-2 left-8 w-16 h-16 rounded-2xl flex items-center justify-center z-30 transition-all duration-500 group-hover:-translate-y-4"
+                  style={{
+                    backgroundColor: feature.color,
+                    boxShadow: `0 15px 30px -5px ${feature.color}66`,
+                  }}
+                >
+                  <Icon className="w-8 h-8 text-white" />
+                </div>
 
-  {/* 3. THE MAIN CARD (Clean, no overflow-hidden here) */}
-  <div className="relative h-full bg-white border border-slate-100 rounded-[2rem] p-8 pt-16 shadow-sm group-hover:shadow-xl transition-all duration-500">
-    
-    {/* 4. INNER WRAPPER (This handles the internal decorative clips) */}
-    <div className="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">
-      <div
-        className="absolute top-0 right-0 w-32 h-32 opacity-[0.05] group-hover:opacity-[0.2] transition-opacity duration-500"
-        style={{
-          background: `radial-gradient(circle at top right, ${feature.color}, transparent 70%)`,
-        }}
-      />
-      <Icon 
-        className="absolute -bottom-6 -right-6 w-32 h-32 opacity-[0.03] -rotate-12 group-hover:rotate-0 transition-all duration-700"
-        style={{ color: feature.color }} 
-      />
-    </div>
+                {/* 3. THE MAIN CARD (Clean, no overflow-hidden here) */}
+                <div className="relative h-full bg-white border border-slate-100 rounded-[2rem] p-8 pt-16 shadow-sm group-hover:shadow-xl transition-all duration-500">
+                  {/* 4. INNER WRAPPER (This handles the internal decorative clips) */}
+                  <div className="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">
+                    <div
+                      className="absolute top-0 right-0 w-32 h-32 opacity-[0.05] group-hover:opacity-[0.2] transition-opacity duration-500"
+                      style={{
+                        background: `radial-gradient(circle at top right, ${feature.color}, transparent 70%)`,
+                      }}
+                    />
+                    <Icon
+                      className="absolute -bottom-6 -right-6 w-32 h-32 opacity-[0.03] -rotate-12 group-hover:rotate-0 transition-all duration-700"
+                      style={{ color: feature.color }}
+                    />
+                  </div>
 
-    {/* 5. CONTENT */}
-    <div className="relative z-10">
-      <h3 className="text-[#1e293b] font-extrabold text-xl leading-snug">
-        {feature.title}
-      </h3>
+                  {/* 5. CONTENT */}
+                  <div className="relative z-10">
+                    <h3 className="text-[#1e293b] font-extrabold text-xl leading-snug">
+                      {feature.title}
+                    </h3>
 
                     {/* 6. Decorative Modern Bar */}
                     <div className="mt-5 h-1.5 w-12 rounded-full bg-slate-100 overflow-hidden">

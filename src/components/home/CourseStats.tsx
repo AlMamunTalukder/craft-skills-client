@@ -1,181 +1,21 @@
-// "use client";
-// import { useEffect, useState, useMemo } from "react";
-// import Container from "../shared/Container";
-// import { motion } from "framer-motion";
-
-// const duration = 1500;
-
-// const CourseStats = () => {
-//   // Static stats (NO dynamic props, NO SiteContent)
-//   const stats = useMemo(
-//     () => [
-//       {
-//         value: 36,
-//         suffix: "+",
-//         label: "মোট আবর্তন",
-//         color: "text-teal-500",
-//       },
-//       {
-//         value: 2500,
-//         suffix: "+",
-//         label: "কোর্স সম্পন্ন করেছে",
-//         color: "text-rose-500",
-//       },
-//       {
-//         value: 99.9,
-//         suffix: "%",
-//         label: "শিক্ষার্থীদের সন্তুষ্টির হার",
-//         color: "text-purple-500",
-//       },
-//       {
-//         value: 15,
-//         suffix: "+",
-//         label: "প্রশিক্ষক",
-//         color: "text-yellow-500",
-//       },
-//     ],
-//     [],
-//   );
-
-//   const columns = 2;
-//   const [counts, setCounts] = useState(() => stats.map(() => 0));
-//   const [isVisible, setIsVisible] = useState(false);
-
-//   useEffect(() => {
-//     const el = document.getElementById("stats-section");
-//     const observer = new IntersectionObserver(
-//       ([entry]) => {
-//         if (entry.isIntersecting) {
-//           setIsVisible(true);
-//         }
-//       },
-//       { threshold: 0.2 },
-//     );
-
-//     if (el) observer.observe(el);
-
-//     return () => {
-//       if (el) observer.unobserve(el);
-//     };
-//   }, []);
-
-//   useEffect(() => {
-//     if (!isVisible) return;
-
-//     const intervals = stats.map((stat, i) => {
-//       const step = stat.value / (duration / 30);
-//       let current = 0;
-
-//       return setInterval(() => {
-//         current += step;
-//         setCounts((prev) => {
-//           const updated = [...prev];
-//           updated[i] = current >= stat.value ? stat.value : current;
-//           return updated;
-//         });
-
-//         if (current >= stat.value) {
-//           clearInterval(intervals[i]);
-//         }
-//       }, 30);
-//     });
-
-//     return () => intervals.forEach(clearInterval);
-//   }, [isVisible, stats]);
-
-//   return (
-//     <Container>
-//       <section id="stats-section" className="relative mt-20">
-//         <motion.div
-//           animate={{ rotate: 360 }}
-//           transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
-//           className="hidden md:block absolute z-20 top-0 left-28 w-40 h-40 rounded-full border-8 border-dashed border-[#D423F7] transform -translate-x-1/2 -translate-y-1/2"
-//         />
-
-//         <div className="max-w-3xl mx-auto bg-white rounded-md p-2 md:p-10 grid grid-cols-2 gap-0 text-center z-10 relative border border-dashed border-gray-200 overflow-hidden">
-//           {stats.map((stat, index) => {
-//             const isRightCol = (index + 1) % columns !== 0;
-//             const isBottomRow = index < stats.length - columns;
-
-//             return (
-//               <motion.div
-//                 key={index}
-//                 initial={{ scale: 0.8, opacity: 0 }}
-//                 whileInView={{ scale: 1, opacity: 1 }}
-//                 transition={{ duration: 0.4, delay: index * 0.2 }}
-//                 viewport={{ once: true }}
-//               >
-//                 <div
-//                   className={`p-2 md:p-6 border-gray-300
-//                     ${isBottomRow ? "md:border-b" : ""}
-//                     ${isRightCol ? "md:border-r" : ""}
-//                   `}
-//                 >
-//                   <h3 className={`text-4xl font-bold ${stat.color}`}>
-//                     {Math.floor(counts[index])}
-//                     {stat.suffix}
-//                   </h3>
-//                   <p className="mt-1 text-gray-800 md:text-[22px] font-[500]">
-//                     {stat.label}
-//                   </p>
-//                 </div>
-//               </motion.div>
-//             );
-//           })}
-//         </div>
-//       </section>
-//     </Container>
-//   );
-// };
-
-// export default CourseStats;
 "use client";
+import React, { useRef, useEffect } from "react";
 import { motion, useInView, useSpring, useTransform } from "framer-motion";
-import { useRef, useEffect } from "react";
 import Container from "../shared/Container";
-import SectionTitle from "../shared/SectionTitle";
-import { GraduationCap, Users, Star, UserCheck } from "lucide-react";
+import { GraduationCap, Users, ShieldCheck, UserCheck, Activity } from "lucide-react";
 
 const stats = [
-  { 
-    id: 1, 
-    value: 36, 
-    suffix: "+", 
-    label: "মোট ব্যাচ সম্পন্ন", 
-    icon: <Users className="w-6 h-6" />,
-    theme: "indigo"
-  },
-  { 
-    id: 2, 
-    value: 2500, 
-    suffix: "+", 
-    label: "সফল শিক্ষার্থী", 
-    icon: <GraduationCap className="w-6 h-6" />,
-    theme: "purple"
-  },
-  { 
-    id: 3, 
-    value: 99.9, 
-    suffix: "%", 
-    label: "সন্তুষ্টির হার", 
-    icon: <Star className="w-6 h-6" />,
-    theme: "amber"
-  },
-  { 
-    id: 4, 
-    value: 15, 
-    suffix: "+", 
-    label: "প্রশিক্ষক মণ্ডলী", 
-    icon: <UserCheck className="w-6 h-6" />,
-    theme: "emerald"
-  },
+  { id: 1, value: 36, suffix: "+", label: "মোট ব্যাচ সম্পন্ন", icon: <Users />, color: "from-indigo-500 via-purple-500 to-pink-500" },
+  { id: 2, value: 2500, suffix: "+", label: "সফল শিক্ষার্থী", icon: <GraduationCap />, color: "from-emerald-400 to-cyan-500" },
+  { id: 3, value: 99.9, suffix: "%", label: "সন্তুষ্টির হার", icon: <ShieldCheck />, color: "from-blue-500 to-blue-700" }, // Replaced Yellow with Royal Blue
+  { id: 4, value: 15, suffix: "+", label: "প্রশিক্ষক মণ্ডলী", icon: <UserCheck />, color: "from-rose-400 to-orange-500" },
 ];
 
 const AnimatedNumber = ({ value }: { value: number }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const spring = useSpring(0, { stiffness: 40, damping: 20 });
-  const display = useTransform(spring, (current) => 
+  const spring = useSpring(0, { stiffness: 25, damping: 15 });
+  const display = useTransform(spring, (current) =>
     value % 1 === 0 ? Math.floor(current).toLocaleString() : current.toFixed(1)
   );
 
@@ -188,51 +28,66 @@ const AnimatedNumber = ({ value }: { value: number }) => {
 
 const CourseStats = () => {
   return (
-    <section className="py-20 bg-slate-50"> 
+    // Background: Dark-Light Slate (Not pure black)
+    <section className="py-24 bg-[#370472] relative overflow-hidden">
+      {/* Focusing System 1: Ambient Mesh Gradients */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] -z-0" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-0" />
+
       <Container>
-        <div className="max-w-6xl mx-auto">
-          {/* Header with Academic Alignment */}
-              <SectionTitle text="আমাদের অর্জিত সাফল্য" />
-         
+        <div className="relative z-10">
+          <div className="text-center mb-16">
+            
+            <h2 className="text-4xl md:text-6xl font-black text-white">
+               আমাদের অর্জিত <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-500">গৌরবময় মাইলফলক</span> 
+            </h2>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.id}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className="bg-white border border-slate-200 rounded-2xl p-8 hover:border-[#4F0187]/30 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/5 group"
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                // Focusing System 2: Hover Lift & Border Glow
+                className="group relative"
               >
-                {/* Icon with Professional LMS Framing */}
-                <div className="w-12 h-12 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600 group-hover:bg-[#4F0187] group-hover:text-white transition-colors duration-500 mb-6">
-                  {stat.icon}
-                </div>
-
-                <div className="space-y-1">
-                  <h3 className="text-3xl md:text-4xl font-black text-slate-900 flex items-baseline gap-1">
-                    <AnimatedNumber value={stat.value} />
-                    <span className="text-xl font-bold text-[#4F0187]">{stat.suffix}</span>
-                  </h3>
+                <div className="h-full bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 group-hover:bg-slate-900/60 group-hover:border-white/20 group-hover:-translate-y-2">
                   
-                  <p className="text-slate-500 font-semibold text-sm md:text-base tracking-tight uppercase">
-                    {stat.label}
-                  </p>
-                </div>
-
-                {/* Subtle Modern Accent */}
-                <div className="mt-6 w-full h-[2px] bg-slate-100 overflow-hidden">
+                  {/* Focusing System 3: Floating Icon Logic */}
                   <motion.div 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "100%" }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                    className="h-full bg-[#4F0187]"
-                  />
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white mb-10 shadow-lg shadow-black/20`}
+                  >
+                    {stat.icon}
+                    {/* {React.cloneElement(stat.icon as React.ReactElement, { size: 32, strokeWidth: 1.5 })} */}
+                  </motion.div>
+
+                  <div className="space-y-3">
+                    <div className="flex items-baseline gap-1">
+                      <h3 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+                        <AnimatedNumber value={stat.value} />
+                      </h3>
+                      <span className={`text-2xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
+                        {stat.suffix}
+                      </span>
+                    </div>
+                    
+                    <p className="text-slate-400 text-sm md:text-base font-bold uppercase tracking-wider leading-relaxed">
+                      {stat.label}
+                    </p>
+                  </div>
+
+                  {/* Corner Accent Detail */}
+                  <div className={`absolute bottom-6 right-8 w-1 h-12 bg-gradient-to-b ${stat.color} rounded-full opacity-20 group-hover:opacity-100 transition-opacity duration-500`} />
                 </div>
               </motion.div>
             ))}
           </div>
+
+          
         </div>
       </Container>
     </section>

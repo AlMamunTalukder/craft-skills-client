@@ -5,8 +5,9 @@ import RoadmapDesign from "./RoadmapDesign";
 
 const CourseStory = () => {
   return (
-    <div className="mt-5 md:mt-20">
+    <div className="mt-5 md:mt-10">
       <Container>
+        <div className="border-dashed border-b border-gray-400 "></div>
         <div className="border-dashed border-b border-gray-400 pb-8 lg:pb-20">
           <SectionTitle text="কোর্স স্টোরি" />
           <div className="w-[252px] h-[190px] mx-auto mb-5">
@@ -25,7 +26,10 @@ const CourseStory = () => {
             ৫০ দিনের চ্যালেঞ্জ
           </h2>
         </div>
-        <div className="border-dashed border-b border-gray-400 pb-8 lg:py-20">
+
+
+
+        <div className="  pb-8 lg:py-20">
           <div className="">
            
             <RoadmapDesign/>
