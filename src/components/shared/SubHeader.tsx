@@ -120,7 +120,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
             </div>
 
             <div className="w-[150px] sm:w-[150px] md:w-[170px] px-1 md:px-0">
-              <div className="md:bg-white/5 md:backdrop-blur-sm px-1 md:px-5 py-0 md:py-0 rounded-lg md:border md:border-white/10 shadow-lg">
+              <div className="">
                 <CountdownTimer targetDate={seminar?.registrationDeadline} />
               </div>
             </div>
