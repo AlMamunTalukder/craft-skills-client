@@ -51,7 +51,7 @@ const Instructors = () => {
          
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-10 md:gap-10 max-w-5xl mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-10 max-w-5xl mx-auto">
           {instructors.map((instructor, idx) => (
             <motion.div
               key={idx}
@@ -59,10 +59,10 @@ const Instructors = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               viewport={{ once: true }}
-              className="relative group h-[420px] md:h-[350px]"
+              className="relative group h-[220px] md:h-[350px]"
             >
               {/* Main Card Container */}
-              <div className="relative h-full rounded-[2rem] overflow-hidden bg-slate-200 shadow-2xl transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-purple-200/50">
+              <div className="relative h-full rounded-xl md:rounded-[2rem] overflow-hidden bg-slate-200 shadow-2xl transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-purple-200/50">
                 {/* Background Gradient Glow */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#4F0187]/90 z-10" />
 
@@ -88,14 +88,14 @@ const Instructors = () => {
                 </div>
 
                 {/* Content Overlay (Frosted Glass Look) */}
-                <div className="absolute bottom-6 left-6 right-6 z-20">
-                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-5 rounded-3xl shadow-2xl">
-                    <h3 className="text-white text-xl md:text-2xl font-black mb-1 drop-shadow-md">
+                <div className="absolute bottom-2 md:bottom-6 left-2 md:left-6 right-2 md:right-6 z-20">
+                  <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-1.5 md:p-5 rounded-lg md:rounded-3xl shadow-2xl">
+                    <h3 className="text-white text-[15px] md:text-2xl font-black mb-1 drop-shadow-md">
                       {instructor.name}
                     </h3>
                     <div className="flex items-center gap-2">
                       <div className="h-1 w-6 bg-[#DC25FF] rounded-full" />
-                      <p className="text-purple-100 font-medium text-sm md:text-base uppercase tracking-wider">
+                      <p className="text-purple-100 font-medium text-[10px] md:text-base uppercase tracking-wider">
                         {instructor.designation}
                       </p>
                     </div>

@@ -43,7 +43,7 @@ const CourseStats = () => {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.id}
@@ -53,7 +53,7 @@ const CourseStats = () => {
                 // Focusing System 2: Hover Lift & Border Glow
                 className="group relative"
               >
-                <div className="h-full bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-8 transition-all duration-500 group-hover:bg-slate-900/60 group-hover:border-white/20 group-hover:-translate-y-2">
+                <div className="h-full bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-xl md:rounded-[2.5rem] p-3 md:p-8 transition-all duration-500 group-hover:bg-slate-900/60 group-hover:border-white/20 group-hover:-translate-y-2">
                   
                   {/* Focusing System 3: Floating Icon Logic */}
                   <motion.div 

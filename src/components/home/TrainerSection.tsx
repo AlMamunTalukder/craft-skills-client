@@ -32,11 +32,11 @@ const TrainerSection = () => {
           </div>
 
           {/* Secondary Grid (Side-by-Side Gallery) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-10 md:mb-20">
+          <div className="grid grid-cols-2 gap-2 md:gap-10 mb-10 md:mb-20">
             {/* Video 1 */}
             <div className="group relative">
-               <div className="bg-white rounded-3xl p-3 shadow-xl shadow-purple-100/50 border border-purple-50 transition-all duration-500 hover:-translate-y-2">
-                  <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-200">
+               <div className="md:bg-white md:rounded-3xl md:p-3 shadow-xl shadow-purple-100/50 md:border md:border-purple-50 transition-all duration-500 hover:-translate-y-2">
+                  <div className="relative aspect-video rounded-lg md:rounded-2xl overflow-hidden bg-slate-200">
                     <iframe
                       className="w-full h-full"
                       src="https://www.youtube.com/embed/qLNxu8IFsiQ?si=i5YBVQtbCgKYNOTt"
@@ -51,8 +51,8 @@ const TrainerSection = () => {
 
             {/* Video 2 */}
             <div className="group relative">
-               <div className="bg-white rounded-3xl p-3 shadow-xl shadow-purple-100/50 border border-purple-50 transition-all duration-500 hover:-translate-y-2">
-                  <div className="relative aspect-video rounded-2xl overflow-hidden bg-slate-200">
+               <div className="md:bg-white md:rounded-3xl md:p-3 shadow-xl shadow-purple-100/50 md:border md:border-purple-5 transition-all duration-500 hover:-translate-y-2">
+                  <div className="relative aspect-video rounded-lg md:rounded-2xl overflow-hidden bg-slate-200">
                     <iframe
                       className="w-full h-full"
                       src="https://www.youtube.com/embed/1RxdQgm7-R4?si=ph1pbz4BPLtcgbzb"

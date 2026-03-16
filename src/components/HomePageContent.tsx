@@ -1,7 +1,6 @@
 
 import ClassDescription from "./home/ClassDescription";
 import { ClassRoutine } from "./home/ClassRoutine";
-// import ClassRoutine from "./home/ClassRoutine";
 import ComparisonTable from "./home/ComparisonTable";
 import CourseFeatures from "./home/CourseFeatures";
 import CourseOutline from "./home/CourseOutline";
@@ -10,7 +9,6 @@ import CourseStats from "./home/CourseStats";
 import CourseStory from "./home/CourseStory";
 import Instructors from "./home/Instructors";
 import OurActivities from "./home/OurActivities";
-import RoadmapDesign from "./home/RoadmapDesign";
 import Testimonials from "./home/Testimonials";
 import TotalClass from "./home/TotalClass";
 import TrainerSection from "./home/TrainerSection";
@@ -26,7 +24,6 @@ const HomePageContent = async () => {
       <WhyCourse />
       <CourseOutline />
       <CourseFeatures />
-      {/* <RoadmapDesign/> */}
       <CourseStory />
       <ClassDescription />
       <TotalClass />

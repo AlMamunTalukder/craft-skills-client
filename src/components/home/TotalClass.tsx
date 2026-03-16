@@ -67,20 +67,20 @@ const TotalClass = ({ totalNumber = 50, duration = 2500 }) => {
              </h2>
           </div>
 
-          <div className="relative w-full max-w-[320px] h-[320px] md:max-w-[650px] md:h-[650px] flex items-center justify-center">
+          <div className="relative w-full max-w-[250px] h-[250px] md:max-w-[650px] md:h-[650px] flex items-center justify-center">
             
             {/* 1. Orbital Ring Glow */}
             <div className="absolute inset-0 rounded-full border border-white/5 scale-[0.95] md:scale-100 shadow-[inset_0_0_50px_rgba(255,255,255,0.02)]" />
-            <div className="absolute inset-0 rounded-full border border-dashed border-cyan-400/10 scale-[1.1] md:scale-[1.15] animate-[spin_120s_linear_infinite]" />
+            {/* <div className="absolute inset-0 rounded-full border border-dashed border-cyan-400/10 scale-[1.1] md:scale-[1.15] animate-[spin_120s_linear_infinite]" /> */}
 
             {/* 2. CENTER CORE (Glassmorphism) */}
             <div className="relative z-20">
                <motion.div 
                  initial={{ scale: 0.8 }}
                  whileInView={{ scale: 1 }}
-                 className="relative w-44 h-44 md:w-72 md:h-72 rounded-full bg-white/[0.03] backdrop-blur-2xl flex flex-col items-center justify-center border border-white/10 shadow-2xl"
+                 className="relative w-32 h-32 md:w-72 md:h-72 rounded-full bg-white/[0.03] backdrop-blur-2xl flex flex-col items-center justify-center border border-white/10 shadow-2xl"
                >
-                  <h1 className="text-white text-7xl md:text-[150px] font-black tracking-tighter leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
+                  <h1 className="text-white text-5xl md:text-[150px] font-black tracking-tighter leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
                     {counts.total}
                   </h1>
                   <p className="font-black text-cyan-400 text-[10px] md:text-sm tracking-[0.4em] uppercase opacity-80">Classes</p>
@@ -102,11 +102,11 @@ const TotalClass = ({ totalNumber = 50, duration = 2500 }) => {
                     initial={{ opacity: 0, scale: 0 }}
                     whileInView={{ opacity: 1, scale: 1, x, y }}
                     transition={{ delay: idx * 0.1, duration: 1, type: "spring", stiffness: 40 }}
-                    className="absolute left-1/2 top-1/2 -ml-[60px] -mt-[40px] md:-ml-[85px] md:-mt-[55px] w-auto h-auto"
+                    className="absolute left-1/2 top-1/2 -ml-[30px] -mt-[40px] md:-ml-[85px] md:-mt-[55px] w-auto h-auto"
                   >
-                    <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 bg-white/[0.07] backdrop-blur-xl p-2 md:p-3 rounded-[1rem] border border-white/10 hover:border-white/30 transition-all group shadow-xl">
+                    <div className="flex flex-row items-center gap-2 md:gap-4 bg-white/[0.07] backdrop-blur-xl p-2 md:p-3 rounded-xl md:rounded-[1rem] border border-white/10 hover:border-white/30 transition-all group shadow-xl">
                       <div 
-                        className="w-10 h-10 md:w-14 md:h-14 shrink-0 rounded-2xl flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-300"
+                        className="w-6 h-6 md:w-14 md:h-14 shrink-0 rounded-md md:rounded-2xl flex items-center justify-center text-white shadow-2xl group-hover:scale-110 group-hover:rotate-12 transition-all duration-300"
                         style={{ background: `linear-gradient(135deg, ${item.color} 0%, #000 150%)`, boxShadow: `0 0 20px ${item.color}44` }}
                       >
                         {item.icon}
