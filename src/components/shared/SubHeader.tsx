@@ -92,9 +92,6 @@ export default function SubHeader({ siteData, seminar }: Props) {
     const deadlineDate = seminar.registrationDeadline
       ? new Date(seminar.registrationDeadline)
       : null;
-
-    // Seminar is active if it's marked as active AND
-    // the registration deadline has not passed
     return seminar.isActive && deadlineDate && now < deadlineDate;
   };
 
@@ -128,7 +125,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
             <div className="w-[222px] md:w-[150px] px-4 md:px-0">
               <Link
                 href={"#registration-form"}
-                className="flex items-center justify-center gap-2 bg-linear-to-r from-[#DC25FF] to-[#3C016F] border-2 md:border border-white px-2 md:px-1 py-1 rounded-full md:rounded-lg text-white hover:shadow-lg hover:shadow-[#DC25FF]/20 transition-all duration-300 w-full"
+                className="group relative flex items-center gap-2 bg-gradient-to-r from-[#DC25FF] to-[#7000FF] px-5 py-2 md:py-2.5 rounded-full text-white shadow-[0_0_20px_rgba(220,37,255,0.3)] hover:shadow-[#DC25FF]/50 transition-all duration-300"            
                 aria-label="Register Now"
               >
                 <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />
