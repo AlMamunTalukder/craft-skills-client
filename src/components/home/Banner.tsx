@@ -86,79 +86,86 @@ const Banner = ({ siteData }: Props) => {
       <Container className="relative z-20 w-full py-6 md:py-20">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="w-full md:w-[65%] text-center md:text-left space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-400/30 bg-white/5 backdrop-blur-md mx-auto md:mx-0 shadow-[0_0_15px_rgba(243,0,231,0.3)]"
-            >
-              <GraduationCapIcon size={16} className="text-[#F300E7] animate-pulse" />
-              <span className="text-xs md:text-sm font-bold tracking-wider text-white uppercase">
-                {bannerContent.tag}
-              </span>
-            </motion.div>
+  {/* Top Badge: 50 Days Challenge */}
+  <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    className="flex items-center gap-3 md:gap-4 justify-center md:justify-start"
+  >
+    <div className="relative">
+      <div className="absolute -inset-1 bg-[#F300E7] blur-sm opacity-50 rounded-full animate-pulse"></div>
+      {/* Trophy Icon matches the visual in your image */}
+      <div className="relative bg-white/10 p-2 rounded-lg backdrop-blur-sm border border-white/20">
+        <Award size={24} className="text-white" />
+      </div>
+    </div>
+    <h3 className="text-2xl md:text-4xl font-bold text-white tracking-tight">
+      {bannerContent.topTitle}
+    </h3>
+  </motion.div>
 
-            <div className="space-y-2">
-              <motion.h3
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-lg md:text-3xl font-bold text-purple-200"
-              >
-                {bannerContent.topTitle}
-              </motion.h3>
+  <div className="space-y-4">
+    {/* Main Title: কথার ভয় জয় করুন */}
+    <motion.h1
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+      className="text-5xl md:text-7xl font-black leading-tight text-transparent bg-clip-text bg-gradient-to-b from-[#F300E7] to-[#8B5CF6] drop-shadow-[0_5px_15px_rgba(243,0,231,0.4)]"
+    >
+      {bannerContent.mainTitle}
+    </motion.h1>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="text-4xl md:text-7xl font-black leading-tight text-white drop-shadow-2xl"
-              >
-                {bannerContent.mainTitle}
-              </motion.h1>
+    {/* Skills List with Bullets */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.4 }}
+      className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-lg md:text-2xl font-bold text-purple-200"
+    >
+      {bannerContent.skills.split(",").map((skill, index) => (
+        <div key={index} className="flex items-center gap-2">
+          <span className="text-[#F300E7] text-2xl">•</span>
+          <span>{skill.replace("*", "").trim()}</span>
+        </div>
+      ))}
+    </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="text-md md:text-2xl font-semibold text-purple-300/90"
-              >
-                {bannerContent.skills}
-              </motion.div>
+    {/* Highlight: সবখানে হয়ে উঠুন কথার জাদুকর */}
+    <motion.h2
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5 }}
+      className="text-2xl md:text-4xl font-extrabold text-white"
+    >
+      {bannerContent.highlight}
+    </motion.h2>
 
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="text-2xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] via-purple-400 to-[#A855F7] pt-2"
-              >
-                {bannerContent.highlight}
-              </motion.h2>
+    {/* Seminar Time / Subtitle */}
+    <motion.p
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.6 }}
+      className="text-gray-400 text-sm md:text-xl font-medium"
+    >
+       ফ্রি সেমিনারের সময়ঃ ০১ জানুয়ারি - শুক্রবার - রাত ৯টা
+    </motion.p>
+  </div>
 
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                className="text-gray-300 text-sm md:text-lg max-w-2xl pt-4"
-              >
-                {bannerContent.subtitle && <span className="block mb-1">{bannerContent.subtitle}</span>}
-                {bannerContent.description}
-              </motion.p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="flex flex-row justify-center md:justify-start"
-            >
-              <div className="group relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#F300E7] to-[#A855F7] rounded-full blur opacity-60 group-hover:opacity-100 transition duration-1000"></div>
-                <div className="relative">
-                  <CtaLinkButton />
-                </div>
-              </div>
-            </motion.div>
-          </div>
+  {/* CTA Button */}
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.7 }}
+    className="flex flex-row justify-center md:justify-start pt-4"
+  >
+    <div className="group relative">
+      <div className="absolute -inset-1 bg-gradient-to-r from-[#F300E7] to-[#A855F7] rounded-full blur-md opacity-70 group-hover:opacity-100 transition duration-500"></div>
+      <div className="relative">
+        <CtaLinkButton />
+      </div>
+    </div>
+  </motion.div>
+</div>
 
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
