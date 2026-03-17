@@ -76,15 +76,10 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
       href: siteData?.telegram || "#",
       color: "#0088cc",
     },
-    {
-      icon: <FaUsers />,
-      label: "Community",
-      href: siteData?.facebookGroup || "#",
-      color: "#4267B2",
-    },
+   
   ];
 
-  const isSeminarActive = () => {
+  const isRegistrationActive = () => {
     if (!batch || !batch.isActive) return false;
 
     const now = new Date();
@@ -95,7 +90,7 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
     return batch.isActive && deadlineDate && now < deadlineDate;
   };
 
-  if (!batch || !isSeminarActive()) return null;
+  if (!batch || !isRegistrationActive()) return null;
 
   return (
     <div

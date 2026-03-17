@@ -21,7 +21,6 @@ export async function getSiteData(): Promise<SiteContent | null> {
 
     return null;
   } catch (error) {
-    // console.error("Error fetching site data:", error);
     return null;
   }
 }
@@ -219,7 +218,6 @@ export const api = {
   },
 };
 
-// Add this to your lib/api.ts file if not already there
 export async function getActiveSeminar() {
   try {
     const response = await fetch(`${API_URL}/seminars/active`, {});

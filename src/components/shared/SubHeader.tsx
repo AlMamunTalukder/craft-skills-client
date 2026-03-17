@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
   FaFacebookF,
@@ -15,6 +14,7 @@ import {
 import Container from "./Container";
 import "./subheader.css";
 import { Seminar, SiteContent } from "@/types";
+import { Button } from "@/components/ui/button";
 
 const CountdownTimer = dynamic(() => import("../home/CountdownTimer"), {
   ssr: false,
@@ -29,16 +29,10 @@ export default function SubHeader({ siteData, seminar }: Props) {
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 10);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -51,6 +45,20 @@ export default function SubHeader({ siteData, seminar }: Props) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const isSeminarActive = () => {
+    if (!seminar || !seminar.isActive) return false;
+
+    const now = new Date();
+    const deadlineDate = seminar.registrationDeadline
+      ? new Date(seminar.registrationDeadline)
+      : null;
+
+    return deadlineDate && now < deadlineDate;
+  };
+
+  // ✅ IMPORTANT: stop rendering completely
+  if (!isSeminarActive()) return null;
 
   const socialLinks = [
     {
@@ -77,36 +85,21 @@ export default function SubHeader({ siteData, seminar }: Props) {
       href: siteData?.telegram || "#",
       color: "#0088cc",
     },
-    {
-      icon: <FaUsers />,
-      label: "Community",
-      href: siteData?.facebookGroup || "#",
-      color: "#4267B2",
-    },
+    
   ];
-
-  const isSeminarActive = () => {
-    if (!seminar || !seminar.isActive) return false;
-
-    const now = new Date();
-    const deadlineDate = seminar.registrationDeadline
-      ? new Date(seminar.registrationDeadline)
-      : null;
-    return seminar.isActive && deadlineDate && now < deadlineDate;
-  };
 
   return (
     <div
       className={`sticky top-0 z-50 w-full shadow-sm transition-all duration-300 responsive-header ${
         isScrolled
-          ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
-          : " bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
+          ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-0"
+          : " bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-0"
       }`}
     >
       <Container>
-        {isSeminarActive() ? (
-          <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[2px] md:space-y-0">
-            <div className="flex items-center md:items-start flex-col text-center md:text-left  md:px-2">
+   
+          <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[5px] md:space-y-0">
+            <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left  md:px-2">
               <h3 className="text-[13px] md:text-[17px] leading-tight">
                 {seminar?.title || "ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন।"}
               </h3>
@@ -116,55 +109,47 @@ export default function SubHeader({ siteData, seminar }: Props) {
               </div>
             </div>
 
-            <div className="w-[150px] sm:w-[150px] md:w-[170px] px-1 md:px-0">
-              <div className="">
-                <CountdownTimer targetDate={seminar?.registrationDeadline} />
-              </div>
+            <div className="md:w-[170px] px-1 md:px-0">
+              <CountdownTimer targetDate={seminar?.registrationDeadline} />
             </div>
 
-            <div className="w-[222px] md:w-[150px] px-4 md:px-0">
+            <div className=" md:w-[140px] px-4 md:px-0">
               <Link
                 href={"#registration-form"}
-                className="group relative flex items-center gap-2 bg-gradient-to-r from-[#DC25FF] to-[#7000FF] px-5 py-2 md:py-2.5 rounded-full text-white shadow-[0_0_20px_rgba(220,37,255,0.3)] hover:shadow-[#DC25FF]/50 transition-all duration-300"            
+                className=""
                 aria-label="Register Now"
               >
-                <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />
-                <span className="text-sm md:text-base whitespace-nowrap ">
-                  রেজিস্ট্রেশন করুন
-                </span>
+                <Button className="bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full">
+                  <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />
+                  <span className="text-sm md:text-base whitespace-nowrap ">
+                    রেজিস্ট্রেশন করুন
+                  </span>
+                </Button>
               </Link>
             </div>
-
-            
-          </div>
-        ) : (
-          <>{/* Social Icon */}
             <div className="flex justify-center md:justify-end mb-[6px] md:mb-0 pt-1 md:pt-0">
-              <div className=" hidden md:flex items-center gap-3 md:gap-2">
-                {socialLinks.map((social, index) => (
-                  <Link
-                    key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs md:text-sm transition-all duration-300 flex items-center justify-center h-6 md:h-9 w-6 md:w-9 rounded-full bg-white/10 hover:bg-white/20 shadow-md"
-                    aria-label={social.label}
-                    style={{
-                      color: "white",
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.color = social.color)
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.color = "white")
-                    }
-                  >
-                    {social.icon}
-                  </Link>
-                ))}
-              </div>
-            </div></>
-        )}
+      <div className=" hidden md:flex items-center gap-3 md:gap-2">
+        {socialLinks.map((social, index) => (
+          <Link
+            key={index}
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs md:text-sm transition-all duration-300 flex items-center justify-center h-6 md:h-9 w-6 md:w-9 rounded-full bg-white/10 hover:bg-white/20 shadow-md"
+            aria-label={social.label}
+            style={{
+              color: "white",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = social.color)}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "white")}
+          >
+            {social.icon}
+          </Link>
+        ))}
+      </div>
+    </div>
+          </div>
+    
       </Container>
     </div>
   );

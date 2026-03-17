@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface TimeLeft {
-  days: string;
+  days: string; 
   hours: string;
   minutes: string;
   seconds: string;
@@ -38,18 +38,18 @@ const CountdownTimer: React.FC<{ targetDate?: string | Date }> = ({ targetDate }
   }, [targetDate]);
 
   return (
-    <div className="inline-flex items-center bg-white/5 backdrop-blur-md border border-white/50 px-3 py-1.5 rounded-full shadow-inner group">
+    <div className="inline-flex items-center backdrop-blur-md border border-white/50 px-3 md:py-1.5 rounded-full shadow-inner group">
       <div className="flex items-center gap-1.5 md:gap-3">
         
         {/* Unit Block */}
-        <CompactUnit value={timeLeft.days} label="d" color="text-purple-400" />
-        <span className="text-white/20 font-light -mt-1">:</span>
+        <CompactUnit value={timeLeft.days} label="d" color="text-fuchsia-400" />
+        <span className="text-white font-light -mt-1">:</span>
         
-        <CompactUnit value={timeLeft.hours} label="h" color="text-cyan-400" />
-        <span className="text-white/20 font-light -mt-1">:</span>
+        <CompactUnit value={timeLeft.hours} label="h" color="text-cyan-500" />
+        <span className="text-white font-light -mt-1">:</span>
         
-        <CompactUnit value={timeLeft.minutes} label="m" color="text-indigo-400" />
-        <span className="text-white/20 font-light -mt-1">:</span>
+        <CompactUnit value={timeLeft.minutes} label="m" color="text-indigo-500" />
+        <span className="text-white font-light -mt-1">:</span>
         
         <CompactUnit value={timeLeft.seconds} label="s" color="text-fuchsia-400" />
         
@@ -74,7 +74,7 @@ const CompactUnit = ({ value, label, color }: { value: string; label: string; co
         </motion.span>
       </AnimatePresence>
     </div>
-    <span className="text-[9px] md:text-[10px] font-bold uppercase text-slate-500 mb-[1px]">
+    <span className="text-[9px] md:text-[10px] font-bold uppercase text-slate-200 mb-[1px]">
       {label}
     </span>
   </div>
