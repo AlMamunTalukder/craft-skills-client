@@ -4,7 +4,7 @@ import Container from "../shared/Container";
 
 const Contact = () => {
   return (
-    <div id="contact" className="py-20 bg-[#FFF7EF] mt-20">
+    <div id="contact" className="py-7 md:py-20 bg-[#FFF7EF] mt-20">
       <Container>
         <div className="max-w-3xl mx-auto  shadow-md rounded-md md:p-10 p-5 bg-[#4F0187] text-white">
           <h2 className="text-2xl font-bold text-center mb-8 text-[#6B21A8">

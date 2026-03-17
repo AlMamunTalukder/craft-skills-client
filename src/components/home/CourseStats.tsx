@@ -29,7 +29,7 @@ const AnimatedNumber = ({ value }: { value: number }) => {
 const CourseStats = () => {
   return (
     // Background: Dark-Light Slate (Not pure black)
-    <section className="py-24 bg-[#370472] relative overflow-hidden">
+    <section className="py-8 md:py-24 bg-[#370472] relative overflow-hidden">
       {/* Focusing System 1: Ambient Mesh Gradients */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] -z-0" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] -z-0" />
@@ -59,7 +59,7 @@ const CourseStats = () => {
                   <motion.div 
                     animate={{ y: [0, -8, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white mb-10 shadow-lg shadow-black/20`}
+                    className={`w-10 md:w-16 h-10 md:h-16 rounded-lg md:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white mb-3 md:mb-10 shadow-lg shadow-black/20`}
                   >
                     {stat.icon}
                     {/* {React.cloneElement(stat.icon as React.ReactElement, { size: 32, strokeWidth: 1.5 })} */}

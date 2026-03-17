@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 
 const TrainerSection = () => {
   return (
-    <div className="bg-[#FAF9FF] py-16 md:py-24">
+    <div className="bg-[#FAF9FF] py-7 md:py-24">
       <Container>
         <div className="max-w-5xl mx-auto">
           {/* Header Section */}

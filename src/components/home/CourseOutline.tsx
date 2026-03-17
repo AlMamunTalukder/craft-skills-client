@@ -78,7 +78,7 @@ const CourseOutline = () => {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 w-[280px] md:w-[900px] mx-auto">
+        <div className="grid md:grid-cols-2 gap-3 md:gap-8  md:w-[900px] mx-auto">
           {courseData.map((course, index) => (
             <motion.div
               key={index}
@@ -89,9 +89,9 @@ const CourseOutline = () => {
               className="relative group h-full"
             >
               {/* Card Background with hover glow */}
-              <div className="absolute inset-0 bg-[#4F0187] rounded-3xl translate-x-2 translate-y-2 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-[#4F0187] rounded-xl md:rounded-3xl translate-x-2 translate-y-2 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
 
-              <div className="relative h-full bg-white border border-slate-100 p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] group-hover:border-purple-200 transition-all duration-300">
+              <div className="relative h-full bg-white border border-slate-100 p-3 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] group-hover:border-purple-200 transition-all duration-300">
                 {/* Header with Icon */}
                 <div className="flex items-center gap-4 mb-8">
                   <div className="p-3 bg-purple-50 text-[#4F0187] rounded-2xl group-hover:bg-[#4F0187] group-hover:text-white transition-all duration-500">

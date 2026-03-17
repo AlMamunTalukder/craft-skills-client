@@ -14,10 +14,12 @@ import {
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Batch, SiteContent } from "@/types";
+import Container from "./Container";
+import { Button } from "@/components/ui/button";
 
 const CountdownTimer = dynamic(
   () => import("@/src/components/home/CountdownTimer"),
-  { ssr: false }
+  { ssr: false },
 );
 
 type Props = {
@@ -29,7 +31,7 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => { 
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setIsScrolled(true);
@@ -76,7 +78,6 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
       href: siteData?.telegram || "#",
       color: "#0088cc",
     },
-   
   ];
 
   const isRegistrationActive = () => {
@@ -93,81 +94,79 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
   if (!batch || !isRegistrationActive()) return null;
 
   return (
-    <div
-      className={`sticky top-0 z-50 w-full shadow-sm transition-all duration-300 ${
-        isScrolled
-          ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
-          : "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
-      }`}
-    >
-      <div className="max-w-[1100px] w-full mx-auto px-5 ">
-        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-0.5 md:space-y-0">
-          {/* Left: Course Info */}
-          <div className="flex items-center gap-3">
-            
-            <div className="text-center md:text-left">
-              <h3 className="text-sm md:text-base font-bold text-white leading-tight tracking-wide">
-                {batch?.name}
-              </h3>
-              <p className="text-[10px] md:text-xs text-purple-200 font-medium opacity-80 uppercase tracking-tighter">
-                {batch?.description}
-              </p>
-            </div>
-          </div>
-
-          {/* Center & Right: Timer & Action Wrapper */}
-          <div className="flex items-center gap-4 md:gap-8 bg-black/20 md:bg-transparent p-2 md:p-0 rounded-2xl w-full md:w-auto justify-center">
-            
-            {/* Countdown Container */}
-            <div className="scale-90 md:scale-100">
-              <CountdownTimer targetDate={batch?.registrationEnd} />
-            </div>
-
-            {/* Premium Button */}
-            <Link
-              href="#admission"
-              className="group relative flex items-center gap-2 bg-gradient-to-r from-[#DC25FF] to-[#7000FF] px-5 py-2 md:py-2.5 rounded-full text-white shadow-[0_0_20px_rgba(220,37,255,0.3)] hover:shadow-[#DC25FF]/50 transition-all duration-300"
-            >
-              <span className="text-xs md:text-sm font-black whitespace-nowrap z-10">
-                ভর্তি নিশ্চিত করুন
-              </span>
-              <FaHandPointRight className="group-hover:translate-x-1 transition-transform z-10" />
-              
-              {/* Shine Animation */}
-              <div className="absolute inset-0 rounded-full overflow-hidden">
-                <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-30deg] group-hover:left-[100%] transition-all duration-1000" />
+  <div
+        className={`sticky top-0 z-50 w-full shadow-sm transition-all duration-300 responsive-header ${
+          isScrolled
+            ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-0"
+            : " bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-0"
+        }`}
+      >
+        <Container>
+     
+       <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[3px] md:space-y-0">
+            {/* Left: Course Info */}
+            <div className="flex items-center">
+              <div className="text-center md:text-left">
+                <h3 className="text-[13px] md:text-[17px] leading-tight">
+                  {batch?.name}
+                </h3>
+                <p className="text-[10px] md:text-xs text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
+                  {batch?.description}
+                </p>
               </div>
-            </Link>
-          </div>
+            </div>
 
-          {/* Social Icon */}
-          <div className="flex justify-center md:justify-end mb-1.5 md:mb-2 pt-1">
-            <div className="hidden md:flex items-center gap-3 md:gap-2">
-              {socialLinks.map((social, index) => (
-                <Link
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs md:text-sm transition-all duration-300 flex items-center justify-center h-6 md:h-9 w-6 md:w-9 rounded-full bg-white/10 hover:bg-white/20 shadow-md"
-                  aria-label={social.label}
-                  style={{
-                    color: "white",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = social.color)
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "white")
-                  }
-                >
-                  {social.icon}
-                </Link>
-              ))}
+            {/* Center & Right: Timer & Action Wrapper */}
+            <div className="flex flex-col md:flex-row items-center  md:bg-transparent rounded-2xl w-full md:w-auto justify-center space-y-[3px] md:space-y-0 md:gap-5 ">
+              {/* Countdown Container */}
+              <div className="scale-90 md:scale-100">
+                <CountdownTimer targetDate={batch?.registrationEnd} />
+              </div>
+
+              {/* Premium Button */}
+              <Link
+                href="#admission"
+                className=""
+              >
+                <Button className="bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full">
+                  <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />
+                   <span className="text-xs md:text-sm font-black whitespace-nowrap z-10">
+                    ভর্তি নিশ্চিত করুন
+                  </span>
+                </Button>
+                
+              </Link>
+            </div>
+
+            {/* Social Icon */}
+            <div className="flex justify-center md:justify-end mb-1.5 md:mb-2 pt-1">
+              <div className="hidden md:flex items-center gap-3 md:gap-2">
+                {socialLinks.map((social, index) => (
+                  <Link
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs md:text-sm transition-all duration-300 flex items-center justify-center h-6 md:h-9 w-6 md:w-9 rounded-full bg-white/10 hover:bg-white/20 shadow-md"
+                    aria-label={social.label}
+                    style={{
+                      color: "white",
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.color = social.color)
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.color = "white")
+                    }
+                  >
+                    {social.icon}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+       
+      </Container>
     </div>
   );
 }

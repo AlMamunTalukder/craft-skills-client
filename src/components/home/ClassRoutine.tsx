@@ -31,9 +31,9 @@ export const ClassRoutine = ({ scheduleData }: Props) => {
 
   return (
     <Container>
-      <div className="mt-12 md:mt-24 mb-20">
+      <div className="mt-12 md:mt-24 md:mb-20">
         {/* Header Section */}
-        <div className="flex flex-col items-center text-center mb-12">
+        <div className="flex flex-col items-center text-center mb-5 md:mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-bold mb-4">
             <Calendar1 className="w-4 h-4" />
             <span>সাপ্তাহিক রুটিন</span>

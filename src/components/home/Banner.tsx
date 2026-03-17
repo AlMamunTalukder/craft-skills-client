@@ -148,7 +148,7 @@ const Banner = ({ siteData }: Props) => {
       </div>
 
       {/* LAYER 3: Main Content */}
-      <Container className="relative z-20 w-full py-20">
+      <Container className="relative z-20 w-full py-6 md:py-20">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           {/* Text Content Area */}
           <div className="w-full md:w-[65%] text-center md:text-left space-y-8">
@@ -182,7 +182,7 @@ const Banner = ({ siteData }: Props) => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-3xl md:text-7xl font-extrabold leading-tight text-white drop-shadow-2xl"
+                className="text-3xl md:text-6xl font-extrabold leading-tight text-white drop-shadow-2xl"
               >
                 {bannerContent.mainTitle} <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] via-purple-400 to-[#A855F7]">
@@ -196,7 +196,7 @@ const Banner = ({ siteData }: Props) => {
                 transition={{ delay: 0.7 }}
                 className="text-gray-300 text-md md:text-xl max-w-2xl"
               >
-                {bannerContent.subtitle}
+                {bannerContent.subtitle} <br/>
                 {bannerContent.description}
               </motion.p>
             </div>
@@ -206,7 +206,7 @@ const Banner = ({ siteData }: Props) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
-              className="flex flex-row gap-3 md:gap-5 py-4 justify-center md:justify-start"
+              className="flex flex-row gap-3 md:gap-5 md:py-4 justify-center md:justify-start"
             >
               {/* Primary Button style from first code */}
               <div className="group relative">
@@ -220,29 +220,32 @@ const Banner = ({ siteData }: Props) => {
 
           {/* Right Image Section (Code 2 functionality with Code 1 animation) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="md:w-[35%] relative"
-          >
-            {/* Pulsing Glow behind image */}
-            <div className="absolute inset-0 bg-[#F300E7]/20 blur-[100px] rounded-full animate-pulse" />
+  initial={{ opacity: 0, scale: 0.8 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 1 }}
+  className="w-full md:w-[40%] lg:w-[35%] relative flex justify-center"
+>
+  {/* Glow */}
+  <div className="absolute inset-0 bg-[#F300E7]/20 blur-[80px] md:blur-[100px] rounded-full animate-pulse" />
 
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-10"
-            >
-              <Image
-                src={leftimg}
-                alt="Academic Representation"
-                width={500}
-                height={500}
-                className="object-contain drop-shadow-[0_20px_60px_rgba(243,0,231,0.4)]"
-                priority
-              />
-            </motion.div>
-          </motion.div>
+  <motion.div
+    animate={{ y: [0, -20, 0] }}
+    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+    className="relative z-10 w-[80%] sm:w-[70%] md:w-full aspect-square"
+  >
+    <Image
+      src={leftimg}
+      alt="Academic Representation"
+      fill
+      className="object-contain drop-shadow-[0_20px_60px_rgba(243,0,231,0.4)]"
+      sizes="(max-width: 640px) 80vw,
+             (max-width: 768px) 70vw,
+             (max-width: 1024px) 40vw,
+             35vw"
+      priority
+    />
+  </motion.div>
+</motion.div>
         </div>
       </Container>
     </section>

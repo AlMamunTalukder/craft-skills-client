@@ -47,7 +47,7 @@ const features = [
 
 const CourseFeatures = () => {
   return (
-    <section className="py-20 bg-white overflow-hidden">
+    <section className="py-7 md:py-20 bg-white overflow-hidden">
       <Container>
         <div className="text-center mb-20">
           <SectionTitle text="কোর্সের বৈশিষ্ট্য" />

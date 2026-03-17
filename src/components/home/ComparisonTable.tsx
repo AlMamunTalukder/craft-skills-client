@@ -36,7 +36,7 @@ const ComparisonTable = () => {
 
   return (
     // Lightened Background with Soft Gradient
-    <section className="py-24 bg-gradient-to-b from-[#e7e4f0] via-[#9b5fdb] to-[#564097] overflow-hidden relative">
+    <section className="py-8 md:py-24 bg-gradient-to-b from-[#e7e4f0] via-[#9b5fdb] to-[#564097] overflow-hidden relative">
       {/* Decorative Blobs */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300/20 rounded-full blur-[100px] -z-10" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-rose-200/20 rounded-full blur-[100px] -z-10" />

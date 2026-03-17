@@ -44,9 +44,9 @@ const Instructors = () => {
   ];
 
   return (
-    <div className="bg-white py-16 md:py-28 overflow-hidden">
+    <div className="bg-white py-7 md:py-28 overflow-hidden">
       <Container>
-        <div className="text-center mb-16 md:mb-0">
+        <div className="text-center mb-6 md:mb-0">
           <SectionTitle text="কোর্স প্রশিক্ষক" />
          
         </div>
@@ -110,7 +110,7 @@ const Instructors = () => {
         </div>
 
         {/* Bottom CTA for Instructors */}
-        <div className="mt-20 text-center">
+        <div className="mt-5 md:mt-20 text-center">
           <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-purple-100 bg-purple-50/50 text-[#4F0187] font-bold">
             <span className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>

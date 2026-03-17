@@ -2,7 +2,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Briefcase, Loader2, Mail, Phone, Sparkles, User } from "lucide-react";
+import { Briefcase, GraduationCap, Loader2, Mail, Phone, Sparkles, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -192,7 +192,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
             Mobile: Top Banner (Colorful & Simple)
             Desktop: Sidebar (Full Height & Detailed) 
         */}
-        <div className="w-full md:w-1/3 bg-gradient-to-br from-[#4F0187] to-[#32005a] p-6 md:p-10 flex flex-col justify-center md:justify-between text-white relative overflow-hidden shrink-0">
+        <div className="w-full md:w-1/3 bg-gradient-to-br from-[#4F0187] to-[#32005a] p-4 md:p-10 flex flex-col justify-center md:justify-between text-white relative overflow-hidden shrink-0">
            
            {/* Decorative Background for Mobile "Colorful" Look */}
            <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
@@ -201,7 +201,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
            {/* Content */}
            <div className="relative z-10 text-center md:text-left">
              <div className="inline-flex items-center justify-center p-2 bg-white/10 rounded-full mb-3 md:mb-6 backdrop-blur-sm border border-white/20">
-                <Sparkles className="w-5 h-5 text-[#FFCB2C]" />
+                <GraduationCap className="w-5 h-5 text-[#FFCB2C]" />
              </div>
              
              <h2 className="text-2xl md:text-3xl font-bold mb-2">রেজিস্ট্রেশন করুন</h2>

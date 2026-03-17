@@ -39,14 +39,11 @@ export default async function HomePage() {
 
       {seminar && (
         <Container>
-          
           <div
             id="registration-form"
             className="scroll-mt-[180px] md:scroll-mt-[140px] "
           >
-            <SectionTitle
-        text="রেজিস্ট্রেশন করুন"
-      />
+            <SectionTitle text="রেজিস্ট্রেশন করুন" />
             <SeminarForm seminarId={seminar._id} />
           </div>
         </Container>

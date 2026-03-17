@@ -98,15 +98,15 @@ export default function SubHeader({ siteData, seminar }: Props) {
     >
       <Container>
    
-          <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[5px] md:space-y-0">
+          <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[3px] md:space-y-0">
             <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left  md:px-2">
               <h3 className="text-[13px] md:text-[17px] leading-tight">
                 {seminar?.title || "ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন।"}
               </h3>
 
-              <div className="flex items-center gap-1 text-xs sm:text-base text-gray-200 font-medium">
-                <span>{seminar?.description}</span>
-              </div>
+              <p className="text-[10px] md:text-xs text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
+                {seminar?.description}
+               </p>
             </div>
 
             <div className="md:w-[170px] px-1 md:px-0">

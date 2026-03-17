@@ -7,7 +7,7 @@ const OurActivitiesSlider = dynamic(() => import("./OurActivitiesSlider"), {
 
 const OurActivities = () => {
   return (
-    <div className="mt-20">
+    <div className="mt-8 md:mt-20">
       <OurActivitiesSlider />
     </div>
   );

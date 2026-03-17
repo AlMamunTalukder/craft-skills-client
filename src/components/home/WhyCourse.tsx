@@ -17,7 +17,7 @@ const WhyCourse = () => {
   ];
 
   return (
-    <section className="relative py-16 lg:py-28 bg-[#fcfaff] overflow-hidden">
+    <section className="relative py-16 lg:py-28 md:bg-[#fcfaff] overflow-hidden">
       {/* --- LARGE ROTATING FOCUS ELEMENTS (FRAME THE SECTION) --- */}
       <motion.div
         animate={{ rotate: 360 }}
@@ -60,12 +60,12 @@ const WhyCourse = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="w-full max-w-4xl mb-24 relative"
+            className="w-full max-w-4xl mb-10 md:mb-24 relative"
           >
             {/* Soft Glow behind video */}
             <div className="absolute -inset-10 bg-purple-200/30 blur-[100px] rounded-full z-0" />
 
-            <div className="relative z-10 rounded-[2rem] overflow-hidden border-[10px] border-white shadow-2xl bg-black group">
+            <div className="relative z-10 rounded-2xl md:rounded-[2rem] overflow-hidden md:border-[10px] md:border-white shadow-2xl bg-black group">
               <iframe
                 className="w-full aspect-video"
                 src="https://www.youtube-nocookie.com/embed/9hZ7-LXGhZo?rel=0"
@@ -89,7 +89,7 @@ const WhyCourse = () => {
               </motion.div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6">
               {whycourse.map((text, index) => (
                 <motion.div
                   key={index}
@@ -103,7 +103,7 @@ const WhyCourse = () => {
                   <div className="mt-1 flex-shrink-0 bg-purple-50 p-2.5 rounded-2xl group-hover:bg-[#4F0187]  transition-all duration-700">
                     <CheckCircle2 className="text-[#4F0187] group-hover:text-white h-6 w-6" />
                   </div>
-                  <p className="text-[#2D2D2D] md:text-[18px] leading-relaxed font-semibold group-hover:text-[#4F0187] transition-colors duration-300">
+                  <p className="text-[#2D2D2D] text-[15px] md:text-[18px] leading-relaxed font-semibold group-hover:text-[#4F0187] transition-colors duration-300">
                     {text}
                   </p>
                 </motion.div>

@@ -115,7 +115,7 @@ const FAQSection = () => {
   };
 
   return (
-    <div className="relative overflow-hidden bg-[#1A0033] py-20 md:py-20">
+    <div className="relative overflow-hidden bg-[#1A0033] py-7 md:py-20">
       {/* Background Orbs for Purple Tune */}
       <div className="absolute top-0 -left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
@@ -190,7 +190,7 @@ const FAQSection = () => {
 const AccordionItem = ({ faq, isActive, onClick, icon }: { faq: FAQ; isActive: boolean; onClick: () => void; icon: React.ReactNode }) => {
   return (
     <div 
-      className={`group transition-all duration-500 rounded-2xl border ${
+      className={`group transition-all duration-500 rounded-lg md:rounded-2xl border border-white ${
         isActive 
           ? "bg-white/10 border-purple-500/50 shadow-[0_10px_30px_-10px_rgba(139,92,246,0.3)]" 
           : "bg-white/[0.03] border-white/5 hover:border-white/20"
@@ -198,13 +198,13 @@ const AccordionItem = ({ faq, isActive, onClick, icon }: { faq: FAQ; isActive: b
     >
       <button
         onClick={onClick}
-        className="w-full flex justify-between items-center px-6 py-5 text-left focus:outline-none"
+        className="w-full flex justify-between items-center px-3 md:px-6 py-3 md:py-5 text-left focus:outline-none"
       >
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <span className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'opacity-70'}`}>
             {icon}
           </span>
-          <span className={`text-[17px] font-bold transition-colors ${isActive ? "text-white" : "text-slate-200 group-hover:text-white"}`}>
+          <span className={`text-[15px] md:text-[17px] font-bold transition-colors ${isActive ? "text-white" : "text-slate-200 group-hover:text-white"}`}>
             {faq.question}
           </span>
         </div>
