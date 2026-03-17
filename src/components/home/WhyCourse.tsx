@@ -257,7 +257,7 @@ const WhyCourse = () => {
                 >
                   {column.map((item, index) => (
                     <AccordionItem
-                      value={``}
+                      value={`item-${colIdx}-${index}`}
                       key={index}
                       className="border border-white/5 bg-white/[0.07] backdrop-blur-sm rounded-xl overflow-hidden px-1 data-[state=open]:border-purple-500/40 data-[state=open]:bg-white/[0.05]"
                     >

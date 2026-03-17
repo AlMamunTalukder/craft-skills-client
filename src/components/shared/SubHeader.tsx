@@ -84,7 +84,6 @@ export default function SubHeader({ siteData, seminar }: Props) {
       href: siteData?.telegram || "#",
       color: "#0088cc",
     },
-    
   ];
 
   return (
@@ -96,59 +95,59 @@ export default function SubHeader({ siteData, seminar }: Props) {
       }`}
     >
       <Container>
-   
-          <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[3px] md:space-y-0">
-            <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left  md:px-2">
-              <h3 className="text-[13px] md:text-[17px] leading-tight">
-                {seminar?.title || "ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন।"}
-              </h3>
+        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[3px] md:space-y-0">
+          <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left  md:px-2">
+            <h3 className="text-[13px] md:text-[17px] leading-tight">
+              {seminar?.title || "ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন।"}
+            </h3>
 
-              <p className="text-[15px] text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
-                {seminar?.description}
-               </p>
-            </div>
-
-            <div className="md:w-[170px] px-1 md:px-0">
-              <CountdownTimer targetDate={seminar?.registrationDeadline} />
-            </div>
-
-            <div className=" md:w-[140px] px-4 md:px-0">
-              <Link
-                href={"#registration-form"}
-                className=""
-                aria-label="Register Now"
-              >
-                <Button className="bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full">
-                  <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />
-                  <span className="text-sm md:text-base whitespace-nowrap ">
-                    রেজিস্ট্রেশন করুন
-                  </span>
-                </Button>
-              </Link>
-            </div>
-            <div className="flex justify-center md:justify-end mb-[6px] md:mb-0 pt-1 md:pt-0">
-      <div className=" hidden md:flex items-center gap-3 md:gap-2">
-        {socialLinks.map((social, index) => (
-          <Link
-            key={index}
-            href={social.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs md:text-sm transition-all duration-300 flex items-center justify-center h-6 md:h-9 w-6 md:w-9 rounded-full bg-white/10 hover:bg-white/20 shadow-md"
-            aria-label={social.label}
-            style={{
-              color: "white",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = social.color)}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "white")}
-          >
-            {social.icon}
-          </Link>
-        ))}
-      </div>
-    </div>
+            <p className="text-[12px] md:text-[15px] text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
+              {seminar?.description}
+            </p>
           </div>
-    
+
+          <div className="md:w-[170px] px-1 md:px-0">
+            <CountdownTimer targetDate={seminar?.registrationDeadline} />
+          </div>
+
+          <div className=" md:w-[140px] px-4 md:px-0">
+            <Link
+              href={"#registration-form"}
+              className=""
+              aria-label="Register Now"
+            >
+              <Button className="bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full border border-white">
+                <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />
+                <span className="text-sm md:text-base whitespace-nowrap ">
+                  রেজিস্ট্রেশন করুন
+                </span>
+              </Button>
+            </Link>
+          </div>
+          <div className="flex justify-center md:justify-end mb-[6px] md:mb-0 pt-1 md:pt-0">
+            <div className=" hidden md:flex items-center gap-3 md:gap-2">
+              {socialLinks.map((social, index) => (
+                <Link
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs md:text-sm transition-all duration-300 flex items-center justify-center h-6 md:h-9 w-6 md:w-9 rounded-full bg-white/10 hover:bg-white/20 shadow-md"
+                  aria-label={social.label}
+                  style={{
+                    color: "white",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = social.color)
+                  }
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "white")}
+                >
+                  {social.icon}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
       </Container>
     </div>
   );

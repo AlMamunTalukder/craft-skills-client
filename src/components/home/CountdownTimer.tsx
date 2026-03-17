@@ -39,7 +39,7 @@ const CountdownTimer: React.FC<{ targetDate?: string | Date }> = ({ targetDate }
 
   return (
     // Changed: bg-white, border-slate-200, and added a subtle shadow-sm
-    <div className="inline-flex items-center bg-white border border-slate-200 px-1 md:py-2 rounded-full shadow-sm group">
+    <div className="inline-flex items-center bg-white border border-slate-200 px-1 md:py-2 rounded md:rounded-lg shadow-sm group mb-1.5">
       <div className="flex items-center gap-1 md:gap-3">
         
         {/* Unit Block */}
