@@ -95,7 +95,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
       }`}
     >
       <Container>
-        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[3px] md:space-y-0">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[4px] md:space-y-0">
           <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left  md:px-2">
             <h3 className="text-[13px] md:text-[17px] leading-tight">
               {seminar?.title || "ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন।"}
