@@ -39,7 +39,7 @@ const CountdownTimer: React.FC<{ targetDate?: string | Date }> = ({ targetDate }
 
   return (
     // Changed: bg-white, border-slate-200, and added a subtle shadow-sm
-    <div className="inline-flex items-center bg-white border border-slate-200 px-1 md:py-1 rounded-full shadow-sm group">
+    <div className="inline-flex items-center bg-white border border-slate-200 px-1 md:py-2 rounded-full shadow-sm group">
       <div className="flex items-center gap-1 md:gap-3">
         
         {/* Unit Block */}
@@ -60,7 +60,7 @@ const CountdownTimer: React.FC<{ targetDate?: string | Date }> = ({ targetDate }
 };
 
 const CompactUnit = ({ value, label, color }: { value: string; label: string; color: string }) => (
-  <div className="flex items-baseline ">
+  <div className="flex items-baseline md:gap-0.5">
     <div className="relative h-4 overflow-hidden flex items-center justify-center min-w-[1.2rem]">
       <AnimatePresence mode="popLayout">
         <motion.span
@@ -69,14 +69,14 @@ const CompactUnit = ({ value, label, color }: { value: string; label: string; co
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -10, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className={`text-sm md:text-base font-black font-mono tracking-tight ${color}`}
+          className={`text-sm md:text-[18px] font-black font-mono tracking-tight ${color}`}
         >
           {value}
         </motion.span>
       </AnimatePresence>
     </div>
     {/* Changed: label text color to slate-500 for visibility on white */}
-    <span className="text-[10px] md:text-[11px] font-bold uppercase text-slate-500 mb-[1px]">
+    <span className="text-[10px] md:text-[12px] font-bold uppercase text-slate-500 mb-[1px]">
       {label}
     </span>
   </div>

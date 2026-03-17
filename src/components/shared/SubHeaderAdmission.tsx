@@ -97,8 +97,8 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
   <div
         className={`sticky top-0 z-50 w-full shadow-sm transition-all duration-300 responsive-header ${
           isScrolled
-            ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-0"
-            : " bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-0"
+            ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-1.5"
+            : " bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-3"
         }`}
       >
         <Container>

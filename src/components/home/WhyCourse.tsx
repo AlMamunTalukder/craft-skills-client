@@ -119,184 +119,123 @@
 // export default WhyCourse;
 
 "use client";
-import { motion } from "framer-motion";
-import {
-  AlertCircle,
-  CheckCircle2,
-  Video,
-  Target,
-  Settings,
-  HelpCircle,
-} from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { HelpCircle, ChevronDown, CheckCircle2 } from "lucide-react";
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
 
 const WhyCourse = () => {
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+
   const problems = [
-    {
-      title: "কথা বলার জড়তা ও আঞ্চলিকতা?",
-      desc: "মাথায় অনেক কিছু থাকলেও গুছিয়ে বলতে পারেন না? আঞ্চলিক টানের কারণে মানুষ হাসাহাসি করবে—এই ভয়ে কি নিজেকে গুটিয়ে রাখছেন?",
-    },
-    {
-      title: "উচ্চারণ ও কণ্ঠস্বরের দুর্বলতা?",
-      desc: "শুদ্ধ উচ্চারণে কথা বলতে গিয়ে কি আটকে যান? কণ্ঠে গভীরতা (Base) না থাকায় কথায় কি কোনো আকর্ষণ থাকে না? শুধু 'গলা ভালো না'—এই ভয়ে কি মিডিয়া বা কনটেন্ট ক্রিয়েশনের স্বপ্ন বারবার পিছিয়ে দিচ্ছেন?",
-    },
-    {
-      title: "স্টেজে গেলেই কি বুক ধড়ফড় করে?",
-      desc: "মঞ্চে বা অনেক মানুষের সামনে কথা বলতে গেলেই কি হাত-পা কাঁপে আর গলা শুকিয়ে আসে? আত্মবিশ্বাসের অভাবে কি আপনার মেধা চাপা পড়ে থাকছে?",
-    },
-    {
-      title: "স্মার্টলি কথা বলতে না পারায় কি ক্যারিয়ার পিছিয়ে যাচ্ছে?",
-      desc: "সব যোগ্যতা থাকা সত্ত্বেও শুধু সুন্দরভাবে প্রেজেন্ট করতে না পারায় কি স্বপ্নের চাকরি বা প্রোমোশন হাতছাড়া হয়ে যাচ্ছে? ভাইভা বোর্ডে কি নিজেকে প্রমাণ করতে পারছেন না?",
-    },
-    {
-      title: "ক্যামেরার সামনে এলেই কি সব ভুলে যান?",
-      desc: "ভিডিও বানাতে চাইলে লেন্সের দিকে তাকালেই কি সব কথা গুলিয়ে যায়? নিজের রেকর্ড করা ভয়েস শুনে কি লজ্জা পান এবং তা আপলোড করার সাহস পান না?",
-    },
-    {
-      title: "আপনার বডি ল্যাঙ্গুয়েজ কি রোবটের মতো?",
-      desc: "কথা বলার সময় হাত কীভাবে রাখবেন বা শ্রোতার চোখের দিকে কীভাবে তাকাবেন তা কি বুঝতে পারেন না? বডি ল্যাঙ্গুয়েজের জড়তার কারণে কি আপনাকে ব্যক্তিত্বহীন মনে হয়?",
-    },
-    {
-      title: "ভয়েস ওভার কি প্রাণহীন ও একঘেয়ে শোনায়?",
-      desc: "নিউজ বা স্টোরি টেলিংয়ের সময় গলার সঠিক ওঠানামা (Modulation) ধরে রাখতে পারেন না? ইমোশন অনুযায়ী কণ্ঠ পরিবর্তন করতে কষ্ট হয়, নাকি কোথায় থামতে আর কোথায় জোর দিতে হবে (Pause & Punch) তা না জানায় আপনার কথা 'মনোটোনাস' শোনাচ্ছে?",
-    },
-    {
-      title: "সঠিক গাইডলাইন না পেয়ে ক্যারিয়ারে আটকে আছেন?",
-      desc: "ভয়েস আর্টিস্ট হওয়ার স্বপ্ন আছে, কিন্তু কোথা থেকে শুরু করবেন বুঝতে পারছেন না? ইউটিউব টিউটোরিয়াল দেখে দেখে ক্লান্ত? সঠিক কোনো গাইডেড স্ট্রাকচার না থাকায় ভয়েস আর্টিস্ট বা ডাবিংয়ের স্বপ্নগুলো কি শুধু স্বপ্নই থেকে যাচ্ছে?",
-    },
-    {
-      title: "ভুল ধরিয়ে দেওয়ার মতো কেউ নেই বলে কি হতাশ হচ্ছেন?",
-      desc: "একা একা আয়নার সামনে বা ইউটিউব দেখে চর্চা করলেও আপনার ভুলগুলো সুধরে দেওয়ার মতো কি কেউ নেই? সঠিক প্র্যাকটিসের পরিবেশ এবং প্রেজেন্টেশন রিভিউ করার মতো এক্সপার্ট না থাকায় কি আপনার উন্নতি থমকে আছে?",
-    },
-    {
-      title: "দামী স্টুডিও নেই বলে কি রেকর্ডিং শুরু করতে পারছেন না?",
-      desc: "দামী মাইক্রোফোন বা সাউন্ডপ্রুফ রুম ছাড়া কি প্রফেশনাল ভয়েস ওভার সম্ভব নয়? কোন গ্যাজেটটি আপনার বাজেটের মধ্যে সেরা আউটপুট দেবে আর কীভাবে সাধারণ ঘরেই স্টুডিওর মতো সাউন্ড পাওয়া যায়—সেই কৌশল না জানায় কি আপনার স্বপ্নগুলো থমকে আছে?",
-    },
-    {
-      title: "স্ক্রিপ্ট লিখতে গেলেই কি কলম আটকে যায়?",
-      desc: "মাথায় চমৎকার সব পরিকল্পনা থাকলেও কাগজে-কলমে সেগুলো সাজাতে গিয়ে কি সব গুলিয়ে ফেলছেন? নিউজ, বিজ্ঞাপন, ইউটিউব কন্টেন্ট নাকি ডাবিং কোনটির জন্য স্ক্রিপ্ট কেমন হবে তা কি বুঝতে পারছেন না?",
-    },
-    {
-      title: "আয়ের পথ কি খুঁজে পাচ্ছেন না?",
-      desc: "ভয়েস ওভার বা ডাবিংয়ের কাজ শিখলেও তা দিয়ে কীভাবে ইনকাম করবেন তা বুঝতে পারছেন না? দক্ষতা থাকলেও প্রফেশনাল পোর্টফোলিও কীভাবে বানাতে হয় বা মার্কেটপ্লেস থেকে কীভাবে ক্লায়েন্ট পেতে হয়, তা কি জানেন না? সঠিক গাইডলাইনের অভাবে কি আপনার স্বপ্ন অপূর্ণ থেকে যাচ্ছে?",
-    },
+    { title: "কথা বলার জড়তা ও আঞ্চলিকতা?", desc: "মাথায় অনেক কিছু থাকলেও গুছিয়ে বলতে পারেন না? আঞ্চলিক টানের কারণে মানুষ হাসাহাসি করবে—এই ভয়ে কি নিজেকে গুটিয়ে রাখছেন?" },
+    { title: "উচ্চারণ ও কণ্ঠস্বরের দুর্বলতা?", desc: "শুদ্ধ উচ্চারণে কথা বলতে গিয়ে কি আটকে যান? কণ্ঠে গভীরতা (Base) না থাকায় কথায় কি কোনো আকর্ষণ থাকে না? শুধু 'গলা ভালো না'—এই ভয়ে কি মিডিয়া বা কনটেন্ট ক্রিয়েশনের স্বপ্ন বারবার পিছিয়ে দিচ্ছেন?" },
+    { title: "স্টেজে গেলেই কি বুক ধড়ফড় করে?", desc: "মঞ্চে বা অনেক মানুষের সামনে কথা বলতে গেলেই কি হাত-পা কাঁপে আর গলা শুকিয়ে আসে? আত্মবিশ্বাসের অভাবে কি আপনার মেধা চাপা পড়ে থাকছে?" },
+    { title: "আপনার বডি ল্যাঙ্গুয়েজ কি রোবটের মতো?", desc: "কথা বলার সময় হাত কীভাবে রাখবেন বা শ্রোতার চোখের দিকে কীভাবে তাকাবেন তা কি বুঝতে পারেন না? বডি ল্যাঙ্গুয়েজের জড়তার কারণে কি আপনাকে ব্যক্তিত্বহীন মনে হয়?" },
+    { title: "ক্যামেরার সামনে এলেই কি সব ভুলে যান?", desc: "ভিডিও বানাতে চাইলে লেন্সের দিকে তাকালেই কি সব কথা গুলিয়ে যায়? নিজের রেকর্ড করা ভয়েস শুনে কি লজ্জা পান এবং তা আপলোড করার সাহস পান না?" },
+    { title: "স্মার্টলি কথা বলতে না পারায় কি ক্যারিয়ার পিছিয়ে যাচ্ছে?", desc: "সব যোগ্যতা থাকা সত্ত্বেও শুধু সুন্দরভাবে প্রেজেন্ট করতে না পারায় কি স্বপ্নের চাকরি বা প্রোমোশন হাতছাড়া হয়ে যাচ্ছে? ভাইভা বোর্ডে কি নিজেকে প্রমাণ করতে পারছেন না?" },
+    { title: "স্ক্রিপ্ট লিখতে গেলেই কি কলম আটকে যায়?", desc: "মাথায় চমৎকার সব পরিকল্পনা থাকলেও কাগজে-কলমে সেগুলো সাজাতে গিয়ে কি সব গুলিয়ে ফেলছেন? নিউজ, বিজ্ঞাপন, ইউটিউব কন্টেন্ট নাকি ডাবিং কোনটির জন্য স্ক্রিপ্ট কেমন হবে তা কি বুঝতে পারছেন না?" },
+    { title: "ভয়েস ওভার কি প্রাণহীন ও একঘেয়ে শোনায়?", desc: "নিউজ বা স্টোরি টেলিংয়ের সময় গলার সঠিক ওঠানামা (Modulation) ধরে রাখতে পারেন না? ইমোশন অনুযায়ী কণ্ঠ পরিবর্তন করতে কষ্ট হয়, নাকি কোথায় থামতে আর কোথায় জোর দিতে হবে (Pause & Punch) না জানায় আপনার কথা বিরক্তকর শোনাচ্ছে?" },
+    { title: "দামী স্টুডিও নেই বলে কি রেকর্ডিং শুরু করতে পারছেন না?", desc: "দামী মাইক্রোফোন বা সাউন্ডপ্রুফ রুম ছাড়া কি প্রফেশনাল ভয়েস ওভার সম্ভব নয়? কোন গ্যাজেটটি বাজেটের মধ্যে সেরা আউটপুট দেবে, কোন সফটওয়্যার দিয়ে প্রফেশনালি ভয়েস এডিট করবেন, আর কীভাবে সাধারণ ঘরেই স্টুডিওর মতো সাউন্ড পাওয়া যায়—সেই কৌশল না জানায় কি আপনার স্বপ্নগুলো থমকে আছে?" },
+    { title: "সঠিক গাইডলাইন না পেয়ে ক্যারিয়ারে আটকে আছেন?", desc: "ভয়েস আর্টিস্ট হওয়ার স্বপ্ন আছে, কিন্তু কোথা থেকে শুরু করবেন বুঝতে পারছেন না? ইউটিউব টিউটোরিয়াল দেখে দেখে ক্লান্ত? সঠিক কোনো গাইডেড স্ট্রাকচার না থাকায় ভয়েস আর্টিস্ট বা ডাবিংয়ের স্বপ্নগুলো কি শুধু স্বপ্নই থেকে যাচ্ছে?" },
+    { title: "ভুল ধরিয়ে দেওয়ার মতো কেউ নেই বলে কি হতাশ হচ্ছেন?", desc: "একা একা আয়নার সামনে বা ইউটিউব দেখে চর্চা করলেও আপনার ভুলগুলো সুধরে দেওয়ার মতো কি কেউ নেই? সঠিক প্র্যাকটিসের পরিবেশ এবং প্রেজেন্টেশন রিভিউ করার মতো এক্সপার্ট না থাকায় কি আপনার উন্নতি থমকে আছে?" },
+    { title: "আয়ের পথ কি খুঁজে পাচ্ছেন না?", desc: "ভয়েস ওভার বা ডাবিংয়ের কাজ শিখলেও তা দিয়ে কীভাবে ইনকাম করবেন তা বুঝতে পারছেন না? দক্ষতা থাকলেও প্রফেশনাল পোর্টফোলিও কীভাবে বানাতে হয় বা মার্কেটপ্লেস থেকে কীভাবে ক্লায়েন্ট পেতে হয়, তা কি জানেন না? সঠিক গাইডলাইনের অভাবে কি আপনার স্বপ্ন অপূর্ণ থেকে যাচ্ছে?" },
   ];
 
   return (
-    <section className="relative py-16 lg:py-28 bg-[#F9F7FF] overflow-hidden">
-      {/* Decorative Background Icons */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-        className="absolute -top-24 -right-24 text-purple-600/5 hidden lg:block pointer-events-none"
-      >
-        <Settings size={400} />
-      </motion.div>
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-        className="absolute -bottom-32 -left-32 text-purple-600/5 hidden lg:block pointer-events-none"
-      >
-        <Target size={450} />
-      </motion.div>
+    <section className="py-16 lg:py-28 bg-[#FDFCFE]">
+      <Container>
+        <div className="text-center mb-16">
+          <SectionTitle text="শিক্ষার্থীদের কাজের পোর্টফোলিও" lineWidth="lg" hasLineBreak={true} />
+          
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} className="mt-12 w-full max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-8 border-white">
+            <iframe className="w-full aspect-video" src="https://www.youtube-nocookie.com/embed/9hZ7-LXGhZo?rel=0" title="Student Success" allowFullScreen></iframe>
+          </motion.div>
+        </div>
 
-      <Container className="relative z-10">
-        <div className="flex flex-col items-center">
-          {/* Section 1: Portfolio Video */}
-          <div className="text-center mb-12">
-            <SectionTitle
-              text="শিক্ষার্থীদের কাজের পোর্টফোলিও"
-              lineWidth="lg"
-              hasLineBreak={true}
-            />
+        <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12">
+
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} className="inline-block relative">
+
+              <div className="bg-[#4F0187] text-white px-6 md:px-14 py-4 md:py-6 rounded-2xl md:rounded-[2rem] text-xl md:text-3xl font-black shadow-2xl border-b-4 border-purple-900">
+
+                আপনিও কি এই সমস্যাগুলোতে ভুগছেন?
+
+              </div>
+
+            </motion.div>
+
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="w-full max-w-4xl mb-20 relative"
-          >
-            <div className="absolute -inset-10 bg-purple-200/30 blur-[100px] rounded-full z-0" />
-            <div className="relative z-10 rounded-3xl overflow-hidden border-[6px] md:border-[12px] border-white shadow-2xl bg-black">
-              <iframe
-                className="w-full aspect-video"
-                src="https://www.youtube-nocookie.com/embed/9hZ7-LXGhZo?rel=0"
-                title="Student Success"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </motion.div>
-
-          {/* Section 2: Problem Grid */}
-          <div className="w-full max-w-6xl">
-            <div className="text-center mb-12 md:mb-16">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                className="inline-block relative"
-              >
-                <div className="bg-[#4F0187] text-white px-3 md:px-14 py-3 md:py-6 rounded-2xl md:rounded-[2rem] text-xl md:text-4xl font-black shadow-2xl border-b-4 border-purple-900">
-                  আপনিও কি এই সমস্যাগুলোতে ভুগছেন?
-                </div>
-              </motion.div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {/* UNIQUE LAYOUT: Sidebar + Content */}
+          <div className="flex flex-col lg:flex-row gap-8 bg-white p-4 md:p-8 rounded-[3rem] shadow-xl border border-purple-50">
+            
+            {/* Left Side: Scrollable Problems List */}
+            <div className="w-full lg:w-1/2 space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
               {problems.map((item, index) => (
-                <motion.div
+                <button
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="group relative flex flex-col p-6 bg-white border border-purple-100 rounded-[2rem] shadow-sm hover:shadow-xl hover:border-purple-300 transition-all duration-500 overflow-hidden  "
+                  onClick={() => setActiveIndex(index)}
+                  className={`w-full text-left p-4 md:p-5 rounded-2xl border transition-all duration-300 flex items-center gap-4 ${
+                    activeIndex === index 
+                    ? "bg-[#4F0187] border-[#4F0187] text-white shadow-lg translate-x-2" 
+                    : "bg-gray-50 border-gray-100 text-[#2D0B5A] hover:bg-purple-50"
+                  }`}
                 >
-                  {/* Visual Accent */}
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-purple-50 rounded-bl-full -mr-4 -mt-4 group-hover:bg-purple-600 transition-colors duration-500" />
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center text-rose-500 group-hover:bg-rose-500 group-hover:text-white transition-all duration-300">
-                      <HelpCircle size={22} />
-                    </div>
-                    <span className="text-xs font-black text-purple-300 tracking-widest">
-                      সমস্যা {index + 1}
-                    </span>
-                  </div>
-
-                  <h4 className="text-[#2D0B5A] text-lg md:text-xl font-black leading-tight mb-3 group-hover:text-[#F300E7] transition-colors">
-                    {item.title}
-                  </h4>
-                  <p className="text-slate-600 text-sm md:text-[15px] leading-relaxed font-medium">
-                    {item.desc}
-                  </p>
-                </motion.div>
+                  <span className={`text-lg font-bold ${activeIndex === index ? "text-white/50" : "text-purple-300"}`}>
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <span className="font-bold text-sm md:text-base">{item.title}</span>
+                </button>
               ))}
             </div>
 
-            {/* Section 3: Final Call to Action Box */}
-            {/* Bottom CTA / Closing Signature */}
-            <div className="mt-10 md:mt-24 text-center px-4">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.02 }}
-                viewport={{ once: true }}
-                className="inline-flex flex-col md:flex-row items-center gap-3 md:gap-4 bg-white px-6 md:px-12 py-4 md:py-6 rounded-2xl md:rounded-full shadow-xl border border-purple-100"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="text-[#4F0187] font-black text-xs md:text-base leading-tight">
-                    মাত্র ৫০ দিনে এই সকল সমস্যা দূর করে
-                    <span className="text-[#F300E7]">
-                      {" "}
-                      প্র্যাকটিক্যাল চ্যালেঞ্জে{" "}
-                    </span>
-                    হয়ে উঠুন প্রফেশনাল পাবলিক স্পিকার ও ভয়েস আর্টিস্ট।
-                  </div>
-                </div>
-              </motion.div>
+            {/* Right Side: Detailed Focus (Desktop Only) */}
+            <div className="hidden lg:flex w-1/2 bg-[#F9F7FF] rounded-[2rem] p-10 flex-col justify-center relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 text-purple-100">
+                <HelpCircle size={120} />
+              </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative z-10"
+                >
+                  <span className="text-[#F300E7] font-black tracking-widest uppercase mb-4 block">Problem Focus</span>
+                  <h3 className="text-3xl font-black text-[#2D0B5A] mb-6">{problems[activeIndex].title}</h3>
+                  <p className="text-lg text-slate-600 leading-relaxed font-medium italic">
+                    &quot;{problems[activeIndex].desc}&quot;
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Mobile View Description (Shows under active button) */}
+            <div className="lg:hidden p-6 bg-purple-50 rounded-2xl">
+               <h3 className="font-black text-[#2D0B5A] mb-2">{problems[activeIndex].title}</h3>
+               <p className="text-slate-600 text-sm leading-relaxed italic">&quot;{problems[activeIndex].desc}&quot;</p>
             </div>
           </div>
+        </div>
+
+        {/* Closing CTA */}
+        <div className="mt-20 flex justify-center">
+          <motion.div 
+            whileInView={{ scale: [0.95, 1] }}
+            className="inline-flex flex-col md:flex-row items-center gap-4 bg-[#4F0187] px-8 md:px-12 py-6 rounded-[2rem] md:rounded-full shadow-2xl border-b-4 border-purple-900"
+          >
+            <CheckCircle2 className="text-[#F300E7] w-8 h-8 animate-pulse" />
+            <p className="text-white font-bold text-sm md:text-xl text-center">
+              মাত্র ৫০ দিনে এই সকল সমস্যা দূর করে 
+              <span className="text-[#F300E7]"> প্র্যাকটিক্যাল চ্যালেঞ্জে </span> 
+              হয়ে উঠুন প্রফেশনাল পাবলিক স্পিকার ও ভয়েস আর্টিস্ট।
+            </p>
+          </motion.div>
         </div>
       </Container>
     </section>
