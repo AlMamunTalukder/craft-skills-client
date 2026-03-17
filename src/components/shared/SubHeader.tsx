@@ -159,7 +159,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
                       (e.currentTarget.style.color = "white")
                     }
                   >
-                    {social.icon}
+                    {/* {social.icon} */}
                   </Link>
                 ))}
               </div>
