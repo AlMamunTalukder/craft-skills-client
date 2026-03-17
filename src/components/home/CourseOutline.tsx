@@ -68,7 +68,7 @@ const CourseOutline = () => {
       ></div>
 
       <Container>
-        <div className="text-center mb-20">
+        <div className="text-center mb-6 md:mb-20">
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight drop-shadow-md">
             কোর্সে যা{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">

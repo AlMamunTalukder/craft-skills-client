@@ -41,7 +41,7 @@ const TotalClass = ({ totalNumber = 50, duration = 2500 }) => {
   }, [isInView, totalNumber, duration]);
 
   return (
-    <div className="relative overflow-hidden bg-[#1A0033] py-24 md:py-40">
+    <div className="relative overflow-hidden bg-[#1A0033] py-7 md:py-40">
        
       {/* --- PREMIUM GRADIENT LAYERS --- */}
       {/* 1. Base Gradient Mesh */}
@@ -60,7 +60,7 @@ const TotalClass = ({ totalNumber = 50, duration = 2500 }) => {
       <Container>
         <div ref={sectionRef} className="relative z-10 flex flex-col items-center">
           
-          <div className="text-center mb-20">
+          <div className="text-center mb-6 md:mb-20">
             
              <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight drop-shadow-md">
                আমাদের মোট ক্লাস <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">বিন্যাস</span>

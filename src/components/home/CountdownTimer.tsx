@@ -38,20 +38,21 @@ const CountdownTimer: React.FC<{ targetDate?: string | Date }> = ({ targetDate }
   }, [targetDate]);
 
   return (
-    <div className="inline-flex items-center backdrop-blur-md border border-white/50 px-3 md:py-1.5 rounded-full shadow-inner group">
-      <div className="flex items-center gap-1.5 md:gap-3">
+    // Changed: bg-white, border-slate-200, and added a subtle shadow-sm
+    <div className="inline-flex items-center bg-white border border-slate-200 px-1 md:py-1 rounded-full shadow-sm group">
+      <div className="flex items-center gap-1 md:gap-3">
         
         {/* Unit Block */}
-        <CompactUnit value={timeLeft.days} label="d" color="text-fuchsia-400" />
-        <span className="text-white font-light -mt-1">:</span>
+        <CompactUnit value={timeLeft.days} label="d" color="text-fuchsia-600" />
+        <span className="text-slate-400 font-bold -mt-1">:</span>
         
-        <CompactUnit value={timeLeft.hours} label="h" color="text-cyan-500" />
-        <span className="text-white font-light -mt-1">:</span>
+        <CompactUnit value={timeLeft.hours} label="h" color="text-cyan-600" />
+        <span className="text-slate-400 font-bold -mt-1">:</span>
         
-        <CompactUnit value={timeLeft.minutes} label="m" color="text-indigo-500" />
-        <span className="text-white font-light -mt-1">:</span>
+        <CompactUnit value={timeLeft.minutes} label="m" color="text-indigo-600" />
+        <span className="text-slate-400 font-bold -mt-1">:</span>
         
-        <CompactUnit value={timeLeft.seconds} label="s" color="text-fuchsia-400" />
+        <CompactUnit value={timeLeft.seconds} label="s" color="text-fuchsia-600" />
         
       </div>
     </div>
@@ -59,8 +60,8 @@ const CountdownTimer: React.FC<{ targetDate?: string | Date }> = ({ targetDate }
 };
 
 const CompactUnit = ({ value, label, color }: { value: string; label: string; color: string }) => (
-  <div className="flex items-baseline gap-0.5">
-    <div className="relative h-6 overflow-hidden flex items-center justify-center">
+  <div className="flex items-baseline ">
+    <div className="relative h-4 overflow-hidden flex items-center justify-center min-w-[1.2rem]">
       <AnimatePresence mode="popLayout">
         <motion.span
           key={value}
@@ -74,7 +75,8 @@ const CompactUnit = ({ value, label, color }: { value: string; label: string; co
         </motion.span>
       </AnimatePresence>
     </div>
-    <span className="text-[9px] md:text-[10px] font-bold uppercase text-slate-200 mb-[1px]">
+    {/* Changed: label text color to slate-500 for visibility on white */}
+    <span className="text-[10px] md:text-[11px] font-bold uppercase text-slate-500 mb-[1px]">
       {label}
     </span>
   </div>
