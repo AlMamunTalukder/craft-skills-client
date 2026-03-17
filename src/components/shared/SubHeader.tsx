@@ -103,7 +103,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
                 {seminar?.title || "ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন।"}
               </h3>
 
-              <p className="text-xs text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
+              <p className="text-[15px] text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
                 {seminar?.description}
                </p>
             </div>

@@ -110,7 +110,7 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
                 <h3 className="text-[13px] md:text-[17px] leading-tight">
                   {batch?.name}
                 </h3>
-                <p className="text-[10px] md:text-xs text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
+                <p className="text-[15px] md:text-xs text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
                   {batch?.description}
                 </p>
               </div>

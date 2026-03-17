@@ -43,16 +43,16 @@ const CountdownTimer: React.FC<{ targetDate?: string | Date }> = ({ targetDate }
       <div className="flex items-center gap-1 md:gap-3">
         
         {/* Unit Block */}
-        <CompactUnit value={timeLeft.days} label="d" color="text-fuchsia-600" />
+        <CompactUnit value={timeLeft.days} label="d" color="text-black" />
         <span className="text-slate-400 font-bold -mt-1">:</span>
         
-        <CompactUnit value={timeLeft.hours} label="h" color="text-cyan-600" />
+        <CompactUnit value={timeLeft.hours} label="h" color="text-black" />
         <span className="text-slate-400 font-bold -mt-1">:</span>
         
-        <CompactUnit value={timeLeft.minutes} label="m" color="text-indigo-600" />
+        <CompactUnit value={timeLeft.minutes} label="m" color="text-black" />
         <span className="text-slate-400 font-bold -mt-1">:</span>
         
-        <CompactUnit value={timeLeft.seconds} label="s" color="text-fuchsia-600" />
+        <CompactUnit value={timeLeft.seconds} label="s" color="text-black" />
         
       </div>
     </div>
