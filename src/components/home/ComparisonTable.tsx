@@ -31,7 +31,7 @@ const ComparisonTable = () => {
 
       <Container>
         <div className="text-center mb-10 md:mb-16">
-          <SectionTitle text="কেন আমরাই সেরা?" />
+          <SectionTitle text="অন্যান্য কোর্সের সাথে আমাদের পার্থক্য" />
           <p className="text-slate-600 md:text-white/80 mt-4 max-w-lg mx-auto font-medium px-4">
             অন্যান্য কোর্সের সাথে আমাদের পার্থক্য এক নজরে দেখে নিন
           </p>
@@ -63,7 +63,7 @@ const ComparisonTable = () => {
 
                 {/* Others */}
                 <div className="flex flex-col items-center gap-1 flex-1">
-                  <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400">সাধারণ কোর্স</span>
+                  <span className="text-[10px] uppercase tracking-wider font-bold text-slate-400">অন্যান্য কোর্স</span>
                   {othersFeatures[idx] ? (
                     <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center">
                       <FaCheck className="text-slate-400" />
@@ -88,7 +88,7 @@ const ComparisonTable = () => {
             className="w-[30%] bg-white/90 backdrop-blur-xl border border-white p-8 rounded-l-[2.5rem] shadow-2xl z-10"
           >
             <div className="text-center mb-10 h-16 flex items-center justify-center border-b border-purple-400">
-              <h3 className="text-slate-600 text-xl font-bold uppercase tracking-widest">সাধারণ কোর্স</h3>
+              <h3 className="text-slate-600 text-xl font-bold uppercase tracking-widest">অন্যান্য কোর্স</h3>
             </div>
             <ul className="space-y-4">
               {features.map((_, idx) => (
@@ -132,7 +132,7 @@ const ComparisonTable = () => {
             className="w-[30%] bg-white/90 backdrop-blur-xl border border-white p-8 rounded-r-[2.5rem] shadow-2xl z-10"
           >
             <div className="text-center mb-10 h-16 flex items-center justify-center border-b border-purple-400">
-              <h3 className="text-slate-600 text-xl font-bold uppercase tracking-widest">সাধারণ কোর্স</h3>
+              <h3 className="text-slate-600 text-xl font-bold uppercase tracking-widest">অন্যান্য কোর্স</h3>
             </div>
             <ul className="space-y-4">
               {features.map((_, idx) => (
