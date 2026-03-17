@@ -3,6 +3,7 @@ import Container from "../shared/Container";
 import React, { useState } from "react";
 import { FaChevronDown, FaQuestionCircle, FaUserCheck } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface FAQ {
   question: string;
@@ -101,84 +102,72 @@ const admissionFaq: FAQ[] = [
 ];
 
 const FAQSection = () => {
-  const [activeIndices, setActiveIndices] = useState<{ [key: string]: number | null }>({
-    left: null,
-    right: null,
-    admission: null,
-  });
-
-  const toggleFAQ = (section: string, index: number) => {
-    setActiveIndices((prev) => ({
-      ...prev,
-      [section]: prev[section] === index ? null : index,
-    }));
-  };
-
   return (
-    <div className="relative overflow-hidden bg-[#1A0033] py-7 md:py-20">
-      {/* Background Orbs for Purple Tune */}
+    <div className="relative overflow-hidden bg-[#1A0033] py-12 md:py-24">
+      {/* Background Orbs */}
       <div className="absolute top-0 -left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
       <Container>
         <div className="relative z-10">
           <div className="text-center mb-16">
-           
             <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
-              সর্বাধিক জিজ্ঞাসিত <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">প্রশ্নসমূহ</span>
+              সর্বাধিক জিজ্ঞাসিত{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">
+                প্রশ্নসমূহ
+              </span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            
             {/* Left Column */}
             <div className="space-y-4">
-              {faqsLeft.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  faq={faq}
-                  isActive={activeIndices.left === index}
-                  onClick={() => toggleFAQ("left", index)}
-                  icon={<FaQuestionCircle className="text-purple-400" />}
-                />
-              ))}
+              <Accordion type="single" collapsible className="w-full space-y-4">
+                {faqsLeft.map((faq, index) => (
+                  <CustomAccordionItem
+                    key={index}
+                    faq={faq}
+                    value={`left-${index}`}
+                    icon={<FaQuestionCircle className="text-purple-400" />}
+                  />
+                ))}
+              </Accordion>
             </div>
 
             {/* Right Column */}
             <div className="space-y-8">
-              <div className="space-y-4">
+              <Accordion type="single" collapsible className="w-full space-y-4">
                 {faqsRight.map((faq, index) => (
-                  <AccordionItem
+                  <CustomAccordionItem
                     key={index}
                     faq={faq}
-                    isActive={activeIndices.right === index}
-                    onClick={() => toggleFAQ("right", index)}
+                    value={`right-${index}`}
                     icon={<FaQuestionCircle className="text-cyan-400" />}
                   />
                 ))}
-              </div>
+              </Accordion>
 
               {/* Admission Special Section */}
               <div className="space-y-4">
                 <div className="flex items-center gap-3 px-2 mb-4">
                   <div className="h-px flex-grow bg-gradient-to-r from-transparent to-white/20" />
-                  <span className="text-white font-black text-lg flex items-center gap-2">
+                  <span className="text-white font-black text-lg flex items-center gap-2 text-nowrap">
                     <FaUserCheck className="text-emerald-400" /> ভর্তি সংক্রান্ত
                   </span>
                   <div className="h-px flex-grow bg-gradient-to-l from-transparent to-white/20" />
                 </div>
-                {admissionFaq.map((faq, index) => (
-                  <AccordionItem
-                    key={index}
-                    faq={faq}
-                    isActive={activeIndices.admission === index}
-                    onClick={() => toggleFAQ("admission", index)}
-                    icon={<FaUserCheck className="text-emerald-400" />}
-                  />
-                ))}
+                <Accordion type="single" collapsible className="w-full space-y-4">
+                  {admissionFaq.map((faq, index) => (
+                    <CustomAccordionItem
+                      key={index}
+                      faq={faq}
+                      value={`admission-${index}`}
+                      icon={<FaUserCheck className="text-emerald-400" />}
+                    />
+                  ))}
+                </Accordion>
               </div>
             </div>
-
           </div>
         </div>
       </Container>
@@ -186,74 +175,51 @@ const FAQSection = () => {
   );
 };
 
-/* Reusable Accordion Component for Modern UI */
-const AccordionItem = ({ faq, isActive, onClick, icon }: { faq: FAQ; isActive: boolean; onClick: () => void; icon: React.ReactNode }) => {
+/* Reusable Shadcn Item Wrapper */
+const CustomAccordionItem = ({ faq, value, icon }: { faq: FAQ; value: string; icon: React.ReactNode }) => {
   return (
-    <div 
-      className={`group transition-all duration-500 rounded-lg md:rounded-2xl border border-white ${
-        isActive 
-          ? "bg-white/10 border-purple-500/50 shadow-[0_10px_30px_-10px_rgba(139,92,246,0.3)]" 
-          : "bg-white/[0.03] border-white/5 hover:border-white/20"
-      }`}
+    <AccordionItem
+      value={value}
+      className="border border-white/5 bg-white/[0.03] rounded-xl md:rounded-2xl overflow-hidden px-2 transition-all data-[state=open]:bg-white/10 data-[state=open]:border-purple-500/50 data-[state=open]:shadow-[0_10px_30px_-10px_rgba(139,92,246,0.3)]"
     >
-      <button
-        onClick={onClick}
-        className="w-full flex justify-between items-center px-3 md:px-6 py-3 md:py-5 text-left focus:outline-none"
-      >
-        <div className="flex items-center gap-2 md:gap-4">
-          <span className={`transition-transform duration-300 ${isActive ? 'scale-110' : 'opacity-70'}`}>
+      <AccordionTrigger className="hover:no-underline py-4 md:py-5 px-3 md:px-4 group">
+        <div className="flex items-center gap-3 md:gap-4 text-left">
+          <span className="flex-shrink-0 group-data-[state=open]:scale-110 transition-transform duration-300">
             {icon}
           </span>
-          <span className={`text-[15px] md:text-[17px] font-bold transition-colors ${isActive ? "text-white" : "text-slate-200 group-hover:text-white"}`}>
+          <span className="text-[15px] md:text-[17px] font-bold text-slate-200 group-hover:text-white group-data-[state=open]:text-white transition-colors leading-tight">
             {faq.question}
           </span>
         </div>
-        <FaChevronDown
-          className={`text-sm transition-all duration-500 ${
-            isActive ? "rotate-180 text-purple-400" : "text-slate-500"
-          }`}
-        />
-      </button>
-
-      <AnimatePresence>
-        {isActive && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
-            className="overflow-hidden"
-          >
-            <div className="px-6 pb-6 pt-0 ml-10 border-l border-purple-500/30">
-              <div className="text-slate-300 text-[16px] leading-relaxed font-medium space-y-2">
-                {faq.answer.split("\n").map((line, idx) => {
-                  const parts = line.split(/(https?:\/\/[^\s]+)/g);
-                  return (
-                    <p key={idx}>
-                      {parts.map((part, i) =>
-                        part.match(/https?:\/\/[^\s]+/) ? (
-                          <a
-                            key={i}
-                            href={part}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4 break-all transition-colors"
-                          >
-                            {part}
-                          </a>
-                        ) : (
-                          <span key={i}>{part}</span>
-                        )
-                      )}
-                    </p>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+      </AccordionTrigger>
+      
+      <AccordionContent className="px-6 md:px-10 pb-6 pt-0 ml-4 md:ml-8 border-l border-purple-500/30">
+        <div className="text-slate-300 text-[15px] md:text-[16px] leading-relaxed font-medium space-y-2">
+          {faq.answer.split("\n").map((line, idx) => {
+            const parts = line.split(/(https?:\/\/[^\s]+)/g);
+            return (
+              <p key={idx}>
+                {parts.map((part, i) =>
+                  part.match(/https?:\/\/[^\s]+/) ? (
+                    <a
+                      key={i}
+                      href={part}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4 break-all transition-colors"
+                    >
+                      {part}
+                    </a>
+                  ) : (
+                    <span key={i}>{part}</span>
+                  )
+                )}
+              </p>
+            );
+          })}
+        </div>
+      </AccordionContent>
+    </AccordionItem>
   );
 };
 
