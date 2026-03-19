@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
       },
       
     ],
+  
+      qualities: [75, 80, 100],
+ 
   },
 
 };
