@@ -172,124 +172,131 @@
 // };
 
 // export default RoadmapDesign;
-"use client";
+// "use client";
+// import React from "react";
+// import {
+//   CheckCircle2,
+//   PlayCircle,
+//   Users,
+//   MessageSquare,
+//   Video,
+//   Star,
+// } from "lucide-react";
+// import { motion } from "framer-motion";
+
+// const RoadmapDesign = () => {
+//   const solutions = [
+//     {
+//       title: "মেইন ক্লাস",
+//       desc: "কোর্সে উল্লেখিত সিলেবাসের প্রতিটি বিষয় নিয়ে বিস্তারিত আলোচনাসহ পাঠ দান করানো হয়।",
+//       icon: <Star className="w-5 h-5" />,
+//     },
+//     {
+//       title: "প্রবলেম সলভিং ক্লাস",
+//       desc: "সমস্যা সমাধান ক্লাস। যেখানে শিক্ষার্থীর সমস্যা চিহ্নিত করে তা সমাধানের মাধ্যমে পড়া আদায় করা হয়।",
+//       icon: <MessageSquare className="w-5 h-5" />,
+//     },
+//     {
+//       title: "প্র্যাক্টিস ক্লাস",
+//       desc: "যেখানে শিক্ষার্থীদের ক্লাসের পড়াগুলো চর্চার মাধ্যমে বাস্তব প্রয়োগ করানো হয়।",
+//       icon: <Users className="w-5 h-5" />,
+//     },
+//     {
+//       title: "স্পেশাল ক্লাস",
+//       desc: "দুর্বলদের আলাদা করে শেখানো হয়। তিনটি ক্যাটাগরিতে ক্লাস করার পরেও সমস্যা থাকলে তাদের জন্য এই ব্যবস্থা।",
+//       icon: <CheckCircle2 className="w-5 h-5" />,
+//     },
+//     {
+//       title: "ভিডিও প্রেজেন্টেশন",
+//       desc: "৩০০০ মিনিট ভিডিও প্রেজেন্টেশনের মাধ্যমে ক্লাসে শেখানো বিষয়গুলো সরাসরি প্রয়োগ করানো হয়।",
+//       icon: <Video className="w-5 h-5" />,
+//     },
+//     {
+//       title: "প্রেজেন্টেশন রিভিউ ক্লাস",
+//       desc: "ভিডিও প্রেজেন্টেশনের ক্ষেত্রে কোথায় কী কী সমস্যা রয়েছে তা পর্যালোচনার মাধ্যমে সমাধান করা হয়।",
+//       icon: <PlayCircle className="w-5 h-5" />,
+//     },
+//   ];
+
+//   return (
+//     <div className="py-10 md:py-16">
+//       <div className="relative max-w-5xl mx-auto px-4">
+//         {/* Center Line */}
+//         <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#F300E7] via-purple-200 to-purple-100 opacity-40" />
+
+//         <div className="space-y-8 md:space-y-14">
+//           {solutions.map((item, index) => {
+//             const isLeft = index % 2 === 0;
+
+//             return (
+//               <motion.div
+//                 key={index}
+//                 initial={{ opacity: 0, y: 40 }}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 transition={{ duration: 0.5 }}
+//                 className="relative"
+//               >
+//                 {/* Mobile Layout */}
+//                 <div className="flex md:hidden items-start gap-4">
+//                   <div className="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#F300E7] to-[#A855F7] text-white">
+//                     {item.icon}
+//                   </div>
+
+//                   <div className="flex-1">
+//                     <div className="p-4 rounded-xl bg-white shadow-sm border border-purple-50">
+//                       <h4 className="text-base font-bold text-[#2e1065] mb-1">
+//                         {item.title}
+//                       </h4>
+//                       <p className="text-sm text-slate-600">{item.desc}</p>
+//                     </div>
+//                   </div>
+//                 </div>
+
+//                 {/* Desktop Layout */}
+//                 <div className="hidden md:flex items-center justify-between">
+//                   {/* Left side */}
+//                   <div className={`w-1/2 ${isLeft ? "pr-10" : "opacity-0"}`}>
+//                     {isLeft && (
+//                       <div className="p-5 rounded-2xl bg-white shadow-md border border-purple-50 text-right">
+//                         <h4 className="text-xl font-extrabold text-[#2e1065] mb-2">
+//                           {item.title}
+//                         </h4>
+//                         <p className="text-slate-600">{item.desc}</p>
+//                       </div>
+//                     )}
+//                   </div>
+
+//                   {/* Center Icon */}
+//                   <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-[#F300E7] to-[#A855F7] text-white shadow-lg">
+//                     {item.icon}
+//                   </div>
+
+//                   {/* Right side */}
+//                   <div className={`w-1/2 ${!isLeft ? "pl-10" : "opacity-0"}`}>
+//                     {!isLeft && (
+//                       <div className="p-5 rounded-2xl bg-white shadow-md border border-purple-50 text-left">
+//                         <h4 className="text-xl font-extrabold text-[#2e1065] mb-2">
+//                           {item.title}
+//                         </h4>
+//                         <p className="text-slate-600">{item.desc}</p>
+//                       </div>
+//                     )}
+//                   </div>
+//                 </div>
+//               </motion.div>
+//             );
+//           })}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default RoadmapDesign;
 import React from "react";
-import {
-  CheckCircle2,
-  PlayCircle,
-  Users,
-  MessageSquare,
-  Video,
-  Star,
-} from "lucide-react";
-import { motion } from "framer-motion";
 
 const RoadmapDesign = () => {
-  const solutions = [
-    {
-      title: "মেইন ক্লাস",
-      desc: "কোর্সে উল্লেখিত সিলেবাসের প্রতিটি বিষয় নিয়ে বিস্তারিত আলোচনাসহ পাঠ দান করানো হয়।",
-      icon: <Star className="w-5 h-5" />,
-    },
-    {
-      title: "প্রবলেম সলভিং ক্লাস",
-      desc: "সমস্যা সমাধান ক্লাস। যেখানে শিক্ষার্থীর সমস্যা চিহ্নিত করে তা সমাধানের মাধ্যমে পড়া আদায় করা হয়।",
-      icon: <MessageSquare className="w-5 h-5" />,
-    },
-    {
-      title: "প্র্যাক্টিস ক্লাস",
-      desc: "যেখানে শিক্ষার্থীদের ক্লাসের পড়াগুলো চর্চার মাধ্যমে বাস্তব প্রয়োগ করানো হয়।",
-      icon: <Users className="w-5 h-5" />,
-    },
-    {
-      title: "স্পেশাল ক্লাস",
-      desc: "দুর্বলদের আলাদা করে শেখানো হয়। তিনটি ক্যাটাগরিতে ক্লাস করার পরেও সমস্যা থাকলে তাদের জন্য এই ব্যবস্থা।",
-      icon: <CheckCircle2 className="w-5 h-5" />,
-    },
-    {
-      title: "ভিডিও প্রেজেন্টেশন",
-      desc: "৩০০০ মিনিট ভিডিও প্রেজেন্টেশনের মাধ্যমে ক্লাসে শেখানো বিষয়গুলো সরাসরি প্রয়োগ করানো হয়।",
-      icon: <Video className="w-5 h-5" />,
-    },
-    {
-      title: "প্রেজেন্টেশন রিভিউ ক্লাস",
-      desc: "ভিডিও প্রেজেন্টেশনের ক্ষেত্রে কোথায় কী কী সমস্যা রয়েছে তা পর্যালোচনার মাধ্যমে সমাধান করা হয়।",
-      icon: <PlayCircle className="w-5 h-5" />,
-    },
-  ];
-
-  return (
-    <div className="py-10 md:py-16">
-      <div className="relative max-w-5xl mx-auto px-4">
-        {/* Center Line */}
-        <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#F300E7] via-purple-200 to-purple-100 opacity-40" />
-
-        <div className="space-y-8 md:space-y-14">
-          {solutions.map((item, index) => {
-            const isLeft = index % 2 === 0;
-
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="relative"
-              >
-                {/* Mobile Layout */}
-                <div className="flex md:hidden items-start gap-4">
-                  <div className="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#F300E7] to-[#A855F7] text-white">
-                    {item.icon}
-                  </div>
-
-                  <div className="flex-1">
-                    <div className="p-4 rounded-xl bg-white shadow-sm border border-purple-50">
-                      <h4 className="text-base font-bold text-[#2e1065] mb-1">
-                        {item.title}
-                      </h4>
-                      <p className="text-sm text-slate-600">{item.desc}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Desktop Layout */}
-                <div className="hidden md:flex items-center justify-between">
-                  {/* Left side */}
-                  <div className={`w-1/2 ${isLeft ? "pr-10" : "opacity-0"}`}>
-                    {isLeft && (
-                      <div className="p-5 rounded-2xl bg-white shadow-md border border-purple-50 text-right">
-                        <h4 className="text-xl font-extrabold text-[#2e1065] mb-2">
-                          {item.title}
-                        </h4>
-                        <p className="text-slate-600">{item.desc}</p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Center Icon */}
-                  <div className="relative z-10 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-[#F300E7] to-[#A855F7] text-white shadow-lg">
-                    {item.icon}
-                  </div>
-
-                  {/* Right side */}
-                  <div className={`w-1/2 ${!isLeft ? "pl-10" : "opacity-0"}`}>
-                    {!isLeft && (
-                      <div className="p-5 rounded-2xl bg-white shadow-md border border-purple-50 text-left">
-                        <h4 className="text-xl font-extrabold text-[#2e1065] mb-2">
-                          {item.title}
-                        </h4>
-                        <p className="text-slate-600">{item.desc}</p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default RoadmapDesign;

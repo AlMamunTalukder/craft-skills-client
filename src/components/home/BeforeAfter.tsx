@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { XCircle, CheckCircle2, MoveRight } from "lucide-react";
+import { XCircle, CheckCircle2, Sparkles } from "lucide-react";
 
 const transformations = [
   {
@@ -45,86 +45,74 @@ const transformations = [
   },
 ];
 
-const BeforeAfter = () => {
+const Transformation = () => {
   return (
-    <div className="py-16 md:py-28 relative overflow-hidden bg-[#fafafa]">
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-100/40 blur-[120px] rounded-full -z-10" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-red-50/40 blur-[120px] rounded-full -z-10" />
+    <section className="py-16 md:py-24 bg-[#FAF9FF] overflow-hidden">
+      {/* Subtle Background Glows */}
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-purple-200/30 blur-[100px] -z-10 rounded-full" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-indigo-100/40 blur-[100px] -z-10 rounded-full" />
 
-      <div className="max-w-6xl mx-auto px-4 relative z-10">
-        {/* Header */}
-        <header className="text-center mb-16 md:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-6xl font-black text-slate-900 leading-[1.15] mb-6">
-              কোর্স শেষে আপনার ক্যারিয়ারে <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D223F6] to-[#7e22ce]">
-                যে অভাবনীয় পরিবর্তনগুলো আসবে
-              </span>
-            </h2>
-            <div className="h-1.5 w-24 bg-purple-600 mx-auto rounded-full" />
-          </motion.div>
-        </header>
-
-        {/* Labels - Desktop only */}
-        <div className="hidden lg:grid grid-cols-2 gap-20 mb-10 px-10">
-          <div className="flex items-center gap-3 text-slate-400 font-bold text-xl tracking-wide uppercase">
-            <span className="w-8 h-[2px] bg-red-400" /> কোর্স করার আগে
-          </div>
-          <div className="flex items-center gap-3 text-purple-600 font-bold text-xl tracking-wide uppercase justify-end">
-            কোর্স করার পরে <span className="w-8 h-[2px] bg-purple-600" />
-          </div>
+      <div className="max-w-6xl mx-auto px-4">
+        {/* --- HEADER --- */}
+        <div className="text-center mb-12 md:mb-20">
+          <h2 className="text-3xl md:text-5xl font-black text-slate-950 leading-tight">
+            কোর্স শেষে আপনার{" "}
+            <span className="text-purple-600">ক্যারিয়ারে</span> <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
+              যে অভাবনীয় পরিবর্তনগুলো আসবে
+            </span>
+          </h2>
         </div>
 
-        {/* Transformation Cards */}
-        <div className="space-y-6 md:space-y-8">
+        {/* --- TRANSFORMATION LIST --- */}
+        <div className="grid grid-cols-1 gap-6 md:gap-8">
           {transformations.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative grid lg:grid-cols-2 gap-0 lg:gap-12 items-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05 }}
+              className="group relative flex flex-col md:flex-row items-stretch rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-purple-100 bg-white shadow-sm hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-500"
             >
-              {/* Central Icon (Desktop Only) */}
-              <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-slate-100 items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <MoveRight className="text-purple-600 w-6 h-6" />
-              </div>
-
-              {/* BEFORE CARD */}
-              <div className="relative p-6 md:p-8 rounded-t-[2rem] lg:rounded-l-[2.5rem] lg:rounded-tr-none bg-white border border-slate-100 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.05)] transition-all duration-300 group-hover:shadow-none">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-lg bg-red-50 text-red-400 shrink-0">
-                    <XCircle size={22} />
-                  </div>
-                  <p className="text-slate-500 text-lg leading-relaxed">
+              {/* BEFORE SECTION (LEFT/TOP) */}
+              <div className="flex-1 p-6 md:p-10 flex items-start gap-4 bg-red-50/40 border-b md:border-b-0 md:border-r border-slate-100 transition-colors group-hover:bg-red-50/60">
+                <div className="shrink-0 p-2 rounded-full bg-red-100 text-red-500">
+                  <XCircle size={20} />
+                </div>
+                <div>
+                  <span className="text-red-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2 block">
+                    ❌ কোর্স করার আগে
+                  </span>
+                  <p className="text-slate-500 text-base md:text-lg leading-relaxed">
                     {item.before}
                   </p>
                 </div>
               </div>
 
-              {/* AFTER CARD */}
-              <div className="relative p-6 md:p-8 rounded-b-[2rem] lg:rounded-r-[2.5rem] lg:rounded-bl-none bg-gradient-to-br from-white to-purple-50/30 border border-purple-100 shadow-[0_15px_35px_-15px_rgba(124,58,237,0.15)] transition-all duration-300 group-hover:scale-[1.02] group-hover:z-10">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 rounded-lg bg-purple-600 text-white shrink-0 shadow-lg shadow-purple-200">
-                    <CheckCircle2 size={22} />
-                  </div>
-                  <p className="text-slate-800 text-lg md:text-xl font-bold leading-relaxed">
+              {/* AFTER SECTION (RIGHT/BOTTOM) */}
+              <div className="flex-1 p-6 md:p-10 flex items-start gap-4 bg-gradient-to-br from-white to-purple-50/50 transition-all group-hover:to-purple-100/40">
+                <div className="shrink-0 p-2 rounded-full bg-purple-600 text-white shadow-lg shadow-purple-200">
+                  <CheckCircle2 size={22} />
+                </div>
+                <div>
+                  <span className="text-purple-600 text-[10px] font-black uppercase tracking-[0.2em] mb-2 block">
+                    ✅ কোর্স করার পরে
+                  </span>
+                  <p className="text-slate-900 text-lg md:text-xl font-extrabold leading-snug group-hover:text-purple-900 transition-colors">
                     {item.after}
                   </p>
                 </div>
               </div>
+
+              {/* Animated Progress Accent Line */}
+              <div className="absolute bottom-0 left-0 h-1.5 w-0 group-hover:w-full bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-600 transition-all duration-700 ease-in-out" />
             </motion.div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default BeforeAfter;
+export default Transformation;
