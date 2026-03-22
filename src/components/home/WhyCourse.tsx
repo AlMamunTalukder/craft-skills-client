@@ -236,10 +236,9 @@ const WhyCourse = () => {
           <AudioLines className="absolute bottom-10 -left-10 w-48 h-48 text-white/[0.10] rotate-45 pointer-events-none" />
 
           <div className="relative z-10">
-            <div className="max-w-3xl mb-16 text-center md:text-left">
-              <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">
-                আপনিও কি এই সমস্যাগুলোতে
-                <br />
+            <div className="max-w-3xl mb-8 text-center md:text-left">
+              <h2 className="text-4xl md:text-[51px] font-black text-white leading-tight">
+                আপনিও কি এই সমস্যাগুলোতে{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] to-purple-400">
                   ভুগছেন?
                 </span>
@@ -247,7 +246,7 @@ const WhyCourse = () => {
             </div>
 
             {/* Accordion Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-1">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-1">
               {[leftColumn, rightColumn].map((column, colIdx) => (
                 <Accordion
                   key={colIdx}
@@ -259,14 +258,14 @@ const WhyCourse = () => {
                     <AccordionItem
                       value={`item-${colIdx}-${index}`}
                       key={index}
-                      className="border border-white/5 bg-white/[0.07] backdrop-blur-sm rounded-xl overflow-hidden px-1 data-[state=open]:border-purple-500/40 data-[state=open]:bg-white/[0.05]"
+                      className="border border-white/5 bg-white/[0.07] backdrop-blur-sm rounded-xl overflow-hidden px-1 data-[state=open]:border-purple-500/40 "
                     >
-                      <AccordionTrigger className="w-full text-left px-1 md:px-2 py-2 md:py-6 group hover:no-underline flex items-start gap-4">
-                        <div className="flex items-start gap-4 flex-1">
-                          <div className="flex-shrink-0 mt-1 w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-300 group-data-[state=open]:bg-purple-600 group-data-[state=open]:text-white transition-all">
+                      <AccordionTrigger className="w-full text-left px-1 md:px-0 py-2 md:py-6 group hover:no-underline flex items-start gap-4">
+                        <div className="flex items-start gap-4 ">
+                          <div className=" w-7 h-7 rounded-xl bg-purple-500/10 flex items-center justify-center content-center text-purple-300 group-data-[state=open]:bg-purple-600 group-data-[state=open]:text-white transition-all">
                             <AlertCircle size={20} strokeWidth={2.5} />
                           </div>
-                          <span className="text-base md:text-[18px] font-semibold text-slate-100 group-data-[state=open]:text-white transition-colors block leading-tight">
+                          <span className="text-base md:text-[18px] font-semibold text-slate-100 group-data-[state=open]:text-white transition-colors block ">
                             {item.title}
                           </span>
                         </div>
