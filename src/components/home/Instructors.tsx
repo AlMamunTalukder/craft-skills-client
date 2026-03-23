@@ -48,19 +48,11 @@ const Instructors = () => {
       <Container>
         <div className="text-center mb-6 md:mb-0">
           <SectionTitle text="কোর্স প্রশিক্ষক" />
-         
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-10 max-w-5xl mx-auto">
           {instructors.map((instructor, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              viewport={{ once: true }}
-              className="relative group h-[220px] md:h-[350px]"
-            >
+            <div key={idx} className="relative group h-[220px] md:h-[350px]">
               {/* Main Card Container */}
               <div className="relative h-full rounded-xl md:rounded-[2rem] overflow-hidden bg-slate-200 shadow-2xl transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-purple-200/50">
                 {/* Background Gradient Glow */}
@@ -105,7 +97,7 @@ const Instructors = () => {
 
               {/* Unique Shadow Element behind the card */}
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-10 bg-purple-600/10 blur-2xl rounded-full -z-10 group-hover:bg-purple-600/20 transition-all" />
-            </motion.div>
+            </div>
           ))}
         </div>
 

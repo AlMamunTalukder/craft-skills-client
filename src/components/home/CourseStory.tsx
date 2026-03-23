@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import {
   CheckCircle2,
   PlayCircle,
@@ -75,11 +73,7 @@ const CourseRoadmap = () => {
 
       <Container>
         <header className="relative z-10 text-center max-w-4xl mx-auto md:mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="flex justify-center mb-3 md:mb-8"
-          >
+          <div className="flex justify-center mb-3 md:mb-8">
             <Image
               src="/img/award1.png"
               height={180}
@@ -87,13 +81,9 @@ const CourseRoadmap = () => {
               alt="Award"
               className="w-24 md:w-40 h-auto drop-shadow-[0_0_30px_rgba(210,35,246,0.3)]"
             />
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="space-y-3 md:space-y-6"
-          >
+          <div className="space-y-3 md:space-y-6">
             <h2 className="text-3xl md:text-6xl font-black text-white tracking-tight">
               আমাদের{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D223F6] to-[#7e22ce]">
@@ -110,18 +100,14 @@ const CourseRoadmap = () => {
             <h3 className="text-xl md:text-4xl font-extrabold text-purple-400 md:mt-4 leading-snug mb-4">
               প্রফেশনাল হওয়ার সবচেয়ে কার্যকর রোডম্যাপ!
             </h3>
-          </motion.div>
+          </div>
         </header>
 
         {/* --- BENTO GRID (Dark Glass Style) --- */}
         <div className="relative z-10 grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 max-w-6xl mx-auto">
           {steps.map((step, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               /* Glass Card: Semi-transparent background with border highlight */
               className="group relative md:h-[280px] w-full bg-white/[0.03] hover:bg-white/[0.07] backdrop-blur-xl rounded-xl md:rounded-[2.5rem] p-3 md:p-8 border border-white/10 hover:border-purple-500/50 shadow-2xl transition-all duration-500 flex flex-col overflow-hidden hover:-translate-y-2"
             >
@@ -153,7 +139,7 @@ const CourseRoadmap = () => {
                   className={`h-full w-0 group-hover:w-full bg-gradient-to-r ${step.gradient} transition-all duration-700 ease-in-out`}
                 />
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </Container>

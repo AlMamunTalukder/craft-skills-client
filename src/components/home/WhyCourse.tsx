@@ -1,6 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
-import { motion } from "framer-motion";
+import React, { useMemo, useEffect, useState, useRef } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -11,26 +10,7 @@ import { AlertCircle, Mic2, AudioLines, Trophy } from "lucide-react";
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
 
-// Separate Video Component to isolate heavy iframe rendering
-const PortfolioVideo = () => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className="mt-5 md:mt-12 w-full rounded-xl md:rounded-[2.5rem] overflow-hidden shadow-2xl bg-black/40 backdrop-blur-xl ring-1 ring-purple-500/20"
-  >
-    <iframe
-      className="w-full aspect-video"
-      src="https://www.youtube-nocookie.com/embed/9hZ7-LXGhZo?rel=0"
-      title="Student Success"
-      allowFullScreen
-      loading="lazy"
-    ></iframe>
-  </motion.div>
-);
-
 const WhyCourse = () => {
-  // Memoize problems array
   const problems = useMemo(
     () => [
       {
@@ -89,7 +69,7 @@ const WhyCourse = () => {
   const columns = [problems.slice(0, middleIndex), problems.slice(middleIndex)];
 
   return (
-    <section className="py-10 lg:py-32 relative overflow-hidden bg-transparent">
+    <section className="py-10 lg:py-32 relative overflow-hidden">
       <Container className="relative z-10">
         <div className="text-center mb-10 md:mb-24">
           <SectionTitle
@@ -97,12 +77,19 @@ const WhyCourse = () => {
             lineWidth="lg"
             hasLineBreak={true}
           />
-          <PortfolioVideo />
+
+          <div className="mt-5 md:mt-12 w-full rounded-xl md:rounded-[2.5rem] overflow-hidden shadow-2xl bg-black/40 backdrop-blur-xl ring-1 ring-purple-500/20">
+            <iframe
+              className="w-full aspect-video"
+              src="https://www.youtube-nocookie.com/embed/9hZ7-LXGhZo?rel=0"
+              title="Student Success"
+              allowFullScreen
+              loading="lazy"
+            ></iframe>
+          </div>
         </div>
 
-        {/* Main Glassmorphic Box */}
         <div className="relative bg-[#130129] border border-white/10 rounded-2xl lg:rounded-[4rem] p-4 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
-          {/* Performance Optimized Background Pattern */}
           <div
             className="absolute inset-0 opacity-[0.03] pointer-events-none"
             style={{
@@ -111,7 +98,6 @@ const WhyCourse = () => {
             }}
           />
 
-          {/* Decorative Elements - Hidden on mobile for performance */}
           <Mic2 className="absolute -top-10 -right-10 w-64 h-64 text-white/[0.05] -rotate-12 pointer-events-none hidden md:block" />
           <AudioLines className="absolute bottom-10 -left-10 w-48 h-48 text-white/[0.05] rotate-45 pointer-events-none hidden md:block" />
 
@@ -125,7 +111,6 @@ const WhyCourse = () => {
               </h2>
             </div>
 
-            {/* Accordion Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2">
               {columns.map((column, colIdx) => (
                 <Accordion
@@ -163,14 +148,9 @@ const WhyCourse = () => {
               ))}
             </div>
 
-            {/* CTA Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="mt-12 p-[1px] rounded-2xl md:rounded-[2.5rem] bg-gradient-to-r from-purple-600/20 via-[#F300E7] to-cyan-500/20 shadow-2xl"
-            >
-              <div className="bg-[#0F0121] px-6 py-8 md:px-12 md:py-10 rounded-[calc(1rem-1px)] md:rounded-[calc(2.5rem-1px)] flex flex-col md:flex-row items-center gap-6 md:gap-12 relative overflow-hidden">
+            {/* CTA Card (Standard Transitions) */}
+            <div className="mt-12 p-[1px] rounded-2xl md:rounded-[2.5rem] bg-gradient-to-r from-purple-600/20 via-[#F300E7] to-cyan-500/20 shadow-2xl transition-all duration-700 hover:scale-[1.01]">
+              <div className="bg-[#0F0121] px-6 py-8 md:px-12 md:py-10 rounded-[calc(1rem-1px)] md:rounded-[2.5rem] flex flex-col md:flex-row items-center gap-6 md:gap-12 border border-white/5 relative overflow-hidden">
                 <div className="shrink-0">
                   <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-tr from-[#F300E7] to-purple-600 flex items-center justify-center shadow-lg shadow-fuchsia-500/20">
                     <Trophy className="text-white w-8 h-8 md:w-10 md:h-10" />
@@ -189,7 +169,7 @@ const WhyCourse = () => {
                   </h3>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </Container>

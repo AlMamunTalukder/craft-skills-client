@@ -1,11 +1,29 @@
 "use client";
-import React, { useMemo } from "react";
-import { motion } from "framer-motion";
+import React, { useMemo, useEffect, useRef, useState } from "react";
 import { XCircle, CheckCircle2 } from "lucide-react";
 import Container from "../shared/Container";
 
+// --- Custom Hook to handle "In-View" visibility ---
+const useInView = (options?: IntersectionObserverInit) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.unobserve(entry.target); // Only animate once
+      }
+    }, options);
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [options]);
+
+  return { ref, isVisible };
+};
+
 const Transformation = () => {
-  // 1. Optimization: Memoize data to prevent re-renders during scrolling
   const transformations = useMemo(
     () => [
       {
@@ -55,12 +73,10 @@ const Transformation = () => {
 
   return (
     <section className="py-10 md:py-24 bg-[#FAF9FF] overflow-hidden relative">
-      {/* Background Glows - Static opacity for better mobile performance */}
       <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-purple-200/20 blur-[100px] -z-10 rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-indigo-100/30 blur-[100px] -z-10 rounded-full pointer-events-none" />
 
       <Container>
-        {/* --- HEADER --- */}
         <div className="text-center mb-10 md:mb-20">
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 leading-tight">
             কোর্স শেষে আপনার{" "}
@@ -71,51 +87,57 @@ const Transformation = () => {
           </h2>
         </div>
 
-        {/* --- TRANSFORMATION LIST --- */}
         <div className="grid grid-cols-1 gap-4 md:gap-8 max-w-6xl mx-auto">
-          {transformations.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-20px" }}
-              transition={{ delay: index * 0.05, duration: 0.4 }}
-              className="group relative flex flex-col md:flex-row items-stretch rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-purple-100 bg-white shadow-sm hover:shadow-xl transition-all duration-500 will-change-transform"
-            >
-              {/* BEFORE SECTION (LEFT/TOP) */}
-              <div className="flex-1 p-5 md:p-10 flex items-start gap-4 bg-red-50/30 border-b md:border-b-0 md:border-r border-slate-100">
-                <div className="shrink-0 p-1 md:p-2 rounded-full bg-red-100 text-red-500 shadow-sm">
-                  <XCircle size={20} />
+          {transformations.map((item, index) => {
+            const { ref, isVisible } = useInView({ threshold: 0.1 });
+            return (
+              <div
+                key={index}
+                ref={ref}
+                style={{ transitionDelay: `${index * 50}ms` }}
+                className={`group relative flex flex-col md:flex-row items-stretch rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-purple-100 bg-white shadow-sm hover:shadow-xl transition-all duration-700 transform-gpu
+                  ${
+                    isVisible
+                      ? "translate-y-0 opacity-100"
+                      : "translate-y-8 opacity-0"
+                  }
+                `}
+              >
+                {/* Before Section */}
+                <div className="flex-1 p-5 md:p-10 flex items-start gap-4 bg-red-50/30 border-b md:border-b-0 md:border-r border-slate-100">
+                  <div className="shrink-0 p-1 md:p-2 rounded-full bg-red-100 text-red-500 shadow-sm">
+                    <XCircle size={20} />
+                  </div>
+                  <div>
+                    <span className="text-red-500 text-[10px] font-black uppercase block tracking-wider mb-1">
+                      কোর্স করার আগে
+                    </span>
+                    <p className="text-slate-500 text-[15px] md:text-[17px] leading-relaxed">
+                      {item.before}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-red-500 text-[10px] font-black uppercase block tracking-wider mb-1">
-                    কোর্স করার আগে
-                  </span>
-                  <p className="text-slate-500 text-[15px] md:text-[17px] leading-relaxed">
-                    {item.before}
-                  </p>
-                </div>
-              </div>
 
-              {/* AFTER SECTION (RIGHT/BOTTOM) */}
-              <div className="flex-1 p-5 md:p-10 flex items-start gap-4 bg-gradient-to-br from-white to-purple-50/40 transition-all duration-300 group-hover:to-purple-100/30">
-                <div className="shrink-0 p-1 md:p-2 rounded-full bg-purple-600 text-white shadow-lg shadow-purple-200">
-                  <CheckCircle2 size={22} />
+                {/* After Section */}
+                <div className="flex-1 p-5 md:p-10 flex items-start gap-4 bg-gradient-to-br from-white to-purple-50/40">
+                  <div className="shrink-0 p-1 md:p-2 rounded-full bg-purple-600 text-white shadow-lg shadow-purple-200">
+                    <CheckCircle2 size={22} />
+                  </div>
+                  <div>
+                    <span className="text-purple-600 text-[10px] font-black uppercase block tracking-wider mb-1">
+                      কোর্স করার পরে
+                    </span>
+                    <p className="text-slate-900 text-[16px] md:text-[18px] font-extrabold leading-snug">
+                      {item.after}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-purple-600 text-[10px] font-black uppercase block tracking-wider mb-1">
-                    কোর্স করার পরে
-                  </span>
-                  <p className="text-slate-900 text-[16px] md:text-[18px] font-extrabold leading-snug group-hover:text-purple-900 transition-colors">
-                    {item.after}
-                  </p>
-                </div>
-              </div>
 
-              {/* Progress Line - Optimized with 'transform' instead of 'width' for 60fps */}
-              <div className="absolute bottom-0 left-0 h-1.5 w-full bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-600 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700 ease-out" />
-            </motion.div>
-          ))}
+                {/* Progress Line */}
+                <div className="absolute bottom-0 left-0 h-1.5 w-full bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-600 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700 ease-out" />
+              </div>
+            );
+          })}
         </div>
       </Container>
     </section>

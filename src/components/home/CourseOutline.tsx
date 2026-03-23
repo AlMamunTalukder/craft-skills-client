@@ -87,14 +87,7 @@ const CourseOutline = () => {
 
         <div className="grid md:grid-cols-2 gap-3 md:gap-8  md:w-[900px] mx-auto">
           {courseData.map((course, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="relative group h-full"
-            >
+            <div key={index} className="relative group h-full">
               {/* Card Background with hover glow */}
               <div className="absolute inset-0 bg-[#4F0187] rounded-xl md:rounded-3xl translate-x-2 translate-y-2 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
 
@@ -112,9 +105,8 @@ const CourseOutline = () => {
                 {/* List Items */}
                 <ul className="space-y-2 md:space-y-4">
                   {course.items.map((item, itemIndex) => (
-                    <motion.li
+                    <li
                       key={itemIndex}
-                      whileHover={{ x: 5 }}
                       className="flex items-start gap-2 md:gap-3 text-slate-700 group/item"
                     >
                       <div className="mt-1 md:mt-1.5 shrink-0 transition-transform group-hover/item:scale-110">
@@ -123,7 +115,7 @@ const CourseOutline = () => {
                       <span className="text-[15px] md:text-[18px] leading-relaxed font-medium">
                         {item}
                       </span>
-                    </motion.li>
+                    </li>
                   ))}
                 </ul>
 
@@ -136,7 +128,7 @@ const CourseOutline = () => {
                   )}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </Container>
