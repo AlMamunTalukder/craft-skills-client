@@ -47,14 +47,14 @@ const transformations = [
 
 const Transformation = () => {
   return (
-    <section className="py-16 md:py-24 bg-[#FAF9FF] overflow-hidden">
+    <section className="py-10 md:py-24 bg-[#FAF9FF] overflow-hidden">
       {/* Subtle Background Glows */}
       <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-purple-200/30 blur-[100px] -z-10 rounded-full" />
       <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-indigo-100/40 blur-[100px] -z-10 rounded-full" />
 
       <div className="max-w-6xl mx-auto px-4">
         {/* --- HEADER --- */}
-        <div className="text-center mb-12 md:mb-20">
+        <div className="text-center mb-5 md:mb-20">
           <h2 className="text-3xl md:text-5xl font-black text-slate-950 leading-tight">
             কোর্স শেষে আপনার{" "}
             <span className="text-purple-600">ক্যারিয়ারে</span> <br />
@@ -65,7 +65,7 @@ const Transformation = () => {
         </div>
 
         {/* --- TRANSFORMATION LIST --- */}
-        <div className="grid grid-cols-1 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 gap-4 md:gap-8">
           {transformations.map((item, index) => (
             <motion.div
               key={index}
@@ -73,33 +73,33 @@ const Transformation = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className="group relative flex flex-col md:flex-row items-stretch rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden border border-purple-100 bg-white shadow-sm hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-500"
+              className="group relative flex flex-col md:flex-row items-stretch rounded-2xl md:rounded-[2.5rem] overflow-hidden border border-purple-100 bg-white shadow-sm hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-500"
             >
               {/* BEFORE SECTION (LEFT/TOP) */}
-              <div className="flex-1 p-6 md:p-10 flex items-start gap-4 bg-red-50/40 border-b md:border-b-0 md:border-r border-slate-100 transition-colors group-hover:bg-red-50/60">
-                <div className="shrink-0 p-2 rounded-full bg-red-100 text-red-500">
+              <div className="flex-1 p-3 md:p-10 flex items-start gap-4 bg-red-50/40 border-b md:border-b-0 md:border-r border-slate-100 transition-colors group-hover:bg-red-50/60">
+                <div className="shrink-0 p-0.5 md:p-2 rounded-full bg-red-100 text-red-500">
                   <XCircle size={20} />
                 </div>
                 <div>
-                  <span className="text-red-500 text-[10px] font-black uppercase tracking-[0.2em] mb-2 block">
-                    ❌ কোর্স করার আগে
+                  <span className="text-red-500 text-[10px] font-black uppercase block">
+                    কোর্স করার আগে
                   </span>
-                  <p className="text-slate-500 text-base md:text-lg leading-relaxed">
+                  <p className="text-slate-500 text-[15px] md:text-[17px] leading-relaxed">
                     {item.before}
                   </p>
                 </div>
               </div>
 
               {/* AFTER SECTION (RIGHT/BOTTOM) */}
-              <div className="flex-1 p-6 md:p-10 flex items-start gap-4 bg-gradient-to-br from-white to-purple-50/50 transition-all group-hover:to-purple-100/40">
-                <div className="shrink-0 p-2 rounded-full bg-purple-600 text-white shadow-lg shadow-purple-200">
+              <div className="flex-1 p-3 md:p-10 flex items-start gap-4 bg-gradient-to-br from-white to-purple-50/50 transition-all group-hover:to-purple-100/40">
+                <div className="shrink-0 p-0.5 md:p-2 rounded-full bg-purple-600 text-white shadow-lg shadow-purple-200">
                   <CheckCircle2 size={22} />
                 </div>
                 <div>
-                  <span className="text-purple-600 text-[10px] font-black uppercase tracking-[0.2em] mb-2 block">
-                    ✅ কোর্স করার পরে
+                  <span className="text-purple-600 text-[10px] font-black uppercase block">
+                    কোর্স করার পরে
                   </span>
-                  <p className="text-slate-900 text-lg md:text-xl font-extrabold leading-snug group-hover:text-purple-900 transition-colors">
+                  <p className="text-slate-900 text-base text-[15px] md:text-[17px] font-extrabold leading-snug group-hover:text-purple-900 transition-colors">
                     {item.after}
                   </p>
                 </div>

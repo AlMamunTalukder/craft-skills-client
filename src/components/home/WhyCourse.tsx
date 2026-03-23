@@ -217,7 +217,7 @@ const WhyCourse = () => {
         </div>
 
         {/* Main Box with Texture and Icons Inside */}
-        <div className="relative bg-[#130129] border border-white/10 rounded-xl lg:rounded-[4rem] p-4 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
+        <div className="relative bg-[#130129] border border-white/10 rounded-xl lg:rounded-[4rem] p-3 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
           {/* Internal Texture Overlay */}
           <div
             className="absolute inset-0 opacity-[0.05] pointer-events-none"
@@ -252,17 +252,17 @@ const WhyCourse = () => {
                   key={colIdx}
                   type="single"
                   collapsible
-                  className="w-full space-y-4"
+                  className="w-full space-y-2 md:space-y-4"
                 >
                   {column.map((item, index) => (
                     <AccordionItem
                       value={`item-${colIdx}-${index}`}
                       key={index}
-                      className="border border-white/5 bg-white/[0.07] backdrop-blur-sm rounded-xl overflow-hidden px-1 data-[state=open]:border-purple-500/40 "
+                      className="border border-white/5 bg-white/[0.07] backdrop-blur-sm rounded-lg md:rounded-xl overflow-hidden px-1 data-[state=open]:border-purple-500/40 "
                     >
                       <AccordionTrigger className="w-full text-left px-1 md:px-0 py-2 md:py-6 group hover:no-underline flex items-start gap-4">
-                        <div className="flex items-start gap-4 ">
-                          <div className=" w-7 h-7 rounded-xl bg-purple-500/10 flex items-center justify-center content-center text-purple-300 group-data-[state=open]:bg-purple-600 group-data-[state=open]:text-white transition-all">
+                        <div className="flex items-start gap-2 md:gap-4 ">
+                          <div className=" w-7 h-7 rounded-lg md:rounded-xl bg-purple-500/10 flex items-center justify-center content-center text-purple-300 group-data-[state=open]:bg-purple-600 group-data-[state=open]:text-white transition-all">
                             <AlertCircle size={20} strokeWidth={2.5} />
                           </div>
                           <span className="text-base md:text-[18px] font-semibold text-slate-100 group-data-[state=open]:text-white transition-colors block ">
@@ -288,15 +288,15 @@ const WhyCourse = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-20 p-[1px] rounded-[2.5rem] bg-gradient-to-r from-purple-600/20 via-[#F300E7]/50 to-cyan-500/20 shadow-2xl"
+              className="mt-10 md:mt-20 p-[1px] rounded-xl md:rounded-[2.5rem] bg-gradient-to-r from-purple-600/20 via-[#F300E7]/50 to-cyan-500/20 shadow-2xl"
             >
-              <div className="bg-[#0F0121] px-2 md:px-12 py-4 md:py-8 rounded-[2.45rem] flex flex-col md:flex-row items-center gap-8 md:gap-12 border border-white/5 relative overflow-hidden">
+              <div className="bg-[#0F0121] px-2 md:px-12 py-4 md:py-8 rounded-xl md:rounded-[2.45rem] flex flex-col md:flex-row items-center gap-3 md:gap-12 border border-white/5 relative overflow-hidden">
                 {/* Decorative background glow inside the card */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#F300E7]/10 blur-[50px] rounded-full pointer-events-none" />
 
                 {/* Icon Section */}
-                <div className="flex-shrink-0">
-                  <div className="w-16 md:w-20 h-16 md:h-20 rounded-2xl bg-gradient-to-tr from-[#F300E7] to-purple-600 flex items-center justify-center shadow-[0_0_30px_rgba(243,0,231,0.3)] ring-1 ring-white/20">
+                <div className="shrink-0">
+                  <div className="w-12 md:w-20 h-12 md:h-20 rounded-lg md:rounded-2xl bg-gradient-to-tr from-[#F300E7] to-purple-600 flex items-center justify-center shadow-[0_0_30px_rgba(243,0,231,0.3)] ring-1 ring-white/20">
                     <Trophy className="text-white w-10 h-10" />
                   </div>
                 </div>
@@ -305,12 +305,12 @@ const WhyCourse = () => {
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="text-xs md:text-xl font-bold text-white leading-tight md:leading-snug">
                     {/* Highlighted Section */}
-                    <span className="text-2xl md:text-3xl font-black block mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] via-white to-purple-400">
+                    <span className="text-3xl font-black block mb-2 text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] via-white to-purple-400">
                       মাত্র ৫০ দিনে এই সকল সমস্যা দূর করে
                     </span>
 
                     {/* Regular Section */}
-                    <span className="text-slate-200">
+                    <span className="text-slate-200 font-normal md:font-black">
                       প্র্যাকটিক্যাল চ্যালেঞ্জে হয়ে উঠুন প্রফেশনাল পাবলিক
                       স্পিকার ও ভয়েস আর্টিস্ট।
                     </span>

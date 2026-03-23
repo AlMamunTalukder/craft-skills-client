@@ -9,8 +9,11 @@ import {
   Lightbulb,
   Award,
   PenTool,
-  GraduationCapIcon,
   Trophy,
+  Mic2,
+  Presentation,
+  UserCheck,
+  Radio,
 } from "lucide-react";
 
 import Container from "../shared/Container";
@@ -26,24 +29,37 @@ type Props = {
 const Banner = ({ siteData }: Props) => {
   const pathname = usePathname();
 
+  // Skill Mapping with Icons for the Glassmorphism cards
+  const skillIcons = [
+    {
+      name: "ইন্টারভিউ",
+      icon: <UserCheck size={18} className="text-[#F300E7]" />,
+    },
+    {
+      name: "প্রেজেন্টেশন",
+      icon: <Presentation size={18} className="text-[#F300E7]" />,
+    },
+    { name: "ভয়েসওভার", icon: <Mic2 size={18} className="text-[#F300E7]" /> },
+    { name: "মিডিয়া", icon: <Radio size={18} className="text-[#F300E7]" /> },
+  ];
+
   const getBannerContent = () => {
+    const common = {
+      tag: "Skills Development",
+      topTitle: "৫০ দিনে চ্যালেঞ্জে",
+      mainTitle: "কথার ভয় জয় করুন",
+      highlight: "সবখানে হয়ে উঠুন কথার জাদুকর",
+    };
+
     if (pathname === "/admission") {
       return {
-        tag: "Skills Development",
-        topTitle: "৫০ দিনে চ্যালেঞ্জে",
-        mainTitle: "কথার ভয় জয় করুন",
-        skills: "ইন্টারভিউ, * প্রেজেন্টেশন, * ভয়েসওভার, *মিডিয়া",
-        highlight: "সবখানে হয়ে উঠুন কথার জাদুকর",
+        ...common,
         subtitle: "ডিসকাউন্ট পেতে দ্রুত ভর্তি নিশ্চিত করুন",
         description: siteData?.admissionBannerInfo?.description,
       };
     } else {
       return {
-        tag: "Skills Development",
-        topTitle: "৫০ দিনে চ্যালেঞ্জে",
-        mainTitle: "কথার ভয় জয় করুন",
-        skills: "ইন্টারভিউ, * প্রেজেন্টেশন, * ভয়েসওভার, *মিডিয়া",
-        highlight: "সবখানে হয়ে উঠুন কথার জাদুকর",
+        ...common,
         subtitle: "",
         description: siteData?.homeBannerInfo?.description,
       };
@@ -116,6 +132,7 @@ const Banner = ({ siteData }: Props) => {
         <div className="absolute inset-0 bg-gradient-to-r from-[#0f012f] via-[#1A0B2E]/95 to-[#4F0187]/70 z-10" />
       </div>
 
+      {/* Floating Background Elements */}
       <div className="absolute inset-0 z-10 pointer-events-none">
         {floatingIcons.map((item, idx) => (
           <motion.div
@@ -138,7 +155,7 @@ const Banner = ({ siteData }: Props) => {
 
       <Container className="relative z-20 w-full py-6 md:py-20">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="w-full md:w-[65%] text-center md:text-left space-y-6">
+          <div className="w-full md:w-[65%] text-center md:text-left space-y-8">
             {/* Top Badge: 50 Days Challenge */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -147,7 +164,6 @@ const Banner = ({ siteData }: Props) => {
             >
               <div className="relative">
                 <div className="absolute -inset-1 bg-[#F300E7] blur-sm opacity-50 rounded-full animate-pulse"></div>
-                {/* Trophy Icon matches the visual in your image */}
                 <div className="relative bg-white/10 p-2 rounded-lg backdrop-blur-sm border border-white/20">
                   <Trophy size={24} className="text-white" />
                 </div>
@@ -157,8 +173,8 @@ const Banner = ({ siteData }: Props) => {
               </h3>
             </motion.div>
 
-            <div className="space-y-4">
-              {/* Main Title: কথার ভয় জয় করুন */}
+            <div className="space-y-6">
+              {/* Main Title */}
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -168,22 +184,33 @@ const Banner = ({ siteData }: Props) => {
                 {bannerContent.mainTitle}
               </motion.h1>
 
-              {/* Skills List with Bullets */}
+              {/* GORGEOUS SKILLS CARDS (The Improvement) */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="flex flex-wrap items-center justify-center md:justify-start gap-x-2 md:gap-x-4 gap-y-2 text-base md:text-2xl font-bold text-purple-200"
+                className="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4"
               >
-                {bannerContent.skills.split(",").map((skill, index) => (
-                  <div key={index} className="flex items-center gap-1 md:gap-2">
-                    <span className="text-[#F300E7] text-2xl">•</span>
-                    <span>{skill.replace("*", "").trim()}</span>
-                  </div>
+                {skillIcons.map((skill, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{
+                      scale: 1.05,
+                      backgroundColor: "rgba(255, 255, 255, 0.15)",
+                    }}
+                    className="flex items-center gap-2 px-4 py-2 md:px-5 md:py-3 rounded-lg md:rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 shadow-lg"
+                  >
+                    <span className="p-1 bg-white/10 rounded-lg">
+                      {skill.icon}
+                    </span>
+                    <span className="text-white text-sm md:text-lg font-bold tracking-wide">
+                      {skill.name}
+                    </span>
+                  </motion.div>
                 ))}
               </motion.div>
 
-              {/* Highlight: সবখানে হয়ে উঠুন কথার জাদুকর */}
+              {/* Highlight Headline */}
               <motion.h2
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -193,14 +220,13 @@ const Banner = ({ siteData }: Props) => {
                 {bannerContent.highlight}
               </motion.h2>
 
-              {/* Seminar Time / Subtitle */}
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6 }}
                 className="text-gray-400 text-sm md:text-xl font-medium"
               >
-                ফ্রি সেমিনারের সময়ঃ ০১ জানুয়ারি - শুক্রবার - রাত ৯টা
+                ফ্রি সেমিনারের সময়ঃ ০১ জানুয়ারি - শুক্রবার - রাত ৯টা
               </motion.p>
             </div>
 
@@ -220,6 +246,7 @@ const Banner = ({ siteData }: Props) => {
             </motion.div>
           </div>
 
+          {/* Right Image Representation */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
