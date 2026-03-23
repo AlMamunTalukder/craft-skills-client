@@ -16,11 +16,9 @@ interface CountdownTimerProps {
 
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
   const calculateTimeLeft = (): TimeLeft => {
-
     const target = targetDate
       ? new Date(targetDate)
       : new Date("2025-04-17T21:00:00");
-
     const now: Date = new Date();
     const difference: number = target.getTime() - now.getTime();
 
@@ -35,44 +33,64 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
       timeLeft = {
         days: String(Math.floor(difference / (1000 * 60 * 60 * 24))).padStart(
           2,
-          "0",
+          "0"
         ),
         hours: String(
-          Math.floor((difference / (1000 * 60 * 60)) % 24),
+          Math.floor((difference / (1000 * 60 * 60)) % 24)
         ).padStart(2, "0"),
         minutes: String(Math.floor((difference / 1000 / 60) % 60)).padStart(
           2,
-          "0",
+          "0"
         ),
         seconds: String(Math.floor((difference / 1000) % 60)).padStart(2, "0"),
       };
     }
-
     return timeLeft;
   };
 
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
+    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
     return () => clearInterval(timer);
   }, [targetDate]);
 
+  // Sub-component for each time block
+  const TimeUnit = ({
+    value,
+    label,
+    shortLabel,
+  }: {
+    value: string;
+    label: string;
+    shortLabel: string;
+  }) => (
+    <div className="flex flex-row items-baseline md:flex-col md:items-center gap-0.5 md:gap-0">
+      <span className="text-[13px] md:text-xl md:font-bold font-mono tracking-tighter md:tracking-normal leading-none">
+        {value}
+      </span>
+      <span className="text-[10px] md:text-[10px] md:font-semibold opacity-90">
+        <span className="md:hidden text-purple-200">{shortLabel}</span>
+        <span className="hidden md:inline text-white/80">{label}</span>
+      </span>
+    </div>
+  );
+
+  const Separator = () => (
+    <span className="text-white/40 mb-0 -mt-1 md:mb-4 animate-pulse md:font-bold">
+      :
+    </span>
+  );
+
   return (
-    <div className="text-xs md:text-sm border border-white rounded-lg p-1">
-      <div className="flex gap-2 md:gap-2 justify-center font-mono leading-[1]">
-        <span>{timeLeft.days}</span> :<span>{timeLeft.hours}</span> :
-        <span>{timeLeft.minutes}</span> :<span>{timeLeft.seconds}</span>
-      </div>
-      <div className="text-[10px] md:text-xs flex gap-3 justify-center md:mt-1 leading-[1]">
-        <span>DAYS</span>
-        <span>HRS</span>
-        <span>MINS</span>
-        <span>SECS</span>
-      </div>
+    <div className="flex items-center justify-center content-center gap-1 md:gap-2 bg-white/10 md:bg-transparent px-2 md:px-3 py-0 md:p-2 rounded-md md:rounded-lg border border-white/30 md:border-white shadow-inner">
+      <TimeUnit value={timeLeft.days} label="DAYS" shortLabel="d" />
+      <Separator />
+      <TimeUnit value={timeLeft.hours} label="HRS" shortLabel="h" />
+      <Separator />
+      <TimeUnit value={timeLeft.minutes} label="MINS" shortLabel="m" />
+      <Separator />
+      <TimeUnit value={timeLeft.seconds} label="SECS" shortLabel="s" />
     </div>
   );
 };

@@ -236,7 +236,7 @@ const WhyCourse = () => {
           <AudioLines className="absolute bottom-10 -left-10 w-48 h-48 text-white/[0.10] rotate-45 pointer-events-none" />
 
           <div className="relative z-10">
-            <div className="max-w-3xl mb-8 text-center md:text-left">
+            <div className="max-w-3xl mb-8 text-center">
               <h2 className="text-4xl md:text-[51px] font-black text-white leading-tight">
                 আপনিও কি এই সমস্যাগুলোতে{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] to-purple-400">
@@ -258,10 +258,10 @@ const WhyCourse = () => {
                     <AccordionItem
                       value={`item-${colIdx}-${index}`}
                       key={index}
-                      className="border border-white/5 bg-white/[0.07] backdrop-blur-sm rounded-lg md:rounded-xl overflow-hidden px-1 data-[state=open]:border-purple-500/40 "
+                      className="border border-white/5 bg-white/[0.07] backdrop-blur-sm rounded-lg md:rounded-xl overflow-hidden px-1 md:px-3 data-[state=open]:border-purple-500/40 "
                     >
                       <AccordionTrigger className="w-full text-left px-1 md:px-0 py-2 md:py-6 group hover:no-underline flex items-start gap-4">
-                        <div className="flex items-start gap-2 md:gap-4 ">
+                        <div className="flex items-start gap-2 md:gap-3 ">
                           <div className=" w-7 h-7 rounded-lg md:rounded-xl bg-purple-500/10 flex items-center justify-center content-center text-purple-300 group-data-[state=open]:bg-purple-600 group-data-[state=open]:text-white transition-all">
                             <AlertCircle size={20} strokeWidth={2.5} />
                           </div>
@@ -288,9 +288,9 @@ const WhyCourse = () => {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-10 md:mt-20 p-[1px] rounded-xl md:rounded-[2.5rem] bg-gradient-to-r from-purple-600/20 via-[#F300E7]/50 to-cyan-500/20 shadow-2xl"
+              className="mt-10 p-[1px] rounded-xl md:rounded-[2.5rem] bg-gradient-to-r from-purple-600/20 via-[#F300E7]/50 to-cyan-500/20 shadow-2xl"
             >
-              <div className="bg-[#0F0121] px-2 md:px-12 py-4 md:py-8 rounded-xl md:rounded-[2.45rem] flex flex-col md:flex-row items-center gap-3 md:gap-12 border border-white/5 relative overflow-hidden">
+              <div className="bg-[#0F0121] px-2 md:px-12 py-4 md:py-6 rounded-xl md:rounded-[2.45rem] flex flex-col md:flex-row items-center gap-3 md:gap-12 border border-white/5 relative overflow-hidden">
                 {/* Decorative background glow inside the card */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#F300E7]/10 blur-[50px] rounded-full pointer-events-none" />
 

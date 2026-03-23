@@ -110,18 +110,18 @@ export default function SubHeader({ siteData, seminar }: Props) {
             <CountdownTimer targetDate={seminar?.registrationDeadline} />
           </div>
 
-          <div className=" md:w-[140px] px-4 md:px-0">
+          <div className=" w-[170px] px-4 md:px-0">
             <Link
               href={"#registration-form"}
               className=""
               aria-label="Register Now"
             >
-              <Button className="bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full border border-white">
+              <button className="flex gap-2 justify-center items-center content-center bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full border-2 border-white px-3 py-1">
                 <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />
                 <span className="text-sm md:text-base whitespace-nowrap ">
                   রেজিস্ট্রেশন করুন
                 </span>
-              </Button>
+              </button>
             </Link>
           </div>
           <div className="flex justify-center md:justify-end mb-[6px] md:mb-0 pt-1 md:pt-0">
