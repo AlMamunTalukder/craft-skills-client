@@ -196,16 +196,6 @@ const ComparisonTable = () => {
             </ul>
           </motion.div>
         </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-10 md:mt-24 text-center px-4">
-          <div className="inline-flex items-center gap-3 md:gap-4 bg-white px-6 md:px-10 py-3 md:py-5 rounded-full shadow-lg border border-purple-100">
-            <div className="w-2 h-2 md:w-3 md:h-3 bg-green-500 rounded-full animate-ping" />
-            <p className="text-[#4F0187] font-extrabold text-[12px] md:text-lg">
-              আপনার সফলতার জন্য আমরাই সেরা মাধ্যম
-            </p>
-          </div>
-        </div>
       </Container>
     </section>
   );

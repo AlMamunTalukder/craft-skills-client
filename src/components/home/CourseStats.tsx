@@ -38,9 +38,6 @@ const statsData = [
   },
 ];
 
-/**
- * A lightweight counter using requestAnimationFrame for 60fps performance
- */
 const PureAnimatedNumber = ({ value }: { value: number }) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -150,22 +147,6 @@ const CourseStats = () => {
           </div>
         </div>
       </Container>
-
-      {/* Internal CSS for the Floating Animation */}
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-6px);
-          }
-        }
-        .animate-float {
-          animation: float 4s ease-in-out infinite;
-        }
-      `}</style>
     </section>
   );
 };

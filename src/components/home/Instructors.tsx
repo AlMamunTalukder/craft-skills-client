@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
 import { FaFacebookF, FaLinkedinIn, FaYoutube } from "react-icons/fa";
@@ -21,7 +20,7 @@ const Instructors = () => {
       designation: "ভয়েস ওভার ডিরেক্টর",
     },
     {
-      name: "আহমেদ ইমতিয়াজ সাব্বির",
+      name: "ইমতিয়াজ সাব্বির",
       image: imteaz,
       designation: "ডাবিং আর্টিস্ট",
     },
@@ -99,17 +98,6 @@ const Instructors = () => {
               <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-[80%] h-10 bg-purple-600/10 blur-2xl rounded-full -z-10 group-hover:bg-purple-600/20 transition-all" />
             </div>
           ))}
-        </div>
-
-        {/* Bottom CTA for Instructors */}
-        <div className="mt-5 md:mt-20 text-center">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-purple-100 bg-purple-50/50 text-[#4F0187] font-bold">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-purple-600"></span>
-            </span>
-            সেরা মেন্টরদের সাথে স্কিল গড়ুন
-          </div>
         </div>
       </Container>
     </div>
