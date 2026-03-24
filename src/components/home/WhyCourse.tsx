@@ -1,14 +1,10 @@
 "use client";
-import React, { useMemo, useEffect, useState, useRef } from "react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import React, { useMemo } from "react";
+import { Accordion } from "@/components/ui/accordion";
 import { AlertCircle, Mic2, AudioLines, Trophy } from "lucide-react";
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
+import { CustomAccordionItem } from "../shared/CustomAccordion"; // Import the shared component
 
 const WhyCourse = () => {
   const problems = useMemo(
@@ -69,7 +65,7 @@ const WhyCourse = () => {
   const columns = [problems.slice(0, middleIndex), problems.slice(middleIndex)];
 
   return (
-    <section className="py-10 lg:py-32 relative overflow-hidden">
+    <section className="py-10 lg:py-32 relative overflow-hidden ">
       <Container className="relative z-10">
         <div className="text-center mb-10 md:mb-24">
           <SectionTitle
@@ -77,7 +73,6 @@ const WhyCourse = () => {
             lineWidth="lg"
             hasLineBreak={true}
           />
-
           <div className="mt-5 md:mt-12 w-full rounded-xl md:rounded-[2.5rem] overflow-hidden shadow-2xl bg-black/40 backdrop-blur-xl ring-1 ring-purple-500/20">
             <iframe
               className="w-full aspect-video"
@@ -85,11 +80,12 @@ const WhyCourse = () => {
               title="Student Success"
               allowFullScreen
               loading="lazy"
-            ></iframe>
+            />
           </div>
         </div>
 
         <div className="relative bg-[#130129] border border-white/10 rounded-2xl lg:rounded-[4rem] p-4 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
+          {/* Background Decorations */}
           <div
             className="absolute inset-0 opacity-[0.03] pointer-events-none"
             style={{
@@ -97,19 +93,16 @@ const WhyCourse = () => {
               backgroundSize: "30px 30px",
             }}
           />
-
           <Mic2 className="absolute -top-10 -right-10 w-64 h-64 text-white/[0.05] -rotate-12 pointer-events-none hidden md:block" />
           <AudioLines className="absolute bottom-10 -left-10 w-48 h-48 text-white/[0.05] rotate-45 pointer-events-none hidden md:block" />
 
           <div className="relative z-10">
-            <div className="max-w-3xl mb-10">
-              <h2 className="text-3xl md:text-[51px] font-black text-white leading-tight">
-                আপনিও কি এই সমস্যাগুলোতে{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] to-purple-400">
-                  ভুগছেন?
-                </span>
-              </h2>
-            </div>
+            <h2 className="text-3xl md:text-[51px] font-black text-white leading-tight mb-10 max-w-3xl">
+              আপনিও কি এই সমস্যাগুলোতে{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] to-purple-400">
+                ভুগছেন?
+              </span>
+            </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2">
               {columns.map((column, colIdx) => (
@@ -120,35 +113,21 @@ const WhyCourse = () => {
                   className="w-full space-y-3"
                 >
                   {column.map((item, index) => (
-                    <AccordionItem
-                      value={`item-${colIdx}-${index}`}
+                    <CustomAccordionItem
                       key={index}
-                      className="border border-white/5 bg-white/[0.05] hover:bg-white/[0.08] backdrop-blur-sm rounded-xl overflow-hidden px-3 transition-colors duration-300"
-                    >
-                      <AccordionTrigger className="w-full text-left py-4 md:py-6 hover:no-underline group">
-                        <div className="flex items-start gap-3">
-                          <div className="shrink-0 w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-300 group-data-[state=open]:bg-purple-600 group-data-[state=open]:text-white transition-all">
-                            <AlertCircle size={18} />
-                          </div>
-                          <span className="text-[15px] md:text-lg font-bold text-slate-100 group-data-[state=open]:text-white">
-                            {item.title}
-                          </span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="pb-6 pt-2">
-                        <div className="pt-4 border-t border-white/5">
-                          <p className="text-slate-300 text-sm md:text-base leading-relaxed italic opacity-90">
-                            {item.desc}
-                          </p>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
+                      value={`why-${colIdx}-${index}`}
+                      title={item.title}
+                      description={item.desc}
+                      icon={
+                        <AlertCircle size={20} className="text-purple-400" />
+                      }
+                    />
                   ))}
                 </Accordion>
               ))}
             </div>
 
-            {/* CTA Card (Standard Transitions) */}
+            {/* CTA Card */}
             <div className="mt-12 p-[1px] rounded-2xl md:rounded-[2.5rem] bg-gradient-to-r from-purple-600/20 via-[#F300E7] to-cyan-500/20 shadow-2xl transition-all duration-700 hover:scale-[1.01]">
               <div className="bg-[#0F0121] px-6 py-8 md:px-12 md:py-10 rounded-[calc(1rem-1px)] md:rounded-[2.5rem] flex flex-col md:flex-row items-center gap-6 md:gap-12 border border-white/5 relative overflow-hidden">
                 <div className="shrink-0">
@@ -156,17 +135,14 @@ const WhyCourse = () => {
                     <Trophy className="text-white w-8 h-8 md:w-10 md:h-10" />
                   </div>
                 </div>
-
-                <div className="text-center md:text-left flex-1">
-                  <h3 className="text-white leading-tight">
-                    <span className="text-2xl md:text-4xl font-black block mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] via-white to-purple-400">
-                      মাত্র ৫০ দিনে এই সকল সমস্যা দূর করুন
-                    </span>
-                    <span className="text-slate-300 text-sm md:text-xl font-medium">
-                      প্র্যাকটিক্যাল চ্যালেঞ্জে হয়ে উঠুন প্রফেশনাল পাবলিক
-                      স্পিকার ও ভয়েস আর্টিস্ট।
-                    </span>
+                <div className="text-center md:text-left flex-1 text-white">
+                  <h3 className="text-2xl md:text-4xl font-black block mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] via-white to-purple-400">
+                    মাত্র ৫০ দিনে এই সকল সমস্যা দূর করুন
                   </h3>
+                  <p className="text-slate-300 text-sm md:text-xl font-medium">
+                    প্র্যাকটিক্যাল চ্যালেঞ্জে হয়ে উঠুন প্রফেশনাল পাবলিক স্পিকার
+                    ও ভয়েস আর্টিস্ট।
+                  </p>
                 </div>
               </div>
             </div>

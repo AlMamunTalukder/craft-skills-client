@@ -1,15 +1,11 @@
 "use client";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
 import React, { useMemo } from "react";
 import {
   BookOpen,
   GraduationCap,
-  Globe,
   Lightbulb,
-  Award,
-  PenTool,
   Trophy,
   Mic2,
   Presentation,
@@ -43,7 +39,7 @@ const floatingIcons = [
     left: "5%",
     size: 40,
     color: "text-white/5",
-    delay: 0,
+    animation: "animate-float-slow",
   },
   {
     Icon: GraduationCap,
@@ -51,7 +47,7 @@ const floatingIcons = [
     right: "8%",
     size: 60,
     color: "text-[#F300E7]/10",
-    delay: 1,
+    animation: "animate-float-delayed",
   },
   {
     Icon: Lightbulb,
@@ -59,7 +55,7 @@ const floatingIcons = [
     left: "10%",
     size: 50,
     color: "text-yellow-400/10",
-    delay: 1.5,
+    animation: "animate-float-reverse",
   },
 ];
 
@@ -80,6 +76,7 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
 
   return (
     <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#0B001A]">
+      {/* Background Section */}
       <div className="absolute inset-0 z-0">
         <Image
           src={bg}
@@ -88,47 +85,43 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
           priority
           className="object-cover"
           sizes="100vw"
-          quality={75} // Reduced quality for faster loading
+          quality={75}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0f012f] via-[#1A0B2E]/95 to-[#4F0187]/70 z-10" />
       </div>
 
-      {/* Optimized Floating Icons - Only show 3 on mobile to save CPU */}
+      {/* Floating Icons - Pure CSS Animation */}
       <div className="absolute inset-0 z-10 pointer-events-none hidden md:block">
         {floatingIcons.map((item, idx) => (
-          <motion.div
+          <div
             key={idx}
-            animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }}
-            transition={{ duration: 5 + idx, repeat: Infinity, ease: "linear" }}
-            className={`absolute ${item.color}`}
+            className={`absolute ${item.color} ${item.animation}`}
             style={{ top: item.top, left: item.left, right: item.right }}
           >
             <item.Icon size={item.size} strokeWidth={1} />
-          </motion.div>
+          </div>
         ))}
       </div>
 
       <Container className="relative z-20 w-full py-10 md:py-20">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="w-full md:w-[65%] text-center md:text-left space-y-8">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex items-center gap-3 justify-center md:justify-start"
-            >
+            {/* Top Title Section */}
+            <div className="flex items-center gap-3 justify-center md:justify-start opacity-0 animate-fade-in-up">
               <div className="relative bg-white/10 p-2 rounded-lg border border-white/20">
                 <Trophy size={24} className="text-white" />
               </div>
               <h3 className="text-2xl md:text-4xl font-bold text-white">
                 {content.topTitle}
               </h3>
-            </motion.div>
+            </div>
 
-            <h1 className="text-4xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#F300E7] to-[#8B5CF6]">
+            <h1 className="text-4xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#F300E7] to-[#8B5CF6] opacity-0 animate-fade-in-up [animation-delay:200ms]">
               {content.mainTitle}
             </h1>
 
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+            {/* Skill Tags */}
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 opacity-0 animate-fade-in-up [animation-delay:400ms]">
               {skillIcons.map((skill, i) => (
                 <div
                   key={i}
@@ -142,22 +135,19 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
               ))}
             </div>
 
-            <h2 className="text-2xl md:text-4xl font-extrabold text-white">
+            <h2 className="text-2xl md:text-4xl font-extrabold text-white opacity-0 animate-fade-in-up [animation-delay:600ms]">
               {content.highlight}
             </h2>
 
-            <div className="pt-4">
+            <div className="pt-4 opacity-0 animate-fade-in-up [animation-delay:800ms]">
               <CtaLinkButton />
             </div>
           </div>
 
+          {/* Hero Image Section with CSS Floating Animation */}
           <div className="w-full md:w-[40%] relative flex justify-center">
-            <div className="absolute inset-0 bg-[#F300E7]/20 blur-[80px] rounded-full" />
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-10 w-[80%] sm:w-[70%] md:w-full aspect-square"
-            >
+            <div className="absolute inset-0 bg-[#F300E7]/20 blur-[80px] rounded-full animate-pulse-slow" />
+            <div className="relative z-10 w-[80%] sm:w-[70%] md:w-full aspect-square animate-hero-float">
               <Image
                 src={leftimg}
                 alt="Hero"
@@ -166,11 +156,74 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
                 priority
                 className="relative z-10 object-contain drop-shadow-2xl"
               />
-            </motion.div>
+            </div>
           </div>
         </div>
       </Container>
+
+      {/* Tailwind Animations & Keyframes */}
+      <style jsx global>{`
+        @keyframes heroFloat {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+        @keyframes floatSlow {
+          0%,
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-15px) rotate(5deg);
+          }
+        }
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes pulseSlow {
+          0%,
+          100% {
+            opacity: 0.2;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.4;
+            transform: scale(1.1);
+          }
+        }
+
+        .animate-hero-float {
+          animation: heroFloat 6s ease-in-out infinite;
+        }
+        .animate-float-slow {
+          animation: floatSlow 5s linear infinite;
+        }
+        .animate-float-delayed {
+          animation: floatSlow 7s linear infinite 1s;
+        }
+        .animate-float-reverse {
+          animation: floatSlow 6s linear infinite reverse;
+        }
+        .animate-fade-in-up {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .animate-pulse-slow {
+          animation: pulseSlow 4s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };
+
 export default Banner;
