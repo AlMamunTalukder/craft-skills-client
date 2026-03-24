@@ -6,7 +6,7 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-import { Sparkles } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 import SubmitButton from "../../FormInputs/SubmitButton";
 import CourseSelection from "./CourseSelection";
 import CouponSection from "./CouponSection";
@@ -179,7 +179,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
           {/* Header Section */}
           <div className="bg-linear-to-r from-[#4f0187] to-[#6d0b99] p-4 md:p-8 text-white text-center">
             <div className="flex items-center justify-center content-center md:gap-3 mb-2">
-              <Sparkles className="w-6 h-6 text-yellow-300" />
+              <GraduationCap className="w-6 h-6 text-yellow-300" />
               <h2 className="text-lg md:text-2xl font-bold">
                 ভর্তি নিশ্চিত করতে ফরমটি পূরণ করুন
               </h2>
