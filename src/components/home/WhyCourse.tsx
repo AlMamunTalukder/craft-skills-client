@@ -129,7 +129,7 @@ const WhyCourse = () => {
 
             {/* CTA Card */}
             <div className="mt-12 p-[1px] rounded-2xl md:rounded-[2.5rem] bg-gradient-to-r from-purple-600/20 via-[#F300E7] to-cyan-500/20 shadow-2xl transition-all duration-700 hover:scale-[1.01]">
-              <div className="bg-[#0F0121] px-6 py-8 md:px-12 md:py-10 rounded-[calc(1rem-1px)] md:rounded-[2.5rem] flex flex-col md:flex-row items-center gap-6 md:gap-12 border border-white/5 relative overflow-hidden">
+              <div className="bg-[#0F0121] px-2 py-3 md:px-12 md:py-10 rounded-[calc(1rem-1px)] md:rounded-[2.5rem] flex flex-col md:flex-row items-center gap-4 md:gap-12 border border-white/5 relative overflow-hidden">
                 <div className="shrink-0">
                   <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-tr from-[#F300E7] to-purple-600 flex items-center justify-center shadow-lg shadow-fuchsia-500/20">
                     <Trophy className="text-white w-8 h-8 md:w-10 md:h-10" />
