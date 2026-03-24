@@ -180,7 +180,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
           <div className="bg-linear-to-r from-[#4f0187] to-[#6d0b99] p-4 md:p-8 text-white text-center">
             <div className="flex items-center justify-center content-center md:gap-3 mb-2">
               <GraduationCap className="w-6 h-6 text-yellow-300" />
-              <h2 className="text-lg md:text-2xl font-bold">
+              <h2 className="sm:text-lg md:text-2xl font-bold">
                 ভর্তি নিশ্চিত করতে ফরমটি পূরণ করুন
               </h2>
             </div>

@@ -12,7 +12,6 @@ import { CircleHelp, MonitorUp } from "lucide-react";
 import { Controller, useFormContext } from "react-hook-form";
 import { cn } from "@/lib/utils";
 
-
 type TextInputProps = {
   name: string;
   label: string;
@@ -27,6 +26,7 @@ type TextInputProps = {
   max?: number;
   labelClassName?: string;
   className?: string;
+  required?: boolean;
   // Add optional onChange for controlled input
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -40,6 +40,7 @@ export default function TextInput({
   placeholder,
   icon = null,
   disabled = false,
+  required = false,
   value: initialValue,
   min,
   max,
@@ -57,10 +58,11 @@ export default function TextInput({
           htmlFor={name}
           className={cn(
             "block font-medium leading-6 text-gray-900",
-            labelClassName,
+            labelClassName
           )}
         >
           {label}
+          {required && <span className="text-red-500 ml-1">*</span>}
         </label>
         {toolTipText && (
           <TooltipProvider>
@@ -115,7 +117,7 @@ export default function TextInput({
                     className,
                     "block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-white placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-sm",
                     error ? "focus:ring-red-500" : "focus:ring-indigo-600",
-                    icon ? "pl-8" : "",
+                    icon ? "pl-8" : ""
                   )}
                   placeholder={placeholder || label}
                 />

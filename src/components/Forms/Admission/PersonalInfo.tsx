@@ -1,4 +1,11 @@
-import { User, Phone, Mail, MessageSquare, Briefcase, Facebook } from "lucide-react";
+import {
+  User,
+  Phone,
+  Mail,
+  MessageSquare,
+  Briefcase,
+  Facebook,
+} from "lucide-react";
 import TextInput from "../../FormInputs/TextInput";
 import TextArea from "../../FormInputs/TextAreaInput";
 
@@ -10,15 +17,17 @@ export default function PersonalInfo() {
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <TextInput
-          label="পূর্ণ নাম *"
+          label="পূর্ণ নাম"
           name="name"
           icon={User}
+          required
           className="border-blue-200"
         />
         <TextInput
-          label="মোবাইল নাম্বার *"
+          label="মোবাইল নাম্বার"
           name="phone"
           icon={Phone}
+          required
           className="border-blue-200"
         />
         <TextInput
