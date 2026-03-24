@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import Container from "../shared/Container";
 import { GraduationCap, Users, ShieldCheck, UserCheck } from "lucide-react";
 
