@@ -1,9 +1,10 @@
 // sechemas/admission.ts
 
+import { sanitizePhoneNumber } from "@/src/utils/phone-sanitizer";
 import { z } from "zod";
 
 export const courseAdmissionSchema = z.object({
- courseId: z
+  courseId: z
     .string({
       required_error: "কোর্স নির্বাচন করুন।",
     })
@@ -17,9 +18,12 @@ export const courseAdmissionSchema = z.object({
 
   phone: z
     .string({
-      required_error: "মোবাইল নম্বর বাধ্যতামূলক।",
+      required_error: "মোবাইল নম্বর প্রদান করা আবশ্যক।",
     })
-    .min(11, "সঠিক মোবাইল নম্বর প্রদান করুন (কমপক্ষে ১১ অঙ্ক)।"),
+    .min(11, "অনুগ্রহ করে একটি সঠিক ১১-সংখ্যার মোবাইল নম্বর প্রদান করুন।")
+    .refine((val) => sanitizePhoneNumber(val) !== null, {
+      message: "সঠিক নম্বর দিন (ইংরেজি অক্ষর বা ভুল চিহ্ন গ্রহণযোগ্য নয়)",
+    }),
 
   email: z
     .string({
@@ -38,7 +42,7 @@ export const courseAdmissionSchema = z.object({
     .min(1, "টাকার পরিমাণ লিখতে হবে।")
     .optional(),
 
-   paymentMethod: z
+  paymentMethod: z
     .string({
       required_error: "পেমেন্ট পদ্ধতি নির্বাচন করুন।",
     })
@@ -48,8 +52,10 @@ export const courseAdmissionSchema = z.object({
     .string({
       required_error: "পেমেন্ট প্রেরণকারীর মোবাইল নম্বর লিখতে হবে।",
     })
-    .min(1, "পেমেন্ট প্রেরণকারীর মোবাইল নম্বর লিখতে হবে।"),
+    .min(1, "পেমেন্ট প্রেরণকারীর মোবাইল নম্বর লিখতে হবে।")
+    .refine((val) => sanitizePhoneNumber(val) !== null, {
+      message: "সঠিক নম্বর দিন (ইংরেজি অক্ষর বা ভুল চিহ্ন গ্রহণযোগ্য নয়)",
+    }),
 });
-
 
 export type admissionFormData = z.infer<typeof courseAdmissionSchema>;
