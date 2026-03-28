@@ -46,9 +46,9 @@ export const ClassRoutine = ({ scheduleData }: Props) => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 ">
           {displaySchedule.schedules.map((routine, index) => (
             <div key={routine._id || index} className="group">
-              <Card className="h-full border-none shadow-sm hover:shadow-xl hover:shadow-purple-100 transition-all duration-300 bg-white rounded-3xl overflow-hidden relative border-b-4 border-transparent hover:border-purple-600 hover:-translate-y-1 transform-gpu">
+              <Card className="h-full border border-purple-200 shadow-sm hover:shadow-xl hover:shadow-purple-100 transition-all duration-300 bg-white rounded-3xl overflow-hidden relative border-b-4  hover:border-purple-600 hover:-translate-y-1 transform-gpu">
                 {/* Visual Accent */}
-                <div className="absolute top-0 right-0 w-12 h-12 md:w-16 md:h-16 bg-purple-50 rounded-bl-full -mr-4 -mt-4 group-hover:bg-purple-600 transition-colors duration-300" />
+                <div className="absolute top-0 right-0 w-12 h-12 md:w-16 md:h-16 bg-purple-200 rounded-bl-full -mr-4 -mt-4 group-hover:bg-purple-600 transition-colors duration-300" />
 
                 <CardContent className="p-2 md:p-8 relative z-10 h-full flex flex-col">
                   {/* Class Name */}
