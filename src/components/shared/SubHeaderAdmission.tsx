@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 
 const CountdownTimer = dynamic(
   () => import("@/src/components/home/CountdownTimer"),
-  { ssr: false }
+  { ssr: false },
 );
 
 type Props = {
@@ -94,35 +94,24 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
   if (!batch || !isRegistrationActive()) return null;
 
   return (
-    <div
-      className={`sticky top-0 z-50 w-full shadow-sm transition-all duration-300 responsive-header ${
-        isScrolled
-          ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-1.5"
-          : " bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-1.5"
-      }`}
-    >
+    <div className="sticky top-0 z-50 h-[89px] md:h-full md:w-full bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-1.5">
       <Container>
-        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[3px] md:space-y-0">
-          {/* Left: Course Info */}
-          <div className="flex items-center">
-            <div className="text-center md:text-left">
-              <h3 className="text-[13px] md:text-[17px] leading-tight">
-                {batch?.name}
-              </h3>
-              <p className="text-[12px] md:text-[15px] text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
-                {batch?.description}
-              </p>
-            </div>
+        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1">
+          <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left md:px-2">
+            <h3 className="text-[13px] md:text-[17px] leading-tight">
+              {batch?.name}
+            </h3>
+
+            <p className="text-[12px] md:text-[15px] text-purple-100 font-medium opacity-80 uppercase tracking-tighter pb-[2px] md:pb-0">
+              {batch?.description}
+            </p>
           </div>
 
-          {/* Center & Right: Timer & Action Wrapper */}
-          <div className="flex flex-col md:flex-row items-center  md:bg-transparent rounded-2xl w-full md:w-auto justify-center space-y-[3px] md:space-y-0 md:gap-5 ">
-            {/* Countdown Container */}
-            <div className="scale-90 md:scale-100">
-              <CountdownTimer targetDate={batch?.registrationEnd} />
-            </div>
+          <div className="md:w-[170px] px-1 md:px-0 pb-1.5 md:pb-0">
+            <CountdownTimer targetDate={batch?.registrationEnd} />
+          </div>
 
-            {/* Premium Button */}
+          <div className=" w-[170px] px-4 md:px-0">
             <Link href="#admission" className="">
               <button className="flex gap-2 justify-center items-center content-center bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full border-2 border-white px-3 py-1">
                 <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />

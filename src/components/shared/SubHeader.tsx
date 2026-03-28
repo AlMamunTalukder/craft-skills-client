@@ -26,15 +26,6 @@ type Props = {
 
 export default function SubHeader({ siteData, seminar }: Props) {
   const [isMobile, setIsMobile] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -87,26 +78,20 @@ export default function SubHeader({ siteData, seminar }: Props) {
   ];
 
   return (
-    <div
-      className={`sticky top-0 z-50 w-full shadow-sm transition-all duration-300 responsive-header ${
-        isScrolled
-          ? "bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-1.5"
-          : " bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-1.5"
-      }`}
-    >
+    <div className="sticky top-0 z-50 h-[89px] md:h-full md:w-full bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-1.5">
       <Container>
-        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1 space-y-[4px] md:space-y-0">
-          <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left  md:px-2">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1">
+          <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left md:px-2">
             <h3 className="text-[13px] md:text-[17px] leading-tight">
-              {seminar?.title || "ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন।"}
+              {seminar?.title}
             </h3>
 
-            <p className="text-[12px] md:text-[15px] text-purple-100 font-medium opacity-80 uppercase tracking-tighter">
+            <p className="text-[12px] md:text-[15px] text-purple-100 font-medium opacity-80 uppercase tracking-tighter pb-[2px] md:pb-0">
               {seminar?.description}
             </p>
           </div>
 
-          <div className="md:w-[170px] px-1 md:px-0">
+          <div className="md:w-[170px] px-1 md:px-0 pb-1.5 md:pb-0">
             <CountdownTimer targetDate={seminar?.registrationDeadline} />
           </div>
 
@@ -124,7 +109,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
               </button>
             </Link>
           </div>
-          <div className="flex justify-center md:justify-end mb-[6px] md:mb-0 pt-1 md:pt-0">
+          <div className="flex justify-center md:justify-end mb-0 md:mb-0 pt-0 md:pt-0">
             <div className=" hidden md:flex items-center gap-3 md:gap-2">
               {socialLinks.map((social, index) => (
                 <Link

@@ -11,7 +11,7 @@ import TextArea from "../../FormInputs/TextAreaInput";
 
 export default function PersonalInfo() {
   return (
-    <div className="bg-blue-50 rounded-2xl p-4 md:p-6 border border-blue-100">
+    <div className="bg-blue-50 rounded-2xl p-2 md:p-6 border border-blue-100">
       <h3 className="font-semibold text-blue-800 mb-4 flex items-center gap-2">
         <User className="w-5 h-5" /> ব্যক্তিগত তথ্য
       </h3>

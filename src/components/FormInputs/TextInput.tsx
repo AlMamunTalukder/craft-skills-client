@@ -92,7 +92,7 @@ export default function TextInput({
               <div className="relative rounded-md">
                 {icon && (
                   <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <Icon className="text-slate-300 w-4 h-4" />
+                    <Icon className="text-slate-400 w-4 h-4" />
                   </div>
                 )}
                 <input
@@ -115,7 +115,7 @@ export default function TextInput({
                   }
                   className={cn(
                     className,
-                    "block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-white placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-sm",
+                    "block w-full rounded-md border-0 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-gray-100 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 text-sm",
                     error ? "focus:ring-red-500" : "focus:ring-indigo-600",
                     icon ? "pl-8" : ""
                   )}

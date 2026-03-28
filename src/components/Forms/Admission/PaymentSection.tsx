@@ -37,7 +37,7 @@ export default function PaymentSection() {
   return (
     <>
       {/* Numbers Display */}
-      <div className="bg-emerald-50 rounded-2xl p-4 md:p-6 border border-emerald-100 mb-6">
+      <div className="bg-emerald-50 rounded-2xl p-2 md:p-6 border border-emerald-100 mb-6">
         <h3 className="font-semibold text-emerald-800 mb-4 flex items-center gap-2">
           <CreditCard className="w-5 h-5" /> পেমেন্ট নাম্বার সমূহ
         </h3>
@@ -66,7 +66,7 @@ export default function PaymentSection() {
       </div>
 
       {/* Input Fields */}
-      <div className="bg-emerald-50  rounded-2xl p-4 md:p-6 border border-gray-200 shadow-sm">
+      <div className="bg-emerald-50  rounded-2xl p-2 md:p-6 border border-gray-200 shadow-sm">
         <h3 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
           <CreditCard className="w-5 h-5 text-emerald-600" /> পেমেন্ট তথ্য দিন
         </h3>

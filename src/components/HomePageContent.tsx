@@ -1,5 +1,4 @@
 import BeforeAfter from "./home/BeforeAfter";
-import ClassDescription from "./home/ClassDescription";
 import { ClassRoutine } from "./home/ClassRoutine";
 import ComparisonTable from "./home/ComparisonTable";
 import CourseFeatures from "./home/CourseFeatures";
@@ -25,7 +24,6 @@ const HomePageContent = async () => {
       <CourseFeatures />
       <CourseStory />
       <BeforeAfter />
-      <ClassDescription />
       <TotalClass />
       <ClassRoutine scheduleData={classSchedule} />
       <ComparisonTable />

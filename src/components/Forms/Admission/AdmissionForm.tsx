@@ -178,14 +178,14 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
         <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-xl">
           {/* Header Section */}
           <div className="bg-linear-to-r from-[#4f0187] to-[#6d0b99] p-4 md:p-8 text-white text-center">
-            <div className="flex items-center justify-center content-center md:gap-3 mb-2">
+            <div className="flex items-center justify-center content-center gap-2 md:gap-3 mb-2">
               <GraduationCap className="w-6 h-6 text-yellow-300" />
               <h2 className="sm:text-lg md:text-2xl font-bold">
                 ভর্তি নিশ্চিত করতে ফরমটি পূরণ করুন
               </h2>
             </div>
             {batch?.registrationEnd && (
-              <span className="inline-block bg-white/10 px-4 py-1 rounded-full text-yellow-300 text-sm md:text-base border border-white/20">
+              <span className="inline-block bg-white/10 px-2 md:px-4 md:py-1 rounded-full text-yellow-300 text-sm md:text-base border border-white/20">
                 শেষ তারিখ:{" "}
                 {(() => {
                   const rawDate = batch.registrationEnd;

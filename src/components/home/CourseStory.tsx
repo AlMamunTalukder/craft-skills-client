@@ -195,7 +195,7 @@ const steps = [
 
 const CourseRoadmap = () => {
   return (
-    <section className="py-10 md:py-20 relative overflow-hidden bg-[#1A0033]">
+    <section className="py-12 md:py-20 relative overflow-hidden bg-[#1A0033]">
       {/* Optimized Background - Removed heavy blur/noise on mobile */}
       <div className="absolute inset-0 bg-[#1A0033] md:bg-[radial-gradient(circle_at_50%_50%,#4F0187_0%,#1A0033_100%)]"></div>
 
@@ -220,17 +220,21 @@ const CourseRoadmap = () => {
             লার্নিং মডেল
           </h2>
 
-          <p className="text-sm md:text-xl font-bold text-white inline-block px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+          <p className="text-sm md:text-xl font-bold text-white inline-block px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-4">
             ৫০ দিনের প্র্যাকটিক্যাল চ্যালেঞ্জ
           </p>
+
+          <h3 className="text-xl md:text-4xl font-extrabold text-purple-400 md:mt-4 leading-snug mb-4">
+            প্রফেশনাল হওয়ার সবচেয়ে কার্যকর রোডম্যাপ!
+          </h3>
         </header>
 
         {/* Optimized Bento Grid - Use grid-cols-1 for very small devices if needed */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 max-w-6xl mx-auto">
           {steps.map((step, index) => (
             <div
               key={index}
-              className="group relative bg-white/5 rounded-2xl p-6 border border-white/10 transition-all duration-300 hover:bg-white/10 active:scale-95 touch-manipulation"
+              className="group relative bg-white/5 rounded-2xl p-2 md:p-6 border border-white/10 transition-all duration-300 hover:bg-white/10 active:scale-95 touch-manipulation"
             >
               <div className="absolute top-2 right-4 text-5xl md:text-7xl font-black text-white/5 group-hover:text-purple-400  select-none">
                 {index + 1}

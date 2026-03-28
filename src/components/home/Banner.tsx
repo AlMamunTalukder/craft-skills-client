@@ -103,9 +103,9 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
         ))}
       </div>
 
-      <Container className="relative z-20 w-full py-10 md:py-20">
+      <Container className="relative z-20 w-full py-12 md:py-20">
         <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-          <div className="w-full md:w-[65%] text-center md:text-left space-y-8">
+          <div className="w-full md:w-[65%] text-center md:text-left space-y-3 md:space-y-8">
             {/* Top Title Section */}
             <div className="flex items-center gap-3 justify-center md:justify-start opacity-0 animate-fade-in-up">
               <div className="relative bg-white/10 p-2 rounded-lg border border-white/20">
@@ -121,12 +121,11 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
             </h1>
 
             {/* Skill Tags */}
-            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 opacity-0 animate-fade-in-up [animation-delay:400ms]">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 opacity-0 animate-fade-in-up ">
               {skillIcons.map((skill, i) => (
-                <div
+                 <div
                   key={i}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 backdrop-blur-md border border-white/10"
-                >
+                  className="flex items-center content-center justify-center gap-2 px-4 py-2 rounded-md md:rounded-xl bg-white/5 backdrop-blur-md border border-white/10 w-[130px]">
                   {skill.icon}
                   <span className="text-white text-sm md:text-lg font-bold">
                     {skill.name}

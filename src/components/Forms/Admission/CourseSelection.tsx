@@ -84,7 +84,7 @@ export default function CourseSelection({
       </div>
 
       {/* 2. Selector Input (Required for Form Logic) */}
-      <div className="bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-4 border border-[#4f0187]/10 mt-4">
+      <div className="bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10 mt-4">
         <FormSelect
           name="courseId"
           label="কোর্স নির্বাচন করুন"

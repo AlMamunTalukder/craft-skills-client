@@ -84,6 +84,14 @@ const WhyCourse = () => {
           </div>
         </div>
 
+
+
+        <SectionTitle
+            text="আপনিও কি এই সমস্যাগুলোতে ভুগছেন?"
+            lineWidth="lg"
+            hasLineBreak={true}
+          />
+
         <div className="relative bg-[#130129] border border-white/10 rounded-2xl lg:rounded-[4rem] p-4 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
           {/* Background Decorations */}
           <div
@@ -97,12 +105,12 @@ const WhyCourse = () => {
           <AudioLines className="absolute bottom-10 -left-10 w-48 h-48 text-white/[0.05] rotate-45 pointer-events-none hidden md:block" />
 
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-[51px] font-black text-white leading-tight mb-10 max-w-3xl">
+            {/* <h2 className="text-3xl md:text-[51px] font-black text-white leading-tight mb-10 max-w-3xl">
               আপনিও কি এই সমস্যাগুলোতে{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] to-purple-400">
                 ভুগছেন?
               </span>
-            </h2>
+            </h2> */}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2">
               {columns.map((column, colIdx) => (

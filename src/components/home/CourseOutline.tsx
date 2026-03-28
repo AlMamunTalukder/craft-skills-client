@@ -55,7 +55,7 @@ const CourseOutline = () => {
   ];
 
   return (
-    <div className="relative overflow-hidden bg-[#1A0033] py-10 md:py-16 z-10 mt-0 lg:mt-0 ">
+    <div className="relative overflow-hidden bg-[#1A0033] py-12 md:py-16 z-10 mt-0 lg:mt-0 ">
       {/* --- PREMIUM GRADIENT LAYERS --- */}
       {/* 1. Base Gradient Mesh */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#4F0187_0%,#1A0033_100%)]"></div>

@@ -2,7 +2,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Briefcase, GraduationCap, Loader2, Mail, Phone, Sparkles, User } from "lucide-react";
+import {
+  Briefcase,
+  GraduationCap,
+  Loader2,
+  Mail,
+  Phone,
+  Sparkles,
+  User,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
@@ -13,7 +21,7 @@ import AppForm from "./AppForm";
 import TextInput from "../FormInputs/TextInput";
 import TextArea from "../FormInputs/TextAreaInput";
 import { seminarRegistrationSchema } from "@/schemas/seminar-registration";
- 
+
 export type SeminarFormData = z.infer<typeof seminarRegistrationSchema>;
 
 export default function SeminarForm({ seminarId }: { seminarId?: string }) {
@@ -177,46 +185,47 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
     );
   }
 
-   return (
+  return (
     <div className="w-full my-5">
-      
       {/* Background Blobs (Visible on PC only to keep Mobile clean) */}
       <div className="absolute inset-0 opacity-10 pointer-events-none hidden md:block">
-         <div className="absolute top-10 left-10 w-72 h-72 bg-[#4F0187] rounded-full blur-[100px]"></div>
-         <div className="absolute bottom-10 right-10 w-72 h-72 bg-[#FFCB2C] rounded-full blur-[100px]"></div>
+        <div className="absolute top-10 left-10 w-72 h-72 bg-[#4F0187] rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-10 right-10 w-72 h-72 bg-[#FFCB2C] rounded-full blur-[100px]"></div>
       </div>
 
       <div className="relative w-full max-w-5xl bg-white rounded-xl md:rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
-        
         {/* --- HEADER SECTION --- 
             Mobile: Top Banner (Colorful & Simple)
             Desktop: Sidebar (Full Height & Detailed) 
         */}
         <div className="w-full md:w-1/3 bg-gradient-to-br from-[#4F0187] to-[#32005a] p-4 md:p-10 flex flex-col justify-center md:justify-between text-white relative overflow-hidden shrink-0">
-           
-           {/* Decorative Background for Mobile "Colorful" Look */}
-           <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
-           <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#FFCB2C] opacity-20 rounded-full blur-2xl transform -translate-x-10 translate-y-10"></div>
+          {/* Decorative Background for Mobile "Colorful" Look */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#FFCB2C] opacity-20 rounded-full blur-2xl transform -translate-x-10 translate-y-10"></div>
 
-           {/* Content */}
-           <div className="relative z-10 text-center md:text-left">
-             <div className="inline-flex items-center justify-center p-2 bg-white/10 rounded-full mb-3 md:mb-6 backdrop-blur-sm border border-white/20">
-                <GraduationCap className="w-5 h-5 text-[#FFCB2C]" />
-             </div>
-             
-             <h2 className="text-2xl md:text-3xl font-bold mb-2">রেজিস্ট্রেশন করুন</h2>
-             <p className="text-purple-100 text-sm md:text-base opacity-90 max-w-xs mx-auto md:mx-0">
-               আপনার আসন নিশ্চিত করতে নিচের তথ্যগুলো পূরণ করুন।
-             </p>
-           </div>
-           
-           {/* Desktop Decoration (Hidden on Mobile) */}
-           <div className="hidden md:block relative z-10 mt-8">
-              <div className="flex items-center gap-3 opacity-80">
-                 <div className="w-1 h-1 bg-[#FFCB2C] rounded-full"></div>
-                 <p className="text-sm">ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন</p>
-              </div>
-           </div>
+          {/* Content */}
+          <div className="relative z-10 text-center md:text-left">
+            <div className="inline-flex items-center justify-center p-2 bg-white/10 rounded-full mb-3 md:mb-6 backdrop-blur-sm border border-white/20">
+              <GraduationCap className="w-5 h-5 text-[#FFCB2C]" />
+            </div>
+
+            <h2 className="text-2xl md:text-3xl font-bold mb-2">
+              রেজিস্ট্রেশন করুন
+            </h2>
+            <p className="text-purple-100 text-sm md:text-base opacity-90 max-w-xs mx-auto md:mx-0">
+              আপনার আসন নিশ্চিত করতে নিচের তথ্যগুলো পূরণ করুন।
+            </p>
+          </div>
+
+          {/* Desktop Decoration (Hidden on Mobile) */}
+          <div className="hidden md:block relative z-10 mt-8">
+            <div className="flex items-center gap-3 opacity-80">
+              <div className="w-1 h-1 bg-[#FFCB2C] rounded-full"></div>
+              <p className="text-sm">
+                ফ্রি সেমিনারে যুক্ত হতে রেজিস্ট্রেশন করুন
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* --- FORM SECTION --- */}
@@ -226,7 +235,6 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
             resolver={zodResolver(seminarRegistrationSchema)}
           >
             <div className="space-y-4 md:space-y-5">
-              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                 <TextInput
                   label="নাম"
@@ -264,7 +272,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
                   className="bg-gray-50 focus:bg-white border border-gray-200 focus:border-[#4F0187] focus:ring-1 focus:ring-[#4F0187] rounded-lg py-2.5 transition-all"
                 />
               </div>
-  
+
               <TextInput
                 label="পেশা"
                 name="occupation"
@@ -278,10 +286,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
                 name="address"
                 label="ঠিকানা"
                 placeholder="আপনার ঠিকানা..."
-              
-                
               />
-             
 
               <div className="pt-2">
                 <SubmitButton
@@ -293,14 +298,12 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
                   loading={isSubmitting}
                 />
               </div>
-
             </div>
           </AppForm>
         </div>
       </div>
     </div>
   );
-
 
   // return (
   //   <AppForm

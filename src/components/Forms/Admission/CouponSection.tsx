@@ -16,7 +16,7 @@ export default function CouponSection({ selectedCourse, couponInput, setCouponIn
   if (!selectedCourse) return null;
 
   return (
-    <div className="bg-green-50 rounded-2xl p-4 md:p-6 border border-green-100">
+    <div className="bg-green-50 rounded-2xl p-2 md:p-6 border border-green-100">
       <div className="flex items-center gap-2 mb-4">
         <Tag className="w-5 h-5 text-green-600" />
         <h3 className="font-semibold text-green-800">কুপন কোড</h3>

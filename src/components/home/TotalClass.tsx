@@ -75,7 +75,7 @@ const TotalClass = ({ totalNumber = 50 }) => {
   );
 
   return (
-    <div className="relative overflow-hidden bg-[#1A0033] py-10 md:py-40">
+    <div className="relative overflow-hidden bg-[#1A0033] py-12 md:py-40">
       {/* --- PREMIUM GRADIENT LAYERS (Untouched Design) --- */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#4F0187_0%,#1A0033_100%)]"></div>
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px]"></div>
@@ -93,7 +93,7 @@ const TotalClass = ({ totalNumber = 50 }) => {
           className="relative z-10 flex flex-col items-center"
         >
           <div className="text-center mb-10 md:mb-20">
-            <h2 className="text-[34px] md:text-6xl font-black text-white tracking-tight drop-shadow-md">
+            <h2 className="text-[28px] md:text-6xl font-black text-white tracking-tight drop-shadow-md">
               আমাদের মোট ক্লাস{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">
                 বিন্যাস
@@ -109,13 +109,13 @@ const TotalClass = ({ totalNumber = 50 }) => {
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                className="relative w-32 h-32 md:w-72 md:h-72 rounded-full bg-white/[0.03] backdrop-blur-2xl flex flex-col items-center justify-center border border-white/10 shadow-2xl"
+                className="relative w-24 h-24 md:w-72 md:h-72 rounded-full bg-white/[0.03] backdrop-blur-2xl flex flex-col items-center justify-center border border-white/10 shadow-2xl"
               >
-                <h1 className="text-white text-5xl md:text-[150px] font-black tracking-tighter leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
+                <h1 className="text-white text-4xl md:text-[150px] font-black tracking-tighter leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)]">
                   {isInView ? <Counter value={totalNumber} /> : "0"}
                 </h1>
-                <p className="font-black text-cyan-400 text-[10px] md:text-sm tracking-[0.4em] uppercase opacity-80">
-                  Classes
+                <p className="font-black text-cyan-400 text-[10px] md:text-sm uppercase opacity-80">
+                  মোট ক্লাস
                 </p>
               </motion.div>
             </div>
@@ -127,7 +127,7 @@ const TotalClass = ({ totalNumber = 50 }) => {
                 // Simplified radius logic for performance
                 const radius =
                   typeof window !== "undefined" && window.innerWidth < 768
-                    ? 140
+                    ? 110
                     : 300;
                 const x = radius * Math.cos(angle * (Math.PI / 180));
                 const y = radius * Math.sin(angle * (Math.PI / 180));
