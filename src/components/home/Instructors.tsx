@@ -2,7 +2,6 @@
 import Image from "next/image";
 import Container from "../shared/Container";
 import SectionTitle from "../shared/SectionTitle";
-import { FaFacebookF, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 
 // Actual imports from your project
 import salim from "../../../public/img/instructor/md-salim.webp";
@@ -57,7 +56,7 @@ const Instructors = () => {
                 {/* Background Gradient Glow */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#4F0187]/90 z-10" />
 
-                {/* Full Image Display - FIXED RESOLUTION SETTINGS */}
+              
                 <Image
                   src={instructor.image || "/placeholder.png"}
                   alt={instructor.name}
@@ -68,15 +67,7 @@ const Instructors = () => {
                   priority={idx < 3}
                 />
 
-                {/* Social Floating Bar */}
-                <div className="absolute top-6 right-6 z-20 flex flex-col gap-3 translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
-                  <button className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-[#DC25FF] transition-colors">
-                    <FaFacebookF size={16} />
-                  </button>
-                  <button className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-[#DC25FF] transition-colors">
-                    <FaLinkedinIn size={16} />
-                  </button>
-                </div>
+               
 
                 {/* Content Overlay (Frosted Glass Look) */}
                 <div className="absolute bottom-2 md:bottom-6 left-2 md:left-6 right-2 md:right-6 z-20">
