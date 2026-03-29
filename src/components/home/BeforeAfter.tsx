@@ -1,32 +1,8 @@
 "use client";
-import React, { useMemo, useEffect, useRef, useState } from "react";
+import { useMemo } from "react";
 import { XCircle, CheckCircle2 } from "lucide-react";
 import Container from "../shared/Container";
 
-// const useInView = (options?: IntersectionObserverInit) => {
-//   const ref = useRef<HTMLDivElement>(null);
-//   const [isVisible, setIsVisible] = useState(false);
-
-//   useEffect(() => {
-//     // Check if user prefers reduced motion
-//     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-//       setIsVisible(true);
-//       return;
-//     }
-
-//     const observer = new IntersectionObserver(([entry]) => {
-//       if (entry.isIntersecting) {
-//         setIsVisible(true);
-//         observer.unobserve(entry.target);
-//       }
-//     }, options);
-
-//     if (ref.current) observer.observe(ref.current);
-//     return () => observer.disconnect();
-//   }, [options]);
-
-//   return { ref, isVisible };
-// };
 
 const Transformation = () => {
   const transformations = useMemo(
@@ -86,43 +62,41 @@ const Transformation = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
               যে অভাবনীয় পরিবর্তনগুলো আসবে
             </span>
-          </h2>
+          </h2> 
         </div>
 
         <div className="flex flex-col gap-4 md:gap-6 max-w-5xl mx-auto">
           {transformations.map((item, index) => {
-            // const { ref, isVisible } = useInView({ threshold: 0.05 });
             return (
               <div
                 key={index}
-                // ref={ref}
-                className="flex flex-col md:flex-row rounded-2xl md:rounded-[2rem] border border-slate-200 bg-white overflow-hidden transition-all duration-500 ease-out transform-gpu shadow-sm"
+                className="flex flex-col md:flex-row rounded-2xl md:rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#2D0B5A] via-[#4F0187] to-[#1A0033] overflow-hidden transition-all duration-500 ease-out transform-gpu shadow-sm"
                 
               >
                 {/* Before Section */}
-                <div className="flex-1 p-3 md:p-8 flex items-start gap-4 bg-red-50/20 border-b md:border-b-0 md:border-r border-slate-100">
+                <div className="flex-1 p-3 md:p-8 flex items-start gap-4  border-b md:border-b-0 md:border-r border-slate-100">
                   <XCircle className="shrink-0 text-red-500 mt-1" size={20} />
                   <div>
                     <span className="text-red-500 text-[10px] font-bold uppercase tracking-widest mb-1 block">
                       কোর্স করার আগে
                     </span>
-                    <p className="text-slate-500 text-sm md:text-base leading-relaxed">
+                    <p className="text-white text-sm md:text-base leading-relaxed">
                       {item.before}
                     </p>
                   </div>
                 </div>
 
                 {/* After Section */}
-                <div className="flex-1 p-3 md:p-8 flex items-start gap-4 bg-gradient-to-br from-white to-purple-50/30">
+                <div className="flex-1 p-3 md:p-8 flex items-start gap-4 ">
                   <CheckCircle2
                     className="shrink-0 text-purple-600 mt-1"
                     size={20}
                   />
                   <div>
-                    <span className="text-purple-600 text-[10px] font-bold uppercase tracking-widest mb-1 block">
+                    <span className="text-purple-400 text-[10px] font-bold uppercase tracking-widest mb-1 block">
                       কোর্স করার পরে
                     </span>
-                    <p className="text-slate-900 text-base md:text-lg font-bold leading-tight">
+                    <p className="text-white text-base md:text-lg leading-tight">
                       {item.after}
                     </p>
                   </div>

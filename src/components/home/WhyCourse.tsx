@@ -58,7 +58,7 @@ const WhyCourse = () => {
         desc: "দক্ষতা থাকলেও প্রফেশনাল পোর্টফোলিও কীভাবে বানাতে হয় বা মার্কেটপ্লেস থেকে কীভাবে ক্লায়েন্ট পেতে হয়, তা কি জানেন না?",
       },
     ],
-    []
+    [],
   );
 
   const middleIndex = Math.ceil(problems.length / 2);
@@ -84,15 +84,13 @@ const WhyCourse = () => {
           </div>
         </div>
 
-
-
         <SectionTitle
-            text="আপনিও কি এই সমস্যাগুলোতে ভুগছেন?"
-            lineWidth="lg"
-            hasLineBreak={true}
-          />
+          text="আপনিও কি এই সমস্যাগুলোতে ভুগছেন?"
+          lineWidth="lg"
+          hasLineBreak={true}
+        />
 
-        <div className="relative bg-[#130129] border border-white/10 rounded-2xl lg:rounded-[4rem] p-4 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
+        <div className="relative bg-[#130129] border border-white/10 rounded-2xl lg:rounded-[4rem] p-4 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden mt-5 md:mt-12">
           {/* Background Decorations */}
           <div
             className="absolute inset-0 opacity-[0.03] pointer-events-none"

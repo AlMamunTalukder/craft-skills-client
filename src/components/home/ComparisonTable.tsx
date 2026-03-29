@@ -40,22 +40,51 @@ const ComparisonTable = () => {
   );
 
   return (
-    <section className="py-6 md:py-16 bg-gradient-to-b from-[#f8f7ff] via-[#9b5fdb] to-[#2D0B5A] overflow-hidden relative">
+    <section className="py-12 md:py-40 bg-[#1A0033] overflow-hidden relative">
+
+      {/* --- PREMIUM GRADIENT LAYERS (Untouched Design) --- */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#4F0187_0%,#1A0033_100%)]"></div>
+      <div className="absolute -top-24 -left-24 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px]"></div>
+      <div className="absolute -bottom-24 -right-24 w-[500px] h-[500px] bg-fuchsia-600/10 rounded-full blur-[150px]"></div>
+      <div
+        className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none"
+        style={{
+          backgroundImage: `url("https://www.transparenttextures.com/patterns/stardust.png")`,
+        }}
+      ></div>
+
+
       <div className="absolute top-0 left-0 w-96 h-96 bg-purple-300/20 rounded-full blur-[100px] -z-10" />
 
       <Container>
-        <div className="text-center mb-8 md:mb-12">
-          <SectionTitle text="অন্যান্য কোর্সের সাথে আমাদের পার্থক্য" />
-          <p className="text-slate-600 md:text-white/80 mt-2 max-w-lg mx-auto font-medium px-4">
-            এক নজরে দেখে নিন কেন আমরা সেরা
-          </p>
-        </div>
+
+        <div className="text-center mb-10 md:mb-20">
+            <h2 className="text-[28px] md:text-6xl font-black text-white tracking-tight drop-shadow-md">
+               অন্যান্য কোর্সের সাথে<br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">
+                আমাদের পার্থক্য
+              </span>
+            </h2>
+          </div>
+
+
+        {/* <div className="text-center mb-8 md:mb-12">
+          <SectionTitle
+            text={
+              <>
+                অন্যান্য কোর্সের সাথে <br />
+                আমাদের পার্থক্য
+              </>
+            }
+            className="text-white"
+          />
+        </div> */}
 
         {/* Unified Table for All Devices */}
         <div className="px-2 md:px-0">
           <div className="bg-white/90 backdrop-blur-md rounded-3xl shadow-xl border-2 border-purple-400 overflow-hidden text-start md:text-center">
             {/* Header */}
-            <div className="flex items-center bg-purple-50/50 p-3 border-b border-purple-100">
+            <div className="flex items-center bg-purple-50/50 p-3 border-b border-purple-300">
               <div className="flex-[2] text-[#2D0B5A] font-black text-md uppercase tracking-wider">
                 বৈশিষ্ঠ্য
               </div>
@@ -68,7 +97,7 @@ const ComparisonTable = () => {
             </div>
 
             {/* Rows */}
-            <div className="divide-y divide-white">
+            <div className="divide-y-2 divide-white">
               {features.map((feature, idx) => (
                 <div
                   key={idx}

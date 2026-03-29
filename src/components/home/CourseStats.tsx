@@ -6,7 +6,7 @@ import { GraduationCap, Users, ShieldCheck, UserCheck } from "lucide-react";
 const statsData = [
   {
     id: 1,
-    value: 36,
+    value: 38,
     suffix: "+",
     label: "মোট ব্যাচ সম্পন্ন",
     icon: Users,
@@ -49,7 +49,7 @@ const PureAnimatedNumber = ({ value }: { value: number }) => {
         if (entry.isIntersecting && !animated.current) {
           animated.current = true;
           let startTimestamp: number | null = null;
-          const duration = 2000; // 2 seconds
+          const duration = 2000; 
 
           const step = (timestamp: number) => {
             if (!startTimestamp) startTimestamp = timestamp;

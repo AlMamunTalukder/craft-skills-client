@@ -229,7 +229,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
         </div>
 
         {/* --- FORM SECTION --- */}
-        <div className="w-full md:w-2/3 p-5 md:p-12 bg-white">
+        <div className="w-full md:w-2/3 p-5 md:p-12 bg-[#f1eeff] md:bg-white">
           <AppForm
             onSubmit={handleSubmit}
             resolver={zodResolver(seminarRegistrationSchema)}
