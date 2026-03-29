@@ -63,7 +63,7 @@ const CourseFeatures = () => {
               >
                 {/* 1. The Glowing Background (Behind everything) */}
                 <div
-                  className="absolute inset-0 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+                  className="absolute inset-0 rounded-4xl blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
                   style={{ backgroundColor: feature.color }}
                 />
 
@@ -79,9 +79,9 @@ const CourseFeatures = () => {
                 </div>
 
                 {/* 3. THE MAIN CARD (Clean, no overflow-hidden here) */}
-                <div className="relative h-full bg-white border border-slate-100 rounded-2xl md:rounded-[2rem] p-3 md:p-8 pt-10 md:pt-16 shadow-sm group-hover:shadow-xl transition-all duration-500">
+                <div className="relative h-full bg-white border border-slate-100 rounded-2xl md:rounded-4xl p-3 md:p-8 pt-10 md:pt-16 shadow-sm group-hover:shadow-xl transition-all duration-500">
                   {/* 4. INNER WRAPPER (This handles the internal decorative clips) */}
-                  <div className="absolute inset-0 rounded-[2rem] overflow-hidden pointer-events-none">
+                  <div className="absolute inset-0 rounded-4xl overflow-hidden pointer-events-none">
                     <div
                       className="absolute top-0 right-0 md:w-32 md:h-32 opacity-[0.05] group-hover:opacity-[0.2] transition-opacity duration-500"
                       style={{

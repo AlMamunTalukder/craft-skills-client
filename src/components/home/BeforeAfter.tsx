@@ -70,7 +70,7 @@ const Transformation = () => {
             return (
               <div
                 key={index}
-                className="flex flex-col md:flex-row rounded-2xl md:rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#461289] via-[#4F0187] to-[#37016a] overflow-hidden transition-all duration-500 ease-out transform-gpu shadow-sm"
+                className="flex flex-col md:flex-row rounded-2xl md:rounded-4xl border border-white/10 bg-linear-to-br from-[#461289] via-[#4F0187] to-[#37016a] overflow-hidden transition-all duration-500 ease-out transform-gpu shadow-sm"
                 
               >
                 {/* Before Section */}

@@ -198,7 +198,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
             Mobile: Top Banner (Colorful & Simple)
             Desktop: Sidebar (Full Height & Detailed) 
         */}
-        <div className="w-full md:w-1/3 bg-gradient-to-br from-[#4F0187] to-[#32005a] p-4 md:p-10 flex flex-col justify-center md:justify-between text-white relative overflow-hidden shrink-0">
+        <div className="w-full md:w-1/3 bg-linear-to-br from-[#4F0187] to-[#32005a] p-4 md:p-10 flex flex-col justify-center md:justify-between text-white relative overflow-hidden shrink-0">
           {/* Decorative Background for Mobile "Colorful" Look */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#FFCB2C] opacity-20 rounded-full blur-2xl transform -translate-x-10 translate-y-10"></div>

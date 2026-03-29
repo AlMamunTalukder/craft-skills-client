@@ -52,7 +52,7 @@ const Instructors = () => {
           {instructors.map((instructor, idx) => (
             <div key={idx} className="relative group h-[220px] md:h-[350px]">
               {/* Main Card Container */}
-              <div className="relative h-full rounded-xl md:rounded-[2rem] overflow-hidden bg-slate-200 shadow-2xl transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-purple-200/50">
+              <div className="relative h-full rounded-xl md:rounded-4xl overflow-hidden bg-slate-200 shadow-2xl transition-all duration-500 group-hover:-translate-y-3 group-hover:shadow-purple-200/50">
                 {/* Background Gradient Glow */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#4F0187]/90 z-10" />
 

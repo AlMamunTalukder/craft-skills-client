@@ -111,7 +111,7 @@ const CourseStats = () => {
                 <div className="h-full bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-[2.5rem] p-4 md:p-8 transition-all duration-500 hover:bg-slate-900/60 hover:border-white/20 hover:-translate-y-2 transform-gpu">
                   {/* CSS-only Floating Icon Animation */}
                   <div
-                    className={`w-10 h-10 md:w-16 md:h-16 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white mb-4 md:mb-10 shadow-lg shadow-black/30 animate-float`}
+                    className={`w-10 h-10 md:w-16 md:h-16 rounded-xl bg-linear-to-br ${stat.color} flex items-center justify-center text-white mb-4 md:mb-10 shadow-lg shadow-black/30 animate-float`}
                   >
                     <stat.icon
                       size={28}

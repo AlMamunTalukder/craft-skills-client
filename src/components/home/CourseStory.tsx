@@ -97,7 +97,7 @@ const CourseRoadmap = () => {
               </div>
 
               <div
-                className={`w-12 h-12 rounded-xl bg-gradient-to-br ${step.gradient} text-white flex items-center justify-center mb-4 shadow-lg`}
+                className={`w-12 h-12 rounded-xl bg-linear-to-br ${step.gradient} text-white flex items-center justify-center mb-4 shadow-lg`}
               >
                 {step.icon}
               </div>
