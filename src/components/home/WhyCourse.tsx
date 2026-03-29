@@ -84,11 +84,11 @@ const WhyCourse = () => {
           </div>
         </div>
 
-        <SectionTitle
+        {/* <SectionTitle
           text="আপনিও কি এই সমস্যাগুলোতে ভুগছেন?"
           lineWidth="lg"
           hasLineBreak={true}
-        />
+        /> */}
 
         <div className="relative bg-[#130129] border border-white/10 rounded-2xl lg:rounded-[4rem] p-4 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden mt-5 md:mt-12">
           {/* Background Decorations */}
@@ -99,16 +99,16 @@ const WhyCourse = () => {
               backgroundSize: "30px 30px",
             }}
           />
-          <Mic2 className="absolute -top-10 -right-10 w-64 h-64 text-white/[0.05] -rotate-12 pointer-events-none hidden md:block" />
-          <AudioLines className="absolute bottom-10 -left-10 w-48 h-48 text-white/[0.05] rotate-45 pointer-events-none hidden md:block" />
+          <Mic2 className="absolute -top-10 -right-10 w-64 h-64 text-white/8 -rotate-12 pointer-events-none hidden md:block" />
+          <AudioLines className="absolute bottom-10 -left-10 w-48 h-48 text-white/10 rotate-45 pointer-events-none hidden md:block" />
 
-          <div className="relative z-10">
-            {/* <h2 className="text-3xl md:text-[51px] font-black text-white leading-tight mb-10 max-w-3xl">
-              আপনিও কি এই সমস্যাগুলোতে{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] to-purple-400">
-                ভুগছেন?
+          <div className="relative z-10 text-center">
+            <h2 className="text-3xl md:text-[51px] font-black text-white leading-7 my-10 max-w-3xl text-center ">
+              আপনিও কি এই <br/>
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-[#F300E7] to-purple-400">
+                 সমস্যাগুলোতে ভুগছেন?
               </span>
-            </h2> */}
+            </h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2">
               {columns.map((column, colIdx) => (
@@ -134,15 +134,15 @@ const WhyCourse = () => {
             </div>
 
             {/* CTA Card */}
-            <div className="mt-12 p-[1px] rounded-2xl md:rounded-[2.5rem] bg-gradient-to-r from-purple-600/20 via-[#F300E7] to-cyan-500/20 shadow-2xl transition-all duration-700 hover:scale-[1.01]">
-              <div className="bg-[#0F0121] px-2 py-3 md:px-12 md:py-10 rounded-[calc(1rem-1px)] md:rounded-[2.5rem] flex flex-col md:flex-row items-center gap-4 md:gap-12 border border-white/5 relative overflow-hidden">
+            <div className="mt-12 p-0.5 rounded-2xl md:rounded-4xl bg-linear-to-r from-purple-600/20 via-[#F300E7] to-cyan-500/20 shadow-2xl ">
+              <div className="bg-[#0F0121] px-2 py-3 md:px-12 md:py-5 rounded-[calc(1rem-1px)] md:rounded-4xl flex flex-col md:flex-row items-center gap-4 md:gap-8 border border-white/5 relative overflow-hidden">
                 <div className="shrink-0">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-tr from-[#F300E7] to-purple-600 flex items-center justify-center shadow-lg shadow-fuchsia-500/20">
+                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-linear-to-tr from-[#F300E7] to-purple-600 flex items-center justify-center shadow-lg shadow-fuchsia-500/20">
                     <Trophy className="text-white w-8 h-8 md:w-10 md:h-10" />
                   </div>
                 </div>
                 <div className="text-center md:text-left flex-1 text-white">
-                  <h3 className="text-2xl md:text-4xl font-black block mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#F300E7] via-white to-purple-400">
+                  <h3 className="text-2xl md:text-4xl font-black block mb-3 text-transparent bg-clip-text bg-linear-to-r from-[#F300E7] via-white to-purple-400">
                     মাত্র ৫০ দিনে এই সকল সমস্যা দূর করুন
                   </h3>
                   <p className="text-slate-300 text-sm md:text-xl font-medium">

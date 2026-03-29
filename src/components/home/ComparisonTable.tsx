@@ -59,7 +59,7 @@ const ComparisonTable = () => {
       <Container>
 
         <div className="text-center mb-10 md:mb-20">
-            <h2 className="text-[28px] md:text-6xl font-black text-white tracking-tight drop-shadow-md">
+            <h2 className="text-[28px] md:text-6xl font-black text-white tracking-tight drop-shadow-md leading-tight">
                অন্যান্য কোর্সের সাথে<br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">
                 আমাদের পার্থক্য
@@ -91,7 +91,7 @@ const ComparisonTable = () => {
               <div className="flex-1 text-center text-purple-600 font-bold text-xs md:text-sm uppercase">
                 আমাদের কোর্স
               </div>
-              <div className="flex-1 text-center text-slate-400 font-bold text-xs md:text-sm uppercase">
+              <div className="flex-1 text-center text-purple-600 font-bold text-xs md:text-sm uppercase">
                 অন্যান্য কোর্স
               </div>
             </div>
@@ -104,7 +104,7 @@ const ComparisonTable = () => {
                   className="flex items-center p-3 md:p-4 hover:bg-purple-50/30 transition-colors"
                 >
                   {/* Feature Name */}
-                  <div className="flex-[2] text-[#2D0B5A] font-bold text-sm md:text-base leading-tight">
+                  <div className="flex-[2] text-[#2D0B5A] md:font-bold text-sm md:text-base leading-tight">
                     {feature}
                   </div>
 

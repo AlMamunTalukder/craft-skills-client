@@ -70,7 +70,7 @@ const Transformation = () => {
             return (
               <div
                 key={index}
-                className="flex flex-col md:flex-row rounded-2xl md:rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#2D0B5A] via-[#4F0187] to-[#1A0033] overflow-hidden transition-all duration-500 ease-out transform-gpu shadow-sm"
+                className="flex flex-col md:flex-row rounded-2xl md:rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#461289] via-[#4F0187] to-[#37016a] overflow-hidden transition-all duration-500 ease-out transform-gpu shadow-sm"
                 
               >
                 {/* Before Section */}
@@ -80,7 +80,7 @@ const Transformation = () => {
                     <span className="text-red-500 text-[10px] font-bold uppercase tracking-widest mb-1 block">
                       কোর্স করার আগে
                     </span>
-                    <p className="text-white text-sm md:text-base leading-relaxed">
+                    <p className="text-white  md:text-lg leading-relaxed">
                       {item.before}
                     </p>
                   </div>
@@ -96,7 +96,7 @@ const Transformation = () => {
                     <span className="text-purple-400 text-[10px] font-bold uppercase tracking-widest mb-1 block">
                       কোর্স করার পরে
                     </span>
-                    <p className="text-white text-base md:text-lg leading-tight">
+                    <p className="text-white  md:text-lg leading-tight">
                       {item.after}
                     </p>
                   </div>

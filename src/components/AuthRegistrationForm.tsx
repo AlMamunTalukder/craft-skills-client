@@ -59,42 +59,7 @@ async function onSubmit(data: RegisterFormData) {
     }
 }
 
-  // async function onSubmit(data: RegisterFormData) {
-  //   setLoading(true);
-
-  //   try {
-  //     // Determine if identifier is email or phone
-  //     const isEmail = data.identifier.includes('@');
-      
-  //     const registrationData = {
-  //       name: data.name,
-  //       email: isEmail ? data.identifier : "", // Empty string if not email
-  //       phone: !isEmail ? data.identifier : "", // Empty string if not phone
-  //       password: data.password,
-  //       batchNumber: data.batchNumber,
-  //     };
-
-  //     const registrationResult = await registration(registrationData);
-      
-  //     if (registrationResult.success) {
-  //       toast.success("Successfully registered!");
-  //       router.push("/login");
-  //     } else {
-  //       // Show user-friendly error messages
-  //       if (registrationResult.message.includes("email")) {
-  //         toast.error("Email already registered. Please use a different email or log in.");
-  //       } else if (registrationResult.message.includes("phone")) {
-  //         toast.error("Phone number already registered. Please use a different phone or log in.");
-  //       } else {
-  //         toast.error(registrationResult.message || "Registration failed. Please try again.");
-  //       }
-  //     }
-  //   } catch (error: any) {
-  //     toast.error(error?.message || "An error occurred. Please try again.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
+ 
 
   return (
     <AppForm resolver={zodResolver(registerFormSchema)} onSubmit={onSubmit}>

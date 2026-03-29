@@ -196,81 +196,6 @@ export default function StudentLayout({
     }
   };
 
-  // const loadUserBatches = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const API_URL =
-  //       process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
-
-  //     try {
-  //       const response = await fetch(`${API_URL}/users/my-batches`, {
-  //         credentials: "include",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         if (data.success && data.data.batches.length > 0) {
-  //           const batches = data.data.batches;
-  //           setUserBatches(batches);
-  //           setCurrentBatch(batches[0]);
-
-  //           localStorage.setItem("selectedBatchId", batches[0]._id);
-  //           localStorage.setItem("selectedBatchNumber", batches[0].batchNumber);
-  //           return;
-  //         }
-  //       }
-  //     } catch (err) {
-  //       console.error("Error loading batches:", err);
-  //     }
-
-  //     // Fallback: try profile endpoint
-  //     try {
-  //       const response = await fetch(`${API_URL}/users/profile`, {
-  //         credentials: "include",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         if (data.success && data.data) {
-  //           const user = data.data;
-  //           if (user.batchNumber) {
-  //             const batch = {
-  //               _id: user.batchId || `temp-${user._id}`,
-  //               batchNumber: user.batchNumber,
-  //               name: `Batch ${user.batchNumber}`,
-  //               isActive: user.status === "active",
-  //               admissionId: user.admissionId,
-  //             };
-
-  //             setUserBatches([batch]);
-  //             setCurrentBatch(batch);
-
-  //             localStorage.setItem("selectedBatchId", batch._id);
-  //             localStorage.setItem("selectedBatchNumber", batch.batchNumber);
-  //             return;
-  //           }
-  //         }
-  //       }
-  //     } catch (err) {
-  //       console.error("Error loading profile:", err);
-  //     }
-
-  //     // If nothing works, set empty
-  //     setUserBatches([]);
-  //   } catch (error) {
-  //     console.error("Error in loadUserBatches:", error);
-  //     setUserBatches([]);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const switchBatch = async (batch: Batch) => {
     setLoading(true);
     setBatchSwitcherOpen(false);
@@ -314,18 +239,6 @@ export default function StudentLayout({
     // Reload the page to fetch new batch data
     window.location.reload();
   };
-
-  // const switchBatch = (batch: Batch) => {
-  //   setCurrentBatch(batch);
-  //   setBatchSwitcherOpen(false);
-
-  //   // Save to localStorage
-  //   localStorage.setItem("selectedBatchId", batch._id);
-  //   localStorage.setItem("selectedBatchNumber", batch.batchNumber);
-
-  //   // Reload the page to fetch new batch data
-  //   window.location.reload();
-  // };
 
   const handleSignOut = async () => {
     try {

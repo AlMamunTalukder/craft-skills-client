@@ -15,7 +15,7 @@ export const sanitizePhoneNumber = (input: string): string | null => {
   };
 
   // 1. Convert Bengali to English
-  let converted = input.replace(/[০-৯]/g, (d) => banglaToEnglishMap[d]);
+  const converted = input.replace(/[০-৯]/g, (d) => banglaToEnglishMap[d]);
 
   // 2. REJECT if any English letters exist (e.g., 'o', 'x', etc.)
   if (/[a-zA-Z]/.test(converted)) {

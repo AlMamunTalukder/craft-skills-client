@@ -1,4 +1,3 @@
-// import DebugAuth from "@/src/components/DebugAuth";
 import WhatsApp from "@/src/components/WhatsApp";
 import ScrollManager from "@/src/components/ScrollManager";
 import ScrollToTop from "@/src/components/ScrolltoTop";

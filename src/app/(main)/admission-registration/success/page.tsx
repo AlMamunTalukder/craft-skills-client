@@ -1,4 +1,3 @@
-// app/admission/success/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -8,7 +7,6 @@ import { CheckCircle, ArrowRight, PhoneCall } from "lucide-react";
 import { FaFacebookF, FaWhatsapp, FaFacebookMessenger } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
-// import { Batch, SiteContent } from "@/types";
 import { Batch } from "@/types";
 
 export default function AdmissionSuccessPage() {
