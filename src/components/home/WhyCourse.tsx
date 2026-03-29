@@ -103,8 +103,8 @@ const WhyCourse = () => {
           <AudioLines className="absolute bottom-10 -left-10 w-48 h-48 text-white/10 rotate-45 pointer-events-none hidden md:block" />
 
           <div className="relative z-10 text-center">
-            <h2 className="text-3xl md:text-[51px] font-black text-white leading-7 my-10 max-w-3xl text-center ">
-              আপনিও কি এই <br/>
+            <h2 className="text-3xl md:text-[51px] font-black text-white leading-7 md:leading-0 my-10 md:my-10 md:pb-3 max-w-3xl text-center ">
+              আপনিও কি এই <br className="lg:hidden"/>
               <span className="text-transparent bg-clip-text bg-linear-to-r from-[#F300E7] to-purple-400">
                  সমস্যাগুলোতে ভুগছেন?
               </span>
