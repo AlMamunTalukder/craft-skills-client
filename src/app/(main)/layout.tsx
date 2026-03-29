@@ -5,6 +5,7 @@ import Footer from "@/src/components/shared/Footer";
 import { ReactNode } from "react";
 import Messenger from "@/src/components/Messenger";
 import FBMessenger from "@/src/components/FBMessanger";
+// import AdmissionPopup from "@/src/components/shared/AdmissionPopUp";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -16,6 +17,7 @@ const layout = ({ children }: { children: ReactNode }) => {
       <FBMessenger/>
       <main className="grow">{children}</main>
       <Footer />
+      {/* <AdmissionPopup/> */}
     </div>
   );
 };
