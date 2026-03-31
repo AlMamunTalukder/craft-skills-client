@@ -91,11 +91,11 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
       </div>
 
       {/* Floating Icons - Pure CSS Animation */}
-      <div className="absolute inset-0 z-10 pointer-events-none hidden md:block">
+      <div className="absolute inset-0 z-10 pointer-events-none">
         {floatingIcons.map((item, idx) => (
           <div
             key={idx}
-            className={`absolute ${item.color} ${item.animation}`}
+            className={`absolute ${item.color} md:${item.animation}`}
             style={{ top: item.top, left: item.left, right: item.right }}
           >
             <item.Icon size={item.size} strokeWidth={1} />
