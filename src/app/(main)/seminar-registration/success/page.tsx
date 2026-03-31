@@ -237,10 +237,7 @@ export default function SeminarRegistrationSuccessPage() {
                           </span>
                           <span className="text-gray-800 font-bold">
                             01700999093
-                          </span>
-                          <span className="text-[10px] md:text-xs text-green-700 mt-1 leading-tight">
-                            স্ক্রিনশট সহ আমাদের ম্যাসেজ করুন
-                          </span>
+                          </span>                          
                         </div>
                       </Link>
                     </Button>
