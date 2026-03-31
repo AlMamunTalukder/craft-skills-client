@@ -46,7 +46,7 @@
 //       autoPlayRef.current = setInterval(() => {
 //         setActiveIndex((prev) => {
 //           const nextIndex = prev === transformations.length - 1 ? 0 : prev + 1;
-          
+
 //           // Scroll the container to the next item
 //           if (scrollRef.current) {
 //             const itemWidth = scrollRef.current.offsetWidth * 0.9; // Match the 90vw width
@@ -81,15 +81,15 @@
 //         <div className="text-center mb-8 md:mb-12">
 //           <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">
 //             কোর্স শেষে আপনার ক্যারিয়ারে{" "}
-//             <br /> 
+//             <br />
 //             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
 //               যে অভাবনীয় পরিবর্তনগুলো আসবে
 //             </span>
-//           </h2> 
+//           </h2>
 //         </div>
 
 //         {/* Horizontal Scroll Container */}
-//         <div 
+//         <div
 //           ref={scrollRef}
 //           onScroll={handleManualScroll}
 //           className="flex md:grid md:grid-cols-1 overflow-x-auto snap-x snap-mandatory gap-4 pb-4 no-scrollbar"
@@ -146,7 +146,6 @@
 
 // export default Transformation;
 
-
 "use client";
 import { useMemo, useState, useRef, useEffect } from "react";
 import { XCircle, CheckCircle2 } from "lucide-react";
@@ -155,45 +154,60 @@ import Container from "../shared/Container";
 const Transformation = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const transformations = useMemo(() => [
-    {
-      before: "কথা বলতে গেলে জড়তা আসে, মাথায় অনেক কিছু থাকলেও গুছিয়ে বলতে পারেন না।",
-      after: "পরিষ্কার ও সাবলীল উচ্চারণে অত্যন্ত আত্মবিশ্বাসের সাথে নিজের কথাগুলো গুছিয়ে বলবেন।",
-    },
-    {
-      before: "আঞ্চলিক টানের কারণে হীনম্মন্যতায় ভোগেন এবং আত্মবিশ্বাস কমে যায়।",
-      after: "আঞ্চলিকতা পুরোপুরি কাটিয়ে উঠে শুদ্ধ ও প্রফেশনাল টোনে নিজেকে প্রকাশ করবেন।",
-    },
-    {
-      before: "কণ্ঠে কোনো গভীরতা নেই, কথা বা ভয়েস ওভার শুনলে একঘেয়ে লাগে।",
-      after: "বিশেষ ব্যায়ামের মাধ্যমে কণ্ঠ হবে ভরাট, শ্রুতিমধুর এবং আকর্ষণীয়।",
-    },
-    {
-      before: "স্টেজে উঠলেই বুক ধড়ফড় করে, আর ক্যামেরার সামনে এলেই সব কথা ভুলে যান।",
-      after: "স্টেজ হোক বা ক্যামেরা—সব জায়গায় একদম ন্যাচারাল, ফ্লুয়েন্ট এবং কনফিডেন্ট থাকবেন।",
-    },
-    {
-      before: "বডি ল্যাঙ্গুয়েজ ঠিক না থাকায় Awkward লাগে এবং প্রেজেন্টেশন খারাপ হওয়ায় সুযোগ মিস হয়।",
-      after: "স্মার্ট বডি ল্যাঙ্গুয়েজ দিয়ে প্রেজেন্টেশন, ভাইভা বা মিটিং—সব জায়গায় শক্তিশালী ইমপ্যাক্ট তৈরি করবেন।",
-    },
-    {
-      before: "স্ক্রিপ্ট লিখতে গেলে চিন্তা এলোমেলো হয়ে যায় এবং স্টুডিও সেটআপ বা এডিটিং নিয়ে কনফিউশনে থাকেন।",
-      after: "নিজেই পাওয়ারফুল স্ক্রিপ্ট লিখে ডেলিভারি দেবেন এবং ঘরে বসেই প্রফেশনাল রেকর্ডিং ও এডিটিং করবেন।",
-    },
-    {
-      before: "সঠিক গাইডলাইন বা ফিডব্যাক নেই, তাই স্কিল থাকলেও ইনকাম করার ক্লিয়ার পথ জানা নেই।",
-      after: "এক্সপার্ট ফিডব্যাকে নিজেকে শুধরে পোর্টফোলিও তৈরি করবেন এবং ক্লায়েন্ট পেয়ে ইনকাম শুরু করবেন।",
-    },
-  ], []);
+  const transformations = useMemo(
+    () => [
+      {
+        before:
+          "কথা বলতে গেলে জড়তা আসে, মাথায় অনেক কিছু থাকলেও গুছিয়ে বলতে পারেন না।",
+        after:
+          "পরিষ্কার ও সাবলীল উচ্চারণে অত্যন্ত আত্মবিশ্বাসের সাথে নিজের কথাগুলো গুছিয়ে বলবেন।",
+      },
+      {
+        before:
+          "আঞ্চলিক টানের কারণে হীনম্মন্যতায় ভোগেন এবং আত্মবিশ্বাস কমে যায়।",
+        after:
+          "আঞ্চলিকতা পুরোপুরি কাটিয়ে উঠে শুদ্ধ ও প্রফেশনাল টোনে নিজেকে প্রকাশ করবেন।",
+      },
+      {
+        before: "কণ্ঠে কোনো গভীরতা নেই, কথা বা ভয়েস ওভার শুনলে একঘেয়ে লাগে।",
+        after:
+          "বিশেষ ব্যায়ামের মাধ্যমে কণ্ঠ হবে ভরাট, শ্রুতিমধুর এবং আকর্ষণীয়।",
+      },
+      {
+        before:
+          "স্টেজে উঠলেই বুক ধড়ফড় করে, আর ক্যামেরার সামনে এলেই সব কথা ভুলে যান।",
+        after:
+          "স্টেজ হোক বা ক্যামেরা—সব জায়গায় একদম ন্যাচারাল, ফ্লুয়েন্ট এবং কনফিডেন্ট থাকবেন।",
+      },
+      {
+        before:
+          "বডি ল্যাঙ্গুয়েজ ঠিক না থাকায় Awkward লাগে এবং প্রেজেন্টেশন খারাপ হওয়ায় সুযোগ মিস হয়।",
+        after:
+          "স্মার্ট বডি ল্যাঙ্গুয়েজ দিয়ে প্রেজেন্টেশন, ভাইভা বা মিটিং—সব জায়গায় শক্তিশালী ইমপ্যাক্ট তৈরি করবেন।",
+      },
+      {
+        before:
+          "স্ক্রিপ্ট লিখতে গেলে চিন্তা এলোমেলো হয়ে যায় এবং স্টুডিও সেটআপ বা এডিটিং নিয়ে কনফিউশনে থাকেন।",
+        after:
+          "নিজেই পাওয়ারফুল স্ক্রিপ্ট লিখে ডেলিভারি দেবেন এবং ঘরে বসেই প্রফেশনাল রেকর্ডিং ও এডিটিং করবেন।",
+      },
+      {
+        before:
+          "সঠিক গাইডলাইন বা ফিডব্যাক নেই, তাই স্কিল থাকলেও ইনকাম করার ক্লিয়ার পথ জানা নেই।",
+        after:
+          "এক্সপার্ট ফিডব্যাকে নিজেকে শুধরে পোর্টফোলিও তৈরি করবেন এবং ক্লায়েন্ট পেয়ে ইনকাম শুরু করবেন।",
+      },
+    ],
+    [],
+  );
 
-  // Function to start auto-slide
-  const startAutoPlay = () => {
-    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-    autoPlayRef.current = setInterval(() => {
+  // Start the auto‑slide interval
+  const startInterval = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
       setActiveIndex((prev) => {
         const nextIndex = prev === transformations.length - 1 ? 0 : prev + 1;
         if (scrollRef.current) {
@@ -206,35 +220,28 @@ const Transformation = () => {
         return nextIndex;
       });
     }, 4000);
-    setIsAutoPlaying(true);
   };
 
-  // Pause auto-slide
-  const pauseAutoPlay = () => {
-    if (autoPlayRef.current) {
-      clearInterval(autoPlayRef.current);
-      autoPlayRef.current = null;
+  // Stop the auto‑slide interval
+  const stopInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
-    setIsAutoPlaying(false);
   };
 
-  // Resume auto-slide after delay
-  const scheduleResume = () => {
+  // Pause and schedule resume after 10 seconds
+  const pauseAndScheduleResume = () => {
+    stopInterval();
     if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     resumeTimeoutRef.current = setTimeout(() => {
-      startAutoPlay();
-    }, 10000); // 10 seconds of no interaction
+      startInterval();
+    }, 10000);
   };
 
-  // Handle user interaction: pause and schedule resume
+  // Handle user interaction (touch, mouse, scroll)
   const handleUserInteraction = () => {
-    if (!isAutoPlaying) {
-      // If already paused, just reset the resume timer
-      scheduleResume();
-      return;
-    }
-    pauseAutoPlay();
-    scheduleResume();
+    pauseAndScheduleResume();
   };
 
   // Sync index when user manually scrolls
@@ -244,12 +251,12 @@ const Transformation = () => {
       const index = Math.round(scrollLeft / (offsetWidth * 0.9));
       if (index !== activeIndex) {
         setActiveIndex(index);
-        handleUserInteraction(); // user scrolled, pause auto-slide
+        handleUserInteraction(); // user scrolled → pause auto‑slide
       }
     }
   };
 
-  // Listen for touch/mouse events to pause
+  // Listen for touch and mouse events on the scroll container
   useEffect(() => {
     const scrollElement = scrollRef.current;
     if (!scrollElement) return;
@@ -263,16 +270,14 @@ const Transformation = () => {
     return () => {
       scrollElement.removeEventListener("touchstart", onTouchStart);
       scrollElement.removeEventListener("mousedown", onMouseDown);
-      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     };
   }, []);
 
-  // Start auto-play on mount
+  // Start the interval on mount, clean up on unmount
   useEffect(() => {
-    startAutoPlay();
+    startInterval();
     return () => {
-      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
       if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
     };
   }, []);
@@ -282,20 +287,19 @@ const Transformation = () => {
       <Container>
         <div className="text-center mb-8 md:mb-12">
           <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-tight">
-            কোর্স শেষে আপনার ক্যারিয়ারে{" "}
-            <br /> 
+            কোর্স শেষে আপনার ক্যারিয়ারে <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">
               যে অভাবনীয় পরিবর্তনগুলো আসবে
             </span>
-          </h2> 
+          </h2>
         </div>
 
         {/* Horizontal Scroll Container */}
-        <div 
+        <div
           ref={scrollRef}
           onScroll={handleManualScroll}
           className="flex md:grid md:grid-cols-1 overflow-x-auto snap-x snap-mandatory gap-4 pb-4 no-scrollbar"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {transformations.map((item, index) => (
             <div
