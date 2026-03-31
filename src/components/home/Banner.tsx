@@ -37,8 +37,8 @@ const floatingIcons = [
     Icon: BookOpen,
     top: "15%",
     left: "5%",
-    size: 40,
-    color: "text-white/5",
+    size: 60,
+    color: "text-white/15",
     animation: "animate-float-slow",
   },
   {
@@ -54,7 +54,7 @@ const floatingIcons = [
     top: "45%",
     left: "10%",
     size: 50,
-    color: "text-yellow-400/10",
+    color: "text-yellow-400/30",
     animation: "animate-float-reverse",
   },
 ];
@@ -145,7 +145,7 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
 
           {/* Hero Image Section with CSS Floating Animation */}
           <div className="w-full md:w-[40%] relative flex justify-center">
-            <div className="absolute inset-0 bg-[#F300E7]/20 blur-[80px] rounded-full animate-pulse-slow" />
+            <div className="absolute inset-0 bg-[#F300E7]/20 blur-[50px] rounded-full " />
             <div className="relative z-10 w-[80%] sm:w-[70%] md:w-full aspect-square animate-hero-float">
               <Image
                 src={leftimg}
@@ -158,69 +158,7 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
             </div>
           </div>
         </div>
-      </Container>
-
-      {/* Tailwind Animations & Keyframes */}
-      <style jsx global>{`
-        @keyframes heroFloat {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
-        }
-        @keyframes floatSlow {
-          0%,
-          100% {
-            transform: translateY(0) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-15px) rotate(5deg);
-          }
-        }
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes pulseSlow {
-          0%,
-          100% {
-            opacity: 0.2;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.4;
-            transform: scale(1.1);
-          }
-        }
-
-        .animate-hero-float {
-          animation: heroFloat 6s ease-in-out infinite;
-        }
-        .animate-float-slow {
-          animation: floatSlow 5s linear infinite;
-        }
-        .animate-float-delayed {
-          animation: floatSlow 7s linear infinite 1s;
-        }
-        .animate-float-reverse {
-          animation: floatSlow 6s linear infinite reverse;
-        }
-        .animate-fade-in-up {
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-        .animate-pulse-slow {
-          animation: pulseSlow 4s ease-in-out infinite;
-        }
-      `}</style>
+      </Container>     
     </section>
   );
 };

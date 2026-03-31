@@ -219,7 +219,7 @@ const Transformation = () => {
         }
         return nextIndex;
       });
-    }, 4000);
+    }, 2000);
   };
 
   // Stop the auto‑slide interval
