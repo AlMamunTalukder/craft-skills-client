@@ -37,9 +37,8 @@ const floatingIcons = [
     Icon: BookOpen,
     top: "15%",
     left: "5%",
-    size: 60,
-    color: "text-white/15",
-    animation: "animate-float-slow",
+    size: 40,
+    color: "text-white/10",
   },
   {
     Icon: GraduationCap,
@@ -47,7 +46,6 @@ const floatingIcons = [
     right: "8%",
     size: 60,
     color: "text-[#F300E7]/10",
-    animation: "animate-float-delayed",
   },
   {
     Icon: Lightbulb,
@@ -55,7 +53,6 @@ const floatingIcons = [
     left: "10%",
     size: 50,
     color: "text-yellow-400/30",
-    animation: "animate-float-reverse",
   },
 ];
 
@@ -95,7 +92,7 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
         {floatingIcons.map((item, idx) => (
           <div
             key={idx}
-            className={`absolute ${item.color} md:${item.animation}`}
+            className={`absolute ${item.color} `}
             style={{ top: item.top, left: item.left, right: item.right }}
           >
             <item.Icon size={item.size} strokeWidth={1} />
