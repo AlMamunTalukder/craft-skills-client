@@ -135,8 +135,8 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
               {content.highlight}
             </h2>
 
-            <div className="pt-4 opacity-0 animate-fade-in-up [animation-delay:800ms]">
-              <CtaLinkButton />
+            <div className="pt-4 flex justify-center md:justify-start">
+              <CtaLinkButton /> 
             </div>
           </div>
 

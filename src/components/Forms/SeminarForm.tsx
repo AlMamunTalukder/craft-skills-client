@@ -210,7 +210,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
             </div>
 
             <h2 className="text-2xl md:text-3xl font-bold mb-2">
-              রেজিস্ট্রেশন করুন
+              রেজিস্ট্রেশন করুন 
             </h2>
             <p className="text-purple-100 text-sm md:text-base opacity-90 max-w-xs mx-auto md:mx-0">
               আপনার আসন নিশ্চিত করতে নিচের তথ্যগুলো পূরণ করুন।

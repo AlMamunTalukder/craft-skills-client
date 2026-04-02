@@ -31,18 +31,22 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+  const handleScroll = () => {
+    const isMobile = window.innerWidth < 768;
+
+    const scrollToForm = () => {
+      const el = document.getElementById("admission");
+      if (el) {
+        el.scrollIntoView({
+          behavior: isMobile ? "auto" : "smooth",
+          block: "start",
+        });
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    scrollToForm();
+    setTimeout(scrollToForm, 300);
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -112,14 +116,15 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
           </div>
 
           <div className=" w-[170px] px-4 md:px-0">
-            <Link href="#admission" className="">
-              <button className="flex gap-2 justify-center items-center content-center bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full border-2 border-white px-3 py-1">
-                <FaHandPointRight className="text-white text-[16px] md:text-[16px] " />
-                <span className="text-sm md:text-base whitespace-nowrap ">
-                  ভর্তি নিশ্চিত করুন
-                </span>
-              </button>
-            </Link>
+            <button
+              onClick={handleScroll}
+              className="flex gap-2 justify-center items-center content-center bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full border-2 border-white px-3 py-1 cursor-pointer"
+            >
+              <FaHandPointRight className="text-white text-[16px] md:text-[16px]" />
+              <span className="text-sm md:text-base whitespace-nowrap">
+                ভর্তি নিশ্চিত করুন
+              </span>
+            </button>
           </div>
 
           {/* Social Icon */}

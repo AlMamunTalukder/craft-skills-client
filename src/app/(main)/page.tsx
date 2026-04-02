@@ -31,23 +31,29 @@ export default async function HomePage() {
         seminar={seminar}
       />
 
-      <Header user={user} siteData={siteData} />
+      <Header siteData={siteData} />
 
       <Banner siteData={siteData} />
 
       <HomePageContent />
 
-      {seminar && (
-        <Container>
-          <div
-            id="registration-form"
-            className="scroll-mt-[180px] md:scroll-mt-[140px] "
-          >
-            <SectionTitle text="রেজিস্ট্রেশন করুন" />
-            <SeminarForm seminarId={seminar._id} />
-          </div>
-        </Container>
-      )}
+      <Container>
+  <div
+    id="registration-form"
+    className="scroll-mt-[200px] md:scroll-mt-[160px]"
+  >
+    {seminar ? (
+      <>
+        <SectionTitle text="রেজিস্ট্রেশন করুন" />
+        <SeminarForm seminarId={seminar._id} />
+      </>
+    ) : (
+      <p className="text-center py-10">
+        Currently no seminar available
+      </p>
+    )}
+  </div>
+</Container>
 
       <FAQSection />
     </>

@@ -15,7 +15,7 @@ export default async function SeminarConfirmationPage() {
 
   return (
     <>
-      <Header user={user} siteData={siteData} />
+      <Header siteData={siteData} />
       <div className="min-h-screen">
         {seminar ? (
           <SeminarPDFDownloadForm seminar={seminar} />

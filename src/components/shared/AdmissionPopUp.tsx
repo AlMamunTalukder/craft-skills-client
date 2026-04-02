@@ -210,7 +210,7 @@ const AdmissionPopup = () => {
                 closePopup();
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
             }}
-            className="w-full group relative flex items-center justify-center gap-2 md:gap-3 bg-[#4F0187] text-white py-4 md:py-5 px-6 md:px-8 rounded-xl md:rounded-2xl font-bold text-base md:text-lg hover:bg-[#37016a] transition-all duration-300 shadow-xl shadow-purple-200 active:scale-[0.97]"
+            className="w-full group relative flex items-center justify-center gap-2 md:gap-3 bg-[#4F0187] text-white py-4 md:py-5 px-6 md:px-8 rounded-xl md:rounded-2xl font-bold text-base md:text-lg hover:bg-[#37016a] transition-all duration-300 shadow-xl shadow-purple-200 active:scale-[0.97] cursor-pointer"
           >
             কোর্স বেছে নিন
             <ArrowRight size={18} className="md:w-[22px] md:h-[22px] group-hover:translate-x-1.5 transition-transform" />

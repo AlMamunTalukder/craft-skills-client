@@ -202,19 +202,6 @@ export default function UserMenu() {
     )}&background=6366f1&color=ffffff&size=128`;
   };
 
-  // if (loading) {
-  //   return (
-  //     <Button
-  //       variant="outline"
-  //       className="gap-2 px-3 py-2 h-auto hover:bg-accent/50"
-  //       disabled
-  //     >
-  //       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-900"></div>
-  //       <span className="text-sm">Loading...</span>
-  //     </Button>
-  //   );
-  // }
-
   if (!user) {
     return (
       <Button
