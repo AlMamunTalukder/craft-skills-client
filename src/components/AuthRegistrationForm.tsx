@@ -12,6 +12,7 @@ import PasswordInput from "./FormInputs/PasswordInput";
 import SubmitButton from "./FormInputs/SubmitButton";
 import { RegisterFormData, registerFormSchema } from "@/schemas/auth";
 import { registration } from "@/lib/api";
+import { sanitizePhoneNumber } from "../utils/phone-sanitizer";
 
 const AuthRegistrationForm = () => {
   const [loading, setLoading] = useState(false);
@@ -23,11 +24,22 @@ async function onSubmit(data: RegisterFormData) {
 
     try {
         const isEmail = data.identifier.includes('@');
+        let phoneNumber = "";
+        
+        if (!isEmail) {
+            const sanitized = sanitizePhoneNumber(data.identifier);
+            if (!sanitized) {
+                toast.error("Invalid phone number format. Please enter a valid Bangladesh phone number (e.g., 017XXXXXXXX or 88017XXXXXXXX)");
+                setLoading(false);
+                return;
+            }
+            phoneNumber = sanitized;
+        }
         
         const registrationData = {
             name: data.name,
             email: isEmail ? data.identifier : "",
-            phone: !isEmail ? data.identifier : "",
+            phone: !isEmail ? phoneNumber : "",
             password: data.password,
             batchNumber: data.batchNumber,
         };
@@ -58,7 +70,7 @@ async function onSubmit(data: RegisterFormData) {
     }
 }
 
-
+ 
 
   return (
     <AppForm resolver={zodResolver(registerFormSchema)} onSubmit={onSubmit}>

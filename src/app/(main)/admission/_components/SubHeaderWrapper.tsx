@@ -1,4 +1,4 @@
-// app/admission/_components/SubHeaderWrapper.tsx
+
 import SubHeaderAdmission from "@/src/components/shared/SubHeaderAdmission";
 import { getActiveBatch, getSiteData } from "@/lib/api";
 

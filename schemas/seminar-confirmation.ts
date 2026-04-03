@@ -1,3 +1,4 @@
+import { sanitizePhoneNumber } from "@/src/utils/phone-sanitizer";
 import { z } from "zod";
 
 export const seminarConfirmationSchema = z.object({
@@ -9,9 +10,12 @@ export const seminarConfirmationSchema = z.object({
 
   phone: z
     .string({
-      required_error: "মোবাইল নম্বর বাধ্যতামূলক।",
+      required_error: "মোবাইল নম্বর প্রদান করা আবশ্যক।",
     })
-    .min(11, "সঠিক মোবাইল নম্বর প্রদান করুন (কমপক্ষে ১১ অঙ্ক)।"),
+    .min(11, "অনুগ্রহ করে একটি সঠিক ১১-সংখ্যার মোবাইল নম্বর প্রদান করুন।")
+    .refine((val) => sanitizePhoneNumber(val) !== null, {
+      message: "সঠিক নম্বর দিন (ইংরেজি অক্ষর বা ভুল চিহ্ন গ্রহণযোগ্য নয়)",
+    }),
 
   email: z
     .string()
@@ -20,10 +24,12 @@ export const seminarConfirmationSchema = z.object({
     .or(z.literal("")),
 
   whatsapp: z.string().optional(),
-  
+
   occupation: z.string().optional(),
-  
+
   address: z.string().optional(),
 });
 
-export type SeminarConfirmationFormData = z.infer<typeof seminarConfirmationSchema>;
+export type SeminarConfirmationFormData = z.infer<
+  typeof seminarConfirmationSchema
+>;

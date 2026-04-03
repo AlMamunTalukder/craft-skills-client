@@ -123,9 +123,9 @@ export default function DashboardPage() {
           <div className="lg:col-span-4 xl:col-span-3 space-y-6">
             <div className="sticky top-8 space-y-6">
               {/* Identity Card */}
-              <div className="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 p-6 flex flex-col items-center text-center relative overflow-hidden group">
+              <div className="bg-white rounded-4xl shadow-xl shadow-slate-200/50 border border-slate-100 p-6 flex flex-col items-center text-center relative overflow-hidden group">
                 {/* Decorative Background Pattern */}
-                <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-indigo-600 to-violet-600">
+                <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-br from-indigo-600 to-violet-600">
                   <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
                 </div>
 
@@ -187,7 +187,7 @@ export default function DashboardPage() {
 
               {/* Course Info Card */}
               {!loading && user?.batchId && (
-                <div className="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-6">
+                <div className="bg-white rounded-4xl shadow-sm border border-slate-100 p-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2.5 bg-violet-100 text-violet-600 rounded-xl">
                       <GraduationCap size={20} />
@@ -215,7 +215,7 @@ export default function DashboardPage() {
           {/* RIGHT COLUMN: Dashboard & Stats */}
           <div className="lg:col-span-8 xl:col-span-9 space-y-6">
             {/* 1. Welcome Header Banner */}
-            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white shadow-xl shadow-blue-200/50">
+            <div className="relative overflow-hidden rounded-4xl bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white shadow-xl shadow-blue-200/50">
               {/* --- 1. THE DOT PATTERN DESIGN --- */}
               <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
 
@@ -247,7 +247,7 @@ export default function DashboardPage() {
             </div>
 
             {/* 2. Primary Stat Card (Full Width) */}
-            <div className="bg-white rounded-[2rem] p-6 md:p-8 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center gap-8">
+            <div className="bg-white rounded-4xl p-6 md:p-8 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
@@ -363,7 +363,7 @@ export default function DashboardPage() {
               ].map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition duration-300 group"
+                  className="bg-white rounded-4xl p-6 shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition duration-300 group"
                 >
                   <div className="flex justify-between items-start mb-6">
                     <div

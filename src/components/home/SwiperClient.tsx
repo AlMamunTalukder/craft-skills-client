@@ -43,20 +43,22 @@ const ImageGalleryWithSlider = ({ images }: { images: string[] }) => {
           ))}
         </div>
       </Container>
-     <div className="flex justify-center mt-16">
-      <Link href="/reviews">
-        <button className="group relative flex items-center justify-center gap-3 px-10 py-4 bg-white/[0.03] backdrop-blur-xl border border-white/10 text-white rounded-full transition-all duration-500 hover:border-purple-400/50 hover:bg-white/5 shadow-2xl overflow-hidden cursor-pointer">
-          {/* Glowing background effect on hover */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          
-          <FaHandPointRight className="text-purple-400 group-hover:translate-x-1 transition-transform duration-300" />
-          <span className="relative z-10 font-bold tracking-wide">আরও সকল মতামত দেখুন</span>
-          
-          {/* Animated Shine */}
-          <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] group-hover:left-[150%] transition-all duration-1000" />
-        </button>
-      </Link>
-    </div>
+      <div className="flex justify-center mt-16">
+        <Link href="/reviews">
+          <Button className="group relative flex items-center justify-center gap-3 px-10 py-4 bg-white/[0.03] backdrop-blur-xl border border-white/10 text-white rounded-full transition-all duration-500 hover:border-purple-400/50 hover:bg-white/5 shadow-2xl overflow-hidden cursor-pointer">
+            {/* Glowing background effect on hover */}
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            <FaHandPointRight className="text-purple-400 group-hover:translate-x-1 transition-transform duration-300" />
+            <span className="relative z-10 font-bold tracking-wide">
+              আরও দেখুন
+            </span>
+
+            {/* Animated Shine */}
+            <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-[-25deg] group-hover:left-[150%] transition-all duration-1000" />
+          </Button>
+        </Link>
+      </div>
 
       {/* Swiper Modal Overlay */}
       {open && (

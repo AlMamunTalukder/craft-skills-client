@@ -16,7 +16,7 @@ export default function PriceSummary({ selectedCourse, priceDetails, couponDisco
   if (!selectedCourse || !priceDetails) return null;
 
   return (
-    <div className="bg-purple-50 rounded-2xl p-4 md:p-6 border border-purple-200">
+    <div className="bg-purple-50 rounded-2xl p-2 md:p-6 border border-purple-200">
       <h3 className="font-semibold text-[#4f0187] mb-4 flex items-center gap-2">
         <CreditCard className="w-5 h-5" /> মূল্য বিবরণ
       </h3>

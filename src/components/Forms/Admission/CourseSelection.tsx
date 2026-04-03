@@ -7,7 +7,10 @@ interface CourseSelectionProps {
   onCourseSelect: (id: string) => void;
 }
 
-export default function CourseSelection({ courses, onCourseSelect }: CourseSelectionProps) {
+export default function CourseSelection({
+  courses,
+  onCourseSelect,
+}: CourseSelectionProps) {
   // Generate options for the dropdown
   const courseOptions = courses.map((c) => ({
     label: `${c.name} - ৳${Math.round(
@@ -20,7 +23,9 @@ export default function CourseSelection({ courses, onCourseSelect }: CourseSelec
     return (
       <div className="bg-purple-50 rounded-2xl p-6 border border-purple-100 text-center">
         <AlertCircle className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-        <h3 className="text-purple-800 font-semibold">কোন কোর্স পাওয়া যায়নি</h3>
+        <h3 className="text-purple-800 font-semibold">
+          কোন কোর্স পাওয়া যায়নি
+        </h3>
       </div>
     );
   }
@@ -38,7 +43,8 @@ export default function CourseSelection({ courses, onCourseSelect }: CourseSelec
 
         <div className="md:flex gap-2 space-y-2 md:space-y-0">
           {courses.map((course) => {
-            const dPrice = course.price - (course.price * (course.discount || 0)) / 100;
+            const dPrice =
+              course.price - (course.price * (course.discount || 0)) / 100;
             const tPrice = Math.round(dPrice + (course.paymentCharge || 0));
 
             return (
@@ -52,7 +58,7 @@ export default function CourseSelection({ courses, onCourseSelect }: CourseSelec
                   </div>
                 )}
                 <div className="p-2 md:p-4 text-black mt-5 md:mt-0">
-                  <h4 className="flex justify-between mt-7">
+                  <h4 className="flex justify-between mt-3 md:mt-7">
                     {course.name}
                     <div>
                       <div className="text-end space-x-3">
@@ -65,7 +71,9 @@ export default function CourseSelection({ courses, onCourseSelect }: CourseSelec
                           ৳{tPrice.toLocaleString()}
                         </span>
                       </div>
-                      <p className="text-end text-xs text-gray-500">(খরচসহ কোর্স ফি পরিশোধ করুন)</p>
+                      <p className="text-end text-xs text-gray-500">
+                        (খরচসহ কোর্স ফি পরিশোধ করুন)
+                      </p>
                     </div>
                   </h4>
                 </div>
@@ -76,7 +84,7 @@ export default function CourseSelection({ courses, onCourseSelect }: CourseSelec
       </div>
 
       {/* 2. Selector Input (Required for Form Logic) */}
-      <div className="bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-4 border border-[#4f0187]/10 mt-4">
+      <div className="bg-linear-to-br from-[#4f0187]/5 to-purple-50 rounded-2xl p-2 md:p-4 border border-[#4f0187]/10 mt-4">
         <FormSelect
           name="courseId"
           label="কোর্স নির্বাচন করুন"

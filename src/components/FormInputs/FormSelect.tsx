@@ -139,17 +139,15 @@ export default function FormSelect({
                   {option.label}
                 </SelectItem>
               ))}
-              
             </SelectContent>
             {error && (
-                <p className="mt-0 text-xs text-red-600" id={`${name}-error`}>
-                  {error.message}
-                </p>
-              )}
+              <p className="mt-0 text-xs text-red-600" id={`${name}-error`}>
+                {error.message}
+              </p>
+            )}
           </Select>
-          
+
           <FormMessage className="text-red-500 text-sm" />
-          
         </FormItem>
       )}
     />

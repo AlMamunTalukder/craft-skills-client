@@ -1,15 +1,14 @@
 "use client";
+import React from "react";
+import { FaQuestionCircle, FaUserCheck } from "react-icons/fa";
+import { Accordion } from "@/components/ui/accordion";
 import Container from "../shared/Container";
-import React, { useState } from "react";
-import { FaChevronDown, FaQuestionCircle, FaUserCheck } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { CustomAccordionItem } from "../shared/CustomAccordion"; // Assuming this is your path
 
 interface FAQ {
   question: string;
   answer: string;
 }
-
 const faqsLeft: FAQ[] = [
   {
     question: "এটি কি লাইভ কোর্স নাকি রেকর্ডেড?",
@@ -30,7 +29,7 @@ const faqsLeft: FAQ[] = [
   },
   {
     question: "মাত্র ৫০টি ক্লাস করেই কি শুদ্ধ ভাষায় কথা বলা সম্ভব?",
-    answer: "প্রবল ইচ্ছাশক্তি ও কঠোর চেষ্টা থাকলে কোন কিছুই অসম্ভব নয়। \nআমাদের ৫টি ক্যাটাগরিতে মোট ৫০টি ক্লাস, দৈনিক ভিডিও প্রেজেন্টেশন (৩০০০মিনিট) কমপ্লিট, এবং ট্রেইনারের দেখানো পদ্ধতি অনুসরণ করে নিয়মিত চর্চা করলে অবশ্যই ৫০টি ক্লাস করে শুদ্ধ ভাষায় কথা বলা সম্ভব। আমরা তা নিশ্চিতভাবেই বলতে পারি।",
+    answer: "প্রবল ইচ্ছাশক্তি ও কঠোর চেষ্টা থাকলে কোন কিছুই অসম্ভব নয়। \nআমাদের ৫টি ক্যাটাগরিতে মোট ৫০টি ক্লাস, দৈনিক ভিডিও প্রেজেন্টেশন (৩০০০মিনিট) কমপ্লিট, এবং ট্রেইনারের দেখানো পদ্ধতি অনুসরণ করে নিয়মিত চর্চা করলে অবশ্যই ৫০টি ক্লাস করে শুদ্ধ ভাষায় কথা বলা সম্ভব। এবং আমরা তা নিশ্চিতভাবেই বলতে পারি।",
   },
   {
     question: "কোর্সটি শেষ করে কি ইনকাম করতে পারবো?",
@@ -39,7 +38,7 @@ const faqsLeft: FAQ[] = [
   },
   {
     question: "শুধুমাত্র মোবাইল দিয়ে কি কোর্সটি করতে পারবো?",
-    answer: "হ্যাঁ, শুধুমাত্র একটি স্মার্টফোন থাকলেই কোর্সটি করতে পারবেন। অন্য কোনো ডিভাইসের প্রয়োজন হবে না।",
+    answer: "হ্যাঁ শুধুমাত্র একটি স্মার্টফোন থাকলেই কোর্সটি করতে পারবেন। অন্য কোনো ডিভাইসের প্রয়োজন হবে না।",
   },
   {
     question: "ক্লাস কিভাবে হবে? ক্লাসের লিংক কোথায় পাবো?",
@@ -48,13 +47,64 @@ const faqsLeft: FAQ[] = [
   },
   {
     question: "কোর্সে কি ক্লাসের শীট বা স্লাইড দেওয়া হয়?",
-    answer: ", আমাদের কোর্সে প্রয়োজনীয় ক্লাসের শীট ও স্লাইড দেয়া হয়।",
+    answer: "জি, আমাদের কোর্সে প্রয়োজনীয় ক্লাসের শীট ও স্লাইড দেয়া হয়।",
   },
   {
     question: "কোর্স চলাকালীন সময়ে কোথা থেকে সাপোর্ট নিব?",
     answer: "সাপোর্ট নেয়ার জন্য আমাদের প্রাইভেট গ্রুপ আছে, যেখানে ২৪ ঘণ্টা গ্রুপ সাপোর্ট দেয়া হয়। এছাড়াও সমস্যা সমাধানের জন্য ট্রেইনারদের থেকে সরাসরি মেসেজ অথবা কল করার মাধ্যমে সাপোর্ট নিতে পারবেন।",
   },
 ];
+// const faqsLeft: FAQ[] = [
+//   {
+//     question: "এটি কি লাইভ কোর্স নাকি রেকর্ডেড?",
+//     answer:
+//       "এটি সম্পূর্ণ অনলাইন লাইভ কোর্স। \n নিয়মিত ক্লাস Google Meet এর মাধ্যমে অনুষ্ঠিত হবে।",
+//   },
+//   {
+//     question: "কোর্সটি করার জন্য আগে থেকে কি কি জানতে হবে?",
+//     answer:
+//       "কোর্স করার জন্য আগে থেকে তেমন কিছু জানতে হবে না। শুধু দেখে দেখে রিডিং পড়া ও অনলাইন সম্পর্কে প্রাথমিক ধারণা থাকলেই হবে। অন্য কোনো যোগ্যতার প্রয়োজন নেই।",
+//   },
+//   {
+//     question: "কোর্সে ভর্তির জন্য কোন বয়সসীমা আছে?",
+//     answer:
+//       "জি, ১০ বছরের উর্ধ্বে যে কেউ কোর্সে যুক্ত হতে পারবে। তবে দেখে দেখে স্পষ্ট বাংলা পড়তে জানতে হবে।",
+//   },
+//   {
+//     question: "কোর্স শেষে কি সাপোর্ট থাকবে?",
+//     answer:
+//       "জি অবশ্যই, কোর্স শেষ করার পরেও আমাদের সাপোর্ট অব্যাহত থাকবে। উচ্চারণগত সমস্যা, স্টুডিও সেটাপ, কাজ পাওয়া, ভয়েস ওভার পোর্টফোলিও তৈরিসহ সব ধরনের সমস্যা সমাধানে আমাদের সাপোর্ট থাকবে।",
+//   },
+//   {
+//     question: "মাত্র ৫০টি ক্লাস করেই কি শুদ্ধ ভাষায় কথা বলা সম্ভব?",
+//     answer:
+//       "প্রবল ইচ্ছাশক্তি ও কঠোর চেষ্টা থাকলে কোন কিছুই অসম্ভব নয়। \nআমাদের ৫টি ক্যাটাগরিতে মোট ৫০টি ক্লাস, দৈনিক ভিডিও প্রেজেন্টেশন (৩০০০মিনিট) কমপ্লিট, এবং ট্রেইনারের দেখানো পদ্ধতি অনুসরণ করে নিয়মিত চর্চা করলে অবশ্যই ৫০টি ক্লাস করে শুদ্ধ ভাষায় কথা বলা সম্ভব। আমরা তা নিশ্চিতভাবেই বলতে পারি।",
+//   },
+//   {
+//     question: "কোর্সটি শেষ করে কি ইনকাম করতে পারবো?",
+//     answer:
+//       "আমরা আশাবাদী আপনি যদি ভালোভাবে কোর্সটি সম্পন্ন করে নিজেকে দক্ষ করে গড়ে তোলেন, তাহলে অবশ্যই মার্কেট প্লেসে কাজ করে ইনকাম করতে পারবেন। কাজ পাওয়ার ক্ষেত্রে আমরা আপনাকে সর্বোচ্চ সহযোগিতা করবো।",
+//   },
+//   {
+//     question: "শুধুমাত্র মোবাইল দিয়ে কি কোর্সটি করতে পারবো?",
+//     answer:
+//       "হ্যাঁ, শুধুমাত্র একটি স্মার্টফোন থাকলেই কোর্সটি করতে পারবেন। অন্য কোনো ডিভাইসের প্রয়োজন হবে না।",
+//   },
+//   {
+//     question: "ক্লাস কিভাবে হবে? ক্লাসের লিংক কোথায় পাবো?",
+//     answer:
+//       "ক্লাস অনলাইনে গুগল মিটের (Google Meet) মাধ্যমে অনুষ্ঠিত হয়। ক্লাসের লিংক আমাদের প্রাইভেট মেসেঞ্জার গ্রুপে শেয়ার করা হবে। ভর্তি কনফার্ম করলে আপনি সেই গ্রুপে যুক্ত হতে পারবেন।",
+//   },
+//   {
+//     question: "কোর্সে কি ক্লাসের শীট বা স্লাইড দেওয়া হয়?",
+//     answer: "আমাদের কোর্সে প্রয়োজনীয় ক্লাসের শীট ও স্লাইড দেয়া হয়।",
+//   },
+//   {
+//     question: "কোর্স চলাকালীন সময়ে কোথা থেকে সাপোর্ট নিব?",
+//     answer:
+//       "সাপোর্ট নেয়ার জন্য আমাদের প্রাইভেট গ্রুপ আছে, যেখানে ২৪ ঘণ্টা গ্রুপ সাপোর্ট দেয়া হয়। এছাড়াও সমস্যা সমাধানের জন্য ট্রেইনারদের থেকে সরাসরি মেসেজ অথবা কল করার মাধ্যমে সাপোর্ট নিতে পারবেন।",
+//   },
+// ];
 
 const faqsRight: FAQ[] = [
   {
@@ -85,6 +135,7 @@ const faqsRight: FAQ[] = [
   }
 
 ];
+
 const admissionFaq: FAQ[] = [
   {
     question: "ভর্তি প্রক্রিয়া কী? কিভাবে কোর্স ফি পরিশোধ করবো?",
@@ -103,7 +154,7 @@ const admissionFaq: FAQ[] = [
 
 const FAQSection = () => {
   return (
-    <div className="relative overflow-hidden bg-[#1A0033] py-12 md:py-24">
+    <section className="relative overflow-hidden bg-[#1A0033] py-12 md:py-24">
       {/* Background Orbs */}
       <div className="absolute top-0 -left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
@@ -126,9 +177,12 @@ const FAQSection = () => {
                 {faqsLeft.map((faq, index) => (
                   <CustomAccordionItem
                     key={index}
-                    faq={faq}
                     value={`left-${index}`}
-                    icon={<FaQuestionCircle className="text-purple-400" />}
+                    title={faq.question}
+                    description={faq.answer}
+                    icon={
+                      <FaQuestionCircle className="text-purple-400 text-lg md:text-xl" />
+                    }
                   />
                 ))}
               </Accordion>
@@ -140,9 +194,12 @@ const FAQSection = () => {
                 {faqsRight.map((faq, index) => (
                   <CustomAccordionItem
                     key={index}
-                    faq={faq}
                     value={`right-${index}`}
-                    icon={<FaQuestionCircle className="text-cyan-400" />}
+                    title={faq.question}
+                    description={faq.answer}
+                    icon={
+                      <FaQuestionCircle className="text-cyan-400 text-lg md:text-xl" />
+                    }
                   />
                 ))}
               </Accordion>
@@ -156,13 +213,21 @@ const FAQSection = () => {
                   </span>
                   <div className="h-px flex-grow bg-gradient-to-l from-transparent to-white/20" />
                 </div>
-                <Accordion type="single" collapsible className="w-full space-y-4">
+
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full space-y-4"
+                >
                   {admissionFaq.map((faq, index) => (
                     <CustomAccordionItem
                       key={index}
-                      faq={faq}
                       value={`admission-${index}`}
-                      icon={<FaUserCheck className="text-emerald-400" />}
+                      title={faq.question}
+                      description={faq.answer}
+                      icon={
+                        <FaUserCheck className="text-emerald-400 text-lg md:text-xl" />
+                      }
                     />
                   ))}
                 </Accordion>
@@ -171,55 +236,7 @@ const FAQSection = () => {
           </div>
         </div>
       </Container>
-    </div>
-  );
-};
-
-/* Reusable Shadcn Item Wrapper */
-const CustomAccordionItem = ({ faq, value, icon }: { faq: FAQ; value: string; icon: React.ReactNode }) => {
-  return (
-    <AccordionItem
-      value={value}
-      className="border border-white/5 bg-white/[0.03] rounded-xl md:rounded-2xl overflow-hidden px-2 transition-all data-[state=open]:bg-white/10 data-[state=open]:border-purple-500/50 data-[state=open]:shadow-[0_10px_30px_-10px_rgba(139,92,246,0.3)]"
-    >
-      <AccordionTrigger className="hover:no-underline py-4 md:py-5 px-3 md:px-4 group">
-        <div className="flex items-center gap-3 md:gap-4 text-left">
-          <span className="flex-shrink-0 group-data-[state=open]:scale-110 transition-transform duration-300">
-            {icon}
-          </span>
-          <span className="text-[15px] md:text-[17px] font-bold text-slate-200 group-hover:text-white group-data-[state=open]:text-white transition-colors leading-tight">
-            {faq.question}
-          </span>
-        </div>
-      </AccordionTrigger>
-      
-      <AccordionContent className="px-6 md:px-10 pb-6 pt-0 ml-4 md:ml-8 border-l border-purple-500/30">
-        <div className="text-slate-300 text-[15px] md:text-[16px] leading-relaxed font-medium space-y-2">
-          {faq.answer.split("\n").map((line, idx) => {
-            const parts = line.split(/(https?:\/\/[^\s]+)/g);
-            return (
-              <p key={idx}>
-                {parts.map((part, i) =>
-                  part.match(/https?:\/\/[^\s]+/) ? (
-                    <a
-                      key={i}
-                      href={part}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4 break-all transition-colors"
-                    >
-                      {part}
-                    </a>
-                  ) : (
-                    <span key={i}>{part}</span>
-                  )
-                )}
-              </p>
-            );
-          })}
-        </div>
-      </AccordionContent>
-    </AccordionItem>
+    </section>
   );
 };
 

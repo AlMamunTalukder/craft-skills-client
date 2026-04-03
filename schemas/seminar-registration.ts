@@ -1,7 +1,8 @@
 // schemas/seminar-registration.ts
 
+import { sanitizePhoneNumber } from "@/src/utils/phone-sanitizer";
 import * as z from "zod";
- 
+
 export const seminarRegistrationSchema = z.object({
   name: z
     .string({
@@ -13,7 +14,10 @@ export const seminarRegistrationSchema = z.object({
     .string({
       required_error: "মোবাইল নম্বর প্রদান করা আবশ্যক।",
     })
-    .min(11, "অনুগ্রহ করে একটি সঠিক ১১-সংখ্যার মোবাইল নম্বর প্রদান করুন।"),
+    .min(11, "অনুগ্রহ করে একটি সঠিক ১১-সংখ্যার মোবাইল নম্বর প্রদান করুন।")
+    .refine((val) => sanitizePhoneNumber(val) !== null, {
+      message: "সঠিক নম্বর দিন (ইংরেজি অক্ষর বা ভুল চিহ্ন গ্রহণযোগ্য নয়)",
+    }),
 
   whatsapp: z
     .string({

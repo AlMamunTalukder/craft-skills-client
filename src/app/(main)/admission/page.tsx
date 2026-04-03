@@ -24,13 +24,13 @@ export default async function AdmissionPage() {
         <SubHeaderWrapper />
       </Suspense>
 
-      <Header user={user} siteData={siteData} />
+      <Header siteData={siteData} />
 
       <Banner siteData={siteData} />
 
       <HomePageContent />
 
-      <div id="admission" className="scroll-mt-[140px]">
+      <div id="admission" className="scroll-mt-[200px] md:scroll-mt-[160px]">
         {batch ? (
           <AdmissionForm batch={batch} courses={courses} />
         ) : (

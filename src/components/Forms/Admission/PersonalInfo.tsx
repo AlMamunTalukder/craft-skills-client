@@ -1,23 +1,31 @@
-import { User, Phone, Mail, MessageSquare, Facebook } from "lucide-react";
+import {
+  User,
+  Phone,
+  Mail,
+  MessageSquare,
+  Facebook,
+} from "lucide-react";
 import TextInput from "../../FormInputs/TextInput";
 
 export default function PersonalInfo() {
   return (
-    <div className="bg-blue-50 rounded-2xl p-4 md:p-6 border border-blue-100">
+    <div className="bg-blue-50 rounded-2xl p-2 md:p-6 border border-blue-100">
       <h3 className="font-semibold text-blue-800 mb-4 flex items-center gap-2">
         <User className="w-5 h-5" /> ব্যক্তিগত তথ্য
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <TextInput
-          label="পূর্ণ নাম *"
+          label="পূর্ণ নাম"
           name="name"
           icon={User}
+          required
           className="border-blue-200"
         />
         <TextInput
-          label="মোবাইল নাম্বার *"
+          label="মোবাইল নাম্বার"
           name="phone"
           icon={Phone}
+          required
           className="border-blue-200"
         />
         <TextInput

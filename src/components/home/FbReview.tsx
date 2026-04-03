@@ -119,7 +119,7 @@ export default function FbReview({ user, siteData }: ReviewsProps) {
 
   return (
     <>
-    <Header user={user} siteData={siteData} />
+    <Header siteData={siteData} />
       <div id="reviews" className="bg-[#4F0187] py-10">
         <Container>
             

@@ -55,7 +55,7 @@ const CourseOutline = () => {
   ];
 
   return (
-    <div className="relative overflow-hidden bg-[#1A0033] py-16 z-10 mt-5 lg:mt-0 ">
+    <div className="relative overflow-hidden bg-[#1A0033] py-12 md:py-16 z-10 mt-0 lg:mt-0 ">
       {/* --- PREMIUM GRADIENT LAYERS --- */}
       {/* 1. Base Gradient Mesh */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#4F0187_0%,#1A0033_100%)]"></div>
@@ -87,21 +87,14 @@ const CourseOutline = () => {
 
         <div className="grid md:grid-cols-2 gap-3 md:gap-8  md:w-[900px] mx-auto">
           {courseData.map((course, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="relative group h-full"
-            >
+            <div key={index} className="relative group h-full">
               {/* Card Background with hover glow */}
               <div className="absolute inset-0 bg-[#4F0187] rounded-xl md:rounded-3xl translate-x-2 translate-y-2 opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
 
               <div className="relative h-full bg-white border border-slate-100 p-3 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] group-hover:border-purple-200 transition-all duration-300">
                 {/* Header with Icon */}
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="p-3 bg-purple-50 text-[#4F0187] rounded-2xl group-hover:bg-[#4F0187] group-hover:text-white transition-all duration-500">
+                <div className="flex items-center gap-2 md:gap-4 mb-3 md:mb-8">
+                  <div className="p-2 md:p-3 bg-purple-50 text-[#4F0187] rounded-2xl group-hover:bg-[#4F0187] group-hover:text-white transition-all duration-500">
                     {course.icon}
                   </div>
                   <h3 className="text-2xl md:text-3xl font-bold text-[#4F0187]">
@@ -110,20 +103,19 @@ const CourseOutline = () => {
                 </div>
 
                 {/* List Items */}
-                <ul className="space-y-4">
+                <ul className="space-y-2 md:space-y-4">
                   {course.items.map((item, itemIndex) => (
-                    <motion.li
+                    <li
                       key={itemIndex}
-                      whileHover={{ x: 5 }}
-                      className="flex items-start gap-3 text-slate-700 group/item"
+                      className="flex items-start gap-2 md:gap-3 text-slate-700 group/item"
                     >
-                      <div className="mt-1.5 shrink-0 transition-transform group-hover/item:scale-110">
+                      <div className="mt-1 md:mt-1.5 shrink-0 transition-transform group-hover/item:scale-110">
                         <CheckCircle2 size={18} className="text-[#4F0187]" />
                       </div>
-                      <span className="text-[17px] md:text-[18px] leading-relaxed font-medium">
+                      <span className="text-[15px] md:text-[18px] leading-relaxed font-medium">
                         {item}
                       </span>
-                    </motion.li>
+                    </li>
                   ))}
                 </ul>
 
@@ -136,7 +128,7 @@ const CourseOutline = () => {
                   )}
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </Container>

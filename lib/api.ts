@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { sanitizePhoneNumber } from "@/src/utils/phone-sanitizer";
 import { ScheduleGroup, Seminar, SiteContent } from "@/types";
 
 const API_URL =
@@ -108,11 +109,24 @@ export async function registration(
   data: any,
 ): Promise<{ success: boolean; message: string }> {
   try {
+    // Sanitize phone number if it exists and it's a phone number (not email)
+    let sanitizedPhone = data.phone || "";
+    if (sanitizedPhone && sanitizedPhone.trim() !== "" && !data.email) {
+      const sanitized = sanitizePhoneNumber(sanitizedPhone);
+      if (!sanitized) {
+        return {
+          success: false,
+          message: "Invalid phone number format. Please enter a valid Bangladesh phone number.",
+        };
+      }
+      sanitizedPhone = sanitized;
+    }
+
     // Transform data for server
     const registrationData = {
       name: data.name,
       email: data.email || "",
-      phone: data.phone || "",
+      phone: sanitizedPhone,
       password: data.password,
       batchNumber: data.batchNumber,
     };
@@ -125,11 +139,12 @@ export async function registration(
       body: JSON.stringify(registrationData),
     });
 
+    const result = await response.json();
+    
     if (!response.ok) {
-      return response.json();
+      return result;
     }
 
-    const result = await response.json();
     return result;
   } catch (error: any) {
     return {

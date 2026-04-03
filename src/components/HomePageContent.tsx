@@ -1,5 +1,4 @@
-
-import ClassDescription from "./home/ClassDescription";
+import BeforeAfter from "./home/BeforeAfter";
 import { ClassRoutine } from "./home/ClassRoutine";
 import ComparisonTable from "./home/ComparisonTable";
 import CourseFeatures from "./home/CourseFeatures";
@@ -15,7 +14,6 @@ import TrainerSection from "./home/TrainerSection";
 import WhyCourse from "./home/WhyCourse";
 import { getClassSchedule } from "@/lib/api";
 
-
 const HomePageContent = async () => {
   const [classSchedule] = await Promise.all([getClassSchedule()]);
 
@@ -25,13 +23,13 @@ const HomePageContent = async () => {
       <CourseOutline />
       <CourseFeatures />
       <CourseStory />
-      <ClassDescription />
+      <BeforeAfter />
       <TotalClass />
       <ClassRoutine scheduleData={classSchedule} />
       <ComparisonTable />
       <Instructors />
       <TrainerSection />
-      <CourseStats /> 
+      <CourseStats />
       <CourseReviews />
       <Testimonials />
       <OurActivities />
