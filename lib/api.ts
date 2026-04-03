@@ -158,17 +158,31 @@ export async function login(
   data: any,
 ): Promise<{ success: boolean; message: string; token?: string }> {
   try {
+    // Prepare login data with sanitized phone number if needed
+    const loginData = { ...data };
+    
+    // Check if identifier looks like a phone number (not email)
+    const isEmail = data.identifier.includes('@');
+    if (!isEmail) {
+      const sanitizedPhone = sanitizePhoneNumber(data.identifier);
+      if (sanitizedPhone) {
+        // Replace identifier with sanitized phone number
+        loginData.identifier = sanitizedPhone;
+      }
+    }
+    
     const response = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(loginData),
     });
 
     if (!response.ok) {
-      return response.json();
+      const errorResult = await response.json();
+      return errorResult;
     }
 
     const result = await response.json();
