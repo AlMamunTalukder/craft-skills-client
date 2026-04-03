@@ -1,6 +1,5 @@
-import { User, Phone, Mail, MessageSquare, Briefcase, Facebook } from "lucide-react";
+import { User, Phone, Mail, MessageSquare, Facebook } from "lucide-react";
 import TextInput from "../../FormInputs/TextInput";
-import TextArea from "../../FormInputs/TextAreaInput";
 
 export default function PersonalInfo() {
   return (
