@@ -245,7 +245,7 @@ export default function MainClassAttendancePage() {
           <div className="flex justify-between items-start flex-wrap gap-4">
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
-                Main Class Attendance
+                Class Attendance
               </h1>
             </div>
             <button
@@ -339,7 +339,7 @@ export default function MainClassAttendancePage() {
                       {cls.className}
                     </h4>
                     <div className="flex gap-2">
-                      <span className={`text-xs px-2 py-1 rounded ${cls.regular ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"}`}>Regular</span>
+                      <span className={`text-xs px-2 py-1 rounded ${cls.regular ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"}`}>Main</span>
                       <span className={`text-xs px-2 py-1 rounded ${cls.problemSolving ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"}`}>Problem</span>
                       <span className={`text-xs px-2 py-1 rounded ${cls.practice ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"}`}>Practice</span>
                     </div>
@@ -356,7 +356,7 @@ export default function MainClassAttendancePage() {
                       }`}
                     >
                       <div className="text-left">
-                        <div className="font-medium text-gray-800">Regular Class</div>
+                        <div className="font-medium text-gray-800">Main Class</div>
                         <div className={`text-sm mt-1 font-medium ${cls.regular ? "text-green-600" : "text-blue-600"}`}>
                           {cls.regular ? "✓ Attended" : "○ Not Attended"}
                         </div>
@@ -404,7 +404,7 @@ export default function MainClassAttendancePage() {
                       }`}
                     >
                       <div className="text-left">
-                        <div className="font-medium text-gray-800">Practice Session</div>
+                        <div className="font-medium text-gray-800">Practice Class</div>
                         <div className={`text-sm mt-1 font-medium ${cls.practice ? "text-green-600" : "text-green-600"}`}>
                           {cls.practice ? "✓ Attended" : "○ Not Attended"}
                         </div>

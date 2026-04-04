@@ -343,7 +343,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
-                  title: "Regular Class",
+                  title: "Main Class",
                   icon: BookOpen,
                   color: "blue",
                   data: stats?.byType.regular,

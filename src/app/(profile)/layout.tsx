@@ -63,7 +63,7 @@ export default function StudentLayout({
 
   const menuItems = [
     { name: "Dashboard", href: "/profile", icon: LayoutDashboard },
-    { name: "Main Classes", href: "/main-class", icon: BookOpen },
+    { name: "Regular Classes", href: "/main-class", icon: BookOpen },
     { name: "Special Classes", href: "/special-class", icon: Star },
     { name: "Guest Classes", href: "/guest-class", icon: Users },
     { name: "Results", href: "/batch-results", icon: Award },

@@ -13,7 +13,7 @@ export default function GuestClassAttendance() {
   const [loading, setLoading] = useState(true);
   const [guestClasses, setGuestClasses] = useState<any[]>([]);
 
-  const TOTAL_CLASSES = 5;
+  const TOTAL_CLASSES = 3;
   const guestClassList = Array.from(
     { length: TOTAL_CLASSES },
     (_, i) => `Guest Class ${i + 1}`,
@@ -130,7 +130,7 @@ export default function GuestClassAttendance() {
                 Guest Classes Progress
               </h2>
               <p className="text-green-100">
-                5 guest lectures with industry professionals
+                3 guest lectures with industry professionals
               </p>
             </div>
             <div className="mt-4 md:mt-0 text-center md:text-right">
@@ -161,7 +161,7 @@ export default function GuestClassAttendance() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {loading && guestClasses.length === 0 
               ? /* SKELETON LOADING STATE */
-                Array.from({ length: 5 }).map((_, i) => (
+                Array.from({ length: 3 }).map((_, i) => (
                   <div key={i} className="border-2 border-gray-100 rounded-xl p-5">
                     <div className="space-y-3">
                       <Skeleton className="h-6 w-3/4 rounded" />
