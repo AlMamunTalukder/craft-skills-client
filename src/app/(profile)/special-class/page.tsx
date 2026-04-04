@@ -1,176 +1,41 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
-import { CheckCircle, Star, RefreshCw } from "lucide-react";
+import { useState } from "react";
+import { Star, RefreshCw } from "lucide-react";
 import { studentAttendanceService } from "@/src/services/studentAttendance";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useAttendanceData } from "@/src/hooks/useAttendanceData";
+import { AttendanceStatsCard } from "@/src/components/common/AttendanceStatsCard";
+import { AttendanceButton } from "@/src/components/common/AttendanceButton";
+import { AttendanceCardSkeleton } from "@/src/components/common/AttendanceCardSkeleton";
+import { BottomStats } from "@/src/components/common/BottomStats";
 
-// Constants
 const TOTAL_CLASSES = 5;
-const SPECIAL_CLASSES = Array.from(
-  { length: TOTAL_CLASSES },
-  (_, i) => `Special Class ${i + 1}`,
-);
+const SPECIAL_CLASSES = Array.from({ length: TOTAL_CLASSES }, (_, i) => `Special Class ${i + 1}`);
 
-// Components
-function StatCard({
-  label,
-  value,
-  loading,
-}: {
-  label: string;
-  value: number;
-  loading: boolean;
-}) {
-  return (
-    <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-      <div className="text-center">
-        <div className="text-2xl font-bold text-gray-800 flex justify-center">
-          {loading ? <Skeleton className="h-8 w-8 rounded" /> : value}
-        </div>
-        <div className="text-sm text-gray-600 mt-1">{label}</div>
-      </div>
-    </div>
-  );
-}
-
-function SpecialClassCard({
-  classItem,
-  onToggle,
-}: {
-  classItem: any;
-  onToggle: (className: string, attended: boolean) => void;
-}) {
-  return (
-    <button
-      onClick={() => onToggle(classItem.className, classItem.attended)}
-      className={`border-2 rounded-xl p-3 transition-all duration-200 flex items-center justify-between cursor-pointer group text-left ${
-        classItem.attended
-          ? "border-green-500 bg-green-50 hover:bg-green-100"
-          : "border-orange-300 bg-orange-50 hover:bg-orange-100 hover:border-orange-400"
-      }`}
-    >
-      <div className="text-left">
-        <div className="font-bold text-gray-800 text-lg">
-          {classItem.className}
-        </div>
-      </div>
-
-      <div
-        className={`p-2 rounded-full ${classItem.attended ? "bg-green-100" : "bg-orange-100"}`}
-      >
-        {classItem.attended ? (
-          <CheckCircle className="text-green-600" size={20} />
-        ) : (
-          <div className="w-5 h-5 rounded-full border-2 border-orange-400"></div>
-        )}
-      </div>
-    </button>
-  );
-}
-
-function SpecialClassSkeleton() {
-  return (
-    <div className="border-2 border-gray-100 rounded-xl p-2 flex justify-between items-center ">
-      <Skeleton className="h-6 w-3/4 rounded" />
-      <Skeleton className="h-10 w-10 rounded-full" />
-    </div>
-  );
-}
-
-// Main Component
 export default function SpecialClassAttendance() {
-  const [loading, setLoading] = useState(true);
-  const [specialClasses, setSpecialClasses] = useState<any[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
+  
+  const {
+    loading,
+    classes: specialClasses,
+    loadData,
+    toggleAttendance,
+    calculateStats,
+  } = useAttendanceData(SPECIAL_CLASSES, "special");
 
-  useEffect(() => {
-    loadSpecialClassData();
-  }, []);
-
-  const loadSpecialClassData = async () => {
-    try {
-      setLoading(true);
-
-      const sessionsResult =
-        await studentAttendanceService.getAttendanceHistory(100);
-
-      if (sessionsResult.success && sessionsResult.data) {
-        const specialClassAttendance = SPECIAL_CLASSES.map((className) => {
-          const attendedRecord = sessionsResult.data.find(
-            (record: any) =>
-              record.className === className &&
-              record.sessionType === "special",
-          );
-
-          return {
-            className,
-            attended: attendedRecord?.attended || false,
-            attendanceId: attendedRecord?._id,
-            date: attendedRecord?.date,
-          };
-        });
-
-        setSpecialClasses(specialClassAttendance);
-      } else {
-        toast.error("Failed to load special classes");
-      }
-    } catch (error) {
-      console.error("Load error:", error);
-      toast.error("Failed to load special classes");
-    } finally {
-      setLoading(false);
-    }
+  const handleToggle = async (className: string, currentStatus: boolean) => {
+    await toggleAttendance(className, currentStatus, studentAttendanceService.updateSpecialClass);
   };
 
-  const toggleAttendance = async (
-    className: string,
-    currentStatus: boolean,
-  ) => {
-    try {
-      const result = await studentAttendanceService.updateSpecialClass(
-        className,
-        !currentStatus,
-      );
-
-      if (result.success) {
-        setSpecialClasses((prev) =>
-          prev.map((cls) =>
-            cls.className === className
-              ? { ...cls, attended: !currentStatus, date: new Date() }
-              : cls,
-          ),
-        );
-        toast.success(
-          `Special class ${!currentStatus ? "marked" : "unmarked"} successfully`,
-        );
-      } else {
-        toast.error(result.message || "Failed to update");
-      }
-    } catch (error) {
-      console.error("Toggle error:", error);
-      toast.error("Failed to update attendance");
-    }
-  };
-
-  const calculateStats = () => {
-    if (loading && specialClasses.length === 0) {
-      return { attended: 0, total: TOTAL_CLASSES, percentage: 0 };
-    }
-
-    const attendedCount = specialClasses.filter((c) => c.attended).length;
-    return {
-      attended: attendedCount,
-      total: TOTAL_CLASSES,
-      percentage: Math.round((attendedCount / TOTAL_CLASSES) * 100),
-    };
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await loadData();
+    setRefreshing(false);
   };
 
   const stats = calculateStats();
-  const isLoading = loading && specialClasses.length === 0;
+  const isLoading = loading || refreshing;
 
   return (
     <div className="min-h-screen bg-linear-to-br from-orange-50 to-red-50 p-4 md:p-6">
@@ -179,86 +44,61 @@ export default function SpecialClassAttendance() {
         <div className="mb-8">
           <div className="flex justify-between items-start flex-wrap gap-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
-                Special Class Attendance
-              </h1>
-              <p className="text-gray-600 mt-2">
-                Exclusive sessions with expert instructors
-              </p>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Special Class Attendance</h1>
+              <p className="text-gray-600 mt-2">Exclusive sessions with expert instructors</p>
             </div>
+            <button
+              onClick={handleRefresh}
+              disabled={isLoading}
+              className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition shadow-md hover:shadow-lg cursor-pointer disabled:opacity-50"
+            >
+              <RefreshCw size={18} className={isLoading ? "animate-spin" : ""} />
+              {isLoading ? "Refreshing..." : "Refresh Data"}
+            </button>
           </div>
         </div>
 
         {/* Stats Card */}
-        <div className="bg-linear-to-r from-orange-600 to-red-600 rounded-xl p-6 text-white mb-6 shadow-lg">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div>
-              <h2 className="text-xl font-bold mb-2 flex items-center gap-2">
-                <Star size={24} />
-                Special Classes Progress
-              </h2>
-              <p className="text-orange-100">
-                5 exclusive sessions with industry experts
-              </p>
-            </div>
-            <div className="mt-4 md:mt-0 text-center md:text-right">
-              <div className="text-4xl md:text-5xl font-bold">
-                {isLoading ? (
-                  <Skeleton className="h-12 w-24 bg-white/20 inline-block rounded-lg" />
-                ) : (
-                  `${stats.percentage}%`
-                )}
-              </div>
-              <div className="text-lg mt-1">
-                {isLoading ? (
-                  <Skeleton className="h-6 w-48 bg-white/20 inline-block rounded-lg" />
-                ) : (
-                  `${stats.attended}/${stats.total} Classes Attended`
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+        <AttendanceStatsCard
+          icon={<Star size={24} />}
+          title="Special Classes Progress"
+          subtitle="5 exclusive sessions with industry experts"
+          percentage={stats.percentage}
+          attended={stats.attended}
+          total={stats.total}
+          loading={isLoading}
+          gradientFrom="from-orange-600"
+          gradientTo="to-red-600"
+          textColor="text-orange-100"
+        />
 
         {/* Special Classes Grid */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6 border border-gray-100">
-          <h3 className="text-xl font-bold text-gray-800 mb-6">
-            Special Classes
-          </h3>
-
+          <h3 className="text-xl font-bold text-gray-800 mb-6">Special Classes</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {isLoading
-              ? Array.from({ length: TOTAL_CLASSES }).map((_, i) => (
-                  <SpecialClassSkeleton key={i} />
-                ))
-              : specialClasses.map((specialClass, index) => (
-                  <SpecialClassCard
-                    key={index}
-                    classItem={specialClass}
-                    onToggle={toggleAttendance}
-                  />
-                ))}
+            {isLoading ? (
+              Array.from({ length: TOTAL_CLASSES }).map((_, i) => <AttendanceCardSkeleton key={i} />)
+            ) : (
+              specialClasses.map((cls, index) => (
+                <AttendanceButton
+                  key={index}
+                  label={cls.className}
+                  attended={cls.attended}
+                  onClick={() => handleToggle(cls.className, cls.attended)}
+                />
+              ))
+            )}
           </div>
         </div>
 
-        {/* Bottom Progress Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <StatCard
-            label="Attended"
-            value={stats.attended}
-            loading={isLoading}
-          />
-          <StatCard
-            label="Remaining"
-            value={stats.total - stats.attended}
-            loading={isLoading}
-          />
-          <StatCard
-            label="Total Special Classes"
-            value={stats.total}
-            loading={isLoading}
-          />
-        </div>
+        {/* Bottom Stats */}
+        <BottomStats
+          attended={stats.attended}
+          remaining={stats.total - stats.attended}
+          total={stats.total}
+          totalLabel="Total Special Classes"
+          loading={isLoading}
+        />
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
 import {
   BookOpen,
-  Star,
   Users,
   XCircle,
   TrendingUp,
-  GraduationCap
+  GraduationCap,
+  CheckCircle2,
 } from "lucide-react";
 import { studentAttendanceService } from "@/src/services/studentAttendance";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -40,19 +41,24 @@ interface DashboardData {
       percentage: number;
     };
     byType: {
-      regular: { attended: number; percentage: number };
-      problemSolving: { attended: number; percentage: number };
-      practice: { attended: number; percentage: number };
+      regular: { attended: number; total: number; percentage: number };
+      special: { attended: number; total: number; percentage: number };
+      guest: { attended: number; total: number; percentage: number };
     };
   };
 }
 
+// Constants for total sessions
+const TOTAL_MAIN_SESSIONS = 45; // 15 classes × 3 sessions
+const TOTAL_SPECIAL_SESSIONS = 5;
+const TOTAL_GUEST_SESSIONS = 3;
+const TOTAL_ALL_SESSIONS = TOTAL_MAIN_SESSIONS + TOTAL_SPECIAL_SESSIONS + TOTAL_GUEST_SESSIONS;
+
 export default function DashboardPage() {
-  const [dashboardData, setDashboardData] = useState<DashboardData | null>(
-    null,
-  );
+  const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [rawAttendance, setRawAttendance] = useState<any[]>([]);
 
   useEffect(() => {
     loadDashboardData();
@@ -62,8 +68,40 @@ export default function DashboardPage() {
     try {
       setError("");
       setLoading(true);
+      
+      // Fetch dashboard data
       const dashboardResult = await studentAttendanceService.getDashboard();
+      
+      // Also fetch raw attendance records to verify
+      const attendanceHistory = await studentAttendanceService.getAttendanceHistory(100);
+      
+      if (attendanceHistory.success && attendanceHistory.data) {
+        console.log('Raw Attendance Records:', attendanceHistory.data);
+        setRawAttendance(attendanceHistory.data);
+        
+        // Calculate actual attendance from raw data
+        const regularAttended = attendanceHistory.data.filter(
+          (record: any) => record.sessionType === 'regular' && record.attended === true
+        ).length;
+        
+        const specialAttended = attendanceHistory.data.filter(
+          (record: any) => record.sessionType === 'special' && record.attended === true
+        ).length;
+        
+        const guestAttended = attendanceHistory.data.filter(
+          (record: any) => record.sessionType === 'guest' && record.attended === true
+        ).length;
+        
+        console.log('Calculated from raw data:', {
+          regularAttended,
+          specialAttended,
+          guestAttended,
+          total: regularAttended + specialAttended + guestAttended
+        });
+      }
+      
       if (dashboardResult.success && dashboardResult.data) {
+        console.log('Dashboard Stats from API:', dashboardResult.data.attendanceStats);
         setDashboardData(dashboardResult.data);
       } else {
         setError(dashboardResult.message || "Failed to load dashboard");
@@ -78,21 +116,56 @@ export default function DashboardPage() {
 
   const user = dashboardData?.user;
   const stats = dashboardData?.attendanceStats;
-  const payment = dashboardData?.user?.admissionId;
 
-  // Helper for progress bar color
-  const getProgressColor = (percentage: number) => {
-    if (percentage >= 80) return "bg-emerald-500 shadow-emerald-200";
-    if (percentage >= 60) return "bg-amber-500 shadow-amber-200";
-    return "bg-rose-500 shadow-rose-200";
+  // Calculate overall stats - using raw data if available, otherwise API data
+  const calculateOverallStats = () => {
+    if (!stats) {
+      return { attended: 0, total: TOTAL_ALL_SESSIONS, percentage: 0 };
+    }
+
+    // Use API data
+    let attendedMain = stats.byType.regular?.attended || 0;
+    let attendedSpecial = stats.byType.special?.attended || 0;
+    let attendedGuest = stats.byType.guest?.attended || 0;
+    
+    // If raw attendance is available, use that for more accurate counting
+    if (rawAttendance.length > 0) {
+      attendedMain = rawAttendance.filter(
+        (record: any) => (record.sessionType === 'regular' || 
+                         record.sessionType === 'problemSolving' || 
+                         record.sessionType === 'practice') && 
+                        record.attended === true
+      ).length;
+      
+      attendedSpecial = rawAttendance.filter(
+        (record: any) => record.sessionType === 'special' && record.attended === true
+      ).length;
+      
+      attendedGuest = rawAttendance.filter(
+        (record: any) => record.sessionType === 'guest' && record.attended === true
+      ).length;
+    }
+    
+    const totalAttended = attendedMain + attendedSpecial + attendedGuest;
+    const percentage = Math.round((totalAttended / TOTAL_ALL_SESSIONS) * 100);
+
+    return {
+      attended: totalAttended,
+      total: TOTAL_ALL_SESSIONS,
+      percentage,
+      attendedMain,
+      attendedSpecial,
+      attendedGuest,
+    };
   };
 
-  const currentDate = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const overallStats = calculateOverallStats();
+  // const currentDate = new Date().toLocaleDateString("en-US", {
+  //   weekday: "long",
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "numeric",
+  // });
 
   if (error) {
     return (
@@ -114,17 +187,32 @@ export default function DashboardPage() {
     );
   }
 
+  // Get the correct attendance values
+  const regularAttended = rawAttendance.length > 0 
+    ? rawAttendance.filter((r: any) => (r.sessionType === 'regular' || r.sessionType === 'problemSolving' || r.sessionType === 'practice') && r.attended === true).length
+    : (stats?.byType.regular?.attended || 0);
+    
+  const specialAttended = rawAttendance.length > 0
+    ? rawAttendance.filter((r: any) => r.sessionType === 'special' && r.attended === true).length
+    : (stats?.byType.special?.attended || 0);
+    
+  const guestAttended = rawAttendance.length > 0
+    ? rawAttendance.filter((r: any) => r.sessionType === 'guest' && r.attended === true).length
+    : (stats?.byType.guest?.attended || 0);
+
+  const regularPercentage = Math.round((regularAttended / TOTAL_MAIN_SESSIONS) * 100);
+  const specialPercentage = Math.round((specialAttended / TOTAL_SPECIAL_SESSIONS) * 100);
+  const guestPercentage = Math.round((guestAttended / TOTAL_GUEST_SESSIONS) * 100);
+
   return (
-    <div className="min-h-screen bg-slate-50/80 p-4 md:p-8 font-sans text-slate-900">
+    <div className="min-h-screen bg-slate-50/80 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Main Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
-          {/* LEFT COLUMN: Profile Sidebar (Sticky) */}
+          {/* LEFT COLUMN: Profile Sidebar */}
           <div className="lg:col-span-4 xl:col-span-3 space-y-6">
             <div className="sticky top-8 space-y-6">
               {/* Identity Card */}
-              <div className="bg-white rounded-4xl shadow-xl shadow-slate-200/50 border border-slate-100 p-6 flex flex-col items-center text-center relative overflow-hidden group">
-                {/* Decorative Background Pattern */}
+              <div className="bg-white rounded-4xl shadow-xl shadow-slate-200/50 border border-slate-100 p-6 flex flex-col items-center text-center relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-br from-indigo-600 to-violet-600">
                   <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
                 </div>
@@ -133,7 +221,7 @@ export default function DashboardPage() {
                   {loading ? (
                     <Skeleton className="h-28 w-28 rounded-full border-4 border-white" />
                   ) : (
-                    <div className="h-28 w-28 rounded-full border-[6px] border-white bg-slate-50 shadow-lg flex items-center justify-center text-4xl font-black text-indigo-600 select-none">
+                    <div className="h-28 w-28 rounded-full border-[6px] border-white bg-slate-50 shadow-lg flex items-center justify-center text-4xl font-black text-indigo-600">
                       {user?.name?.charAt(0).toUpperCase()}
                     </div>
                   )}
@@ -146,40 +234,28 @@ export default function DashboardPage() {
                   </div>
                 ) : (
                   <>
-                    <h2 className="text-xl font-bold text-slate-900">
-                      {user?.name}
-                    </h2>
+                    <h2 className="text-xl font-bold text-slate-900">{user?.name}</h2>
                     <p className="text-slate-500 text-sm mb-4">{user?.email}</p>
-
                     <div className="flex flex-wrap justify-center gap-2 mb-6">
-                      <span className="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wide border border-indigo-100">
+                      <span className="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full uppercase">
                         {user?.role}
                       </span>
-                      <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full border border-slate-200">
+                      <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold rounded-full">
                         Batch {user?.batchNumber}
                       </span>
                     </div>
                   </>
                 )}
 
-                {/* Contact Quick Info */}
-                {!loading && payment && (
+                {!loading && (
                   <div className="w-full pt-6 border-t border-slate-100 flex justify-between text-sm">
                     <div className="text-center w-1/2 border-r border-slate-100">
-                      <p className="text-slate-400 text-xs font-medium uppercase">
-                        Phone
-                      </p>
-                      <p className="font-semibold text-slate-700 mt-1">
-                        {user?.phone}
-                      </p>
+                      <p className="text-slate-400 text-xs font-medium uppercase">Phone</p>
+                      <p className="font-semibold text-slate-700 mt-1">{user?.phone}</p>
                     </div>
-                    <div className="text-center w-1/2 border-r border-slate-100">
-                      <p className="text-slate-400 text-xs font-medium uppercase">
-                        Amount Paid
-                      </p>
-                      <p className="font-semibold text-slate-700 mt-1">
-                        ৳{payment.amount}
-                      </p>
+                    <div className="text-center w-1/2">
+                      <p className="text-slate-400 text-xs font-medium uppercase">Total Sessions</p>
+                      <p className="font-semibold text-slate-700 mt-1">{TOTAL_ALL_SESSIONS}</p>
                     </div>
                   </div>
                 )}
@@ -196,215 +272,183 @@ export default function DashboardPage() {
                   </div>
                   <div className="space-y-3">
                     <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                      <p className="text-xs text-slate-400 font-semibold uppercase mb-1">
-                        Batch Name
-                      </p>
-                      <p className="font-bold text-slate-800">
-                        {user.batchId.name}
-                      </p>
+                      <p className="text-xs text-slate-400 font-semibold uppercase mb-1">Batch Name</p>
+                      <p className="font-bold text-slate-800">{user.batchId.name}</p>
                     </div>
-                    <div className="text-sm text-slate-500 px-2">
-                      {user.batchId.description}
-                    </div>
+                    <div className="text-sm text-slate-500 px-2">{user.batchId.description}</div>
                   </div>
                 </div>
               )}
             </div>
           </div>
 
-          {/* RIGHT COLUMN: Dashboard & Stats */}
+          {/* RIGHT COLUMN: Dashboard Stats */}
           <div className="lg:col-span-8 xl:col-span-9 space-y-6">
-            {/* 1. Welcome Header Banner */}
+            {/* Welcome Header */}
             <div className="relative overflow-hidden rounded-4xl bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white shadow-xl shadow-blue-200/50">
-              {/* --- 1. THE DOT PATTERN DESIGN --- */}
               <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-
-              {/* Optional: Subtle Glow on top right to add depth */}
-              <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
-
               <div className="relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-                  <div>
-                    <p className="text-blue-100 font-medium mb-1 tracking-wide text-sm opacity-90">
-                      {currentDate}
-                    </p>
-
-                    {loading ? (
-                      <Skeleton className="h-10 w-64 bg-white/20 rounded-lg" />
-                    ) : (
-                      <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                        Welcome back, {user?.name.split(" ")[0]}! 👋
-                      </h1>
-                    )}
-
-                    <p className="text-blue-100 mt-2 max-w-md text-lg opacity-90 leading-relaxed">
-                      Check your latest attendance stats and keep up the
-                      momentum.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 2. Primary Stat Card (Full Width) */}
-            <div className="bg-white rounded-4xl p-6 md:p-8 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center gap-8">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
-                    <TrendingUp size={20} />
-                  </div>
-                  <h2 className="text-lg font-bold text-slate-800">
-                    Attendance Overview
-                  </h2>
-                </div>
-                <p className="text-slate-500 text-sm leading-relaxed mb-6">
-                  You have attended{" "}
-                  <span className="font-bold text-slate-900">
-                    {stats?.summary.attended}
-                  </span>{" "}
-                  out of{" "}
-                  <span className="font-bold text-slate-900">
-                    {stats?.summary.total}
-                  </span>{" "}
-                  total sessions. Maintain above 80% to be eligible for the
-                  final certification.
-                </p>
-
-                {/* Mini Legend */}
-                <div className="flex gap-4 text-xs font-medium text-slate-500">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>{" "}
-                    Regular
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-purple-500"></span>{" "}
-                    Problem Solving
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>{" "}
-                    Practice
-                  </div>
-                </div>
-              </div>
-
-              {/* Large Percentage Indicator */}
-              <div className="relative group cursor-default">
+                {/* <p className="text-blue-100 font-medium mb-1 text-sm opacity-90">{currentDate}</p> */}
                 {loading ? (
-                  <Skeleton className="h-32 w-32 rounded-full" />
+                  <Skeleton className="h-10 w-64 bg-white/20 rounded-lg" />
                 ) : (
-                  <div className="w-40 h-40 rounded-full border-8 border-slate-50 flex items-center justify-center relative">
-                    {/* SVG Circle for visual flair */}
-                    <svg
-                      className="absolute inset-0 w-full h-full -rotate-90"
-                      viewBox="0 0 100 100"
-                    >
-                      <circle
-                        cx="50"
-                        cy="50"
-                        r="45"
-                        fill="none"
-                        stroke="#f1f5f9"
-                        strokeWidth="8"
-                      />
-                      <circle
-                        cx="50"
-                        cy="50"
-                        r="45"
-                        fill="none"
-                        stroke={
-                          stats?.summary.percentage &&
-                          stats.summary.percentage >= 80
-                            ? "#10b981"
-                            : "#6366f1"
-                        }
-                        strokeWidth="8"
-                        strokeDasharray="283"
-                        strokeDashoffset={
-                          283 - (283 * (stats?.summary.percentage || 0)) / 100
-                        }
-                        strokeLinecap="round"
-                        className="transition-all duration-1000 ease-out"
-                      />
-                    </svg>
-                    <div className="text-center">
-                      <span className="text-4xl font-black text-slate-900 tracking-tight block">
-                        {stats?.summary.percentage}%
-                      </span>
-                      <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                        Score
-                      </span>
-                    </div>
-                  </div>
+                  <h1 className="text-3xl md:text-4xl font-bold text-white">
+                    Welcome back, {user?.name.split(" ")[0]}! 👋
+                  </h1>
                 )}
+                <p className="text-blue-100 mt-2 max-w-md opacity-90">
+                  Check your attendance stats and keep up the momentum.
+                </p>
               </div>
             </div>
 
-            {/* 3. Detailed Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: "Main Class",
-                  icon: BookOpen,
-                  color: "blue",
-                  data: stats?.byType.regular,
-                },
-                {
-                  title: "Problem Solving",
-                  icon: Star,
-                  color: "purple",
-                  data: stats?.byType.problemSolving,
-                },
-                {
-                  title: "Practice Session",
-                  icon: Users,
-                  color: "emerald",
-                  data: stats?.byType.practice,
-                },
-              ].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white rounded-4xl p-6 shadow-sm border border-slate-100 hover:shadow-lg hover:-translate-y-1 transition duration-300 group"
-                >
-                  <div className="flex justify-between items-start mb-6">
-                    <div
-                      className={`p-3 rounded-2xl bg-${item.color}-50 text-${item.color}-600 group-hover:bg-${item.color}-100 transition`}
-                    >
-                      <item.icon size={24} />
+            {/* Overall Attendance Card */}
+            <div className="bg-white rounded-4xl p-6 md:p-8 shadow-sm border border-slate-100">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                  <TrendingUp size={20} />
+                </div>
+                <h2 className="text-lg font-bold text-slate-800">Overall Attendance Overview</h2>
+              </div>
+              
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="flex-1">
+                  <p className="text-slate-600 text-base mb-4">
+                    You have attended{" "}
+                    <span className="font-bold text-slate-900">
+                      {loading ? "-" : overallStats.attended}
+                    </span>{" "}
+                    out of{" "}
+                    <span className="font-bold text-slate-900">{TOTAL_ALL_SESSIONS}</span>{" "}
+                    total sessions. Maintain above 80% to be eligible for certification.
+                  </p>
+                  <div className="grid grid-cols-3 gap-2 text-center text-sm">
+                    <div className="border rounded-lg">
+                      <p className="text-slate-500">Main</p>
+                      <p className="font-bold text-slate-800">{regularAttended}/{TOTAL_MAIN_SESSIONS}</p>
                     </div>
-                    {!loading && (
-                      <div className="flex items-center gap-1 px-2.5 py-1 bg-slate-50 rounded-lg border border-slate-100">
-                        <span className="text-xs font-bold text-slate-600">
-                          {item.data?.percentage}%
-                        </span>
-                      </div>
-                    )}
+                    <div className="border rounded-lg">
+                      <p className="text-slate-500">Special</p>
+                      <p className="font-bold text-slate-800">{specialAttended}/{TOTAL_SPECIAL_SESSIONS}</p>
+                    </div>
+                    <div className="border rounded-lg">
+                      <p className="text-slate-500">Guest</p>
+                      <p className="font-bold text-slate-800">{guestAttended}/{TOTAL_GUEST_SESSIONS}</p>
+                    </div>
                   </div>
+                </div>
 
-                  <h3 className="text-lg font-bold text-slate-900 mb-1">
-                    {item.title}
-                  </h3>
-                  <div className="flex items-end gap-2 mb-4">
-                    <span className="text-2xl font-bold text-slate-700">
-                      {loading ? "-" : item.data?.attended}
-                    </span>
-                    <span className="text-sm text-slate-400 mb-1">
-                      sessions
-                    </span>
-                  </div>
-
+                {/* Percentage Circle */}
+                <div className="relative">
                   {loading ? (
-                    <Skeleton className="h-2 w-full" />
+                    <Skeleton className="h-32 w-32 rounded-full" />
                   ) : (
-                    <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                      <div
-                        className={`h-full rounded-full transition-all duration-1000 ${getProgressColor(item.data?.percentage || 0)}`}
-                        style={{ width: `${item.data?.percentage}%` }}
-                      ></div>
+                    <div className="w-32 h-32 rounded-full flex items-center justify-center relative">
+                      <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#f1f5f9" strokeWidth="8" />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="45"
+                          fill="none"
+                          stroke={overallStats.percentage >= 80 ? "#10b981" : "#6366f1"}
+                          strokeWidth="8"
+                          strokeDasharray="283"
+                          strokeDashoffset={283 - (283 * (overallStats.percentage || 0)) / 100}
+                          strokeLinecap="round"
+                          className="transition-all duration-1000"
+                        />
+                      </svg>
+                      <div className="text-center">
+                        <span className="text-3xl font-black text-slate-900">{overallStats.percentage}%</span>
+                      </div>
                     </div>
                   )}
                 </div>
-              ))}
+              </div>
             </div>
+
+            {/* Session Type Stats - 3 cards with correct calculations */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Regular/Main Session Card */}
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
+                    <BookOpen size={20} />
+                  </div>
+                  <h3 className="font-bold text-slate-800">Main Classes</h3>
+                </div>
+                <div className="mb-2">
+                  <span className="text-3xl font-bold text-slate-800">
+                    {loading ? "-" : regularAttended}
+                  </span>
+                  <span className="text-slate-400 ml-2">/ {TOTAL_MAIN_SESSIONS}</span>
+                </div>
+                <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-blue-500 transition-all duration-500"
+                    style={{ width: `${regularPercentage}%` }}
+                  ></div>
+                </div>
+                <p className="text-xs text-slate-500 mt-2">{regularPercentage}% completed</p>
+              </div>
+
+              {/* Special Session Card */}
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-orange-50 text-orange-600 rounded-xl">
+                    <Users size={20} />
+                  </div>
+                  <h3 className="font-bold text-slate-800">Special Classes</h3>
+                </div>
+                <div className="mb-2">
+                  <span className="text-3xl font-bold text-slate-800">
+                    {loading ? "-" : specialAttended}
+                  </span>
+                  <span className="text-slate-400 ml-2">/ {TOTAL_SPECIAL_SESSIONS}</span>
+                </div>
+                <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-orange-500 transition-all duration-500"
+                    style={{ width: `${specialPercentage}%` }}
+                  ></div>
+                </div>
+                <p className="text-xs text-slate-500 mt-2">{specialPercentage}% completed</p>
+              </div>
+
+              {/* Guest Session Card */}
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-teal-50 text-teal-600 rounded-xl">
+                    <Users size={20} />
+                  </div>
+                  <h3 className="font-bold text-slate-800">Guest Classes</h3>
+                </div>
+                <div className="mb-2">
+                  <span className="text-3xl font-bold text-slate-800">
+                    {loading ? "-" : guestAttended}
+                  </span>
+                  <span className="text-slate-400 ml-2">/ {TOTAL_GUEST_SESSIONS}</span>
+                </div>
+                <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-teal-500 transition-all duration-500"
+                    style={{ width: `${guestPercentage}%` }}
+                  ></div>
+                </div>
+                <p className="text-xs text-slate-500 mt-2">{guestPercentage}% completed</p>
+              </div>
+            </div>
+
+            {/* Success Message */}
+            {!loading && overallStats.percentage >= 80 && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center gap-3">
+                <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                <p className="text-sm text-emerald-800 font-medium">
+                  🎉 Excellent progress! You&apos;re on track for certification. Keep up the great work!
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
