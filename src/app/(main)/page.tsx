@@ -18,6 +18,9 @@ export default async function HomePage() {
     currentUser(),
   ]);
 
+
+  console.log("Fetched seminar:", activeSeminar);
+  
   return (
     <>
       <SubHeader

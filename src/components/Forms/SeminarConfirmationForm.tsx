@@ -13,6 +13,7 @@ import {
   MessageSquare,
   Briefcase,
   MapPin,
+  GraduationCap,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -115,9 +116,9 @@ export default function SeminarPDFDownloadForm({
           {/* Header Section */}
           <div className="bg-linear-to-r from-[#4f0187] to-[#6d0b99] p-4 md:p-8 text-white text-center">
             <div className="flex items-center justify-center gap-3 mb-4">
-              <Sparkles className="w-8 h-8 text-yellow-300" />
+              <GraduationCap className="w-8 h-8 text-yellow-300" />
               <h2 className="text-xl md:text-2xl font-bold">
-                সেমিনার PDF ডাউনলোড
+                সেমিনার PDF ডাউনলোড 
               </h2>
             </div>
             <p className="text-sm opacity-90">

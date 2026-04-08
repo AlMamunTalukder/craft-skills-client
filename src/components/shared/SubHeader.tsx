@@ -30,6 +30,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
   const getCorrectedDeadlineDate = (): Date | null => {
     if (!seminar?.registrationDeadline) return null;
     const originalDate = new Date(seminar.registrationDeadline);
+    // Add 6 hours to convert from UTC to Bangladesh local time
     return new Date(originalDate.getTime() + 6 * 60 * 60 * 1000);
   };
 
@@ -38,6 +39,13 @@ export default function SubHeader({ siteData, seminar }: Props) {
     const date = getCorrectedDeadlineDate();
     return date ? date.toISOString() : undefined;
   };
+
+   console.log("seminar prop:", seminar);
+  console.log("raw deadline:", seminar?.registrationDeadline);
+  console.log("corrected deadline:", getCorrectedDeadlineDate());
+  console.log("now:", new Date());
+  console.log("isActive?", seminar?.isActive);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -48,7 +56,7 @@ export default function SubHeader({ siteData, seminar }: Props) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✅ Use corrected deadline for active check
+  // ✅ Use corrected deadline for active check (9 PM BD, not 3 PM)
   const isSeminarActive = () => {
     if (!seminar || !seminar.isActive) return false;
     const correctedDeadline = getCorrectedDeadlineDate();
@@ -56,6 +64,9 @@ export default function SubHeader({ siteData, seminar }: Props) {
     const now = new Date();
     return now < correctedDeadline;
   };
+
+  console.log("Active Seminar:", isSeminarActive);
+    console.log("isActive result:", isSeminarActive());
 
   const handleScroll = () => {
     const el = document.getElementById("registration-form");
@@ -68,18 +79,43 @@ export default function SubHeader({ siteData, seminar }: Props) {
   if (!isSeminarActive()) return null;
 
   const socialLinks = [
-    { icon: <FaFacebookF />, label: "Facebook", href: siteData?.facebook || "#", color: "#1877F2" },
-    { icon: <FaWhatsapp />, label: "WhatsApp", href: siteData?.whatsapp || "#", color: "#25D366" },
-    { icon: <FaYoutube />, label: "YouTube", href: siteData?.youtube || "#", color: "#FF0000" },
-    { icon: <FaTelegramPlane />, label: "Telegram", href: siteData?.telegram || "#", color: "#0088cc" },
+    {
+      icon: <FaFacebookF />,
+      label: "Facebook",
+      href: siteData?.facebook || "#",
+      color: "#1877F2",
+    },
+    {
+      icon: <FaWhatsapp />,
+      label: "WhatsApp",
+      href: siteData?.whatsapp || "#",
+      color: "#25D366",
+    },
+    {
+      icon: <FaYoutube />,
+      label: "YouTube",
+      href: siteData?.youtube || "#",
+      color: "#FF0000",
+    },
+    {
+      icon: <FaTelegramPlane />,
+      label: "Telegram",
+      href: siteData?.telegram || "#",
+      color: "#0088cc",
+    },
   ];
+
+  // Inside SubHeader component, right after the helpers
+ 
 
   return (
     <div className="sticky top-0 z-50 h-[89px] md:h-full md:w-full bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-1.5">
       <Container>
         <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1">
           <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left md:px-2">
-            <h3 className="text-[13px] md:text-[17px] leading-tight">{seminar?.title}</h3>
+            <h3 className="text-[13px] md:text-[17px] leading-tight">
+              {seminar?.title}
+            </h3>
             <p className="text-[12px] md:text-[15px] text-purple-100 font-medium opacity-80 uppercase tracking-tighter pb-[2px] md:pb-0">
               {seminar?.description}
             </p>
@@ -95,7 +131,9 @@ export default function SubHeader({ siteData, seminar }: Props) {
               className="flex gap-2 justify-center items-center content-center bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full border-2 border-white px-3 py-1 cursor-pointer"
             >
               <FaHandPointRight className="text-white text-[16px] md:text-[16px]" />
-              <span className="text-sm md:text-base whitespace-nowrap">রেজিস্ট্রেশন করুন</span>
+              <span className="text-sm md:text-base whitespace-nowrap">
+                রেজিস্ট্রেশন করুন
+              </span>
             </button>
           </div>
 
@@ -110,7 +148,9 @@ export default function SubHeader({ siteData, seminar }: Props) {
                   className="text-xs md:text-sm transition-all duration-300 flex items-center justify-center h-6 md:h-9 w-6 md:w-9 rounded-full bg-white/10 hover:bg-white/20 shadow-md"
                   aria-label={social.label}
                   style={{ color: "white" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = social.color)}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = social.color)
+                  }
                   onMouseLeave={(e) => (e.currentTarget.style.color = "white")}
                 >
                   {social.icon}
