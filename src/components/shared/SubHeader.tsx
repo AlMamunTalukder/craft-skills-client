@@ -26,11 +26,17 @@ type Props = {
 export default function SubHeader({ siteData, seminar }: Props) {
   const [isMobile, setIsMobile] = useState(false);
 
-  const getCorrectedDeadline = () => {
-    if (!seminar?.registrationDeadline) return undefined;
+  // Helper: get corrected BD deadline (stored UTC + 6 hours)
+  const getCorrectedDeadlineDate = (): Date | null => {
+    if (!seminar?.registrationDeadline) return null;
     const originalDate = new Date(seminar.registrationDeadline);
-    const bdDate = new Date(originalDate.getTime() + 6 * 60 * 60 * 1000);
-    return bdDate.toISOString();
+    return new Date(originalDate.getTime() + 6 * 60 * 60 * 1000);
+  };
+
+  // Helper: get ISO string for CountdownTimer
+  const getCorrectedDeadlineISO = (): string | undefined => {
+    const date = getCorrectedDeadlineDate();
+    return date ? date.toISOString() : undefined;
   };
 
   useEffect(() => {
@@ -42,56 +48,30 @@ export default function SubHeader({ siteData, seminar }: Props) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // ✅ Use corrected deadline for active check
   const isSeminarActive = () => {
     if (!seminar || !seminar.isActive) return false;
-
+    const correctedDeadline = getCorrectedDeadlineDate();
+    if (!correctedDeadline) return false;
     const now = new Date();
-    const deadlineDate = seminar.registrationDeadline
-      ? new Date(seminar.registrationDeadline)
-      : null;
-
-    return deadlineDate && now < deadlineDate;
+    return now < correctedDeadline;
   };
 
-  // ✅ Scroll handler (ONLY ADDITION)
   const handleScroll = () => {
     const el = document.getElementById("registration-form");
     if (el) {
-      el.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  // ✅ IMPORTANT: stop rendering completely
+  // Stop rendering if not active
   if (!isSeminarActive()) return null;
 
   const socialLinks = [
-    {
-      icon: <FaFacebookF />,
-      label: "Facebook",
-      href: siteData?.facebook || "#",
-      color: "#1877F2",
-    },
-    {
-      icon: <FaWhatsapp />,
-      label: "WhatsApp",
-      href: siteData?.whatsapp || "#",
-      color: "#25D366",
-    },
-    {
-      icon: <FaYoutube />,
-      label: "YouTube",
-      href: siteData?.youtube || "#",
-      color: "#FF0000",
-    },
-    {
-      icon: <FaTelegramPlane />,
-      label: "Telegram",
-      href: siteData?.telegram || "#",
-      color: "#0088cc",
-    },
+    { icon: <FaFacebookF />, label: "Facebook", href: siteData?.facebook || "#", color: "#1877F2" },
+    { icon: <FaWhatsapp />, label: "WhatsApp", href: siteData?.whatsapp || "#", color: "#25D366" },
+    { icon: <FaYoutube />, label: "YouTube", href: siteData?.youtube || "#", color: "#FF0000" },
+    { icon: <FaTelegramPlane />, label: "Telegram", href: siteData?.telegram || "#", color: "#0088cc" },
   ];
 
   return (
@@ -99,34 +79,28 @@ export default function SubHeader({ siteData, seminar }: Props) {
       <Container>
         <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1">
           <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left md:px-2">
-            <h3 className="text-[13px] md:text-[17px] leading-tight">
-              {seminar?.title}
-            </h3>
-
+            <h3 className="text-[13px] md:text-[17px] leading-tight">{seminar?.title}</h3>
             <p className="text-[12px] md:text-[15px] text-purple-100 font-medium opacity-80 uppercase tracking-tighter pb-[2px] md:pb-0">
               {seminar?.description}
             </p>
           </div>
 
           <div className="md:w-[170px] px-1 md:px-0 pb-1.5 md:pb-0">
-            <CountdownTimer targetDate={getCorrectedDeadline()} />
+            <CountdownTimer targetDate={getCorrectedDeadlineISO()} />
           </div>
 
-          {/* ✅ UPDATED BUTTON (removed Link, added scroll) */}
-          <div className=" w-[170px] px-4 md:px-0">
+          <div className="w-[170px] px-4 md:px-0">
             <button
               onClick={handleScroll}
               className="flex gap-2 justify-center items-center content-center bg-gradient-to-r from-[#DC25FF] to-[#7000FF] rounded-full border-2 border-white px-3 py-1 cursor-pointer"
             >
               <FaHandPointRight className="text-white text-[16px] md:text-[16px]" />
-              <span className="text-sm md:text-base whitespace-nowrap">
-                রেজিস্ট্রেশন করুন
-              </span>
+              <span className="text-sm md:text-base whitespace-nowrap">রেজিস্ট্রেশন করুন</span>
             </button>
           </div>
 
           <div className="flex justify-center md:justify-end mb-0 md:mb-0 pt-0 md:pt-0">
-            <div className=" hidden md:flex items-center gap-3 md:gap-2">
+            <div className="hidden md:flex items-center gap-3 md:gap-2">
               {socialLinks.map((social, index) => (
                 <Link
                   key={index}
@@ -135,12 +109,8 @@ export default function SubHeader({ siteData, seminar }: Props) {
                   rel="noopener noreferrer"
                   className="text-xs md:text-sm transition-all duration-300 flex items-center justify-center h-6 md:h-9 w-6 md:w-9 rounded-full bg-white/10 hover:bg-white/20 shadow-md"
                   aria-label={social.label}
-                  style={{
-                    color: "white",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = social.color)
-                  }
+                  style={{ color: "white" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = social.color)}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "white")}
                 >
                   {social.icon}
