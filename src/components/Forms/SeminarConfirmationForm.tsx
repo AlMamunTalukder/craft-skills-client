@@ -4,15 +4,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Download,
-  FileText,
   Loader2,
   Mail,
   Phone,
-  Sparkles,
   User,
   MessageSquare,
   Briefcase,
-  MapPin,
   GraduationCap,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
