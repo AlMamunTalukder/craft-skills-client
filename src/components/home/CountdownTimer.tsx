@@ -16,36 +16,34 @@ interface CountdownTimerProps {
 
 const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
   const calculateTimeLeft = (): TimeLeft => {
-    const target = targetDate
-      ? new Date(targetDate)
-      : new Date("2025-04-17T21:00:00");
-    const now: Date = new Date();
-    const difference: number = target.getTime() - now.getTime();
-
-    let timeLeft: TimeLeft = {
-      days: "00",
-      hours: "00",
-      minutes: "00",
-      seconds: "00",
-    };
-
-    if (difference > 0) {
-      timeLeft = {
-        days: String(Math.floor(difference / (1000 * 60 * 60 * 24))).padStart(
-          2,
-          "0"
-        ),
-        hours: String(
-          Math.floor((difference / (1000 * 60 * 60)) % 24)
-        ).padStart(2, "0"),
-        minutes: String(Math.floor((difference / 1000 / 60) % 60)).padStart(
-          2,
-          "0"
-        ),
-        seconds: String(Math.floor((difference / 1000) % 60)).padStart(2, "0"),
-      };
+    if (!targetDate) {
+      return { days: "00", hours: "00", minutes: "00", seconds: "00" };
     }
-    return timeLeft;
+
+    const target = new Date(targetDate); // ✅ USE DIRECTLY (NO conversion)
+    const now = new Date();
+
+    const difference = target.getTime() - now.getTime();
+
+    if (difference <= 0) {
+      return { days: "00", hours: "00", minutes: "00", seconds: "00" };
+    }
+
+    return {
+      days: String(Math.floor(difference / (1000 * 60 * 60 * 24))).padStart(
+        2,
+        "0",
+      ),
+      hours: String(Math.floor((difference / (1000 * 60 * 60)) % 24)).padStart(
+        2,
+        "0",
+      ),
+      minutes: String(Math.floor((difference / 1000 / 60) % 60)).padStart(
+        2,
+        "0",
+      ),
+      seconds: String(Math.floor((difference / 1000) % 60)).padStart(2, "0"),
+    };
   };
 
   const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft());
@@ -54,6 +52,9 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
     const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
     return () => clearInterval(timer);
   }, [targetDate]);
+
+  console.log("TARGET RAW:", targetDate);
+console.log("TARGET PARSED:", new Date(targetDate as string));
 
   // Sub-component for each time block
   const TimeUnit = ({

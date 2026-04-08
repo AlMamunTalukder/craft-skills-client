@@ -15,7 +15,6 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Batch, SiteContent } from "@/types";
 import Container from "./Container";
-import { Button } from "@/components/ui/button";
 
 const CountdownTimer = dynamic(
   () => import("@/src/components/home/CountdownTimer"),
@@ -29,7 +28,6 @@ type Props = {
 
 export default function SubHeaderAdmission({ siteData, batch }: Props) {
   const [isMobile, setIsMobile] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = () => {
     const isMobile = window.innerWidth < 768;
@@ -94,6 +92,8 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
 
     return batch.isActive && deadlineDate && now < deadlineDate;
   };
+
+  
 
   if (!batch || !isRegistrationActive()) return null;
 
