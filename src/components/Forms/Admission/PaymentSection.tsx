@@ -8,7 +8,7 @@ const paymentOptions = [
     id: "bkash",
     name: "বিকাশ",
     logo: "/img/bkash.svg",
-    number: "01830327579",
+    number: "01970191489",
     type: "এজেন্ট (ক্যাশ আউট)",
   },
   {
