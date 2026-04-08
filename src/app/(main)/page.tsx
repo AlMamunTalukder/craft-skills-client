@@ -12,15 +12,15 @@ import SectionTitle from "@/src/components/shared/SectionTitle";
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [siteData, seminar, user] = await Promise.all([
+  const [siteData, seminar] = await Promise.all([
     getSiteData(),
     activeSeminar(),
     currentUser(),
   ]);
 
 
-  console.log("Fetched seminar:", activeSeminar);
-  
+  // console.log("Fetched seminar:", activeSeminar);
+
   return (
     <>
       <SubHeader
