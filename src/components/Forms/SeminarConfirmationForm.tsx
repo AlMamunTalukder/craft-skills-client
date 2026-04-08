@@ -57,12 +57,6 @@ export default function SeminarPDFDownloadForm({
         ? `${process.env.NEXT_PUBLIC_API_URL}/seminar-confirmations/confirm`
         : "http://localhost:5000/api/v1/seminar-confirmations/confirm";
 
-      // console.log("Submitting to:", API_URL);
-      // console.log("Data:", {
-      //   ...data,
-      //   seminarId: seminarId,
-      // });
-
       const response = await fetch(API_URL, {
         method: "POST",
         headers: {
@@ -85,11 +79,9 @@ export default function SeminarPDFDownloadForm({
       // In your handleSubmit function, change the redirect:
       router.push(
         `/seminar-confirmation/success?name=${encodeURIComponent(
-          data.name
-        )}&seminar=${encodeURIComponent(seminarTitle)}&timestamp=${Date.now()}`
+          data.name,
+        )}&seminar=${encodeURIComponent(seminarTitle)}&timestamp=${Date.now()}`,
       );
-
-    
     } catch (err: any) {
       // console.error("Confirmation error:", err);
       toast.error(err.message || "জমা দিতে ব্যর্থ। আবার চেষ্টা করুন।", {
@@ -115,7 +107,7 @@ export default function SeminarPDFDownloadForm({
             <div className="flex items-center justify-center gap-3 mb-4">
               <GraduationCap className="w-8 h-8 text-yellow-300" />
               <h2 className="text-xl md:text-2xl font-bold">
-                সেমিনার PDF ডাউনলোড 
+                সেমিনার PDF ডাউনলোড
               </h2>
             </div>
             <p className="text-sm opacity-90">

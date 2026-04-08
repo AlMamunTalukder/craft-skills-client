@@ -40,12 +40,6 @@ export default function SubHeader({ siteData, seminar }: Props) {
     return date ? date.toISOString() : undefined;
   };
 
-   console.log("seminar prop:", seminar);
-  console.log("raw deadline:", seminar?.registrationDeadline);
-  console.log("corrected deadline:", getCorrectedDeadlineDate());
-  console.log("now:", new Date());
-  console.log("isActive?", seminar?.isActive);
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -65,8 +59,6 @@ export default function SubHeader({ siteData, seminar }: Props) {
     return now < correctedDeadline;
   };
 
-  console.log("Active Seminar:", isSeminarActive);
-    console.log("isActive result:", isSeminarActive());
 
   const handleScroll = () => {
     const el = document.getElementById("registration-form");
@@ -104,9 +96,6 @@ export default function SubHeader({ siteData, seminar }: Props) {
       color: "#0088cc",
     },
   ];
-
-  // Inside SubHeader component, right after the helpers
- 
 
   return (
     <div className="sticky top-0 z-50 h-[89px] md:h-full md:w-full bg-linear-to-r from-[#4F0187] to-[#3C016F] shadow-md text-white py-0 md:py-1.5">
