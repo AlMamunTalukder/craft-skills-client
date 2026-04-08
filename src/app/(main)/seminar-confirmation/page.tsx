@@ -22,7 +22,7 @@ async function getPdfSeminar() {
 }
 
 export default async function SeminarConfirmationPage() {
-  const [siteData, user, pdfSeminar] = await Promise.all([
+  const [siteData, pdfSeminar] = await Promise.all([
     getSiteData(),
     currentUser(),
     getPdfSeminar(),
