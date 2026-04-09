@@ -185,16 +185,26 @@ export default function SeminarPDFDownloadForm({
                       icon={Mail}
                       className="bg-gray-50/50 border-gray-100 focus:bg-white focus:ring-4 focus:ring-purple-50 transition-all rounded-lg md:rounded-xl text-sm md:text-base"
                     />
+
+                     <div className="md:col-span-2">
+                      <TextInput
+                        label="পেশা"
+                        name="occupation"
+                        placeholder="আপনার পেশা"
+                        icon={Briefcase}
+                        className="bg-gray-50/50 border-gray-100 focus:bg-white focus:ring-4 focus:ring-purple-50 transition-all rounded-lg md:rounded-xl text-sm md:text-base"
+                      />
+                    </div>
                   </div>
 
-                  <div className="mt-4 md:mt-5">
+                  {/* <div className="mt-4 md:mt-5">
                     <TextArea
                       name="address"
                       label="ঠিকানা"
                       placeholder="আপনার সম্পূর্ণ ঠিকানা লিখুন"
                       rows={3}
                     />
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Info Banner: More compact on mobile */}
