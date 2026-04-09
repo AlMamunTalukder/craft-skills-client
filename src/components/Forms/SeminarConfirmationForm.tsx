@@ -93,30 +93,37 @@ export default function SeminarPDFDownloadForm({
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-purple-50 via-white to-blue-50 py-12 px-2 md:px-4">
-      {/* Background decoration */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#4f0187]/5 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#4f0187]/5 rounded-full blur-3xl"></div>
-      </div>
-
+    <div className="min-h-screen bg-[#fcfaff] py-6 md:py-10 px-3 relative overflow-hidden">
       <div className="max-w-2xl mx-auto relative">
-        <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-xl">
-          {/* Header Section */}
-          <div className="bg-linear-to-r from-[#4f0187] to-[#6d0b99] p-4 md:p-8 text-white text-center">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <GraduationCap className="w-8 h-8 text-yellow-300" />
-              <h2 className="text-xl md:text-2xl font-bold">
+        {/* Reduced rounded corners on mobile for better screen utilization */}
+        <div className="bg-white/90 backdrop-blur-xl rounded-[1.5rem] md:rounded-[2.5rem] border border-white shadow-[0_20px_40px_-12px_rgba(79,1,135,0.08)] overflow-hidden">
+          {/* Header: Responsive padding and font sizes */}
+          <div className="bg-linear-to-br from-[#4f0187] to-[#870bb3] p-6  text-white text-center relative">
+            <div className="absolute inset-0 opacity-10 pointer-events-none">
+              <svg
+                className="w-full h-full"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none"
+              >
+                <path d="M0 100 C 30 0 70 0 100 100 Z" fill="white"></path>
+              </svg>
+            </div>
+            <div className="relative z-10 flex flex-col items-center">
+              <div className="bg-white/20 backdrop-blur-md p-2.5 md:p-3 rounded-xl md:rounded-2xl mb-3 md:mb-4">
+                <GraduationCap className="w-7 h-7 md:w-10 md:h-10 text-yellow-300" />
+              </div>
+              <h2 className="text-xl md:text-3xl font-black tracking-tight mb-2 px-2">
                 সেমিনার PDF ডাউনলোড
               </h2>
+              <div className="h-1 w-10 md:w-12 bg-yellow-400 rounded-full mb-3"></div>
+              <p className="text-xs md:text-sm font-medium text-purple-100 px-4">
+                নিচের তথ্যগুলো দিয়ে আপনার কপিটি সংগ্রহ করুন
+              </p>
             </div>
-            <p className="text-sm opacity-90">
-              PDF ফাইল ডাউনলোড করতে ফরমটি পূরণ করুন
-            </p>
           </div>
 
-          {/* Form Content Section */}
-          <div className="p-4 md:p-8">
+          {/* Form Content: Adjusted padding for mobile */}
+          <div className="p-5 md:p-8">
             <AppForm
               onSubmit={handleSubmit}
               resolver={zodResolver(seminarConfirmationSchema)}
@@ -129,27 +136,36 @@ export default function SeminarPDFDownloadForm({
                 address: "",
               }}
             >
-              <div className="space-y-6">
-                {/* Personal Info Section */}
-                <div className="bg-blue-50 rounded-2xl p-4 md:p-6 border border-blue-100">
-                  <h3 className="font-semibold text-blue-800 mb-4 flex items-center gap-2">
-                    <User className="w-5 h-5" /> ব্যক্তিগত তথ্য
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-6 md:space-y-8">
+                <div className="relative">
+                  {/* Icon and Title alignment for mobile */}
+                  <div className="flex items-center gap-2.5 mb-5 md:mb-6">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-purple-50 rounded-lg md:rounded-xl flex items-center justify-center text-[#4f0187]">
+                      <User size={18} className="md:w-5 md:h-5" />
+                    </div>
+                    <h3 className="font-bold text-gray-800 text-base md:text-lg">
+                      ব্যক্তিগত তথ্য
+                    </h3>
+                  </div>
+
+                  {/* Grid: 1 col on mobile, 2 on desktop */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-x-6 md:gap-y-5">
                     <TextInput
-                      label="পূর্ণ নাম *"
+                      label="পূর্ণ নাম"
                       name="name"
                       placeholder="আপনার পূর্ণ নাম লিখুন"
                       icon={User}
-                      className="border-blue-200 focus:border-blue-500"
+                      className="bg-gray-50/50 border-gray-100 focus:bg-white focus:ring-4 focus:ring-purple-50 transition-all rounded-lg md:rounded-xl text-sm md:text-base"
+                      required
                     />
 
                     <TextInput
-                      label="মোবাইল নাম্বার *"
+                      label="মোবাইল নাম্বার"
                       name="phone"
                       placeholder="০১XXXXXXXXX"
                       icon={Phone}
-                      className="border-blue-200 focus:border-blue-500"
+                      className="bg-gray-50/50 border-gray-100 focus:bg-white focus:ring-4 focus:ring-purple-50 transition-all rounded-lg md:rounded-xl text-sm md:text-base"
+                      required
                     />
 
                     <TextInput
@@ -157,7 +173,8 @@ export default function SeminarPDFDownloadForm({
                       name="whatsapp"
                       placeholder="০১XXXXXXXXX"
                       icon={MessageSquare}
-                      className="border-blue-200 focus:border-blue-500"
+                      className="bg-gray-50/50 border-gray-100 focus:bg-white focus:ring-4 focus:ring-purple-50 transition-all rounded-lg md:rounded-xl text-sm md:text-base"
+                      required
                     />
 
                     <TextInput
@@ -166,19 +183,11 @@ export default function SeminarPDFDownloadForm({
                       placeholder="your@email.com"
                       type="email"
                       icon={Mail}
-                      className="border-blue-200 focus:border-blue-500"
-                    />
-
-                    <TextInput
-                      label="পেশা"
-                      name="occupation"
-                      placeholder="আপনার পেশা"
-                      icon={Briefcase}
-                      className="border-blue-200 focus:border-blue-500"
+                      className="bg-gray-50/50 border-gray-100 focus:bg-white focus:ring-4 focus:ring-purple-50 transition-all rounded-lg md:rounded-xl text-sm md:text-base"
                     />
                   </div>
 
-                  <div className="mt-4">
+                  <div className="mt-4 md:mt-5">
                     <TextArea
                       name="address"
                       label="ঠিকানা"
@@ -188,23 +197,32 @@ export default function SeminarPDFDownloadForm({
                   </div>
                 </div>
 
-                {/* Download Info Banner */}
-                <div className="bg-linear-to-r from-green-50 to-emerald-50 rounded-xl p-4 border border-green-100">
-                  <h4 className="font-bold text-green-800 mb-2 flex items-center gap-2">
-                    <Download className="w-5 h-5" />
-                    ডাউনলোড সুবিধা
-                  </h4>
-                  <p className="text-green-700 text-sm">
-                    ফরম সাবমিট করার পর আপনি PDF ফাইল ডাউনলোড করতে পারবেন
-                  </p>
+                {/* Info Banner: More compact on mobile */}
+                <div className="relative group overflow-hidden">
+                  <div className="absolute inset-0 bg-linear-to-r from-emerald-500/5 to-teal-500/5 rounded-xl md:rounded-2xl"></div>
+                  <div className="relative bg-white/40 border border-emerald-100 p-4 md:p-5 rounded-xl md:rounded-2xl flex items-start gap-3 md:gap-4">
+                    <div className="bg-emerald-500 text-white p-1.5 md:p-2 rounded-lg shadow-lg shadow-emerald-200 shrink-0">
+                      <Download className="w-4 h-4 md:w-5 md:h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-emerald-900 text-[13px] md:text-sm mb-0.5 md:mb-1 italic">
+                        ডাউনলোড সুবিধা
+                      </h4>
+                      <p className="text-emerald-700 text-[11px] md:text-xs leading-tight md:leading-relaxed">
+                        সাবমিট করার সাথে সাথেই আপনি{" "}
+                        <span className="font-black underline">PDF ফাইলটি</span>{" "}
+                        পেয়ে যাবেন।
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Submit Button */}
-                <div className="pt-4 border-t border-gray-100">
+                {/* Submit Button: Full Custom Styling */}
+                <div className="pt-2 md:pt-0">
                   <SubmitButton
                     title="PDF ডাউনলোড করুন"
                     loadingTitle="প্রক্রিয়া চলছে..."
-                    className="w-full py-4 bg-linear-to-r from-[#4f0187] to-[#6d0b99] hover:from-[#3d0169] hover:to-[#55087a] text-white font-bold rounded-xl text-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full py-4 md:py-5 bg-linear-to-r from-[#4f0187] to-[#870bb3] text-white font-black rounded-xl md:rounded-2xl text-base md:text-lg transition-all duration-300 flex items-center justify-center gap-2 md:gap-3 active:scale-[0.95]"
                     loaderIcon={Loader2}
                     buttonIcon={FaArrowCircleRight}
                     loading={isSubmitting}
@@ -214,10 +232,10 @@ export default function SeminarPDFDownloadForm({
             </AppForm>
           </div>
 
-          {/* Footer */}
-          <div className="border-t border-gray-100 p-4 text-center">
-            <p className="text-gray-500 text-sm">
-              ফরম পূরণে কোনো সমস্যা হলে যোগাযোগ করুন
+          {/* Footer: Compact padding for mobile */}
+          <div className="bg-gray-50/30 p-4 md:p-6 text-center border-t border-gray-50">
+            <p className="text-gray-400 text-[10px] md:text-xs font-medium flex items-center justify-center gap-2 italic uppercase tracking-[0.1em] md:tracking-widest">
+              Support: +8801310726000
             </p>
           </div>
         </div>
