@@ -85,7 +85,7 @@ const CourseOutline = () => {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-3 md:gap-8  md:w-[900px] mx-auto">
+        <div className="grid md:grid-cols-2 gap-3 md:gap-8  md:w-[1020px] mx-auto">
           {courseData.map((course, index) => (
             <div key={index} className="relative group h-full">
               {/* Card Background with hover glow */}

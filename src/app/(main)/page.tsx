@@ -18,7 +18,6 @@ export default async function HomePage() {
     currentUser(),
   ]);
 
-
   // console.log("Fetched seminar:", activeSeminar);
 
   return (
@@ -41,22 +40,20 @@ export default async function HomePage() {
       <HomePageContent />
 
       <Container>
-  <div
-    id="registration-form"
-    className="scroll-mt-[200px] md:scroll-mt-[160px]"
-  >
-    {seminar ? (
-      <>
-        <SectionTitle text="রেজিস্ট্রেশন করুন" />
-        <SeminarForm seminarId={seminar._id} />
-      </>
-    ) : (
-      <p className="text-center py-10">
-        Currently no seminar available
-      </p>
-    )}
-  </div>
-</Container>
+        <div
+          id="registration-form"
+          className="scroll-mt-[200px] md:scroll-mt-[160px]"
+        >
+          {seminar ? (
+            <>
+              <SectionTitle text="রেজিস্ট্রেশন করুন" />
+              <SeminarForm seminarId={seminar._id} />
+            </>
+          ) : (
+            <p className="text-center py-10">Currently no seminar available</p>
+          )}
+        </div>
+      </Container>
 
       <FAQSection />
     </>

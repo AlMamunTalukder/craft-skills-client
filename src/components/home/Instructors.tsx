@@ -42,7 +42,7 @@ const Instructors = () => {
   ];
 
   return (
-    <div className="bg-white py-7 md:py-28 overflow-hidden">
+    <div className="bg-white py-7 md:py-28 overflow-hidden"> 
       <Container>
         <div className="text-center mb-6 md:mb-0">
           <SectionTitle text="কোর্স প্রশিক্ষক" />
