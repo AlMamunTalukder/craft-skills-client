@@ -46,10 +46,10 @@ const opportunities = [
 
 export default function CareerOpportunities() {
   return (
-    <section className="relative py-20 md:py-32 bg-[#361664] overflow-hidden font-sans min-h-screen flex items-center">
+    <section className="relative py-16 md:py-32 bg-[#361664] overflow-hidden font-sans min-h-screen flex items-center">
         <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#4F0187] opacity-10 blur-[150px] rounded-full"></div>
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-900/20 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-0 left-0 w-125 h-125 bg-blue-900/20 blur-[120px] rounded-full"></div>
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-fuchsia-900/20 blur-[120px] rounded-full"></div>
 
         {/* Grid Pattern */}
@@ -58,18 +58,11 @@ export default function CareerOpportunities() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
           
           {/* --- LEFT COLUMN: Catchy Heading --- */}
-          <div className="lg:col-span-5 text-center lg:text-left space-y-8">
-            
-            {/* Small Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-500/30 bg-amber-500/10 backdrop-blur-md shadow-[0_0_20px_rgba(245,158,11,0.15)] mx-auto lg:mx-0">
-              <Briefcase size={16} className="text-amber-400" />
-              <span className="text-xs md:text-sm font-bold tracking-widest text-amber-300 uppercase">
-                Career Prospects
-              </span>
-            </div>
+          <div className="lg:col-span-5 text-center lg:text-left md:space-y-8">
+          
 
             {/* Main Typographic Art */}
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.2] md:leading-[1.1] tracking-tight">
@@ -91,37 +84,29 @@ export default function CareerOpportunities() {
               </span>
             </h2>
 
-            <p className="text-gray-400 text-base md:text-lg font-light leading-relaxed max-w-lg mx-auto lg:mx-0">
-              আমাদের এই বিশেষ কোর্সের মাধ্যমে আপনি নিজেকে এমনভাবে প্রস্তুত করতে পারবেন, যাতে দেশ ও দেশের বাইরের অসংখ্য সম্ভাবনাময় সেক্টরে অনায়াসে ক্যারিয়ার গড়তে পারেন।
-            </p>
-
-            {/* Decorative Element */}
-            <div className="hidden lg:flex items-center gap-4 mt-8 opacity-50">
-              <div className="h-px w-24 bg-gradient-to-r from-transparent to-purple-500"></div>
-              <Mic2 className="text-purple-500 w-6 h-6" />
-              <div className="h-px w-24 bg-gradient-to-l from-transparent to-purple-500"></div>
-            </div>
+           
+          
           </div>
 
           {/* --- RIGHT COLUMN: List of Opportunities Grid --- */}
           <div className="lg:col-span-7 relative">
             
             {/* Glassmorphism Container */}
-            <div className="relative bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-6 md:p-10 shadow-2xl overflow-hidden">
+            <div className="relative bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-[2.5rem] p-3 md:p-10 shadow-2xl overflow-hidden">
               
               {/* Inner Glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 blur-[80px] rounded-full pointer-events-none"></div>
+              {/* <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 blur-[80px] rounded-full pointer-events-none"></div> */}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 relative z-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 md:gap-4 relative z-10">
                 {opportunities.map((item, index) => {
                   const Icon = item.icon;
                   return (
                     <div 
                       key={index}
-                      className="group flex items-center gap-3 md:gap-4 p-3.5 md:p-4 rounded-2xl bg-[#0F0518]/50 border border-white/5 hover:bg-white/[0.05] hover:border-purple-500/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/10 cursor-default"
+                      className="group flex items-center gap-3 md:gap-4 p-1.5 md:p-4 rounded-lg md:rounded-2xl bg-[#0F0518]/50 border border-white/5 hover:bg-white/[0.05] hover:border-purple-500/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/10 cursor-default"
                     >
                       {/* Purple Bullet Icon Container */}
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-fuchsia-500/5 flex items-center justify-center shrink-0 border border-purple-500/30 group-hover:scale-110 transition-transform duration-300">
+                      <div className="w-6 md:w-10 h-6 md:h-10 rounded-md md:rounded-xl bg-gradient-to-br from-purple-500/20 to-fuchsia-500/5 flex items-center justify-center shrink-0 border border-purple-500/30 group-hover:scale-110 transition-transform duration-300">
                         <Icon className="w-5 h-5 text-purple-400 drop-shadow-[0_0_8px_rgba(192,132,252,0.6)]" strokeWidth={1.5} />
                       </div>
                       
