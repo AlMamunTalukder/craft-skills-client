@@ -50,7 +50,7 @@ export default function CouponSection({ selectedCourse, couponInput, setCouponIn
           disabled={couponState.loading || (!couponInput && !couponState.applied)}
         >
           {couponState.loading ? <Loader2 className="animate-spin" /> : couponState.applied ? <XCircle /> : <Tag />}
-          {couponState.applied ? "সরান" : "প্রয়োগ করুন"}
+          {couponState.applied ? "Remove" : "Apply"}
         </button>
       </div>
       
