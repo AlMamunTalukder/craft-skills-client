@@ -23,6 +23,7 @@ export const courseAdmissionSchema = z.object({
     .min(11, "অনুগ্রহ করে একটি সঠিক ১১-সংখ্যার মোবাইল নম্বর প্রদান করুন।")
   ,
 
+  
   email: z
     .string({
       required_error: "ইমেইল প্রদান করা আবশ্যক।",
