@@ -5,6 +5,7 @@
 import { Button } from "@/components/ui/button";
 import click from "@/public/img/touch.png";
 import Container from "@/src/components/shared/Container";
+import { pushEvent } from "@/src/utils/dataLayer";
 import {
   ArrowRight,
   CheckCircle,
@@ -17,7 +18,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaFacebookF, FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
 
-
 export const dynamic = "force-dynamic";
 
 export default function SeminarRegistrationSuccessPage() {
@@ -25,16 +25,26 @@ export default function SeminarRegistrationSuccessPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const alreadyTracked = sessionStorage.getItem("seminar_success_tracked");
+
+    if (!alreadyTracked) {
+      pushEvent("seminar_registration_success_page", {
+        page: "seminar_success",
+        seminar_id: seminar?._id,
+        seminar_title: seminar?.title,
+      });
+
+      sessionStorage.setItem("seminar_success_tracked", "true");
+    }
+
     const fetchData = async () => {
       try {
-        // Fetch active seminar
         const seminarResponse = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`,
         );
         const seminarResult = await seminarResponse.json();
 
         if (seminarResult.success) setSeminar(seminarResult.data);
-        
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -237,12 +247,10 @@ export default function SeminarRegistrationSuccessPage() {
                           </span>
                           <span className="text-gray-800 font-bold">
                             01700999093
-                          </span>                          
+                          </span>
                         </div>
                       </Link>
                     </Button>
-
-                   
                   </div>
                 </div>
 

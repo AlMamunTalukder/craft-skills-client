@@ -21,6 +21,7 @@ import AppForm from "./AppForm";
 import TextInput from "../FormInputs/TextInput";
 import TextArea from "../FormInputs/TextAreaInput";
 import { seminarRegistrationSchema } from "@/schemas/seminar-registration";
+import { pushEvent } from "@/src/utils/dataLayer";
 
 export type SeminarFormData = z.infer<typeof seminarRegistrationSchema>;
 
@@ -116,10 +117,19 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
         );
       }
 
+      // ✅ SUCCESS TOAST
       toast.success("Successfully registered for the seminar.", {
         id: toastId,
       });
 
+      // 🔥🔥🔥 GTM EVENT (REAL SUCCESS)
+      pushEvent("seminar_registration_success", {
+        seminar_id: activeSeminarId,
+        user_phone: data.phone,
+        user_name: data.name,
+      });
+
+      // ✅ REDIRECT
       router.push(
         `/seminar-registration/success?name=${encodeURIComponent(
           data.name,
@@ -210,7 +220,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
             </div>
 
             <h2 className="text-2xl md:text-3xl font-bold mb-2">
-              রেজিস্ট্রেশন করুন 
+              রেজিস্ট্রেশন করুন
             </h2>
             <p className="text-purple-100 text-sm md:text-base opacity-90 max-w-xs mx-auto md:mx-0">
               আপনার আসন নিশ্চিত করতে নিচের তথ্যগুলো পূরণ করুন।
