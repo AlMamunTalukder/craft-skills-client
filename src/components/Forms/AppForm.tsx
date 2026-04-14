@@ -38,13 +38,11 @@ const AppForm = ({
   const methods = useForm(formConfig);
 
   const submit: SubmitHandler<FieldValues> = async (data) => {
-    // console.log("📤 Form submission started in AppForm");
-    // console.log("Data:", data);
+  
     
     try {
       if (onSubmit) {
         await onSubmit(data);
-        // console.log("✅ Form submission successful in AppForm");
       }
     } catch (error: any) {
       // console.error("❌ Form submission error in AppForm:", error);
