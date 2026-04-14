@@ -7,6 +7,7 @@ import FAQSection from "@/src/components/home/FAQSection";
 import { getActiveBatch, getCourses, getSiteData } from "@/lib/api";
 import AdmissionForm from "@/src/components/Forms/Admission/AdmissionForm";
 import { currentUser } from "@/lib/currentUser";
+import { ScrollTrackerWrapper } from "@/src/components/ScrollTrackerWrapper";
 
 export const dynamic = "force-dynamic";
 
@@ -20,6 +21,17 @@ export default async function AdmissionPage() {
 
   return (
     <>
+
+     <ScrollTrackerWrapper 
+        sectionIds={[
+          'admission-info',
+          'course-details',
+          'price-summary',
+          'payment-info',
+          'faq-section'
+        ]}
+      />
+      
       <Suspense fallback={<div className="h-[85px] bg-[#4F0187]"></div>}>
         <SubHeaderWrapper />
       </Suspense>

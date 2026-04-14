@@ -12,7 +12,8 @@ interface FAQ {
 const faqsLeft: FAQ[] = [
   {
     question: "এটি কি লাইভ কোর্স নাকি রেকর্ডেড?",
-    answer: "এটি সম্পূর্ণ অনলাইন লাইভ কোর্স। \n নিয়মিত ক্লাস Google Meet এর মাধ্যমে অনুষ্ঠিত হবে।",
+    answer:
+      "এটি সম্পূর্ণ অনলাইন লাইভ কোর্স। \n নিয়মিত ক্লাস Google Meet এর মাধ্যমে অনুষ্ঠিত হবে।",
   },
   {
     question: "কোর্সটি করার জন্য আগে থেকে কি কি জানতে হবে?",
@@ -21,15 +22,18 @@ const faqsLeft: FAQ[] = [
   },
   {
     question: "কোর্সে ভর্তির জন্য কোন বয়সসীমা আছে?",
-    answer: "জি, ১০ বছরের উর্ধ্বে যে কেউ কোর্সে যুক্ত হতে পারবে। তবে দেখে দেখে স্পষ্ট বাংলা পড়তে জানতে হবে।",
+    answer:
+      "জি, ১০ বছরের উর্ধ্বে যে কেউ কোর্সে যুক্ত হতে পারবে। তবে দেখে দেখে স্পষ্ট বাংলা পড়তে জানতে হবে।",
   },
   {
     question: "কোর্স শেষে কি সাপোর্ট থাকবে?",
-    answer: "জি অবশ্যই, কোর্স শেষ করার পরেও আমাদের সাপোর্ট অব্যাহত থাকবে। উচ্চারণগত সমস্যা, স্টুডিও সেটাপ, কাজ পাওয়া, ভয়েস ওভার পোর্টফোলিও তৈরিসহ সব ধরনের সমস্যা সমাধানে আমাদের সাপোর্ট থাকবে।",
+    answer:
+      "জি অবশ্যই, কোর্স শেষ করার পরেও আমাদের সাপোর্ট অব্যাহত থাকবে। উচ্চারণগত সমস্যা, স্টুডিও সেটাপ, কাজ পাওয়া, ভয়েস ওভার পোর্টফোলিও তৈরিসহ সব ধরনের সমস্যা সমাধানে আমাদের সাপোর্ট থাকবে।",
   },
   {
     question: "মাত্র ৫০টি ক্লাস করেই কি শুদ্ধ ভাষায় কথা বলা সম্ভব?",
-    answer: "প্রবল ইচ্ছাশক্তি ও কঠোর চেষ্টা থাকলে কোন কিছুই অসম্ভব নয়। \nআমাদের ৫টি ক্যাটাগরিতে মোট ৫০টি ক্লাস, দৈনিক ভিডিও প্রেজেন্টেশন (৩০০০মিনিট) কমপ্লিট, এবং ট্রেইনারের দেখানো পদ্ধতি অনুসরণ করে নিয়মিত চর্চা করলে অবশ্যই ৫০টি ক্লাস করে শুদ্ধ ভাষায় কথা বলা সম্ভব। এবং আমরা তা নিশ্চিতভাবেই বলতে পারি।",
+    answer:
+      "প্রবল ইচ্ছাশক্তি ও কঠোর চেষ্টা থাকলে কোন কিছুই অসম্ভব নয়। \nআমাদের ৫টি ক্যাটাগরিতে মোট ৫০টি ক্লাস, দৈনিক ভিডিও প্রেজেন্টেশন (৩০০০মিনিট) কমপ্লিট, এবং ট্রেইনারের দেখানো পদ্ধতি অনুসরণ করে নিয়মিত চর্চা করলে অবশ্যই ৫০টি ক্লাস করে শুদ্ধ ভাষায় কথা বলা সম্ভব। এবং আমরা তা নিশ্চিতভাবেই বলতে পারি।",
   },
   {
     question: "কোর্সটি শেষ করে কি ইনকাম করতে পারবো?",
@@ -38,7 +42,8 @@ const faqsLeft: FAQ[] = [
   },
   {
     question: "শুধুমাত্র মোবাইল দিয়ে কি কোর্সটি করতে পারবো?",
-    answer: "হ্যাঁ শুধুমাত্র একটি স্মার্টফোন থাকলেই কোর্সটি করতে পারবেন। অন্য কোনো ডিভাইসের প্রয়োজন হবে না।",
+    answer:
+      "হ্যাঁ শুধুমাত্র একটি স্মার্টফোন থাকলেই কোর্সটি করতে পারবেন। অন্য কোনো ডিভাইসের প্রয়োজন হবে না।",
   },
   {
     question: "ক্লাস কিভাবে হবে? ক্লাসের লিংক কোথায় পাবো?",
@@ -51,7 +56,8 @@ const faqsLeft: FAQ[] = [
   },
   {
     question: "কোর্স চলাকালীন সময়ে কোথা থেকে সাপোর্ট নিব?",
-    answer: "সাপোর্ট নেয়ার জন্য আমাদের প্রাইভেট গ্রুপ আছে, যেখানে ২৪ ঘণ্টা গ্রুপ সাপোর্ট দেয়া হয়। এছাড়াও সমস্যা সমাধানের জন্য ট্রেইনারদের থেকে সরাসরি মেসেজ অথবা কল করার মাধ্যমে সাপোর্ট নিতে পারবেন।",
+    answer:
+      "সাপোর্ট নেয়ার জন্য আমাদের প্রাইভেট গ্রুপ আছে, যেখানে ২৪ ঘণ্টা গ্রুপ সাপোর্ট দেয়া হয়। এছাড়াও সমস্যা সমাধানের জন্য ট্রেইনারদের থেকে সরাসরি মেসেজ অথবা কল করার মাধ্যমে সাপোর্ট নিতে পারবেন।",
   },
 ];
 // const faqsLeft: FAQ[] = [
@@ -109,19 +115,23 @@ const faqsLeft: FAQ[] = [
 const faqsRight: FAQ[] = [
   {
     question: "নিয়মিত ক্লাস না করতে পারলে কি রেকর্ড দেওয়া হবে?",
-    answer: "দুঃখিত আমাদের ক্লাসের রেকর্ড দেয়া হয় না। তবে মেইন ক্লাসগুলো আমাদের এক্সট্রা প্রব্লেম সলভিং ও প্রাক্টিস ক্লাসের মাধ্যমে রিপিট করা হয়। অর্থাৎ আপনি একই ক্লাস তিনবার পাচ্ছেন। তাই ক্লাস ছুটে গেলেও কোনো ভয় নেই। সেই সাথে ২৪ ঘণ্টা গ্রুপ সাপোর্ট সহ সমস্যা সমাধান না হওয়া পর্যন্ত আমরা সর্বোচ্চ সাপোর্ট দিয়ে থাকি। আশা করি রেকর্ডের কোন প্রয়োজন হবে না। এছাড়াও রেকর্ড দেয়া হলে ক্লাসে উপস্থিতির সংখ্যা কমে যায়, সবাই রেকর্ড নির্ভর হয়ে পড়ে, ক্লাসে মনোযোগ থাকেনা, তাই আমরা রেকর্ড না দিয়ে শিক্ষার্থীদের সরাসরি শেখানোটাকে বেশি গুরুত্ব দিচ্ছি। যা এই কোর্সের অন্যতম একটি বৈশিষ্ট্য।\n \n শেখার পদ্ধতি হচ্ছে \n১. জানতে হয় । \n২. শোনানোর মাধ্যমে সমস্যা সমাধান করতে হয় । \n৩. সে অনুযায়ী প্রয়োগ করতে হয়। \nসাধারণত রেকর্ড ক্লাস থেকে অনেক কিছুই জানা হয় কিন্তু শোনানোর মাধ্যমে সমস্যা সমাধান করার সুযোগ থাকে না। তাই সমস্যা সমাধান না করে প্রয়োগ করার মাধ্যমে ত্রুটিটাকে নিজের মধ্যে বসিয়ে নিলে সেটা ঠিক করা আরও অনেক বেশি কঠিন হয়ে যায়।",
+    answer:
+      "দুঃখিত আমাদের ক্লাসের রেকর্ড দেয়া হয় না। তবে মেইন ক্লাসগুলো আমাদের এক্সট্রা প্রব্লেম সলভিং ও প্রাক্টিস ক্লাসের মাধ্যমে রিপিট করা হয়। অর্থাৎ আপনি একই ক্লাস তিনবার পাচ্ছেন। তাই ক্লাস ছুটে গেলেও কোনো ভয় নেই। সেই সাথে ২৪ ঘণ্টা গ্রুপ সাপোর্ট সহ সমস্যা সমাধান না হওয়া পর্যন্ত আমরা সর্বোচ্চ সাপোর্ট দিয়ে থাকি। আশা করি রেকর্ডের কোন প্রয়োজন হবে না। এছাড়াও রেকর্ড দেয়া হলে ক্লাসে উপস্থিতির সংখ্যা কমে যায়, সবাই রেকর্ড নির্ভর হয়ে পড়ে, ক্লাসে মনোযোগ থাকেনা, তাই আমরা রেকর্ড না দিয়ে শিক্ষার্থীদের সরাসরি শেখানোটাকে বেশি গুরুত্ব দিচ্ছি। যা এই কোর্সের অন্যতম একটি বৈশিষ্ট্য।\n \n শেখার পদ্ধতি হচ্ছে \n১. জানতে হয় । \n২. শোনানোর মাধ্যমে সমস্যা সমাধান করতে হয় । \n৩. সে অনুযায়ী প্রয়োগ করতে হয়। \nসাধারণত রেকর্ড ক্লাস থেকে অনেক কিছুই জানা হয় কিন্তু শোনানোর মাধ্যমে সমস্যা সমাধান করার সুযোগ থাকে না। তাই সমস্যা সমাধান না করে প্রয়োগ করার মাধ্যমে ত্রুটিটাকে নিজের মধ্যে বসিয়ে নিলে সেটা ঠিক করা আরও অনেক বেশি কঠিন হয়ে যায়।",
   },
   {
     question: "মেয়েদের জন্য কোর্সে কি আলাদা কোন ব্যবস্থা আছে?",
-    answer: "জি, মেয়েদের প্রেজেন্টেশন জমা দেয়ার জন্য আলাদা প্রাইভেট গ্রুপের ব্যবস্থা আছে। তারা চাইলে পর্দা মেইনটেইন করে ক্লাস ও প্রেজেন্টেশন জমা দিতে পারবে।",
+    answer:
+      "জি, মেয়েদের প্রেজেন্টেশন জমা দেয়ার জন্য আলাদা প্রাইভেট গ্রুপের ব্যবস্থা আছে। তারা চাইলে পর্দা মেইনটেইন করে ক্লাস ও প্রেজেন্টেশন জমা দিতে পারবে।",
   },
   {
     question: "কোর্সটি অফলাইনে করতে চাই, কিভাবে করবো?",
-    answer: "আপাতত অফলাইনে আমাদের কোনো কোর্স নেই। তাই আপনাকে অনলাইন কোর্সেই যুক্ত হতে হবে। তবে হ্যাঁ, পরবর্তীতে অফলাইন কোর্স চালু হলে তখন করতে পারবেন।",
+    answer:
+      "আপাতত অফলাইনে আমাদের কোনো কোর্স নেই। তাই আপনাকে অনলাইন কোর্সেই যুক্ত হতে হবে। তবে হ্যাঁ, পরবর্তীতে অফলাইন কোর্স চালু হলে তখন করতে পারবেন।",
   },
   {
     question: "দেশের বাহির থেকে কি কোর্সে যুক্ত হতে পারবো?",
-    answer: "জি, বাংলাদেশের বাহির থেকেও কোর্সে যুক্ত হতে পারবেন। ভারত, মিশর, সৌদি আরব, কাতার, আরব আমিরাত, USA থেকে যুক্ত হওয়া আমাদের অনেক শিক্ষার্থী রয়েছে। তবে বাংলাদেশ সময়ের সাথে মিল রেখেই আপনাকে সিদ্ধান্ত নিতে হবে।",
+    answer:
+      "জি, বাংলাদেশের বাহির থেকেও কোর্সে যুক্ত হতে পারবেন। ভারত, মিশর, সৌদি আরব, কাতার, আরব আমিরাত, USA থেকে যুক্ত হওয়া আমাদের অনেক শিক্ষার্থী রয়েছে। তবে বাংলাদেশ সময়ের সাথে মিল রেখেই আপনাকে সিদ্ধান্ত নিতে হবে।",
   },
   {
     question: "শুধুমাত্র ভয়েস আর্টিস্ট কোর্সে ভর্তি হওয়া যাবে?",
@@ -132,8 +142,7 @@ const faqsRight: FAQ[] = [
     question: "সোশ্যাল মিডিয়ায় আপনাদের সাথে কিভাবে যুক্ত হবো?",
     answer:
       "সোশ্যাল মিডিয়ায় আমাদের সাইটসমূহ। \n ওয়েবসাইট: https://craftinstitutebd.com/ \n ফেইজবুক পেইজ: https://www.facebook.com/craft99 \n      ফেইসবুক গ্রুপ: https://www.facebook.com/groups/craftinstitute/?ref=share \n ভয়েস ওভার সেলিং গ্রুপ: https://www.facebook.com/groups/craftsellingmarketbd \n  ইউটিউব চ্যানেল: https://youtube.com/@CraftInstitute99 \n টেলিগ্রাম চ্যানেল: https://t.me/craftinstitute2",
-  }
-
+  },
 ];
 
 const admissionFaq: FAQ[] = [
@@ -148,95 +157,109 @@ const admissionFaq: FAQ[] = [
   },
   {
     question: "কোর্সে যুক্ত হওয়ার পর ভর্তি বাতিলের কোন সুযোগ আছে?",
-    answer: "দুঃখিত, ভর্তি কনফার্ম করার পর বাতিলের কোনো সুযোগ নেই। তাই আপনাকে অনুরোধ করবো চিন্তা ভাবনা করে ভর্তি কনফার্ম করার জন্য।",
+    answer:
+      "দুঃখিত, ভর্তি কনফার্ম করার পর বাতিলের কোনো সুযোগ নেই। তাই আপনাকে অনুরোধ করবো চিন্তা ভাবনা করে ভর্তি কনফার্ম করার জন্য।",
   },
 ];
 
 const FAQSection = () => {
   return (
-    <section className="relative overflow-hidden bg-[#1A0033] py-12 md:py-24">
-      {/* Background Orbs */}
-      <div className="absolute top-0 -left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+    <>
+      <div id="faq-section">
+        <section className="relative overflow-hidden bg-[#1A0033] py-12 md:py-24">
+          {/* Background Orbs */}
+          <div className="absolute top-0 -left-20 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute bottom-0 -right-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <Container>
-        <div className="relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
-              সর্বাধিক জিজ্ঞাসিত{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">
-                প্রশ্নসমূহ
-              </span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            {/* Left Column */}
-            <div className="space-y-4">
-              <Accordion type="single" collapsible className="w-full space-y-4">
-                {faqsLeft.map((faq, index) => (
-                  <CustomAccordionItem
-                    key={index}
-                    value={`left-${index}`}
-                    title={faq.question}
-                    description={faq.answer}
-                    icon={
-                      <FaQuestionCircle className="text-purple-400 text-lg md:text-xl" />
-                    }
-                  />
-                ))}
-              </Accordion>
-            </div>
-
-            {/* Right Column */}
-            <div className="space-y-8">
-              <Accordion type="single" collapsible className="w-full space-y-4">
-                {faqsRight.map((faq, index) => (
-                  <CustomAccordionItem
-                    key={index}
-                    value={`right-${index}`}
-                    title={faq.question}
-                    description={faq.answer}
-                    icon={
-                      <FaQuestionCircle className="text-cyan-400 text-lg md:text-xl" />
-                    }
-                  />
-                ))}
-              </Accordion>
-
-              {/* Admission Special Section */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 px-2 mb-4">
-                  <div className="h-px flex-grow bg-gradient-to-r from-transparent to-white/20" />
-                  <span className="text-white font-black text-lg flex items-center gap-2 text-nowrap">
-                    <FaUserCheck className="text-emerald-400" /> ভর্তি সংক্রান্ত
+          <Container>
+            <div className="relative z-10">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+                  সর্বাধিক জিজ্ঞাসিত{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">
+                    প্রশ্নসমূহ
                   </span>
-                  <div className="h-px flex-grow bg-gradient-to-l from-transparent to-white/20" />
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                {/* Left Column */}
+                <div className="space-y-4">
+                  <Accordion
+                    type="single"
+                    collapsible
+                    className="w-full space-y-4"
+                  >
+                    {faqsLeft.map((faq, index) => (
+                      <CustomAccordionItem
+                        key={index}
+                        value={`left-${index}`}
+                        title={faq.question}
+                        description={faq.answer}
+                        icon={
+                          <FaQuestionCircle className="text-purple-400 text-lg md:text-xl" />
+                        }
+                      />
+                    ))}
+                  </Accordion>
                 </div>
 
-                <Accordion
-                  type="single"
-                  collapsible
-                  className="w-full space-y-4"
-                >
-                  {admissionFaq.map((faq, index) => (
-                    <CustomAccordionItem
-                      key={index}
-                      value={`admission-${index}`}
-                      title={faq.question}
-                      description={faq.answer}
-                      icon={
-                        <FaUserCheck className="text-emerald-400 text-lg md:text-xl" />
-                      }
-                    />
-                  ))}
-                </Accordion>
+                {/* Right Column */}
+                <div className="space-y-8">
+                  <Accordion
+                    type="single"
+                    collapsible
+                    className="w-full space-y-4"
+                  >
+                    {faqsRight.map((faq, index) => (
+                      <CustomAccordionItem
+                        key={index}
+                        value={`right-${index}`}
+                        title={faq.question}
+                        description={faq.answer}
+                        icon={
+                          <FaQuestionCircle className="text-cyan-400 text-lg md:text-xl" />
+                        }
+                      />
+                    ))}
+                  </Accordion>
+
+                  {/* Admission Special Section */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 px-2 mb-4">
+                      <div className="h-px flex-grow bg-gradient-to-r from-transparent to-white/20" />
+                      <span className="text-white font-black text-lg flex items-center gap-2 text-nowrap">
+                        <FaUserCheck className="text-emerald-400" /> ভর্তি
+                        সংক্রান্ত
+                      </span>
+                      <div className="h-px flex-grow bg-gradient-to-l from-transparent to-white/20" />
+                    </div>
+
+                    <Accordion
+                      type="single"
+                      collapsible
+                      className="w-full space-y-4"
+                    >
+                      {admissionFaq.map((faq, index) => (
+                        <CustomAccordionItem
+                          key={index}
+                          value={`admission-${index}`}
+                          title={faq.question}
+                          description={faq.answer}
+                          icon={
+                            <FaUserCheck className="text-emerald-400 text-lg md:text-xl" />
+                          }
+                        />
+                      ))}
+                    </Accordion>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </Container>
-    </section>
+          </Container>
+        </section>
+      </div>
+    </>
   );
 };
 

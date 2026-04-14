@@ -20,7 +20,52 @@ const HomePageContent = async () => {
 
   return (
     <>
-      <WhyCourse />
+      <div id="why-course-section">
+        <WhyCourse />
+      </div>
+      <div id="course-outline-section">
+        <CourseOutline />
+      </div>
+      <div id="course-features-section">
+        <CourseFeatures />
+      </div>
+      <div id="course-story-section">
+        <CourseStory />
+      </div>
+      <div id="before-after-section">
+        <BeforeAfter />
+      </div>
+      <div id="career-section">
+        <CareerOpportunities />
+      </div>
+      <div id="comparison-section">
+        <ComparisonTable />
+      </div>
+      <div id="instructors-section">
+        <Instructors />
+      </div>
+      <div id="trainer-section">
+        <TrainerSection />
+      </div>
+      <div id="total-class-section">
+        <TotalClass />
+      </div>
+      <div id="routine-section">
+        <ClassRoutine scheduleData={classSchedule} />
+      </div>
+      <div id="reviews-section">
+        <CourseReviews />
+      </div>
+      <div id="testimonials-section">
+        <Testimonials />
+      </div>
+      <div id="stats-section">
+        <CourseStats />
+      </div>
+      <div id="activities-section">
+        <OurActivities />
+      </div>
+      {/* <WhyCourse />
       <CourseOutline />
       <CourseFeatures />
       <CourseStory />
@@ -34,7 +79,7 @@ const HomePageContent = async () => {
       <CourseReviews />
       <Testimonials />
       <CourseStats />
-      <OurActivities />
+      <OurActivities /> */}
     </>
   );
 };

@@ -15,7 +15,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Batch, SiteContent } from "@/types";
 import Container from "./Container";
-import { Button } from "@/components/ui/button";
+import { pushEvent } from "@/src/utils/dataLayer";
 
 const CountdownTimer = dynamic(
   () => import("@/src/components/home/CountdownTimer"),
@@ -32,21 +32,34 @@ export default function SubHeaderAdmission({ siteData, batch }: Props) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = () => {
-    const isMobile = window.innerWidth < 768;
-
-    const scrollToForm = () => {
-      const el = document.getElementById("admission");
-      if (el) {
-        el.scrollIntoView({
-          behavior: isMobile ? "auto" : "smooth",
-          block: "start",
-        });
-      }
-    };
-
-    scrollToForm();
-    setTimeout(scrollToForm, 300);
+  // Track admission button click
+  pushEvent('begin_checkout', {
+    ecommerce: {
+      currency: 'BDT',
+      value: 0,
+      items: [{
+        item_id: batch?.id || 'course_admission',
+        item_name: batch?.name || 'Course Admission',
+        item_category: 'admission',
+        price: 0,
+        quantity: 1,
+      }],
+    },
+  });
+  
+  const isMobile = window.innerWidth < 768;
+  const scrollToForm = () => {
+    const el = document.getElementById("admission");
+    if (el) {
+      el.scrollIntoView({
+        behavior: isMobile ? "auto" : "smooth",
+        block: "start",
+      });
+    }
   };
+  scrollToForm();
+  setTimeout(scrollToForm, 300);
+};
 
   useEffect(() => {
     const handleResize = () => {

@@ -123,11 +123,22 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
       });
 
       // 🔥🔥🔥 GTM EVENT (REAL SUCCESS)
-      pushEvent("seminar_registration_success", {
-        seminar_id: activeSeminarId,
-        user_phone: data.phone,
-        user_name: data.name,
-      });
+      // pushEvent("purchase", {
+      //   ecommerce: {
+      //     transaction_id: `SEM_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      //     value: 0,
+      //     currency: "BDT",
+      //     items: [
+      //       {
+      //         item_id: activeSeminarId,
+      //         item_name: "Free Seminar Registration",
+      //         item_category: "seminar",
+      //         price: 0,
+      //         quantity: 1,
+      //       },
+      //     ],
+      //   },
+      // });
 
       // ✅ REDIRECT
       router.push(

@@ -13,6 +13,7 @@ import {
 import Container from "./Container";
 import "./subheader.css";
 import { Seminar, SiteContent } from "@/types";
+import { pushEvent } from "@/src/utils/dataLayer";
 
 const CountdownTimer = dynamic(() => import("../home/CountdownTimer"), {
   ssr: false,
@@ -40,7 +41,6 @@ export default function SubHeader({ siteData, seminar }: Props) {
     return date ? date.toISOString() : undefined;
   };
 
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -59,14 +59,27 @@ export default function SubHeader({ siteData, seminar }: Props) {
     return now < correctedDeadline;
   };
 
-
   const handleScroll = () => {
-    const el = document.getElementById("registration-form");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-
+  // Track seminar registration button click
+  pushEvent('add_to_cart', {
+    ecommerce: {
+      currency: 'BDT',
+      value: 0,
+      items: [{
+        item_id: seminar?._id || 'free_seminar',
+        item_name: seminar?.title || 'Free Seminar',
+        item_category: 'seminar',
+        price: 0,
+        quantity: 1,
+      }],
+    },
+  });
+  
+  const el = document.getElementById("registration-form");
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
   // Stop rendering if not active
   if (!isSeminarActive()) return null;
 
