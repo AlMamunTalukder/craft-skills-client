@@ -8,6 +8,7 @@ import { FaFacebookF, FaWhatsapp, FaFacebookMessenger } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import { Batch } from "@/types";
+import { pushEvent } from "@/src/utils/dataLayer";
 
 export default function AdmissionSuccessPage() {
   const searchParams = useSearchParams();
@@ -16,6 +17,7 @@ export default function AdmissionSuccessPage() {
 
   const participantName = searchParams.get("name");
 
+  // ✅ FETCH DATA (UNCHANGED LOGIC)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,6 +35,22 @@ export default function AdmissionSuccessPage() {
 
     fetchData();
   }, []);
+
+  // ✅ GTM TRACKING (ONLY ONCE)
+  useEffect(() => {
+    if (!batch) return;
+
+    const alreadyTracked = sessionStorage.getItem("admission_success_tracked");
+
+    if (!alreadyTracked) {
+      pushEvent("admission_success_page_view", {
+        batch_id: batch.id,
+        batch_name: batch.name,
+      });
+
+      sessionStorage.setItem("admission_success_tracked", "true");
+    }
+  }, [batch]);
 
   const socialLinks = [
     {
@@ -126,7 +144,6 @@ export default function AdmissionSuccessPage() {
 
               {/* Contact Info */}
               <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm relative overflow-hidden">
-               
                 <div className="absolute top-0 right-0 w-24 h-24 bg-purple-50 rounded-full -mr-12 -mt-12 opacity-50"></div>
 
                 <h4 className="font-bold text-gray-800 mb-5 text-lg flex items-center justify-center gap-2">

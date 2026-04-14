@@ -19,6 +19,7 @@ import { Batch, Course } from "@/types";
 import { validateCoupon } from "@/src/app/api/coupons/couponapply";
 import { admissionFormData, courseAdmissionSchema } from "@/schemas/admission";
 import AppForm from "../AppForm";
+import { pushEvent } from "@/src/utils/dataLayer";
 
 interface AdmissionFormProps {
   batch: Batch;
@@ -157,9 +158,23 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
       if (!result.success) throw new Error(result.message);
 
       toast.success("Success!", { id: toastId });
+
+      // ✅ TRACK EVENT
+      pushEvent("admission_registration_success", {
+        batch_id: batch.id,
+        course_id: selectedCourse?.id,
+        course_name: selectedCourse?.name,
+        amount: priceDetails?.finalTotal,
+        coupon_used: couponState.applied,
+      });
+
       router.push(
         `/admission-registration/success?name=${data.name}&amount=${priceDetails?.finalTotal}`,
       );
+      // toast.success("Success!", { id: toastId });
+      // router.push(
+      //   `/admission-registration/success?name=${data.name}&amount=${priceDetails?.finalTotal}`,
+      // );
     } catch (error: any) {
       toast.error(error.message || "Failed", { id: toastId });
     }

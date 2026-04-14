@@ -7,6 +7,7 @@ import "./globals.css";
 
 // ✅ NEW (Best practice)
 import { GoogleTagManager } from "@next/third-parties/google";
+import Script from "next/script";
 
 const siliguri = Hind_Siliguri({
   weight: "400",
@@ -55,8 +56,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* 🔥 dataLayer INIT (BEFORE GTM) */}
+        <Script id="gtm-init" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+          `}
+        </Script>
+      </head>
+
       <body className={siliguri.className}>
-        {/* ✅ BEST PRACTICE GTM */}
+        {/* ✅ GTM */}
         <GoogleTagManager gtmId={GTM_ID} />
 
         <ThemeProvider>
