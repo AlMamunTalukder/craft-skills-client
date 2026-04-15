@@ -9,7 +9,7 @@ import SubHeader from "@/src/components/shared/SubHeader";
 import { activeSeminar, getSiteData } from "@/lib/api";
 import { currentUser } from "@/lib/currentUser";
 import SectionTitle from "@/src/components/shared/SectionTitle";
-import { ScrollTrackerWrapper } from "@/src/components/ScrollTrackerWrapper";
+// import { ScrollTrackerWrapper } from "@/src/components/ScrollTrackerWrapper";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +22,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <ScrollTrackerWrapper 
+      {/* <ScrollTrackerWrapper 
         sectionIds={[
           'why-course-section',
           'course-outline-section',
@@ -41,7 +41,7 @@ export default async function HomePage() {
           'activities-section',
           'faq-section'
         ]}
-      />
+      /> */}
       
       <SubHeader
         siteData={{

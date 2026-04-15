@@ -6,7 +6,7 @@ import { ThemeProvider } from "../components/theme-provider";
 import "./globals.css";
 
 import Script from "next/script";
-import { SessionTracker } from "../components/SessionTracker";
+// import { SessionTracker } from "../components/SessionTracker";
 
 const siliguri = Hind_Siliguri({
   weight: "400",
@@ -82,7 +82,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <ThemeProvider>
           <QueryProvider>
             <Toaster position="top-center" reverseOrder={false} />
-            <SessionTracker />
+            {/* <SessionTracker /> */}
             {children}
           </QueryProvider>
         </ThemeProvider>

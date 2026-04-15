@@ -1,9 +1,9 @@
-// src/components/SessionTracker.tsx
-"use client";
+// // src/components/SessionTracker.tsx
+// "use client";
 
-import { useSessionTracking } from "@/src/hooks/useSessionTracking";
+// import { useSessionTracking } from "@/src/hooks/useSessionTracking";
 
-export function SessionTracker() {
-  useSessionTracking();
-  return null;
-} 
+// export function SessionTracker() {
+//   useSessionTracking();
+//   return null;
+// } 

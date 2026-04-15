@@ -1,12 +1,12 @@
-"use client";
+// "use client";
 
-import { useScrollTracking } from "@/src/hooks/useScrollTracking";
+// import { useScrollTracking } from "@/src/hooks/useScrollTracking";
 
-interface ScrollTrackerWrapperProps {
-  sectionIds: string[];
-}
+// interface ScrollTrackerWrapperProps {
+//   sectionIds: string[];
+// }
 
-export function ScrollTrackerWrapper({ sectionIds }: ScrollTrackerWrapperProps) {
-  useScrollTracking(sectionIds);
-  return null;
-}
+// export function ScrollTrackerWrapper({ sectionIds }: ScrollTrackerWrapperProps) {
+//   useScrollTracking(sectionIds);
+//   return null;
+// }
