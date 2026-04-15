@@ -159,27 +159,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
       toast.success("Success!", { id: toastId });
 
-      // ✅ TRACK EVENT
-      // pushEvent("purchase", {
-      //   ecommerce: {
-      //     transaction_id: `ADM_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      //     value: priceDetails?.finalTotal || 0,
-      //     currency: "BDT",
-      //     tax: 0,
-      //     shipping: 0,
-      //     items: [
-      //       {
-      //         item_id: selectedCourse?.id || batch.id,
-      //         item_name: selectedCourse?.name || batch.name,
-      //         item_category: "admission",
-      //         price: priceDetails?.finalTotal || 0,
-      //         quantity: 1,
-      //         item_brand: "Craft Skills",
-      //         item_variant: batch?.name || "",
-      //       },
-      //     ],
-      //   },
-      // });
+     
 
       router.push(
         `/admission-registration/success?name=${data.name}&amount=${priceDetails?.finalTotal}`,

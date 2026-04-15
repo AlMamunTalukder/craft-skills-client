@@ -17,12 +17,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaFacebookF, FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
 export default function SeminarRegistrationSuccessPage() {
+  const searchParams = useSearchParams();
   const [seminar, setSeminar] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+
+  const participantName = searchParams.get("name");
+  const phone = searchParams.get("phone");
+  const email = searchParams.get("email");
+  const whatsapp = searchParams.get("whatsapp");
+  const occupation = searchParams.get("occupation");
+  const address = searchParams.get("address");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +59,7 @@ export default function SeminarRegistrationSuccessPage() {
     const alreadyTracked = sessionStorage.getItem(`purchase_seminar_${seminar._id}`);
     
     if (!alreadyTracked) {
-      // GA4 Purchase Event for Free Seminar
+      // GA4 Purchase Event for Free Seminar with User Information
       pushEvent('purchase', {
         ecommerce: {
           transaction_id: `SEM_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -66,18 +75,33 @@ export default function SeminarRegistrationSuccessPage() {
             item_brand: 'Craft Skills',
           }],
         },
+        // User Information for GA4
+        user_id: phone || email,
+        user_name: participantName,
+        user_phone: phone,
+        user_email: email,
+        user_whatsapp: whatsapp,
+        user_occupation: occupation,
+        user_address: address,
       });
       
-      // Also track as custom event for backup
+      // Also track as custom event for backup with user data
       pushEvent("seminar_registration_success", {
         seminar_id: seminar._id,
         seminar_title: seminar.title,
         transaction_id: `SEM_${Date.now()}`,
+        // User information
+        user_name: participantName,
+        user_phone: phone,
+        user_email: email,
+        user_whatsapp: whatsapp,
+        user_occupation: occupation,
+        user_address: address,
       });
 
       sessionStorage.setItem(`purchase_seminar_${seminar._id}`, "true");
     }
-  }, [seminar, loading]);
+  }, [seminar, loading, participantName, phone, email, whatsapp, occupation, address]);
 
   const mailSMSLinks = [
     {
@@ -150,14 +174,32 @@ export default function SeminarRegistrationSuccessPage() {
                 <h1 className="text-3xl font-bold text-white mb-2">
                   রেজিস্ট্রেশন সম্পন্ন!
                 </h1>
-                <p className="text-xl font-medium text-purple-200 mb-1">
-                  ধন্যবাদ, আপনার সেমিনার রেজিস্ট্রেশন সফলভাবে সম্পন্ন হয়েছে
+                {participantName && (
+                  <p className="text-xl font-medium text-purple-200 mb-1">
+                    ধন্যবাদ, {decodeURIComponent(participantName)}
+                  </p>
+                )}
+                <p className="text-purple-100">
+                  আপনার সেমিনার রেজিস্ট্রেশন সফলভাবে সম্পন্ন হয়েছে
                 </p>
               </div>
             </div>
 
             {/* Content */}
             <div className="p-6 md:p-8 space-y-6">
+              {/* User Info Summary - Optional */}
+              {(phone || email) && (
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                  <h4 className="font-semibold text-gray-700 mb-2 text-sm">আপনার তথ্য:</h4>
+                  {participantName && <p className="text-sm text-gray-600">নাম: {decodeURIComponent(participantName)}</p>}
+                  {phone && <p className="text-sm text-gray-600">মোবাইল: {phone}</p>}
+                  {whatsapp && <p className="text-sm text-gray-600">হোয়াটসঅ্যাপ: {whatsapp}</p>}
+                  {email && <p className="text-sm text-gray-600">ইমেইল: {email}</p>}
+                  {occupation && <p className="text-sm text-gray-600">পেশা: {decodeURIComponent(occupation)}</p>}
+                  {address && <p className="text-sm text-gray-600">ঠিকানা: {decodeURIComponent(address)}</p>}
+                </div>
+              )}
+
               <div className="bg-white border border-gray-200 rounded-lg p-2 md:p-3">
                 <p className="text-sm md:text-lg font-semibold text-[#3C016F] text-center my-3">
                   ৫ টি মাধ্যমে আপনাকে ফ্রি সেমিনার লিংক পাঠানো হবে।
