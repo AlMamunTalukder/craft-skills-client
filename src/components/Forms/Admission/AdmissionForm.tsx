@@ -19,7 +19,6 @@ import { Batch, Course } from "@/types";
 import { validateCoupon } from "@/src/app/api/coupons/couponapply";
 import { admissionFormData, courseAdmissionSchema } from "@/schemas/admission";
 import AppForm from "../AppForm";
-import { pushEvent } from "@/src/utils/dataLayer";
 
 interface AdmissionFormProps {
   batch: Batch;
@@ -159,10 +158,8 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
       toast.success("Success!", { id: toastId });
 
-     
-
       router.push(
-        `/admission-registration/success?name=${data.name}&amount=${priceDetails?.finalTotal}`,
+        `/admission-registration/success?name=${encodeURIComponent(data.name)}&amount=${priceDetails?.finalTotal}&courseId=${selectedCourse?.id}&phone=${encodeURIComponent(data.phone)}&email=${encodeURIComponent(data.email)}`,
       );
       // toast.success("Success!", { id: toastId });
       // router.push(
