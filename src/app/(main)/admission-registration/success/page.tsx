@@ -21,7 +21,7 @@ export default function AdmissionSuccessPage() {
   const courseId = searchParams.get("courseId");
   const phone = searchParams.get("phone");
   const email = searchParams.get("email");
-  const address = searchParams.get("address");
+  // ❌ NO address field in admission form
 
   // ✅ FETCH DATA
   useEffect(() => {
@@ -77,14 +77,13 @@ export default function AdmissionSuccessPage() {
           }],
         },
         // User Information for GA4
-        user_id: phone || email, // Use phone or email as user identifier
+        user_id: phone || email,
         user_phone: phone,
         user_email: email,
         user_name: participantName,
-        user_address: address,
       });
       
-      // Also track as custom event for backup with all user data
+      // Also track as custom event for backup
       pushEvent("admission_registration_success", {
         batch_id: batch.id,
         batch_name: batch.name,
@@ -92,16 +91,14 @@ export default function AdmissionSuccessPage() {
         course_name: course?.name,
         amount: parseFloat(amount),
         transaction_id: `ADM_${Date.now()}`,
-        // User information
         user_name: participantName,
         user_phone: phone,
         user_email: email,
-        user_address: address,
       });
 
       sessionStorage.setItem(`purchase_admission_${batch.id}`, "true");
     }
-  }, [batch, loading, amount, course, participantName, phone, email, address]);
+  }, [batch, loading, amount, course, participantName, phone, email]);
 
   const socialLinks = [
     {
@@ -130,9 +127,7 @@ export default function AdmissionSuccessPage() {
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white py-8 px-4">
       <div className="max-w-xl mx-auto">
-        {/* Success Card */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-          {/* Header */}
           <div className="relative bg-linear-to-r from-[#3C016F] to-purple-800">
             <div className="absolute inset-0 bg-[url('/api/placeholder/800/300')] opacity-10 bg-cover bg-center"></div>
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-purple-300 rounded-full opacity-20"></div>
@@ -156,15 +151,14 @@ export default function AdmissionSuccessPage() {
             </div>
           </div>
 
-          {/* Content */}
           <div className="p-6 md:p-8 space-y-6">
-            {/* User Info Summary - Optional */}
+            {/* User Info Summary */}
             {(phone || email) && (
               <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                 <h4 className="font-semibold text-gray-700 mb-2 text-sm">আপনার তথ্য:</h4>
+                {participantName && <p className="text-sm text-gray-600">নাম: {decodeURIComponent(participantName)}</p>}
                 {phone && <p className="text-sm text-gray-600">মোবাইল: {phone}</p>}
                 {email && <p className="text-sm text-gray-600">ইমেইল: {email}</p>}
-                {address && <p className="text-sm text-gray-600">ঠিকানা: {decodeURIComponent(address)}</p>}
               </div>
             )}
 
@@ -247,9 +241,6 @@ export default function AdmissionSuccessPage() {
                       <span className="text-gray-800 font-bold">
                         01700999093
                       </span>
-                      <span className="text-[10px] md:text-xs text-green-700 mt-1 leading-tight">
-                        স্ক্রিনশট সহ আমাদের ম্যাসেজ করুন
-                      </span>
                     </div>
                   </Link>
                 </Button>
@@ -265,7 +256,6 @@ export default function AdmissionSuccessPage() {
             </Link>
           </div>
 
-          {/* Footer */}
           <div className="border-t border-gray-100 p-4 flex justify-between items-center text-sm">
             <p className="text-gray-500">ধন্যবাদ</p>
             <div className="flex space-x-3">

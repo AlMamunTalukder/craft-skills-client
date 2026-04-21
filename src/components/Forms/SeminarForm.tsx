@@ -122,13 +122,9 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
         id: toastId,
       });
 
-    
-
       // ✅ REDIRECT
       router.push(
-        `/seminar-registration/success?name=${encodeURIComponent(
-          data.name,
-        )}&seminarId=${encodeURIComponent(activeSeminarId)}`,
+        `/seminar-registration/success?name=${encodeURIComponent(data.name)}&seminarId=${encodeURIComponent(activeSeminarId)}&phone=${encodeURIComponent(data.phone)}&email=${encodeURIComponent(data.email || "")}&whatsapp=${encodeURIComponent(data.whatsapp || "")}&occupation=${encodeURIComponent(data.occupation || "")}&address=${encodeURIComponent(data.address || "")}`,
       );
     } catch (err: any) {
       console.error("Registration error:", err);
