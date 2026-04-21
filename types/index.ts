@@ -87,6 +87,22 @@ export interface Seminar {
   description?: string;
 }
 
+// types/index.ts - Update the Seminar interface
+export interface Seminar {
+  _id: string;
+  title: string;
+  isActive: boolean;
+  registrationDeadline?: Date;
+  description?: string;
+  // ✅ Add these missing properties
+  // facebookSecretGroup?: string;
+  // whatsappSecretGroup?: string;
+  // messengerSecretGroup?: string;
+  telegramGroup?: string;
+  facebookPublicGroup?: string;
+  whatsappPublicGroup?: string;
+}
+
 export interface ScheduleGroup {
   _id: string;
   weekNumber: number;

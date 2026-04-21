@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { sanitizePhoneNumber } from "@/src/utils/phone-sanitizer";
-import { ScheduleGroup, Seminar, SiteContent } from "@/types";
+import { Course, ScheduleGroup, Seminar, SiteContent } from "@/types";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
@@ -55,6 +55,35 @@ export async function getActiveBatch() {
   }
 }
 
+
+// ✅ ADD THIS - Get batch by ID for success page
+export async function getBatchById(batchId: string) {
+  try {
+    const response = await fetch(`${API_URL}/course-batches/${batchId}`);
+
+    const result = await response.json();
+
+    if (result.success && result.data) {
+      return {
+        id: result.data._id,
+        name: result.data.name,
+        description: result.data.description || "",
+        registrationEnd: result.data.registrationEnd,
+        isActive: result.data.isActive,
+        code: result.data.code,
+        registrationStart: result.data.registrationStart,
+        facebookSecretGroup: result.data.facebookSecretGroup,
+        messengerSecretGroup: result.data.messengerSecretGroup,
+        whatsappSecretGroup: result.data.whatsappSecretGroup,
+      };
+    }
+
+    return null;
+  } catch (error) {
+    return null;
+  }
+}
+
 export async function getCourses() {
   try {
     const response = await fetch(`${API_URL}/courses`);
@@ -79,6 +108,31 @@ export async function getCourses() {
   }
 }
 
+// ✅ ADD THIS - Get single course by ID for success page
+export async function getCourseById(courseId: string): Promise<Course | null> {
+  try {
+    const response = await fetch(`${API_URL}/courses/${courseId}`);
+
+    const result = await response.json();
+
+    if (result.success && result.data) {
+      return {
+        id: result.data._id,
+        name: result.data.name,
+        price: result.data.price,
+        discount: result.data.discount || 0,
+        paymentCharge: result.data.paymentCharge || 0,
+        description: result.data.description || "",
+      };
+    }
+
+    return null;
+  } catch (error) {
+    console.error("Error fetching course:", error);
+    return null;
+  }
+}
+
 export async function activeSeminar(): Promise<Seminar | null> {
   try {
     const response = await fetch(`${API_URL}/seminars/active`);
@@ -91,6 +145,21 @@ export async function activeSeminar(): Promise<Seminar | null> {
     return null;
   }
 }
+
+// ✅ ADD THIS - Get seminar by ID for success page
+export async function getSeminarById(seminarId: string): Promise<Seminar | null> {
+  try {
+    const response = await fetch(`${API_URL}/seminars/${seminarId}`);
+
+    if (!response.ok) return null;
+
+    const result = await response.json();
+    return result.success ? result.data : null;
+  } catch {
+    return null;
+  }
+}
+
 
 export async function getClassSchedule(): Promise<ScheduleGroup[] | null> {
   try {

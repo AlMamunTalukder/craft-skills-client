@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// src/app/seminar-registration/success/page.tsx
-"use client";
-
+// app/seminar-registration/success/page.tsx
+import { Suspense } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import click from "@/public/img/touch.png";
 import Container from "@/src/components/shared/Container";
-import { pushEvent } from "@/src/utils/dataLayer";
 import {
   ArrowRight,
   CheckCircle,
@@ -13,89 +11,54 @@ import {
   PhoneCall,
   Smartphone,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import { FaFacebookF, FaTelegramPlane, FaWhatsapp } from "react-icons/fa";
-import { useSearchParams } from "next/navigation";
+import click from "@/public/img/touch.png";
 
-export const dynamic = "force-dynamic";
+import { getSeminarById, getActiveSeminar } from "@/lib/api";
+import SeminarSuccessTracker from "./SeminarSuccessTracker";
 
-export default function SeminarRegistrationSuccessPage() {
-  const searchParams = useSearchParams();
-  const [seminar, setSeminar] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+interface PageProps {
+  searchParams: Promise<{
+    name?: string;
+    seminarId?: string;
+    phone?: string;
+    email?: string;
+    whatsapp?: string;
+    occupation?: string;
+    address?: string;
+  }>;
+}
 
-  const participantName = searchParams.get("name");
-  const phone = searchParams.get("phone");
-  const email = searchParams.get("email");
-  const whatsapp = searchParams.get("whatsapp");
-  const occupation = searchParams.get("occupation");
-  const address = searchParams.get("address");
+export default async function SeminarRegistrationSuccessPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const { 
+    name, 
+    seminarId, 
+    phone, 
+    email, 
+    whatsapp, 
+    occupation, 
+    address 
+  } = params;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const seminarResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL || ""}/seminars/active`,
-        );
-        const seminarResult = await seminarResponse.json();
+  // ✅ Try to get seminar by ID first, if not found, get active seminar
+  let seminar = seminarId ? await getSeminarById(seminarId) : null;
+  
+  if (!seminar) {
+    // Fallback to active seminar
+    seminar = await getActiveSeminar();
+    // console.log("✅ Using active seminar as fallback:", seminar);
+  }
 
-        if (seminarResult.success) setSeminar(seminarResult.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // 🔥 FIRE COMPLETE REGISTRATION EVENT FOR SEMINAR (ONLY ONCE)
-  useEffect(() => {
-    if (!seminar || loading) return;
-
-    const alreadyTracked = sessionStorage.getItem(`registration_seminar_${seminar._id}`);
-    
-    if (!alreadyTracked) {
-      // GA4 Complete Registration Event for Free Seminar
-      pushEvent('complete_registration', {
-        event_category: 'seminar',
-        event_label: seminar.title || 'Free Seminar',
-        // Registration details
-        registration_id: `SEM_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-        seminar_id: seminar._id,
-        seminar_title: seminar.title,
-        registration_type: 'free',
-        // User Information
-        user_id: phone || email,
-        user_name: participantName,
-        user_phone: phone,
-        user_email: email,
-        user_whatsapp: whatsapp,
-        user_occupation: occupation,
-        user_address: address,
-        // Timestamp
-        registration_timestamp: new Date().toISOString(),
-      });
-      
-      // Also track as seminar specific event for backup
-      pushEvent("seminar_registration_success", {
-        seminar_id: seminar._id,
-        seminar_title: seminar.title,
-        registration_id: `SEM_${Date.now()}`,
-        user_name: participantName,
-        user_phone: phone,
-        user_email: email,
-        user_whatsapp: whatsapp,
-        user_occupation: occupation,
-        user_address: address,
-      });
-
-      sessionStorage.setItem(`registration_seminar_${seminar._id}`, "true");
-    }
-  }, [seminar, loading, participantName, phone, email, whatsapp, occupation, address]);
+  // ✅ If still no seminar, create a default object
+  const seminarData = seminar || {
+    _id: seminarId || "unknown",
+    title: "ফ্রি সেমিনার",
+    isActive: true,
+    facebookPublicGroup: "",
+    whatsappPublicGroup: "",
+    telegramGroup: "",
+  };
 
   const mailSMSLinks = [
     {
@@ -116,7 +79,7 @@ export default function SeminarRegistrationSuccessPage() {
       icon: (
         <FaFacebookF className="h-4 md:h-6 w-4 md:w-6 mr-1 md:mr-2 text-[#1877F2]" />
       ),
-      url: seminar?.facebookSecretGroup || "#",
+      url: seminarData?.facebookPublicGroup || "#",
       isPrivate: true,
       img: click,
     },
@@ -125,7 +88,7 @@ export default function SeminarRegistrationSuccessPage() {
       icon: (
         <FaWhatsapp className="h-4 md:h-6 w-4 md:w-6 mr-1 md:mr-2 text-[#075e54]" />
       ),
-      url: seminar?.whatsappSecretGroup || "#",
+      url: seminarData?.whatsappPublicGroup || "#",
       isPrivate: true,
       img: click,
     },
@@ -134,22 +97,11 @@ export default function SeminarRegistrationSuccessPage() {
       icon: (
         <FaTelegramPlane className="h-4 md:h-6 w-4 md:w-6 mr-1 md:mr-2 text-[#0088CC]" />
       ),
-      url: seminar?.telegramGroup || "#",
+      url: seminarData?.telegramGroup || "#",
       isPrivate: true,
       img: click,
     },
   ];
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-purple-100 via-white to-purple-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#3C016F] mx-auto mb-4"></div>
-          <p className="text-gray-600">লোড হচ্ছে...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-linear-to-br from-purple-100 via-white to-purple-50 py-8 px-4">
@@ -168,9 +120,9 @@ export default function SeminarRegistrationSuccessPage() {
                 <h1 className="text-3xl font-bold text-white mb-2">
                   রেজিস্ট্রেশন সম্পন্ন!
                 </h1>
-                {participantName && (
+                {name && (
                   <p className="text-xl font-medium text-purple-200 mb-1">
-                    ধন্যবাদ, {decodeURIComponent(participantName)}
+                    ধন্যবাদ, {decodeURIComponent(name)}
                   </p>
                 )}
                 <p className="text-purple-100">
@@ -185,7 +137,7 @@ export default function SeminarRegistrationSuccessPage() {
               {(phone || email) && (
                 <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                   <h4 className="font-semibold text-gray-700 mb-2 text-sm">আপনার তথ্য:</h4>
-                  {participantName && <p className="text-sm text-gray-600">নাম: {decodeURIComponent(participantName)}</p>}
+                  {name && <p className="text-sm text-gray-600">নাম: {decodeURIComponent(name)}</p>}
                   {phone && <p className="text-sm text-gray-600">মোবাইল: {phone}</p>}
                   {whatsapp && <p className="text-sm text-gray-600">হোয়াটসঅ্যাপ: {whatsapp}</p>}
                   {email && <p className="text-sm text-gray-600">ইমেইল: {email}</p>}
@@ -320,8 +272,20 @@ export default function SeminarRegistrationSuccessPage() {
           </div>
         </div>
       </Container>
+
+      {/* Client component for GTM tracking */}
+      <Suspense fallback={null}>
+        <SeminarSuccessTracker
+          seminarId={seminarData._id}
+          seminarTitle={seminarData.title}
+          name={name}
+          phone={phone}
+          email={email}
+          whatsapp={whatsapp}
+          occupation={occupation}
+          address={address}
+        />
+      </Suspense>
     </div>
   );
 }
-
-
