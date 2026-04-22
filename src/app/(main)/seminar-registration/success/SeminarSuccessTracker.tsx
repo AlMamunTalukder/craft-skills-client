@@ -7,12 +7,12 @@ import { pushEvent } from "@/src/utils/dataLayer";
 interface Props {
   seminarId: string;
   seminarTitle: string;
-  name: string | null | undefined;        // ✅ Allow undefined
-  phone: string | null | undefined;       // ✅ Allow undefined
-  email: string | null | undefined;       // ✅ Allow undefined
-  whatsapp: string | null | undefined;    // ✅ Allow undefined
-  occupation: string | null | undefined;  // ✅ Allow undefined
-  address: string | null | undefined;     // ✅ Allow undefined
+  name: string | null | undefined;
+  phone: string | null | undefined;
+  email: string | null | undefined;
+  whatsapp: string | null | undefined;
+  occupation: string | null | undefined;
+  address: string | null | undefined;
 }
 
 export default function SeminarSuccessTracker({ 
@@ -31,13 +31,18 @@ export default function SeminarSuccessTracker({
     const alreadyTracked = sessionStorage.getItem(`registration_seminar_${seminarId}`);
     
     if (!alreadyTracked) {
-      pushEvent('complete_registration', {
+      // ✅ OPTION 1: Use standard GA4 'generate_lead' event (Recommended)
+      pushEvent('generate_lead', {
+        currency: 'BDT',
+        value: 0,
+        // Lead information
         event_category: 'seminar',
         event_label: seminarTitle,
-        registration_id: `SEM_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        // Custom parameters
         seminar_id: seminarId,
         seminar_title: seminarTitle,
         registration_type: 'free',
+        // User Information
         user_id: phone || email,
         user_name: name,
         user_phone: phone,
@@ -48,6 +53,7 @@ export default function SeminarSuccessTracker({
         registration_timestamp: new Date().toISOString(),
       });
       
+      // ✅ OPTION 2: Also send as custom event for backup
       pushEvent("seminar_registration_success", {
         seminar_id: seminarId,
         seminar_title: seminarTitle,
