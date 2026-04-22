@@ -8,7 +8,6 @@ import {
   Loader2,
   Mail,
   Phone,
-  Sparkles,
   User,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -21,7 +20,6 @@ import AppForm from "./AppForm";
 import TextInput from "../FormInputs/TextInput";
 import TextArea from "../FormInputs/TextAreaInput";
 import { seminarRegistrationSchema } from "@/schemas/seminar-registration";
-import { pushEvent } from "@/src/utils/dataLayer";
 
 export type SeminarFormData = z.infer<typeof seminarRegistrationSchema>;
 
@@ -57,7 +55,7 @@ export default function SeminarForm({ seminarId }: { seminarId?: string }) {
       }
     };
 
-    fetchActiveSeminar();
+    fetchActiveSeminar(); 
   }, [seminarId]);
 
   // In handleSubmit function, change this:
