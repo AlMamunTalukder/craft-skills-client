@@ -1,4 +1,4 @@
-// app/seminar-registration/success/SeminarSuccessTracker.tsx
+// app/seminar-registration/success/SeminarSuccessTracker.tsx (Alternative with both)
 "use client";
 
 import { useEffect } from "react";
@@ -31,18 +31,26 @@ export default function SeminarSuccessTracker({
     const alreadyTracked = sessionStorage.getItem(`registration_seminar_${seminarId}`);
     
     if (!alreadyTracked) {
-      // ✅ OPTION 1: Use standard GA4 'generate_lead' event (Recommended)
+      // ✅ Send both events for maximum compatibility
+      
+      // 1. Standard GA4 'generate_lead' event
       pushEvent('generate_lead', {
         currency: 'BDT',
         value: 0,
-        // Lead information
+        seminar_id: seminarId,
+        seminar_title: seminarTitle,
+        user_name: name,
+        user_phone: phone,
+        user_email: email,
+      });
+      
+      // 2. Custom 'complete_registration' event (if you registered it in GA4)
+      pushEvent('complete_registration', {
         event_category: 'seminar',
         event_label: seminarTitle,
-        // Custom parameters
         seminar_id: seminarId,
         seminar_title: seminarTitle,
         registration_type: 'free',
-        // User Information
         user_id: phone || email,
         user_name: name,
         user_phone: phone,
@@ -53,7 +61,7 @@ export default function SeminarSuccessTracker({
         registration_timestamp: new Date().toISOString(),
       });
       
-      // ✅ OPTION 2: Also send as custom event for backup
+      // 3. Custom event for backup
       pushEvent("seminar_registration_success", {
         seminar_id: seminarId,
         seminar_title: seminarTitle,
@@ -61,9 +69,6 @@ export default function SeminarSuccessTracker({
         user_name: name,
         user_phone: phone,
         user_email: email,
-        user_whatsapp: whatsapp,
-        user_occupation: occupation,
-        user_address: address,
       });
 
       sessionStorage.setItem(`registration_seminar_${seminarId}`, "true");
