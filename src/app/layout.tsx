@@ -9,6 +9,7 @@ import "./globals.css";
 // ✅ Use GoogleTagManager from next/third-parties
 import { GoogleTagManager } from "@next/third-parties/google";
 import Script from "next/script";
+import { GTMTest } from "../components/GTMTest";
 
 const siliguri = Hind_Siliguri({
   weight: "400",
@@ -67,7 +68,7 @@ export default function RootLayout({
       <body className={siliguri.className}>
         {/* ✅ GTM - Use the GoogleTagManager component */}
         <GoogleTagManager gtmId={GTM_ID} />
-        
+        <GTMTest />
         {/* ✅ Also add noscript fallback */}
         <noscript>
           <iframe

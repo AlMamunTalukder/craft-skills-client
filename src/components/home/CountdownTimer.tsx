@@ -53,8 +53,8 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  console.log("TARGET RAW:", targetDate);
-console.log("TARGET PARSED:", new Date(targetDate as string));
+//   console.log("TARGET RAW:", targetDate);
+// console.log("TARGET PARSED:", new Date(targetDate as string));
 
   // Sub-component for each time block
   const TimeUnit = ({
