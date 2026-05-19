@@ -36,7 +36,7 @@ export const CustomAccordionItem = ({
         </div>
       </AccordionTrigger>
 
-      <AccordionContent className="px-6 md:px-10 pb-6 pt-0 ml-4 md:ml-8 border-l border-purple-500/30">
+      <AccordionContent className="px-6 md:px-8 pb-6 pt-0 ml-4 md:ml-8 border-l border-purple-500/30 text-left">
         <div className="text-slate-300 text-[15px] md:text-[16px] leading-relaxed font-medium space-y-2">
           {description.split("\n").map((line, idx) => {
             const parts = line.split(/(https?:\/\/[^\s]+)/g);

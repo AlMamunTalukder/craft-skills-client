@@ -40,7 +40,7 @@ const ExclusiveBanner = ({ siteData }: { siteData: SiteContent | null }) => {
   const content = useMemo(() => {
     const common = {
       tag: "Skills Development",
-      topTitle: "৫০ দিনে চ্যালেঞ্জে",
+      topTitle: "",
       mainTitle: "কথার ভয় জয় করুন",
       highlight: "সবখানে হয়ে উঠুন কথার জাদুকর",
     };
@@ -111,12 +111,12 @@ const ExclusiveBanner = ({ siteData }: { siteData: SiteContent | null }) => {
           <div className="w-full md:w-[60%] space-y-6 text-center md:text-left">
 
             {/* TOP TAG */}
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 border border-white/20">
+            {/* <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 border border-white/20">
               <Trophy className="text-[#F26422]" size={18} />
               <span className="text-white text-sm font-semibold">
                 {content.topTitle}
               </span>
-            </div>
+            </div> */}
 
             {/* MAIN TITLE */}
             <h1 className="text-4xl md:text-6xl font-black text-white leading-tight">
