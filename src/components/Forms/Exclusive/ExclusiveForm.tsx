@@ -77,7 +77,7 @@ export default function ExclusiveOfferForm() {
         id: toastId,
       });
 
-      router.push("/success");
+      router.push("/exclusive/success");
     } catch (error: any) {
       toast.error(error.message || "কিছু একটা সমস্যা হয়েছে", {
         id: toastId,
