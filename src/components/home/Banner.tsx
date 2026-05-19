@@ -6,7 +6,7 @@ import {
   BookOpen,
   GraduationCap,
   Lightbulb,
-  Trophy,
+  Trophy, 
   Mic2,
   Presentation,
   UserCheck,
@@ -15,7 +15,7 @@ import {
 
 import Container from "../shared/Container";
 import CtaLinkButton from "../CtaLinkButton";
-import leftimg from "../../../public/img/course-logo.webp";
+import leftimg from "../../../public/img/course-logo.webp"; 
 import bg from "../../../public/img/bg.webp";
 import { SiteContent } from "@/types";
 

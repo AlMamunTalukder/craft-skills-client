@@ -21,16 +21,7 @@ export default async function AdmissionPage() {
 
   return (
     <>
-
-     {/* <ScrollTrackerWrapper 
-        sectionIds={[
-          'admission-info',
-          'course-details',
-          'price-summary',
-          'payment-info',
-          'faq-section'
-        ]}
-      /> */}
+    
       
       <Suspense fallback={<div className="h-[85px] bg-[#4F0187]"></div>}>
         <SubHeaderWrapper />

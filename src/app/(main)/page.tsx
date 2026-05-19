@@ -3,10 +3,10 @@ import SeminarForm from "@/src/components/Forms/SeminarForm";
 import Banner from "@/src/components/home/Banner";
 import FAQSection from "@/src/components/home/FAQSection";
 import HomePageContent from "@/src/components/HomePageContent";
-import Container from "@/src/components/shared/Container";
+import Container from "@/src/components/shared/Container"; 
 import Header from "@/src/components/shared/Header";
 import SubHeader from "@/src/components/shared/SubHeader";
-import { activeSeminar, getSiteData } from "@/lib/api";
+import { activeSeminar, getSiteData } from "@/lib/api"; 
 import { currentUser } from "@/lib/currentUser";
 import SectionTitle from "@/src/components/shared/SectionTitle";
 // import { ScrollTrackerWrapper } from "@/src/components/ScrollTrackerWrapper";
@@ -22,26 +22,7 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* <ScrollTrackerWrapper 
-        sectionIds={[
-          'why-course-section',
-          'course-outline-section',
-          'course-features-section',
-          'course-story-section',
-          'before-after-section',
-          'career-section',
-          'comparison-section',
-          'instructors-section',
-          'trainer-section',
-          'total-class-section',
-          'routine-section',
-          'reviews-section',
-          'testimonials-section',
-          'stats-section',
-          'activities-section',
-          'faq-section'
-        ]}
-      /> */}
+      
       
       <SubHeader
         siteData={{

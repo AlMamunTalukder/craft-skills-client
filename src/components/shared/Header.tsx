@@ -26,6 +26,7 @@ const Header = ({ siteData }: HeaderProps) => {
     { name: "Home", href: "/" },
     { name: "Admission", href: "/admission" },
     { name: "Review", href: "/reviews" },
+    { name: "Exclusive", href: "/exclusive" },
   ];
 
   const pdfMenuItem = {

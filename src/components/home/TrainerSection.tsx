@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import Container from "../shared/Container";
+
 import SectionTitle from "../shared/SectionTitle";
 
 const TrainerSection = () => {
