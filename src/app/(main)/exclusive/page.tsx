@@ -10,6 +10,7 @@ import ExclusiveTrainer from "./_components/ExclusiveTrainer";
 import ExclusiveCourseReviews from "./_components/ExclusiveCourseReviews";
 import CoursePricing from "./_components/CoursePrice";
 import ExclusiveFAQ from "./_components/ExclusiveFAQ";
+import ExclusiveOfferForm from "@/src/components/Forms/Exclusive/ExclusiveForm";
 
 const Page = async () => {
   const [siteData, seminar] = await Promise.all([
@@ -29,6 +30,7 @@ const Page = async () => {
       <ExclusiveTrainer/>
       <ExclusiveCourseReviews/>
       <CoursePricing/>
+      <ExclusiveOfferForm/>
       <ExclusiveFAQ/>
     </div>
   );
