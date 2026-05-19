@@ -88,7 +88,10 @@ export default function ExclusiveOfferForm() {
   };
 
   return (
-    <section className="relative overflow-hidden py-16 md:py-28 bg-[#1F1F1F]">
+    <section
+  id="registration-form"
+  className="relative overflow-hidden py-16 md:py-28 bg-[#1F1F1F]"
+>
       {/* =========================
           PREMIUM BACKGROUND
       ========================= */}

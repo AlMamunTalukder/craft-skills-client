@@ -50,33 +50,62 @@ const ExclusiveBanner = ({ siteData }: { siteData: SiteContent | null }) => {
       : { ...common, description: siteData?.homeBannerInfo?.description };
   }, [pathname, siteData]);
 
+
   const handleCTA = () => {
-    const isMobile = window.innerWidth < 768;
+  const isMobile = window.innerWidth < 768;
 
-    pushEvent(pathname === "/admission" ? "begin_checkout" : "add_to_cart", {
-      ecommerce: {
-        currency: "BDT",
-        items: [
-          {
-            item_id: "banner_join_btn",
-            item_name: "Skill Course Join",
-            item_category: "course",
-            quantity: 1,
-          },
-        ],
-      },
+  // =========================
+  // GTM EVENT
+  // =========================
+  pushEvent("exclusive_offer_banner_click", {
+    button_name: "মাত্র ১৯০ টাকায় এখনই জয়েন করুন",
+    page_path: pathname,
+    section: "exclusive_banner",
+    course_name: "Voice & Public Speaking Masterclass",
+    offer_price: 190,
+    regular_price: 5500,
+  });
+
+  // =========================
+  // SCROLL TO FORM
+  // =========================
+  const el = document.getElementById("registration-form");
+
+  if (el) {
+    el.scrollIntoView({
+      behavior: isMobile ? "auto" : "smooth",
+      block: "start",
     });
+  }
+};
 
-    const targetId =
-      pathname === "/admission" ? "admission" : "registration-form";
+  // const handleCTA = () => {
+  //   const isMobile = window.innerWidth < 768;
 
-    const el = document.getElementById(targetId);
-    if (el) {
-      el.scrollIntoView({
-        behavior: isMobile ? "auto" : "smooth",
-      });
-    }
-  };
+  //   pushEvent(pathname === "/admission" ? "begin_checkout" : "add_to_cart", {
+  //     ecommerce: {
+  //       currency: "BDT",
+  //       items: [
+  //         {
+  //           item_id: "banner_join_btn",
+  //           item_name: "Skill Course Join",
+  //           item_category: "course",
+  //           quantity: 1,
+  //         },
+  //       ],
+  //     },
+  //   });
+
+  //   const targetId =
+  //     pathname === "/admission" ? "admission" : "registration-form";
+
+  //   const el = document.getElementById(targetId);
+  //   if (el) {
+  //     el.scrollIntoView({
+  //       behavior: isMobile ? "auto" : "smooth",
+  //     });
+  //   }
+  // };
 
   return (
     <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#353535]">
