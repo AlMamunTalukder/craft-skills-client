@@ -15,7 +15,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { z } from "zod";
+import { object, z } from "zod";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Container from "../../shared/Container";
 import AppForm from "../AppForm";
@@ -35,51 +35,51 @@ const exclusiveOfferSchema = z.object({
 type ExclusiveOfferFormData = z.infer<typeof exclusiveOfferSchema>;
 
 export default function ExclusiveOfferForm() {
-  const router = useRouter();
-
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (data: ExclusiveOfferFormData) => {
     setIsSubmitting(true);
 
-    const toastId = toast.loading("তথ্য সাবমিট হচ্ছে...");
+    const toastId = toast.loading("প্রসেস হচ্ছে...");
 
     try {
-      // =========================
-      // YOUR API
-      // =========================
-
-     const response = await fetch(
-  `${process.env.NEXT_PUBLIC_API_URL}/exclusive-offer/register`,
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: data.name,
-      phone: data.phone,
-      email: data.email,
-      courseTitle: "Voice & Public Speaking Masterclass",
-    //   regularPrice: 5500,
-      offerPrice: 190,
-    }),
-  }
-);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/exclusive-offer/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            courseTitle: "Voice & Public Speaking Masterclass",
+            offerPrice: 190,
+          }),
+        }
+      );
 
       const result = await response.json();
 
-      if (!response.ok || !result.success) {
+      if (!response.ok) {
         throw new Error(result.message || "Registration failed");
       }
 
-      toast.success("আপনার আসন সফলভাবে নিশ্চিত হয়েছে!", {
-        id: toastId,
-      });
+      toast.success("Redirecting to payment...", { id: toastId });
 
-      router.push("/exclusive/success");
+      // ✅ SSLCommerz Redirect (IMPORTANT FIX)
+      const paymentUrl = result?.data?.paymentUrl;
+
+      if (paymentUrl) {
+        window.location.href = paymentUrl;
+        return;
+      }
+
+      throw new Error("Payment URL not found");
+
     } catch (error: any) {
-      toast.error(error.message || "কিছু একটা সমস্যা হয়েছে", {
+      toast.error(error.message || "Something went wrong", {
         id: toastId,
       });
     } finally {
@@ -89,9 +89,9 @@ export default function ExclusiveOfferForm() {
 
   return (
     <section
-  id="registration-form"
-  className="relative overflow-hidden py-16 md:py-28 bg-[#1F1F1F]"
->
+      id="registration-form"
+      className="relative overflow-hidden py-16 md:py-28 bg-[#1F1F1F]"
+    >
       {/* =========================
           PREMIUM BACKGROUND
       ========================= */}
@@ -140,9 +140,9 @@ export default function ExclusiveOfferForm() {
 
                   {/* TITLE */}
                   <h2 className="text-3xl md:text-6xl font-black text-white leading-tight">
-                    ৪ ঘণ্টার  {" "}
+                    ৪ ঘণ্টার{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-white to-[#F26422]">
-                      পাওয়ারফুল লাইভ মাস্টারক্লাস  {" "}
+                      পাওয়ারফুল লাইভ মাস্টারক্লাস{" "}
                     </span>
                     মাত্র ,
                   </h2>
@@ -175,10 +175,7 @@ export default function ExclusiveOfferForm() {
                   </div>
 
                   {/* FEATURES */}
-                  
                 </div>
-
-                
               </div>
 
               {/* =========================

@@ -194,7 +194,7 @@ export default async function ExclusiveOfferSuccessPage({
 
               {/* HOME BUTTON */}
               <Link
-                href="/"
+                href="/exclusive"
                 className="group relative overflow-hidden flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#F26422] to-[#ff7b42] px-6 py-5 text-lg md:text-xl font-black text-white shadow-[0_10px_40px_rgba(242,100,34,0.4)] hover:scale-[1.02] transition-all duration-300"
               >
                 <span className="relative z-10">হোমপেজে ফিরে যান</span>
