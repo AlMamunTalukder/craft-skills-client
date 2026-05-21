@@ -55,7 +55,7 @@ export default function ExclusiveOfferForm() {
             phone: data.phone,
             email: data.email,
             courseTitle: "Voice & Public Speaking Masterclass",
-            offerPrice: 190,
+            offerPrice: 199,
           }),
         }
       );
@@ -159,11 +159,11 @@ export default function ExclusiveOfferForm() {
                       <div className="flex items-end gap-4 flex-wrap">
                         <div>
                           <p className="text-white/40 text-lg line-through font-bold">
-                            ৫,৫০০ টাকা
+                            5,500 টাকা
                           </p>
 
                           <h3 className="text-5xl md:text-7xl font-black text-[#F26422] leading-none">
-                            ১৯০৳
+                            199৳
                           </h3>
                         </div>
 
@@ -237,11 +237,11 @@ export default function ExclusiveOfferForm() {
 
                           <div className="text-right">
                             <p className="text-gray-400 line-through text-sm font-bold">
-                              ৫,৫০০৳
+                              5,500৳
                             </p>
 
                             <h4 className="text-3xl font-black text-[#F26422]">
-                              ১৯০৳
+                              199৳
                             </h4>
                           </div>
                         </div>
@@ -249,7 +249,7 @@ export default function ExclusiveOfferForm() {
 
                       {/* BUTTON */}
                       <SubmitButton
-                        title="মাত্র ১৯০ টাকায় জয়েন করুন"
+                        title="মাত্র 199 টাকায় জয়েন করুন"
                         loadingTitle="সাবমিট হচ্ছে..."
                         loading={isSubmitting}
                         loaderIcon={Loader2}

@@ -60,24 +60,9 @@ const ExclusiveWhyCourse = () => {
   return (
     <section className="py-10 lg:py-32 relative overflow-hidden ">
       <Container className="relative z-10">
-        <div className="text-center mb-10 md:mb-24">
-          <SectionTitle
-            text="শিক্ষার্থীদের কাজের পোর্টফোলিও"
-            lineWidth="lg"
-            hasLineBreak={true}
-          />
-          <div className="mt-5 md:mt-12 w-full rounded-xl md:rounded-[2.5rem] overflow-hidden shadow-2xl bg-black/40 backdrop-blur-xl ring-1 ring-purple-500/20">
-            <iframe
-              className="w-full aspect-video"
-              src="https://www.youtube-nocookie.com/embed/9hZ7-LXGhZo?rel=0"
-              title="Student Success"
-              allowFullScreen
-              loading="lazy"
-            />
-          </div>
-        </div>
+        
 
-        <div className="relative bg-[#353535] border border-white/10 rounded-2xl lg:rounded-[4rem] p-4 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden mt-5 md:mt-12">
+        <div className="relative bg-[#353535] border border-white/10 rounded-2xl lg:rounded-[4rem] p-3 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden mt-5 md:mt-12">
           {/* BACKGROUND LAYERS */}
           <div className="absolute inset-0 bg-[#353535]" />
 

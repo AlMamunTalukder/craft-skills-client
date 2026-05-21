@@ -4,7 +4,7 @@ import SectionTitle from "@/src/components/shared/SectionTitle";
 
 const CourseReviews = async () => {
   return (
-    <section className="relative py-16 md:py-28 bg-[#353535] overflow-hidden">
+    <section className="relative py-14 md:py-20 bg-[#353535] overflow-hidden">
 
   {/* BASE DARK LAYER */}
   <div className="absolute inset-0 bg-gradient-to-b from-[#2f2f2f] via-[#353535] to-[#2a2a2a]" />
@@ -30,11 +30,7 @@ const CourseReviews = async () => {
       <Container>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
 
-         
-
-        
-
-          <div className="text-center mb-14 md:mb-20">
+          <div className="text-center mb-10 md:mb-10">
           <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">
             কোর্স নিয়ে {" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-white to-[#F26422]">
@@ -43,9 +39,7 @@ const CourseReviews = async () => {
            মতামত
           </h2>
 
-          <p className="text-white/60 mt-4 text-sm md:text-lg max-w-2xl mx-auto">
-             শিক্ষার্থীদের অভিজ্ঞতা এবং সাফল্যের গল্প দেখুন
-          </p>
+          
         </div>
 
           {/* MAIN VIDEO CARD */}
@@ -71,13 +65,7 @@ const CourseReviews = async () => {
             </div>
           </div>
 
-          {/* TRUST BADGE */}
-          <div className="mt-10 inline-flex items-center gap-2 px-5 py-2 rounded-full bg-orange-50 border border-orange-100">
-            <div className="w-2 h-2 rounded-full bg-[#F26422] animate-pulse" />
-            <span className="text-[#F26422] text-sm font-semibold">
-              Real Student Testimonials
-            </span>
-          </div>
+          
 
         </div>
       </Container>

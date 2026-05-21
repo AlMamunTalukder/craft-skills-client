@@ -29,7 +29,7 @@ export default function ExclusiveOfferSuccessTracker({
 
       currency: "BDT",
       original_price: 5500,
-      offer_price: 190,
+      offer_price: 199,
 
       registration_type: "exclusive_offer",
       page_type: "success_page",
@@ -39,7 +39,7 @@ export default function ExclusiveOfferSuccessTracker({
     if ((window as any).fbq) {
       (window as any).fbq("track", "Lead", {
         content_name: "Exclusive Offer Masterclass",
-        value: 190,
+        value: 199,
         currency: "BDT",
       });
     }

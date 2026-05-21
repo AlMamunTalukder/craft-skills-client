@@ -1,4 +1,7 @@
+import { Accordion } from "@/components/ui/accordion";
 import Container from "@/src/components/shared/Container";
+import { CustomAccordionItem } from "@/src/components/shared/CustomAccordion";
+import { AlertCircle } from "lucide-react";
 
 const admissionFaq = [
   {
@@ -12,9 +15,9 @@ const admissionFaq = [
       "না, এই লাইভ ক্লাসের কোনো রেকর্ড ভিডিও দেওয়া হবে না। তবে লাইভ ক্লাসে অংশ নিলে আপনার জন্য থাকছে দারুণ সব স্পেশাল গিফট! আর কোনো কারণে যদি এই ক্লাসটি মিস হয়ে যায়, তবে আপনি আমাদের পরবর্তী লাইভ সেমিনারে সম্পূর্ণ ফ্রিতে যুক্ত হওয়ার সুযোগ পাবেন।",
   },
   {
-    question: "মাত্র ১৯০ টাকায় কি সত্যিই লাইভ ক্লাস এবং সব বোনাস পাব?",
+    question: "মাত্র 199 টাকায় কি সত্যিই লাইভ ক্লাস এবং সব বোনাস পাব?",
     answer:
-      "হ্যাঁ! সীমিত সময়ের জন্য এই বিশেষ অফারে মাত্র ১৯০ টাকায় আপনি ৪ ঘণ্টার লাইভ মাস্টারক্লাসে অংশ নেওয়ার সুযোগ পাচ্ছেন। সেই সাথে সবগুলো এক্সক্লুসিভ বোনাস রিসোর্স (PDF, ভিডিও টিউটোরিয়াল, ট্র্যাকার) একদম ফ্রি পাবেন।",
+      "হ্যাঁ! সীমিত সময়ের জন্য এই বিশেষ অফারে মাত্র 199 টাকায় আপনি ৪ ঘণ্টার লাইভ মাস্টারক্লাসে অংশ নেওয়ার সুযোগ পাচ্ছেন। সেই সাথে সবগুলো এক্সক্লুসিভ বোনাস রিসোর্স (PDF, ভিডিও টিউটোরিয়াল, ট্র্যাকার) একদম ফ্রি পাবেন।",
   },
   {
     question: "লাইভ ক্লাসের সময় ট্রেইনারকে সরাসরি প্রশ্ন করা যাবে?",
@@ -78,48 +81,30 @@ const ExclusiveFAQ = () => {
             </p>
           </div>
 
-          {/* FAQ GRID */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            {admissionFaq.map((faq, index) => (
-              <div
-                key={index}
-                className="
-                  group relative overflow-hidden rounded-2xl p-6
-                  border border-white/10
-                  bg-white/5 backdrop-blur-xl
-                  shadow-[0_15px_50px_rgba(0,0,0,0.35)]
-                  transition-all duration-500
-                  hover:-translate-y-1
-                  hover:shadow-[0_25px_70px_rgba(242,100,34,0.25)]
-                "
-              >
+<div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-2">
+              {admissionFaq.map((column, colIdx) => (
+                <Accordion
+                  key={colIdx}
+                  type="single"
+                  collapsible
+                  className="w-full space-y-3"
+                >
+                  <CustomAccordionItem
+                    
+                      value={`why-${colIdx}`}
+                      title={column.question}
+                      description={column.answer}
+                      icon={
+                        <AlertCircle size={20} className="text-[#F26422]" />
+                      }
+                    />
+                </Accordion>
+              ))}
+            </div>
 
-                {/* ORANGE LEFT BAR */}
-                <div className="absolute top-0 left-0 w-1 h-full bg-[rgb(242,100,34)]" />
-
-                {/* LIGHT REFLECTION LAYER */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/30 opacity-60" />
-
-                {/* QUESTION */}
-                <h3 className="relative text-white font-bold text-lg pl-2">
-                  {faq.question}
-                </h3>
-
-                {/* ANSWER */}
-                <p className="relative text-gray-300 mt-3 pl-2 leading-relaxed">
-                  {faq.answer}
-                </p>
-
-                {/* ORANGE HOVER GLOW */}
-                <div className="absolute -bottom-10 -right-10 w-28 h-28 bg-[rgb(242,100,34)] rounded-full opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-500" />
-
-                {/* BORDER GLOW */}
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10 pointer-events-none" />
-              </div>
-            ))}
-
-          </div>
+       
+          
 
         </div>
       </Container>

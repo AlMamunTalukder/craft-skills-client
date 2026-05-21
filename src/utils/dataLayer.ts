@@ -49,7 +49,7 @@ export function pushEvent(
 ========================================================= */
 
 const COURSE_NAME = "Voice & Public Speaking Masterclass";
-const OFFER_PRICE = 190;
+const OFFER_PRICE = 199;
 const REGULAR_PRICE = 5500;
 
 /* =========================================================

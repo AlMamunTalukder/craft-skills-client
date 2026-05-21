@@ -58,11 +58,11 @@ const ExclusiveBanner = ({ siteData }: { siteData: SiteContent | null }) => {
   // GTM EVENT
   // =========================
   pushEvent("exclusive_offer_banner_click", {
-    button_name: "মাত্র ১৯০ টাকায় এখনই জয়েন করুন",
+    button_name: "মাত্র 199 টাকায় এখনই জয়েন করুন",
     page_path: pathname,
     section: "exclusive_banner",
     course_name: "Voice & Public Speaking Masterclass",
-    offer_price: 190,
+    offer_price: 199,
     regular_price: 5500,
   });
 
@@ -79,33 +79,7 @@ const ExclusiveBanner = ({ siteData }: { siteData: SiteContent | null }) => {
   }
 };
 
-  // const handleCTA = () => {
-  //   const isMobile = window.innerWidth < 768;
-
-  //   pushEvent(pathname === "/admission" ? "begin_checkout" : "add_to_cart", {
-  //     ecommerce: {
-  //       currency: "BDT",
-  //       items: [
-  //         {
-  //           item_id: "banner_join_btn",
-  //           item_name: "Skill Course Join",
-  //           item_category: "course",
-  //           quantity: 1,
-  //         },
-  //       ],
-  //     },
-  //   });
-
-  //   const targetId =
-  //     pathname === "/admission" ? "admission" : "registration-form";
-
-  //   const el = document.getElementById(targetId);
-  //   if (el) {
-  //     el.scrollIntoView({
-  //       behavior: isMobile ? "auto" : "smooth",
-  //     });
-  //   }
-  // };
+ 
 
   return (
     <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#353535]">
@@ -175,10 +149,10 @@ const ExclusiveBanner = ({ siteData }: { siteData: SiteContent | null }) => {
             {/* CTA BUTTON */}
             <button
               onClick={handleCTA}
-              className="group relative flex items-center gap-3 bg-gradient-to-r from-[#F26422] to-[#FF7A45] px-6 md:px-8 py-4 md:py-5 rounded-full text-white shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95"
+              className="group relative flex items-center gap-3 bg-gradient-to-r from-[#F26422] to-[#FF7A45] px-3 md:px-8 py-2 md:py-5 rounded-full text-white shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 cursor-pointer"
             >
-              <span className="text-base md:text-lg font-bold">
-                মাত্র ১৯০ টাকায় এখনই জয়েন করুন
+              <span className="text-[15px] md:text-lg font-bold">
+                মাত্র 199 টাকায় এখনই জয়েন করুন
               </span>
 
               <div className="bg-white/20 rounded-full p-1.5 group-hover:bg-white/30 transition">
@@ -192,7 +166,7 @@ const ExclusiveBanner = ({ siteData }: { siteData: SiteContent | null }) => {
             <div className="absolute inset-0 bg-[#F26422]/20 blur-[60px] rounded-full " />
             <div className="relative z-10 w-[80%] sm:w-[70%] md:w-full aspect-square animate-hero-float">
               <Image
-                src="/img/course-logo.webp"
+                src="/img/exclusive.jpeg"
                 alt="Hero"
                 width={500}
                 height={500}
