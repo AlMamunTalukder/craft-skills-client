@@ -20,138 +20,88 @@ const items = [
 
 const MasterclassBundle = () => {
   return (
-    <section className="relative py-20 md:py-32 overflow-hidden bg-white">
+    <section className="relative py-16 md:py-32 overflow-hidden bg-[#0A0A0B] text-gray-100">
 
-      {/* 🌟 VIBRANT PREMIUM BACKGROUND SYSTEM */}
+      {/* 🌟 PREMIUM DARK THEME GLOW EFFECTS */}
+      {/* Orange Core Glow */}
+      <div className="absolute top-[-250px] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#F26422]/10 blur-[160px] rounded-full pointer-events-none" />
+      {/* Secondary Bottom Glow */}
+      <div className="absolute bottom-[-200px] right-[-150px] w-[500px] h-[500px] bg-purple-600/5 blur-[140px] rounded-full pointer-events-none" />
 
-      {/* ORANGE ENERGY CORE */}
-      <div className="absolute top-[-250px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-[#F26422]/10 blur-[180px] rounded-full" />
-
-      {/* SECONDARY LIGHT LAYER */}
-      <div className="absolute bottom-[-200px] right-[-150px] w-[600px] h-[600px] bg-[#F26422]/5 blur-[140px] rounded-full" />
-
-      {/* DEPTH SHADOW FIELD */}
-      <div className="absolute top-1/2 left-[-200px] -translate-y-1/2 w-[500px] h-[500px] bg-black/[0.03] blur-[140px] rounded-full" />
-
-      {/* PREMIUM CENTER LIGHT FOCUS */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,1)_0%,rgba(255,255,255,0.85)_50%,rgba(255,255,255,1)_100%)]" />
-
-      {/* SUBTLE GRID TEXTURE */}
+      {/* Subtle Digital Grid Texture */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
-          backgroundImage:
-            "radial-gradient(#000 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
+          backgroundImage: "radial-gradient(#fff 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
         }}
       />
 
       <Container className="relative z-10">
 
-        {/* HEADER */}
-        <div className="text-center mb-16 md:mb-24">
-          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-orange-50 border border-orange-100 mb-6 shadow-sm">
-            <Gift className="text-[#F26422]" size={16} />
-            <span className="text-[#F26422] text-xs font-bold uppercase tracking-widest">
+        {/* HEADER SECTION */}
+        <div className="text-center  md:mb-20">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1A1E] border border-white/10 mb-5 shadow-inner">
+            <Gift className="text-[#F26422]" size={14} />
+            <span className="text-[#F26422] text-xs font-black tracking-widest uppercase">
               Premium Bonus Pack
             </span>
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-black text-[#1A1A1A] leading-[1.1] mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white tracking-tight leading-tight mb-4">
             মাস্টার ক্লাসটির সাথে <br />
-            <span className="relative text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-[#FF7A45] to-[#F26422]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-[#ff824d] to-[#F26422]">
               যা যা পাচ্ছেন
             </span>
-          </h2>
-
-          <p className="text-gray-500 font-medium text-lg max-w-2xl mx-auto">
-            আপনার কমিউনিকেশন স্কিলকে প্রফেশনাল লেভেলে নিতে সম্পূর্ণ প্রিমিয়াম লার্নিং প্যাকেজ।
-          </p>
+          </h2>          
         </div>
 
-        {/* GRID */}
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-
+        {/* GRID LAYOUT (Smooth stacking architecture) */}
+        <div className="columns-1 md:columns-2 lg:columns-3 md:gap-5 space-y-2 md:space-y-5 ">
           {items.map((item, i) => (
             <div
               key={i}
-              className="break-inside-avoid group relative p-6 rounded-3xl bg-white border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_25px_60px_rgba(242,100,34,0.12)] hover:-translate-y-1 overflow-hidden"
+              className="flex gap-2 break-inside-avoid group relative p-2 md:p-4 sm:p-3 rounded-2xl bg-[#121214] border border-white/5 shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-500 hover:border-[#F26422]/30 hover:-translate-y-1 overflow-hidden"
             >
-
-              {/* LEFT ACCENT BAR */}
+              {/* LEFT SIDE TIMELINE INDICATOR BAR */}
               <div
-                className={`absolute top-0 left-0 w-1.5 h-full ${
+                className={`absolute top-0 left-0 w-1 h-full transition-colors duration-300 ${
                   item.type === "orange"
                     ? "bg-[#F26422]"
-                    : "bg-gray-300"
+                    : "bg-gray-700 group-hover:bg-purple-500"
                 }`}
               />
 
-              {/* ICON */}
+              {/* ICON BLOCK */}
               <div
-                className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-4 ${
+                className={`w-9 h-9 rounded-xl flex items-center justify-center mb-3.5 transition-all duration-300 ${
                   item.type === "orange"
-                    ? "bg-orange-50 text-[#F26422]"
-                    : "bg-gray-100 text-gray-500"
+                    ? "bg-[#F26422]/10 text-[#F26422] group-hover:bg-[#F26422] group-hover:text-white"
+                    : "bg-white/5 text-gray-400 group-hover:bg-purple-500/20 group-hover:text-purple-400"
                 }`}
               >
-                {item.type === "orange" ? <Zap size={20} /> : <Award size={20} />}
+                {item.type === "orange" ? <Zap size={16} /> : <Award size={16} />}
               </div>
 
-              {/* TEXT */}
-              <p className="text-[#353535] text-lg font-extrabold leading-tight group-hover:text-black transition-colors">
+              {/* BONUS CORE TEXT */}
+              <p className="text-gray-200 text-base sm:text-lg font-bold leading-snug group-hover:text-white transition-colors">
                 {item.text}
               </p>
 
-              {/* FOOTER */}
-              <div className="flex items-center justify-between mt-4">
-                <span className="text-[10px] font-black uppercase tracking-widest text-gray-300">
-                  Included
-                </span>
+           
 
-                <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    item.type === "orange"
-                      ? "bg-orange-50 text-[#F26422] group-hover:bg-[#F26422] group-hover:text-white"
-                      : "bg-gray-100 text-gray-500 group-hover:bg-gray-500 group-hover:text-white"
-                  }`}
-                >
-                  <Check size={14} strokeWidth={3} />
-                </div>
-              </div>
-
-              {/* SOFT INTERACTION GLOW */}
+              {/* HOVER GLOW RADIAL SYSTEM */}
               <div
-                className={`absolute -bottom-10 -right-10 w-28 h-28 rounded-full opacity-0 group-hover:opacity-10 transition-all duration-700 ${
-                  item.type === "orange"
-                    ? "bg-[#F26422]"
-                    : "bg-gray-500"
+                className={`absolute -bottom-10 -right-10 w-24 h-24 rounded-full opacity-0 group-hover:opacity-[0.06] transition-all duration-700 pointer-events-none ${
+                  item.type === "orange" ? "bg-[#F26422]" : "bg-purple-500"
                 }`}
               />
             </div>
           ))}
-
         </div>
 
-        {/* TRUST STRIP */}
-        <div className="mt-20 flex flex-wrap justify-center gap-8 md:gap-16 text-gray-600">
+       
 
-          <div className="flex items-center gap-2 font-bold">
-            <Star size={16} className="text-[#F26422]" />
-            Trusted by 5000+
-          </div>
-
-          <div className="flex items-center gap-2 font-bold">
-            <Award size={16} className="text-[#F26422]" />
-            Certified Course
-          </div>
-
-          <div className="flex items-center gap-2 font-bold">
-            <Zap size={16} className="text-[#F26422]" />
-            Lifetime Access
-          </div>
-
-        </div>
 
       </Container>
     </section>

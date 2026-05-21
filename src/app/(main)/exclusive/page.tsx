@@ -29,7 +29,7 @@ const Page = async () => {
       <CareerOpportunities/>
       <ExclusiveTrainer/>
       <ExclusiveCourseReviews/>
-      <CoursePricing/>
+      {/* <CoursePricing/> */}
       <ExclusiveOfferForm/>
       <ExclusiveFAQ/>
     </div>
