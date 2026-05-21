@@ -59,15 +59,15 @@ const ExclusiveWhyCourse = () => {
   const columns = [problems.slice(0, middleIndex), problems.slice(middleIndex)];
 
   return (
-    <section className="py-12 lg:py-24 relative overflow-hidden bg-black">
+    <section className="py-12 lg:py-24 relative overflow-hidden ">
       
       {/* 🌌 OUTSIDE SECTION AMBIENT BACKGROUND GLOWS */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-purple-600/[0.02] blur-[180px] rounded-full pointer-events-none" />
 
-      <Container className="relative z-10">
+      <Container className="relative z-10 ">
         
         {/* MAIN GLASSMORPHIC OUTER WRAPPER CARD */}
-        <div className="relative bg-white/[0.01] border border-white/[0.06] rounded-2xl lg:rounded-[3.5rem] p-4 sm:p-6 md:p-12 backdrop-blur-xl shadow-[0_30px_100px_rgba(0,0,0,0.8)] overflow-hidden">
+        <div className="relative bg-black border border-white/[0.06] rounded-2xl lg:rounded-[3.5rem] p-4 sm:p-6 md:p-12 backdrop-blur-xl shadow-[0_30px_100px_rgba(0,0,0,0.8)] overflow-hidden">
           
           {/* INTERNAL VECTOR RADIAL BLOBS */}
           <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-[#F26422]/10 opacity-70 blur-[150px] rounded-full pointer-events-none" />
@@ -89,12 +89,7 @@ const ExclusiveWhyCourse = () => {
           <div className="relative z-10 flex flex-col items-center">
             
             {/* BADGE COMPONENT */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 shadow-inner mb-2">
-              <Sparkles className="text-[#F26422]" size={13} />
-              <span className="text-white/60 text-[11px] font-black tracking-widest uppercase">
-                Self Assessment
-              </span>
-            </div>
+            
 
             {/* SECTION HEADING TITLE */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight text-center max-w-3xl mb-12 md:mb-16">

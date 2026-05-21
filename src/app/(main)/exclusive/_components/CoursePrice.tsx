@@ -78,7 +78,7 @@ const CoursePricing = () => {
                   </div>
 
                   <div className="text-4xl sm:text-5xl font-black text-white tracking-tight">
-                    ১৯৯ <span className="text-[#F26422] text-2xl sm:text-3xl font-black">টাকা</span>
+                    199 <span className="text-[#F26422] text-2xl sm:text-3xl font-black">টাকা</span>
                   </div>
 
                   {/* <p className="text-gray-500 text-xs font-medium">

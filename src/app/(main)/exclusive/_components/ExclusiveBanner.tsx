@@ -99,13 +99,7 @@ const ExclusiveBanner = () => {
           {/* LEFT SIDE: INFORMATIVE CONTROLS */}
           <div className="w-full md:w-[58%] space-y-6 md:space-y-7 text-center md:text-left flex flex-col justify-center items-center md:items-start">
 
-            {/* UPGRADED TOP BADGE CHIP */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 shadow-inner">
-              <Sparkles className="text-[#F26422]" size={13} />
-              <span className="text-[#F26422] text-xs font-black tracking-widest uppercase">
-                Skills Development
-              </span>
-            </div>
+           
 
             {/* MAIN TITLE H1 */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight">
@@ -138,7 +132,7 @@ const ExclusiveBanner = () => {
               className="group relative flex items-center gap-4 bg-gradient-to-r from-[#F26422] via-[#ff783e] to-[#F26422] px-6 md:px-8 py-4 md:py-5 rounded-full text-white transition-all duration-500 hover:scale-[1.02] active:scale-98 cursor-pointer shadow-[0_15px_40px_rgba(242,100,34,0.25)] hover:shadow-[0_20px_50px_rgba(242,100,34,0.4)]"
             >
               <span className="text-base md:text-lg font-black tracking-wide">
-                মাত্র ১৯৯ টাকায় এখনই জয়েন করুন
+                মাত্র 199 টাকায় এখনই জয়েন করুন
               </span>
 
               <div className="bg-white/15 rounded-full p-1.5 group-hover:bg-white/25 transition-colors duration-300">
