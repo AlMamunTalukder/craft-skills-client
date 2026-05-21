@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
 import {
   DoorOpen,
-  Briefcase,
   Mic2,
   Mic,
   Headphones,
@@ -21,7 +19,11 @@ import {
   BookOpen,
   Smile,
   ScrollText,
+  DollarSign,
+  GraduationCap,
+  CircleDollarSign,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 // --- Data with specific icons for each career ---
 const opportunities = [
@@ -45,8 +47,13 @@ const opportunities = [
 ];
 
 export default function CareerOpportunities() {
+  const pathname = usePathname();
   return (
-    <section className="relative py-12 md:py-16 bg-[#361664] overflow-hidden font-sans min-h-screen flex items-center">
+    <section
+      className={`relative py-12 md:py-16 overflow-hidden font-sans min-h-screen flex items-center ${
+        pathname.startsWith("/exclusive") ? "bg-black" : "bg-[#361664]"
+      }`}
+    >
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#4F0187] opacity-10 blur-[150px] rounded-full"></div>
         <div className="absolute bottom-0 left-0 w-125 h-125 bg-blue-900/20 blur-[120px] rounded-full"></div>
@@ -59,30 +66,41 @@ export default function CareerOpportunities() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
           {/* --- LEFT COLUMN: Catchy Heading --- */}
-          <div className="lg:col-span-5 text-center lg:text-left md:space-y-8">
-            {/* Main Typographic Art */}
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-[1.2] md:leading-[1.1] tracking-tight">
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 mb-2 drop-shadow-sm">
-                শুধু একটি কোর্স
+           <div className="lg:col-span-5 text-center lg:text-left flex flex-col justify-center items-center lg:items-start space-y-6 md:space-y-8">
+            
+            {/* Minimal Upper Attention Tag */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.03] border border-white/10 shadow-inner">
+              <GraduationCap className="text-[#F26422]" size={13} />
+              <span className="text-white/60 text-[11px] font-black tracking-widest uppercase">
+                Career Scope
               </span>
+            </div>
 
-              {/* Highlighted text similar to the image's yellow marker */}
-              <span className="relative inline-block md:mt-4 md:mb-6">
-                <span className="absolute inset-0 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-2xl transform -skew-x-6 rotate-2 shadow-[0_10px_30px_rgba(245,158,11,0.3)]"></span>
-                <span className="relative z-10 px-6 py-2 block text-black text-3xl md:text-5xl lg:text-6xl tracking-tight">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.15] tracking-tight">
+              <span className="block text-gray-400 mb-3 text-2xl sm:text-3xl md:text-4xl font-bold">
+                শুধু একটি কোর্স,
+              </span>
+              
+              {/* Premium Floating Core Highlight Card */}
+              <span className="relative inline-flex items-center my-2 rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl px-5 py-3 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] to-[#ff844f] text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
                   খুলে যাবে উপার্জনের
                 </span>
               </span>
 
               <br />
-              <span className="flex items-center justify-center lg:justify-start gap-4 text-white drop-shadow-xl mt-2">
+              <span className="flex items-center justify-center lg:justify-start gap-3 text-white drop-shadow-xl mt-3">
                 অসংখ্য দরজা!{" "}
-                <DoorOpen
-                  className="text-amber-400 w-10 h-10 md:w-14 md:h-14 animate-bounce"
-                  strokeWidth={2}
-                />
+                <div className="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#F26422]/10 border border-[#F26422]/30 animate-pulse shadow-[0_0_20px_rgba(242,100,34,0.2)]">
+                  <CircleDollarSign
+                    className="text-[#F26422] w-7 h-7 md:w-8 md:h-8"
+                    strokeWidth={2}
+                  />
+                </div>
               </span>
             </h2>
+
+            
           </div>
 
           {/* --- RIGHT COLUMN: List of Opportunities Grid --- */}
@@ -90,7 +108,6 @@ export default function CareerOpportunities() {
             {/* Glassmorphism Container */}
             <div className="relative bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl md:rounded-[2.5rem] p-3 md:p-10 shadow-2xl overflow-hidden">
               {/* Inner Glow */}
-             
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 md:gap-4 relative z-10">
                 {opportunities.map((item, index) => {

@@ -20,7 +20,7 @@ const items = [
 
 const MasterclassBundle = () => {
   return (
-    <section className="relative py-16 md:py-32 overflow-hidden bg-[#0A0A0B] text-gray-100">
+    <section className="relative py-16 md:py-32 overflow-hidden bg-black text-gray-100">
 
       {/* 🌟 PREMIUM DARK THEME GLOW EFFECTS */}
       {/* Orange Core Glow */}

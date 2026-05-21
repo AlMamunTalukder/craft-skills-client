@@ -30,14 +30,14 @@ export const CustomAccordionItem = ({
           <span className="shrink-0 group-data-[state=open]:scale-110 transition-transform duration-300 mt-0 md:mt-0">
             {icon}
           </span>
-          <span className="text-[15px] md:text-[17px] font-bold text-slate-200 group-hover:text-white group-data-[state=open]:text-white transition-colors leading-tight">
+          <span className="text-[15px] md:text-[16px] font-bold text-white group-hover:text-white group-data-[state=open]:text-white transition-colors leading-tight">
             {title}
           </span>
         </div>
       </AccordionTrigger>
 
       <AccordionContent className="px-6 md:px-8 pb-6 pt-0 ml-4 md:ml-8 border-l border-purple-500/30 text-left">
-        <div className="text-slate-300 text-[15px] md:text-[16px] leading-relaxed font-medium space-y-2">
+        <div className="text-white text-[15px] md:text-[16px] leading-relaxed font-medium space-y-2">
           {description.split("\n").map((line, idx) => {
             const parts = line.split(/(https?:\/\/[^\s]+)/g);
             return (

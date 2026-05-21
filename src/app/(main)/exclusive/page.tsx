@@ -22,7 +22,7 @@ const Page = async () => {
   return (
     <div>
       <Header siteData={siteData} />
-      <ExclusiveBanner siteData={siteData} />
+      <ExclusiveBanner />
       <ExclusiveWhyCourse />
       <WhatYouWillLearn/>
       <MasterclassBundle/>

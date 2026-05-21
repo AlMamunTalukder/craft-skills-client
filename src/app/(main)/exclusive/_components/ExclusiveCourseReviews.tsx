@@ -4,10 +4,10 @@ import SectionTitle from "@/src/components/shared/SectionTitle";
 
 const CourseReviews = async () => {
   return (
-    <section className="relative py-14 md:py-20 bg-[#353535] overflow-hidden">
+    <section className="relative py-14 md:py-20 bg-black overflow-hidden">
 
   {/* BASE DARK LAYER */}
-  <div className="absolute inset-0 bg-gradient-to-b from-[#2f2f2f] via-[#353535] to-[#2a2a2a]" />
+  {/* <div className="absolute inset-0 bg-gradient-to-b from-[#2f2f2f] via-[#353535] to-[#2a2a2a]" /> */}
 
   {/* ORANGE FOCUS LIGHT (MAIN HERO SPOTLIGHT) */}
   <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#F26422] opacity-35 blur-[160px] rounded-full" />

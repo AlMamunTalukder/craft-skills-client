@@ -41,7 +41,7 @@ const ExclusiveFAQ = () => {
   const rightColumnFaq = admissionFaq.slice(midPoint);
 
   return (
-    <section className="relative overflow-hidden py-10 md:py-32 bg-[#0A0A0C]">
+    <section className="relative overflow-hidden py-10 md:py-32 bg-black">
       
       {/* =========================
           🌌 DEEP ULTRA DARK AMBIENT GLOW SYSTEM

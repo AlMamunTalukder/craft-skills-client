@@ -7,7 +7,7 @@ import { Award, Mic, Radio } from "lucide-react";
 
 const ExclusiveTrainer = () => {
   return (
-    <section className="relative py-12 md:py-32 bg-[#0A0A0B] text-gray-100 overflow-hidden">
+    <section className="relative py-12 md:py-32 bg-black text-gray-100 overflow-hidden">
       {/* Premium Dark Tech Background Radial Glows */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(242,100,34,0.12),transparent_60%)] lg:bg-[radial-gradient(circle_at_30%_30%,rgba(242,100,34,0.08),transparent_50%)] pointer-events-none" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-purple-600/5 blur-[120px] rounded-full pointer-events-none" />
