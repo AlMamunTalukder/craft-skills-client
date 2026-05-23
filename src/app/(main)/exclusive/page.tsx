@@ -8,7 +8,6 @@ import MasterclassBundle from "./_components/MasterclassBundle";
 import CareerOpportunities from "@/src/components/home/CareerOpportunities";
 import ExclusiveTrainer from "./_components/ExclusiveTrainer";
 import ExclusiveCourseReviews from "./_components/ExclusiveCourseReviews";
-import CoursePricing from "./_components/CoursePrice";
 import ExclusiveFAQ from "./_components/ExclusiveFAQ";
 import ExclusiveOfferForm from "@/src/components/Forms/Exclusive/ExclusiveForm";
 import SubHeaderExclusive from "@/src/components/shared/SubHeader/SubHeaderExclusive";

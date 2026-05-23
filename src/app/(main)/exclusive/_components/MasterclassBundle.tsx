@@ -14,6 +14,7 @@ import {
   Users,
   Award,
   Heart,
+  Gift, // Imported Gift icon
 } from "lucide-react";
 
 const items = [
@@ -40,9 +41,23 @@ const MasterclassBundle = () => {
       <Container className="relative z-10">
 
         {/* HEADER */}
-        <div className="text-center mb-14 md:mb-20">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-            মাস্টার ক্লাসটির সাথে যা পাবেন
+        <div className="text-center mb-14 md:mb-20 flex flex-col items-center">
+          
+          {/* Gift Box Icon Top of Header */}
+          <div className="relative mb-6 p-4 bg-orange-50 rounded-2xl border border-orange-100 ">
+            <div className="absolute inset-0 bg-orange-500/10 blur-xl rounded-full" />
+            <Gift className="w-20 h-20 text-orange-500 relative z-10" />
+          </div>
+
+          {/* Redesigned Title with Slate-900, Orange, and White (on dark badge) */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight max-w-4xl leading-tight md:leading-snug">
+            কোর্স এনরোল করলেই পাচ্ছেন{" "}
+            <span className="text-orange-500 relative inline-block mx-1">
+              ৪,২০০ টাকার
+            </span>{" "}
+            <span className="inline-block bg-slate-900 text-white px-4 py-1 rounded-xl sm:rounded-2xl shadow-md rotate-[-1deg] ml-1">
+              প্রিমিয়াম গিফট বক্স!
+            </span>
           </h2>
         </div>
 

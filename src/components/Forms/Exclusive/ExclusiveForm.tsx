@@ -7,15 +7,12 @@ import {
   Mail,
   Phone,
   User,
-  Sparkles,
-  ShieldCheck,
-  BadgeCheck,
   GraduationCap,
+  MessageCircle,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import { object, z } from "zod";
+import { z } from "zod";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Container from "../../shared/Container";
 import AppForm from "../AppForm";
@@ -27,92 +24,126 @@ import SubmitButton from "../../FormInputs/SubmitButton";
 ========================= */
 
 const exclusiveOfferSchema = z.object({
-  name: z.string().min(1, "নাম লিখুন"),
-  phone: z.string().min(11, "সঠিক মোবাইল নাম্বার লিখুন"),
-  email: z.string().email("সঠিক ইমেইল দিন").optional().or(z.literal("")),
+    name: z.string().min(1, "নাম লিখুন"),
+    phone: z.string().min(11, "সঠিক মোবাইল নাম্বার লিখুন"),
+    whatsapp: z.string().optional(),
+    occupation: z.string().optional(),
+    email: z.string().email("সঠিক ইমেইল দিন").optional().or(z.literal("")),
 });
+
 
 type ExclusiveOfferFormData = z.infer<typeof exclusiveOfferSchema>;
 
+interface ActiveBatch {
+  _id: string;
+  batchNo: string | number;
+  title: string;
+  description?: string;
+  startDate: string;
+  endDate: string;
+  offerPrice: number;
+  isActive: boolean;
+}
+
 export default function ExclusiveOfferForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [activeBatch, setActiveBatch] = useState<ActiveBatch | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch active batch on component mount
+  useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+    
+    fetch(`${API_URL}/exclusive-batches/active`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.data) {
+          setActiveBatch(data.data);
+        }
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleSubmit = async (data: ExclusiveOfferFormData) => {
-    setIsSubmitting(true);
+    if (!activeBatch) {
+        toast.error("No active batch available");
+        return;
+    }
 
+    setIsSubmitting(true);
     const toastId = toast.loading("প্রসেস হচ্ছে...");
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/exclusive-offer/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: data.name,
-            phone: data.phone,
-            email: data.email,
-            courseTitle: "Voice & Public Speaking Masterclass",
-            offerPrice: 199,
-          }),
-        },
-      );
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/exclusive-offer/register`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    phone: data.phone,
+                    whatsapp: data.whatsapp || "",
+                    occupation: data.occupation || "",
+                    email: data.email || "",
+                    batchId: activeBatch._id,
+                }),
+            },
+        );
 
-      const result = await response.json();
+        const result = await response.json();
 
-      if (!response.ok) {
-        throw new Error(result.message || "Registration failed");
-      }
+        if (!response.ok) {
+            throw new Error(result.message || "Registration failed");
+        }
 
-      toast.success("Redirecting to payment...", { id: toastId });
+        toast.success("Redirecting to payment...", { id: toastId });
 
-      // ✅ SSLCommerz Redirect (IMPORTANT FIX)
-      const paymentUrl = result?.data?.paymentUrl;
+        const paymentUrl = result?.data?.paymentUrl;
+        if (paymentUrl) {
+            window.location.href = paymentUrl;
+            return;
+        }
 
-      if (paymentUrl) {
-        window.location.href = paymentUrl;
-        return;
-      }
-
-      throw new Error("Payment URL not found");
+        throw new Error("Payment URL not found");
     } catch (error: any) {
-      toast.error(error.message || "Something went wrong", {
-        id: toastId,
-      });
+        toast.error(error.message || "Something went wrong", {
+            id: toastId,
+        });
     } finally {
-      setIsSubmitting(false);
+        setIsSubmitting(false);
     }
-  };
+};
+
+  // Don't show form if loading, no active batch, or batch is expired
+  if (loading) return null;
+  if (!activeBatch) return null;
+  if (!activeBatch.isActive) return null;
+
+  // Check if batch has expired
+  const now = new Date();
+  const endDate = new Date(activeBatch.endDate);
+  if (now > endDate) return null;
 
   return (
     <section
       id="registration-form"
-      className="relative overflow-hidden py-16 md:py-28 bg-black"
+      className="relative overflow-hidden py-16 md:py-28 bg-white"
     >
       {/* =========================
           PREMIUM BACKGROUND
       ========================= */}
 
       {/* Main Orange Glow */}
-      <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#F26422]/25 blur-[180px] rounded-full" />
-
-      {/* Side Dark Glow */}
-      <div className="absolute bottom-[-250px] right-[-150px] w-[600px] h-[600px] bg-black/40 blur-[160px] rounded-full" />
-
-      {/* Extra Orange Accent */}
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#F26422]/15 blur-[140px] rounded-full" />
-
-      {/* Grid Texture */}
-      <div
-        className="absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
+        <div className="absolute top-0 right-0 w-full lg:w-[45%] h-[400px] lg:h-full bg-[#0F1016] pointer-events-none" />
+      
+      {/* 2. Premium Vibrant Orange Fluid Wave */}
+      <div className="absolute top-[350px] lg:top-0 right-0 lg:right-[40%] w-full lg:w-[15%] h-[150px] lg:h-full bg-gradient-to-b lg:bg-gradient-to-r from-[#F26422] to-[#E05313] opacity-95 pointer-events-none skew-y-3 lg:skew-y-0 lg:-skew-x-12 transform origin-top-right" />
+      
+      {/* 3. Ambient soft glows to tie the sections together safely */}
+      <div className="absolute top-10 left-10 w-[300px] h-[300px] bg-orange-100/40 blur-[100px] rounded-full pointer-events-none" />
 
       <Container>
         <div className="relative z-10 max-w-6xl mx-auto">
@@ -125,7 +156,6 @@ export default function ExclusiveOfferForm() {
                   LEFT SIDE
               ========================= */}
               <div className="relative p-6 sm:p-10 md:p-14 flex flex-col justify-between overflow-hidden bg-gradient-to-br from-[#121215] to-[#0A0A0C]">
-                {/* 🌌 HIGHER END INTEGRATED GLOW SYSTEM */}
                 <div className="absolute top-0 right-0 w-[350px] h-[350px] bg-[#F26422]/15 blur-[140px] rounded-full pointer-events-none" />
                 <div className="absolute bottom-0 left-[-50px] w-[200px] h-[200px] bg-white/[0.02] blur-[80px] rounded-full pointer-events-none" />
 
@@ -150,12 +180,11 @@ export default function ExclusiveOfferForm() {
                     </span>
                   </h2>
 
-                  {/* DESIGNED PRICE CARD (Adapts beautifully from mobile to desktop) */}
+                  {/* DESIGNED PRICE CARD */}
                   <div className="mt-8 md:mt-12 relative overflow-hidden rounded-3xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl p-5 sm:p-6 shadow-[0_15px_50px_rgba(0,0,0,0.4)]">
-                    {/* Internal ambient card texture */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-[#F26422]/5 via-transparent to-white/[0.02] pointer-events-none" />
 
-                    <div className=" relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
                         <div className="flex items-center gap-2 mb-2">
                           <p className="text-white/40 text-xs font-black uppercase tracking-[2px]">
@@ -168,20 +197,14 @@ export default function ExclusiveOfferForm() {
 
                         <div className="flex items-baseline gap-3.5 flex-wrap">
                           <h3 className="text-5xl sm:text-6xl font-black text-white tracking-tight leading-none">
-                            199<span className="text-[#F26422]">৳</span>
+                            {activeBatch.offerPrice}
+                            <span className="text-[#F26422]">৳</span>
                           </h3>
-                          <p className="text-white/30 text-base sm:text-lg line-through font-bold decoration-red-500/40">
+                          <p className="text-white/30 text-base md:text-xl line-through font-bold decoration-red-500/40">
                            5,500 টাকা
                           </p>
                         </div>
                       </div>
-
-                      {/* Callout Indicator Badge */}
-                      {/* <div className="hidden sm:flex flex-col items-end text-right">
-                        <p className="text-white/70 text-xs font-bold bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 backdrop-blur-sm">
-                          ⚡ সীমিত সময়ের অফার
-                        </p>
-                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -191,7 +214,6 @@ export default function ExclusiveOfferForm() {
                   RIGHT SIDE FORM
               ========================= */}
               <div className="relative bg-white p-3 md:p-12">
-                {/* FORM GLOW */}
                 <div className="absolute top-0 left-0 w-[250px] h-[250px] bg-[#F26422]/10 blur-[100px] rounded-full" />
 
                 <div className="relative z-10">
@@ -223,6 +245,14 @@ export default function ExclusiveOfferForm() {
                         labelClassName="text-[#1A1A1A] font-bold mb-2"
                         className="h-14 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
                       />
+                      <TextInput
+                        label="Whatsapp"
+                        name="whatsapp"
+                        placeholder="01XXXXXXXXX"
+                        icon={MessageCircle}
+                        labelClassName="text-[#1A1A1A] font-bold mb-2"
+                        className="h-14 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
+                      />
 
                       <TextInput
                         label="ইমেইল (Optional)"
@@ -232,10 +262,18 @@ export default function ExclusiveOfferForm() {
                         labelClassName="text-[#1A1A1A] font-bold mb-2"
                         className="h-14 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
                       />
+                      <TextInput
+                        label="পেশা"
+                        name="occupation"
+                        placeholder="example@email.com"
+                        icon={Mail}
+                        labelClassName="text-[#1A1A1A] font-bold mb-2"
+                        className="h-14 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
+                      />
 
                       {/* BUTTON */}
                       <SubmitButton
-                        title="মাত্র 199 টাকায় জয়েন করুন"
+                        title={`মাত্র ${activeBatch.offerPrice} টাকায় জয়েন করুন`}
                         loadingTitle="সাবমিট হচ্ছে..."
                         loading={isSubmitting}
                         loaderIcon={Loader2}

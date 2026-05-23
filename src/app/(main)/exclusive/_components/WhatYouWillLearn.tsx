@@ -52,17 +52,14 @@ const WhatYouWillLearn = () => {
         {/* HEADER */}
         <div className="text-center mb-10 md:mb-20">
           <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">
-            টানা ৪ ঘণ্টার এই{" "}
+      এই{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-white to-[#F26422]">
               পাওয়ারফুল মাস্টারক্লাসে
             </span>{" "}
             আপনি যা শিখবেন
           </h2>
 
-          <p className="text-white/60 mt-4 text-sm md:text-lg max-w-2xl mx-auto">
-            আধুনিক কমিউনিকেশন, ভয়েস এবং পার্সোনালিটি ডেভেলপমেন্টের পূর্ণ
-            রোডম্যাপ
-          </p>
+          
         </div>
 
         {/* GRID CARDS */}
@@ -92,14 +89,7 @@ const WhatYouWillLearn = () => {
           ))}
         </div>
 
-        {/* FOOTER CTA STRIP */}
-        <div className="mt-8 md:mt-20 text-center">
-          <div className="inline-block px-6 md:px-3 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl">
-            <p className="text-white/80 text-sm md:text-base">
-              বাস্তব দক্ষতা + প্র্যাকটিক্যাল ট্রেনিং + ইনকাম গাইডলাইন
-            </p>
-          </div>
-        </div>
+        
       </Container>
     </section>
   );

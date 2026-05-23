@@ -10,8 +10,7 @@ import {
   Mic2,
   Presentation,
   UserCheck,
-  Radio,
-  Sparkles
+  Radio
 } from "lucide-react";
 
 import { MdArrowForward } from "react-icons/md";
@@ -155,7 +154,7 @@ const ExclusiveBanner = () => {
               
               <div className="relative w-full h-full rounded-2xl overflow-hidden flex items-center justify-center">
                 <Image
-                  src="/img/exclusive.jpeg"
+                  src="/img/exclu.png"
                   alt="Voice & Public Speaking Masterclass Exclusive Cover Asset"
                   width={480}
                   height={480}
