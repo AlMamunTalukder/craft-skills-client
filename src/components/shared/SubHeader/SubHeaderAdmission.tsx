@@ -14,7 +14,7 @@ import {
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Batch, SiteContent } from "@/types";
-import Container from "./Container";
+import Container from "../Container";
 import { pushEvent } from "@/src/utils/dataLayer";
 
 const CountdownTimer = dynamic(
@@ -27,7 +27,7 @@ type Props = {
   batch: Batch | null;
 };
 
-export default function SubHeaderAdmission({ siteData, batch }: Props) {
+export default function SubHeaderAdmission({ siteData, batch }: Props) { 
   const [isMobile, setIsMobile] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 

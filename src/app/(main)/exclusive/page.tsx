@@ -11,6 +11,7 @@ import ExclusiveCourseReviews from "./_components/ExclusiveCourseReviews";
 import CoursePricing from "./_components/CoursePrice";
 import ExclusiveFAQ from "./_components/ExclusiveFAQ";
 import ExclusiveOfferForm from "@/src/components/Forms/Exclusive/ExclusiveForm";
+import SubHeaderExclusive from "@/src/components/shared/SubHeader/SubHeaderExclusive";
 
 const Page = async () => {
   const [siteData, seminar] = await Promise.all([
@@ -21,17 +22,18 @@ const Page = async () => {
 
   return (
     <div>
+      <SubHeaderExclusive />
       <Header siteData={siteData} />
       <ExclusiveBanner />
       <ExclusiveWhyCourse />
-      <WhatYouWillLearn/>
-      <MasterclassBundle/>
-      <CareerOpportunities/>
-      <ExclusiveTrainer/>
-      <ExclusiveCourseReviews/>
+      <WhatYouWillLearn />
+      <MasterclassBundle />
+      <CareerOpportunities />
+      <ExclusiveTrainer />
+      <ExclusiveCourseReviews />
       {/* <CoursePricing/> */}
-      <ExclusiveOfferForm/>
-      <ExclusiveFAQ/>
+      <ExclusiveOfferForm />
+      <ExclusiveFAQ />
     </div>
   );
 };

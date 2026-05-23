@@ -10,12 +10,12 @@ import {
   FaWhatsapp,
   FaYoutube,
 } from "react-icons/fa";
-import Container from "./Container";
-import "./subheader.css";
+import Container from "../Container";
+import "../subheader.css";
 import { Seminar, SiteContent } from "@/types";
 import { pushEvent } from "@/src/utils/dataLayer";
 
-const CountdownTimer = dynamic(() => import("../home/CountdownTimer"), {
+const CountdownTimer = dynamic(() => import("../../home/CountdownTimer"), {
   ssr: false,
 });
 
@@ -24,7 +24,7 @@ type Props = {
   seminar: Partial<Seminar> | null;
 };
 
-export default function SubHeader({ siteData, seminar }: Props) {
+export default function SubHeaderSeminar({ siteData, seminar }: Props) {
   const [isMobile, setIsMobile] = useState(false);
 
   // Helper: get corrected BD deadline (stored UTC + 6 hours)

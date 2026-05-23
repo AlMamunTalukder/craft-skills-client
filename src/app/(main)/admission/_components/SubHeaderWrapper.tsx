@@ -1,5 +1,5 @@
 
-import SubHeaderAdmission from "@/src/components/shared/SubHeaderAdmission";
+import SubHeaderAdmission from "@/src/components/shared/SubHeader/SubHeaderAdmission";
 import { getActiveBatch, getSiteData } from "@/lib/api";
 
 export default async function SubHeaderWrapper() {
