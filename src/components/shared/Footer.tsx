@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -110,7 +111,7 @@ export default function Footer() {
                   className="h-12 w-auto object-contain"
                 />
               </Link>
-              <p className="text-sm text-white/80 mt-2 text-center md:text-left leading-relaxed">
+              <p className="text-sm text-white mt-2 text-center md:text-left leading-relaxed">
                 কথার জাদুতে মুগ্ধ করুন ক্রাফট স্কিলসের সাথে।
               </p>
             </div>
@@ -182,7 +183,7 @@ export default function Footer() {
               <h3 className={` text-lg font-semibold mb-4 text-[#DC25FF] ${theme.accentText}`}>
                 ঠিকানা
               </h3>
-              <div className="text-sm font-medium leading-relaxed text-gray-300">
+              <div className="text-sm font-medium leading-relaxed text-white">
                 <p className="text-center md:text-left">
                   {siteData?.address}
                 </p>
@@ -196,21 +197,13 @@ export default function Footer() {
               <p>
                 © {new Date().getFullYear()} ক্রাফট স্কিলস। সর্বস্বত্ব সংরক্ষিত।
               </p>
-              <div className="flex items-center gap-4">
-                <Link
-                  href="#"
-                  className={`${theme.hoverText} transition-colors`}
-                >
-                  গোপনীয়তা নীতি
-                </Link>
-                <span className="opacity-30">|</span>
-                <Link
-                  href="#"
-                  className={`${theme.hoverText} transition-colors`}
-                >
-                  শর্তাবলী
-                </Link>
-              </div>
+              <Image
+                src="/img/payment.png"
+                alt="Payment Methods"
+                width={300}
+                height={40}
+                className="h-8 md:h-10 w-auto object-contain duration-300"
+              />
             </div>
           </div>
         </Container>
