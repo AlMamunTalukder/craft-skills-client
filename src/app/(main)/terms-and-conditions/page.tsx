@@ -1,7 +1,5 @@
 import TermsAndConditions from "@/src/components/TermsAndConditions";
 
-
-
 const page = () => {
     return (
         <div>

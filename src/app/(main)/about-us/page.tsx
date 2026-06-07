@@ -1,6 +1,5 @@
 import AboutUs from '@/src/components/AboutUs';
 
-
 const page = () => {
     return (
         <div>

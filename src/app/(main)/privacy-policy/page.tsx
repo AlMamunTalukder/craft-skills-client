@@ -1,7 +1,5 @@
 import PrivacyPolicy from "@/src/components/PrivacyPolicy";
 
-
-
 const page = () => {
     return (
         <div>
