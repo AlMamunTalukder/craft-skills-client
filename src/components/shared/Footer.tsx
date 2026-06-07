@@ -98,11 +98,11 @@ export default function Footer() {
       <div className="relative z-10">
         <Container>
           
-          {/* MAIN FOOTER LAYOUT (Clean, balanced 3-column architecture) */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/[0.06]">
+          {/* MAIN FOOTER LAYOUT (Clean 4-column framework layout) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-white/[0.06]">
             
-            {/* COLUMN 1: BRAND IDENTITY (Spans 5 cols) */}
-            <div className="md:col-span-5 space-y-4 flex flex-col items-center md:items-start text-center md:text-left">
+            {/* COLUMN 1: BRAND IDENTITY (Logo, description, trade license) */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
               <Link href="/">
                 <Image
                   src="/img/footerlogo.png"
@@ -112,35 +112,22 @@ export default function Footer() {
                   className="h-11 w-auto object-contain"
                 />
               </Link>
-              <p className="text-sm text-gray-300 max-w-sm leading-relaxed">
-                কথার জাদুতে মুগ্ধ করুন ক্রাফট স্কিলসের সাথে। আপনার কণ্ঠকে রূপান্তর করুন একটি পেশাদার ক্যারিয়ারে।
+              <p className="text-sm text-gray-300 max-w-xs leading-relaxed">
+                কথার জাদুতে মুগ্ধ করুন ক্রাফট স্কিলসের সাথে।
               </p>
-              {siteData?.tradeLicense && (
+             
                 <p className="text-xs text-gray-500 font-medium pt-1">
-                  ট্রেড লাইসেন্স নং: {siteData.tradeLicense}
+                  ট্রেড লাইসেন্স নং: xxxxxxxxx
                 </p>
-              )}
+            
             </div>
 
-            {/* COLUMN 2: QUICK LINK ROUTING (Spans 3 cols) */}
-            <div className="md:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+            {/* COLUMN 2: CONTACTS (যোগাযোগ) */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left">
               <h3 className={`text-base font-bold tracking-wide mb-4 ${theme.accentText}`}>
-                প্রয়োজনীয় লিংক
+                যোগাযোগ করুন
               </h3>
-              <div className="flex flex-col space-y-2.5 text-sm font-medium text-gray-400">
-                <Link href="/about-us" className={`${theme.hoverText} transition-colors duration-200`}>আমাদের সম্পর্কে (About Us)</Link>
-                <Link href="/terms-and-conditions" className={`${theme.hoverText} transition-colors duration-200`}>শর্তাবলী (Terms & Conditions)</Link>
-                <Link href="/privacy-policy" className={`${theme.hoverText} transition-colors duration-200`}>প্রাইভেসি পলিসি (Privacy Policy)</Link>
-                <Link href="/refund-policy" className={`${theme.hoverText} transition-colors duration-200`}>রিফান্ড পলিসি (Refund Policy)</Link>
-              </div>
-            </div>
-
-            {/* COLUMN 3: CORPORATE CONTACTS & ADDRESS (Spans 4 cols) */}
-            <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left">
-              <h3 className={`text-base font-bold tracking-wide mb-4 ${theme.accentText}`}>
-                যোগাযোগ ও ঠিকানা
-              </h3>
-              <div className="space-y-3 text-sm font-medium text-gray-300 mb-4">
+              <div className="space-y-3 text-sm font-medium text-gray-300">
                 {siteData?.phone1 && (
                   <Link href={`tel:${siteData.phone1}`} className={`flex items-center justify-center md:justify-start gap-3 ${theme.hoverText} transition-colors duration-300`}>
                     <FaPhone className="text-gray-500 text-xs flex-shrink-0" />
@@ -160,23 +147,53 @@ export default function Footer() {
                   </Link>
                 )}
               </div>
-              <div className="text-xs font-normal leading-relaxed text-gray-400 border-t border-white/[0.04] pt-3 w-full max-w-sm md:max-w-none">
+            </div>
+
+            {/* COLUMN 3: QUICK LINK ROUTING (প্রয়োজনীয় লিংক) */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left">
+              <h3 className={`text-base font-bold tracking-wide mb-4 ${theme.accentText}`}>
+                প্রয়োজনীয় লিংক
+              </h3>
+              <div className="flex flex-col space-y-2.5 text-sm font-medium text-gray-400">
+                <Link href="/about-us" className={`${theme.hoverText} transition-colors duration-200`}>আমাদের সম্পর্কে (About Us)</Link>
+                <Link href="/terms-and-conditions" className={`${theme.hoverText} transition-colors duration-200`}>শর্তাবলী (Terms & Conditions)</Link>
+                <Link href="/privacy-policy" className={`${theme.hoverText} transition-colors duration-200`}>প্রাইভেসি পলিসি (Privacy Policy)</Link>
+                <Link href="/refund-policy" className={`${theme.hoverText} transition-colors duration-200`}>রিফান্ড পলিসি (Refund Policy)</Link>
+              </div>
+            </div>
+
+            {/* COLUMN 4: CORPORATE ADDRESS (ঠিকানা) */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left">
+              <h3 className={`text-base font-bold tracking-wide mb-4 ${theme.accentText}`}>
+                ঠিকানা
+              </h3>
+              <div className="text-sm font-medium leading-relaxed text-gray-300 max-w-xs">
                 <p>{siteData?.address}</p>
               </div>
             </div>
 
           </div>
 
-          {/* FOOTER'S FOOTER SECTION (Sub-bar housing structural outputs and social arrays) */}
+          {/* FOOTER'S FOOTER SECTION (Sub-bar housing copyright, payment systems, and social loops) */}
           <div className="mt-8 flex flex-col lg:flex-row items-center justify-between gap-6">
             
-            {/* Copyright block text alignment */}
+            {/* Copyright text alignment block */}
             <div className="text-xs md:text-sm text-gray-400 font-medium text-center lg:text-left order-3 lg:order-1">
               © {new Date().getFullYear()} ক্রাফট স্কিলস। সর্বস্বত্ব সংরক্ষিত।
             </div>
 
-            {/* SOCIAL MEDIA HOUSING (Relocated cleanly directly inside the subfooter area) */}
-            <div className="flex items-center justify-center gap-2.5 order-1 lg:order-2">
+            {/* Payment Systems layout engine setup */}
+            <div className="order-2 lg:order-2">
+              <Image
+                src="/img/payment.png"
+                alt="Payment Methods"
+                width={260}
+                height={38}
+                className="h-8 w-auto object-contain duration-300"
+              />
+            </div>
+            {/* SOCIAL MEDIA HOUSING */}
+            <div className="flex items-center justify-center gap-2.5 order-1 lg:order-3">
               {socialLinks.map(
                 (social, index) =>
                   social.href && (
@@ -185,7 +202,7 @@ export default function Footer() {
                       href={social.href}
                       aria-label={social.label}
                       title={social.label}
-                      className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/[0.02] border border-white/5 hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-0.5 shadow-sm"
+                      className="w-8 h-8 flex items-center justify-center rounded-full bg-white/[0.2] border border-white/8 hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-0.5 shadow-sm"
                       style={{ color: social.color }}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -196,16 +213,7 @@ export default function Footer() {
               )}
             </div>
 
-            {/* Payment Systems badge rendering block alignment */}
-            <div className="order-2 lg:order-3">
-              <Image
-                src="/img/payment.png"
-                alt="Payment Methods"
-                width={260}
-                height={35}
-                className="h-7 w-auto object-contain grayscale opacity-80 hover:grayscale-0 hover:opacity-100 duration-300"
-              />
-            </div>
+            
 
           </div>
         </Container>
