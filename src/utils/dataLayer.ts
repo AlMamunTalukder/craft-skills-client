@@ -13,7 +13,7 @@ export function pushEvent(
   window.dataLayer = window.dataLayer || [];
 
   // Debug (remove in production if needed)
-  console.log(`📤 GTM Event: ${eventName}`, params);
+  // console.log(`📤 GTM Event: ${eventName}`, params);
 
   // Reset ecommerce object (GA4 requirement)
   window.dataLayer.push({ ecommerce: null });

@@ -76,7 +76,7 @@ export default function PaymentSection() {
             name="paymentMethod"
             label="পেমেন্ট মেথড"
             options={paymentMethods}
-            required
+          // required
           />
           <TextInput label="সেন্ডার নাম্বার" name="senderNumber" icon={Send} />
         </div>

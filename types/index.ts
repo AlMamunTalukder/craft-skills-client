@@ -1,8 +1,8 @@
 export interface SiteContent {
   _id: string;
   name: string;
-  logoLight: string;
-  logoDark: string;
+  // logoLight: string;
+  // logoDark: string;
   tagline: string;
   email: string;
   phone1?: string;
@@ -32,7 +32,7 @@ export interface SiteContent {
   admissionHeaderTitle?: string;
   admissionHeaderDescription?: string;
   admissionDeadline?: Date;
-   showPdfMenu?: boolean;
+  showPdfMenu?: boolean;
 }
 
 export interface Batch {
