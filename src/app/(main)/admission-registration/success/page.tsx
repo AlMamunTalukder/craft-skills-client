@@ -12,9 +12,12 @@ interface PageProps {
   searchParams: Promise<{
     name?: string;
     amount?: string;
+    paid?: string;
     courseId?: string;
     phone?: string;
     email?: string;
+    tran_id?: string;
+    status?: string;
   }>;
 }
 
