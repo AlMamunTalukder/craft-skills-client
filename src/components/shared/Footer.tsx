@@ -117,7 +117,7 @@ export default function Footer() {
               </p>
              
                 <p className="text-xs text-gray-500 font-medium pt-1">
-                  ট্রেড লাইসেন্স নং: xxxxxxxxx
+                  ট্রেড লাইসেন্স নং: TRAD/DSCC/026310/2025
                 </p>
             
             </div>

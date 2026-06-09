@@ -1,10 +1,4 @@
-import {
-  User,
-  Phone,
-  Mail,
-  MessageSquare,
-  Facebook,
-} from "lucide-react";
+import { User, Phone, Mail, MessageSquare, Facebook } from "lucide-react";
 import TextInput from "../../FormInputs/TextInput";
 
 export default function PersonalInfo() {
@@ -50,6 +44,7 @@ export default function PersonalInfo() {
           label="ফেসবুক প্রোফাইল"
           name="facebook"
           icon={Facebook}
+          required
           className="border-blue-200"
         />
       </div>

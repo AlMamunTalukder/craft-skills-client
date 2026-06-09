@@ -5,7 +5,7 @@ import Container from "@/src/components/shared/Container";
 import { ShieldCheck, Eye, Database, Lock } from "lucide-react";
 
 const PrivacyPolicy = () => {
-    const lastUpdated = "জুন ২০২৬";
+    // const lastUpdated = "জুন ২০২৬";
 
     return (
         <section className="relative py-20 bg-[#070510] text-white overflow-hidden min-h-screen">
@@ -26,7 +26,7 @@ const PrivacyPolicy = () => {
                         প্রাইভেসি পলিসি (Privacy Policy)
                     </h1>
                     <p className="text-purple-300/60 text-sm">
-                        সর্বশেষ আপডেট: {lastUpdated}
+                        {/* সর্বশেষ আপডেট: {lastUpdated} */}
                     </p>
                 </div>
 
@@ -59,7 +59,7 @@ const PrivacyPolicy = () => {
                             ৩. তৃতীয় পক্ষের সাথে তথ্য শেয়ারিং নীতি
                         </h2>
                         <p className="text-purple-100/70 text-base leading-relaxed">
-                            ক্রাফট স্কিলস কখনো কোনো শিক্ষার্থীর ব্যক্তিগত তথ্য বা ফোন নম্বর কোনো বাণিজ্যিক বা বিজ্ঞাপন ভিত্তিক কোম্পানির কাছে বিক্রি, লিজ বা শেয়ার করে না। আপনার তথ্য আমাদের কাছে সম্পূর্ণ নিরাপদ।
+                            আমরা আপনার ব্যক্তিগত তথ্যের (নাম, ফোন নম্বর, ইমেইল) পূর্ণ গোপনীয়তা বজায় রাখি। কোনো তৃতীয় পক্ষের কাছে আপনার তথ্য শেয়ার করা হয় না।
                         </p>
                     </div>
 
