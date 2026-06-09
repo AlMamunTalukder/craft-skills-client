@@ -1,12 +1,11 @@
-
 import SeminarForm from "@/src/components/Forms/SeminarForm";
 import Banner from "@/src/components/home/Banner";
 import FAQSection from "@/src/components/home/FAQSection";
 import HomePageContent from "@/src/components/HomePageContent";
-import Container from "@/src/components/shared/Container"; 
+import Container from "@/src/components/shared/Container";
 import Header from "@/src/components/shared/Header";
 import SubHeaderSeminar from "@/src/components/shared/SubHeader/SubHeaderSeminar";
-import { activeSeminar, getSiteData } from "@/lib/api"; 
+import { activeSeminar, getSiteData } from "@/lib/api";
 import { currentUser } from "@/lib/currentUser";
 import SectionTitle from "@/src/components/shared/SectionTitle";
 // import { ScrollTrackerWrapper } from "@/src/components/ScrollTrackerWrapper";
@@ -17,13 +16,11 @@ export default async function HomePage() {
   const [siteData, seminar] = await Promise.all([
     getSiteData(),
     activeSeminar(),
-    currentUser(), 
+    currentUser(),
   ]);
 
   return (
     <>
-      
-      
       <SubHeaderSeminar
         siteData={{
           facebook: siteData?.facebook,
@@ -60,5 +57,4 @@ export default async function HomePage() {
       <FAQSection />
     </>
   );
-} 
-
+}

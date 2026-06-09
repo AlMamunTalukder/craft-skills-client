@@ -21,8 +21,6 @@ export default async function AdmissionPage() {
 
   return (
     <>
-    
-      
       <Suspense fallback={<div className="h-[85px] bg-[#4F0187]"></div>}>
         <SubHeaderWrapper />
       </Suspense>

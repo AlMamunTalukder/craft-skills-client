@@ -13,8 +13,8 @@ const layout = async ({ children }: { children: ReactNode }) => {
   const [siteData] = await Promise.all([getSiteData()]);
   return (
     <div>
-      {/* <Header siteData={siteData} /> */}
-      <ScrollManager />
+   
+      {/* <ScrollManager /> */}
       <ScrollToTop />
       {/* <Messenger/> */}
       <WhatsApp />
