@@ -44,13 +44,13 @@ export const courseAdmissionSchema = z.object({
   // Add batchId as optional (will be set by default)
   batchId: z.string().optional(),
   // ✅ ADD THIS - Terms agreement field (MANDATORY)
-  agreedToTerms: z
-    .boolean({
-      required_error: "অর্ডার নিশ্চিত করতে Terms & Conditions, Privacy Policy এবং Refund Policy এ সম্মতি জানানো আবশ্যক।",
-    })
-    .refine(val => val === true, {
-      message: "অর্ডার নিশ্চিত করতে Terms & Conditions, Privacy Policy এবং Refund Policy এ সম্মতি জানানো আবশ্যক।",
-    }),
+  agreedToTerms: z.boolean().refine(
+    (value) => value === true,
+    {
+      message:
+        "অর্ডার নিশ্চিত করতে Terms & Conditions, Privacy Policy এবং Refund Policy এ সম্মতি জানানো আবশ্যক।",
+    }
+  ),
 
 });
 
