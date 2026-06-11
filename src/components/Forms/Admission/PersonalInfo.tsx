@@ -23,25 +23,20 @@ export default function PersonalInfo() {
           className="border-blue-200"
         />
         <TextInput
-          label="ইমেইল ঠিকানা"
+          label="ইমেইল"
           name="email"
-          icon={Mail}
+          icon={Mail}          
           className="border-blue-200"
         />
         <TextInput
           label="হোয়াটসঅ্যাপ"
           name="whatsapp"
           icon={MessageSquare}
+          required
           className="border-blue-200"
-        />
-        {/* <TextInput
-          label="পেশা"
-          name="occupation"
-          icon={Briefcase}
-          className="border-blue-200"
-        /> */}
+        />       
         <TextInput
-          label="ফেসবুক প্রোফাইল"
+          label="ফেসবুক প্রোফাইল লিংক"
           name="facebook"
           icon={Facebook}
           required

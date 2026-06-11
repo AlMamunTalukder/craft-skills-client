@@ -26,9 +26,14 @@ export const courseAdmissionSchema = z.object({
     .string()
     .email("একটি বৈধ ইমেইল ঠিকানা লিখুন।")
     .optional()
-    .or(z.literal('')), // Make email optional
+    .or(z.literal('')), 
 
-  whatsapp: z.string().optional().or(z.literal('')),
+   whatsapp: z
+    .string({
+      required_error: "হোয়াটসঅ্যাপ নম্বর প্রদান করা আবশ্যক।",
+    })
+    .min(11, "অনুগ্রহ করে একটি সঠিক ১১-সংখ্যার হোয়াটসঅ্যাপ নম্বর প্রদান করুন।"),
+    
   facebook: z.string().optional().or(z.literal('')),
   couponCode: z.string().optional().nullable(),
 
