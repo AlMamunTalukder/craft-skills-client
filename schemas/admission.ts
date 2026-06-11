@@ -42,13 +42,13 @@ export const courseAdmissionSchema = z.object({
     .min(1)
     .optional(),
 
-  // MAKE THESE OPTIONAL for payment gateway flow
+  
   paymentMethod: z.string().optional().or(z.literal('')),
   senderNumber: z.string().optional().or(z.literal('')),
   
-  // Add batchId as optional (will be set by default)
+  
   batchId: z.string().optional(),
-  // ✅ ADD THIS - Terms agreement field (MANDATORY)
+
   agreedToTerms: z.boolean().refine(
     (value) => value === true,
     {
