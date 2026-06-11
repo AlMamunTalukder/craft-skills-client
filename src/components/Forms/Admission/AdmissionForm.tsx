@@ -176,7 +176,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
       throw new Error("Payment URL not found");
     } catch (error: any) {
-      console.error("❌ Error:", error);
+      // console.error("❌ Error:", error);
       toast.error(error.message || "Payment failed", { id: toastId });
     } finally {
       setIsSubmitting(false);
