@@ -34,7 +34,12 @@ export const courseAdmissionSchema = z.object({
     })
     .min(11, "অনুগ্রহ করে একটি সঠিক ১১-সংখ্যার হোয়াটসঅ্যাপ নম্বর প্রদান করুন।"),
     
-  facebook: z.string().optional().or(z.literal('')),
+  // facebook: z.string().optional().or(z.literal('')),
+  facebook: z
+    .string({
+      required_error: "ফেসবুক প্রোফাইল লিংক বা আইডি প্রদান করুন।",
+    })
+    .min(1, "অনুগ্রহ করে আপনার ফেসবুক প্রোফাইল লিংক বা আইডি দিন।"),
   couponCode: z.string().optional().nullable(),
 
   amount: z
