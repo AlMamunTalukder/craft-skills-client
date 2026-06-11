@@ -14,6 +14,7 @@ type SubmitButtonProps = {
   loading?: boolean;
   showIcon?: boolean;
   size?: "default" | "sm" | "lg" | "icon" | null | undefined;
+  disabled?: boolean;
 };
 
 export default function SubmitButton({
@@ -24,16 +25,20 @@ export default function SubmitButton({
   loaderIcon = Loader,
   buttonIcon = Plus,
   showIcon = true,
+  disabled = false,
 }: SubmitButtonProps) {
   const LoaderIcon = loaderIcon || Loader2;
   const ButtonIcon = buttonIcon;
   const { formState } = useFormContext();
+  const isProcessing =
+    loading || formState.isSubmitting || formState.isValidating;
+
   return (
     <>
       {loading || formState.isSubmitting || formState.isValidating ? (
         <button
           type="button"
-          disabled
+          disabled={isProcessing || disabled}
           className={cn(
             "flex items-center justify-center rounded-md bg-gray-800/70 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-gray-600 cursor-pointer",
             className,
@@ -43,7 +48,7 @@ export default function SubmitButton({
           {loadingTitle}
         </button>
       ) : (
-        <button            
+        <button
           disabled={loading || formState.isSubmitting}
           type="submit"
           className={cn(

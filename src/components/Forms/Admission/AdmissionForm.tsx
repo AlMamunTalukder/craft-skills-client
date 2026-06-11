@@ -56,8 +56,13 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
     const paymentCharge = selectedCourse.paymentCharge || 0;
     const discountAmount = (basePrice * discountPercent) / 100;
     const priceAfterCourseDiscount = basePrice - discountAmount;
-    const totalWithCharge = Math.round(priceAfterCourseDiscount + paymentCharge);
-    const finalTotal = Math.max(0, totalWithCharge - couponState.discountAmount);
+    const totalWithCharge = Math.round(
+      priceAfterCourseDiscount + paymentCharge,
+    );
+    const finalTotal = Math.max(
+      0,
+      totalWithCharge - couponState.discountAmount,
+    );
 
     return {
       basePrice,
@@ -134,7 +139,9 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 
     // ✅ VALIDATION SHOULD BE HERE, NOT at component level
     if (!agreedToTerms) {
-      toast.error("অর্ডার নিশ্চিত করতে Terms & Conditions, Privacy Policy এবং Refund Policy এ সম্মতি জানানো আবশ্যক।");
+      toast.error(
+        "অর্ডার নিশ্চিত করতে Terms & Conditions, Privacy Policy এবং Refund Policy এ সম্মতি জানানো আবশ্যক।",
+      );
       return;
     }
 
@@ -152,19 +159,20 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
     const toastId = toast.loading("Redirecting to payment gateway...");
 
     try {
-      const API_URL = process.env.NEXT_PUBLIC_API_URL + "/admissions/initiate-payment";
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL + "/admissions/initiate-payment";
       console.log("🔗 API URL:", API_URL);
 
       const paymentData = {
         name: data.name,
         phone: data.phone,
-        email: data.email || '',
-        whatsapp: data.whatsapp || '',
-        facebook: data.facebook || '',
+        email: data.email || "",
+        whatsapp: data.whatsapp || "",
+        facebook: data.facebook || "",
         courseId: data.courseId || selectedCourse.id,
         batchId: batch.id,
-        paymentMethod: '',
-        senderNumber: '',
+        paymentMethod: "",
+        senderNumber: "",
         couponCode: couponState.applied ? couponState.code : undefined,
         agreedToTerms: agreedToTerms,
       };
@@ -231,8 +239,8 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                   const rawDate = batch.registrationEnd;
                   const dateValue =
                     typeof rawDate === "object" &&
-                      rawDate !== null &&
-                      "$date" in rawDate
+                    rawDate !== null &&
+                    "$date" in rawDate
                       ? (rawDate as any).$date
                       : rawDate;
                   const parsedDate = new Date(dateValue);
@@ -282,6 +290,7 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                 <PersonalInfo />
 
                 {/* Terms & Conditions Checkbox + Submit Button */}
+                {/* Terms & Conditions Checkbox + Submit Button */}
                 <div className="pt-6 border-t border-gray-100">
                   <div className="mb-6 rounded-2xl border border-purple-100 bg-purple-50/50 p-4">
                     <label className="flex items-start gap-3 cursor-pointer">
@@ -296,7 +305,6 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                         required
                         className="mt-1 h-5 w-5 shrink-0 border border-gray-300 rounded cursor-pointer accent-[#4f0187]"
                       />
-
                       <div className="text-sm leading-7 text-gray-700">
                         <span className="font-semibold text-gray-900">
                           আমি Craft Skills-এর
@@ -315,37 +323,36 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
                           className="font-medium text-[#4f0187] underline underline-offset-2 hover:text-[#6d0b99]"
                         >
                           প্রাইভেসি পলিসি
-                        </Link>
-                        {" "}এবং{" "}
+                        </Link>{" "}
+                        এবং{" "}
                         <Link
                           href="/refund-policy"
                           target="_blank"
                           className="font-medium text-[#4f0187] underline underline-offset-2 hover:text-[#6d0b99]"
                         >
                           রিফান্ড পলিসি
-                        </Link>
-                        {" "}এর সকল শর্তে সম্মতি প্রদান করছি।
+                        </Link>{" "}
+                        এর সকল শর্তে সম্মতি প্রদান করছি।
                       </div>
                     </label>
                   </div>
 
-                  {/* ✅ Submit Button - Only shows when checkbox is checked */}
-                  {agreedToTerms && (
-                    <SubmitButton
-                      title={isSubmitting ? "প্রক্রিয়া চলছে..." : "ভর্তি ফরম জমা দিন"}
-                      loadingTitle="প্রক্রিয়া চলছে..."
-                      loading={isSubmitting}
-                      className="w-full py-4 bg-linear-to-r from-[#4f0187] to-[#6d0b99] hover:from-[#3d0169] hover:to-[#55087a] text-white font-bold rounded-xl text-lg shadow-lg border-0 transition-all duration-300 transform hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed"
-                    />
-                  )}
+                  {/* Submit Button - Always visible but disabled when terms not agreed */}
+                  <SubmitButton
+                    title={
+                      isSubmitting ? "প্রক্রিয়া চলছে..." : "ভর্তি ফরম জমা দিন"
+                    }
+                    loadingTitle="প্রক্রিয়া চলছে..."
+                    loading={isSubmitting}
+                    disabled={!agreedToTerms}
+                    className="w-full py-4 bg-linear-to-r from-[#4f0187] to-[#6d0b99] hover:from-[#3d0169] hover:to-[#55087a] text-white font-bold rounded-xl text-lg shadow-lg border-0 transition-all duration-300 transform hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  />
 
-                  {/* ✅ Optional: Show a message when checkbox is not checked */}
+                  {/* Optional helper message when disabled */}
                   {!agreedToTerms && (
-                    <div className="text-center py-4 px-6 bg-gray-50 rounded-xl border border-gray-200">
-                      <p className="text-sm text-gray-500">
-                        🔒 ভর্তি ফরম জমা দিতে শর্তাবলীতে সম্মতি জানান।
-                      </p>
-                    </div>
+                    <p className="text-center text-sm text-gray-500 mt-2">
+                      🔒 ভর্তি ফরম জমা দিতে শর্তাবলীতে সম্মতি জানান।
+                    </p>
                   )}
                 </div>
               </div>
@@ -356,7 +363,6 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
     </div>
   );
 }
-
 
 // /* eslint-disable @typescript-eslint/no-explicit-any */
 // /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -657,7 +663,6 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 //   );
 // }
 
-
 // /* eslint-disable @typescript-eslint/no-explicit-any */
 // /* eslint-disable @typescript-eslint/no-unused-vars */
 // "use client";
@@ -793,7 +798,6 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 //     });
 //   };
 
-
 //   const onSubmit = async (data: admissionFormData) => {
 //     if (!batch?.isActive) return toast.error("Batch closed");
 
@@ -876,8 +880,6 @@ export default function AdmissionForm({ batch, courses }: AdmissionFormProps) {
 //   // };
 
 //   // --- RENDERING ---
-
-
 
 //   return (
 //     <div className="min-h-screen bg-linear-to-br from-purple-50 via-white to-purple-50 py-12 px-2 md:px-4">
