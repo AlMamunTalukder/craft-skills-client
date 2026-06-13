@@ -32,7 +32,12 @@ export interface SiteContent {
   admissionHeaderTitle?: string;
   admissionHeaderDescription?: string;
   admissionDeadline?: Date;
-  showPdfMenu?: boolean;
+  menuSettings: {
+    admission: boolean;
+    review: boolean;
+    exclusive: boolean;
+    gift: boolean;
+  };
 }
 
 export interface Batch {

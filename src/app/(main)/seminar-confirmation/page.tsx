@@ -52,7 +52,7 @@ export default async function SeminarConfirmationPage() {
     getPdfSeminar(),
   ]);
 
-  const showPdfMenu = siteData?.showPdfMenu ?? true;
+  const showPdfMenu = siteData?.menuSettings ?? true;
 
   if (!showPdfMenu) {
     return (
