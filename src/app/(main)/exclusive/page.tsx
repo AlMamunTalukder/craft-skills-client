@@ -12,17 +12,18 @@ import ExclusiveFAQ from "./_components/ExclusiveFAQ";
 import ExclusiveOfferForm from "@/src/components/Forms/Exclusive/ExclusiveForm";
 import SubHeaderExclusive from "@/src/components/shared/SubHeader/SubHeaderExclusive";
 import InvestmentComparison from "./_components/InvestmentComparison";
+import ExclusiveTimerPopup from "@/src/components/exclusive/ExclusiveTimerPopup";
 
 const Page = async () => {
-  const [siteData, seminar] = await Promise.all([
+  const [siteData] = await Promise.all([
     getSiteData(),
     activeSeminar(),
-    // currentUser(),
   ]);
 
   return (
     <div>
-      <SubHeaderExclusive />
+      <ExclusiveTimerPopup />
+      {/* <SubHeaderExclusive /> */}
       <Header siteData={siteData} />
       <ExclusiveBanner />
       <ExclusiveWhyCourse />
@@ -31,9 +32,8 @@ const Page = async () => {
       <CareerOpportunities />
       <ExclusiveTrainer />
       <ExclusiveCourseReviews />
-      {/* <CoursePricing/> */}
       <ExclusiveOfferForm />
-      <InvestmentComparison/>
+      <InvestmentComparison />
       <ExclusiveFAQ />
     </div>
   );
