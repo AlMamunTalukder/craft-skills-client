@@ -53,11 +53,15 @@ export default function ExclusiveTimerPopup() {
     const [showPopup, setShowPopup] = useState(true);
     const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
-    // Frontend-only override for development
+    // ===== DEVELOPMENT SKIP LOGIC – COMMENTED OUT FOR PRODUCTION =====
+    // Uncomment the following lines to enable stage skipping in development.
+    /*
     const isDev = process.env.NODE_ENV === 'development';
     const [devStage, setDevStage] = useState<number | null>(null);
     const [devExpiry, setDevExpiry] = useState<Date | null>(null);
     const [devIsBlocked, setDevIsBlocked] = useState(false);
+    */
+    // ===== END OF SKIP LOGIC =====
 
     // Load initial status from backend
     useEffect(() => {
@@ -73,36 +77,34 @@ export default function ExclusiveTimerPopup() {
                     if (data.status === 'registered') {
                         setShowPopup(false);
                     }
-                    // If in dev, initialize devStage from backend stage
+                    // ===== DEV INIT – COMMENTED OUT =====
+                    /*
                     if (isDev && data.status === 'active' && data.stage) {
                         setDevStage(data.stage);
                         const expiry = new Date(data.expiryTime!);
                         setDevExpiry(expiry);
                     }
+                    */
                 }
             })
             .catch(error => {
                 console.error("Error fetching visitor status:", error);
             });
-    }, [isDev]);
+    }, []); // Removed isDev dependency (commented out)
 
-    // Timer effect – uses devExpiry if set, otherwise backend expiry
+    // Timer effect – uses backend expiry (no dev override)
     useEffect(() => {
-        const expiry = devExpiry || (status?.expiryTime ? new Date(status.expiryTime) : null);
-        if (!expiry) return;
+        if (!status || status.status !== 'active' || !status.remainingMs) return;
+
+        // Use backend expiry time
+        const expiry = new Date(status.expiryTime!);
 
         const interval = setInterval(() => {
             const remaining = Math.max(0, expiry.getTime() - Date.now());
 
             if (remaining <= 0) {
                 clearInterval(interval);
-                // If we are in dev and have devStage, advance to next stage
-                if (isDev && devStage !== null && !devIsBlocked) {
-                    handleSkip();
-                } else {
-                    // Otherwise, rely on backend refresh
-                    window.location.reload();
-                }
+                window.location.reload();
                 return;
             }
 
@@ -113,46 +115,23 @@ export default function ExclusiveTimerPopup() {
         }, 1000);
 
         return () => clearInterval(interval);
-    }, [devExpiry, status, isDev, devStage, devIsBlocked]);
+    }, [status]);
 
-    // Skip to next stage (dev only)
+    // ===== SKIP HANDLER – COMMENTED OUT =====
+    /*
     const handleSkip = () => {
         if (!isDev) return;
-
-        if (devIsBlocked) {
-            setShowPopup(false);
-            return;
-        }
-
-        const currentStage = devStage || status?.stage || 1;
-        const nextStage = currentStage + 1;
-
-        if (nextStage > 3) {
-            // Blocked state
-            setDevIsBlocked(true);
-            setDevStage(null);
-            setDevExpiry(null);
-            setShowPopup(true);
-            return;
-        }
-
-        // Set new expiry for the next stage
-        const now = Date.now();
-        const newExpiry = new Date(now + STAGE_DURATIONS[nextStage - 1]);
-        setDevStage(nextStage);
-        setDevExpiry(newExpiry);
-        setShowPopup(true);
-        // The timer will restart with the new expiry
+        // ... skip logic
     };
+    */
 
     // Determine active stage and content
     const getActiveStage = (): number => {
-        if (devStage !== null) return devStage;
+        // Use backend stage (no dev override)
         return status?.stage || 1;
     };
 
     const getIsBlocked = (): boolean => {
-        if (devIsBlocked) return true;
         return status?.status === 'blocked';
     };
 
@@ -181,6 +160,8 @@ export default function ExclusiveTimerPopup() {
         return (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
                 <div className="relative bg-gradient-to-br from-red-900/90 to-black rounded-2xl p-6 max-w-md w-full shadow-2xl border border-red-500/30">
+                    {/* ===== DEV SKIP BUTTON – COMMENTED OUT ===== */}
+                    {/* 
                     {isDev && (
                         <button
                             onClick={handleSkip}
@@ -189,6 +170,7 @@ export default function ExclusiveTimerPopup() {
                             Skip (dev)
                         </button>
                     )}
+                    */}
                     <button
                         onClick={handleClose}
                         className="absolute top-2 right-2 text-white/70 hover:text-white"
@@ -229,6 +211,8 @@ export default function ExclusiveTimerPopup() {
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
             <div className="relative bg-gradient-to-br from-orange-600/90 to-black rounded-2xl p-6 max-w-md w-full shadow-2xl border border-orange-500/30">
+                {/* ===== DEV SKIP BUTTON – COMMENTED OUT ===== */}
+                {/* 
                 {isDev && (
                     <button
                         onClick={handleSkip}
@@ -237,6 +221,7 @@ export default function ExclusiveTimerPopup() {
                         Skip (dev)
                     </button>
                 )}
+                */}
                 <button
                     onClick={handleClose}
                     className="absolute top-2 right-2 text-white/70 hover:text-white"
@@ -277,8 +262,6 @@ export default function ExclusiveTimerPopup() {
                     >
                         {content.button}
                     </button>
-
-                   
                 </div>
             </div>
         </div>
