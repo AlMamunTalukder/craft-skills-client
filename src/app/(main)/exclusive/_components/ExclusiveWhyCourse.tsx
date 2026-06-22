@@ -141,7 +141,7 @@ const ExclusiveWhyCourse = () => {
                 {/* CALL TO ACTION TEXT LAYOUT */}
                 <div className="text-center md:text-left flex-1 text-white">
                   <h3 className="text-xl md:text-2xl font-black mb-1.5 text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] to-white tracking-tight">
-                    টানা ৪ ঘণ্টার পাওয়ারফুল মাস্টার ক্লাসে
+                    একদিনের পাওয়ারফুল মাস্টারক্লাস 
                   </h3>
 
                   <p className="text-gray-400 text-xs sm:text-sm md:text-base font-semibold leading-relaxed">

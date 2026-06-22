@@ -3,70 +3,99 @@
 import React from "react";
 import Image from "next/image";
 import Container from "@/src/components/shared/Container";
-import { Award, Mic, Radio } from "lucide-react";
+import { Mic } from "lucide-react";
 
 const ExclusiveTrainer = () => {
   return (
-    <section className="relative py-20 md:py-28 bg-[#090A0F] text-white overflow-hidden">
-      
-      {/* Deep crisp ambient studio lights (No blurry overlays on top of content) */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-600/[0.07] blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-slate-900/50 blur-[120px] rounded-full pointer-events-none" />
+    <section className="relative py-10 md:py-20 overflow-hidden bg-[#F8F6F1]">
+{/* Sound Wave Lines */}
+<div className="absolute inset-0 flex items-center justify-center opacity-[0.05]">
+  <div className="w-[1200px] h-[1200px] border border-[#F26422] rounded-full" />
+  <div className="absolute w-[1000px] h-[1000px] border border-[#F26422] rounded-full" />
+  <div className="absolute w-[800px] h-[800px] border border-[#F26422] rounded-full" />
+  <div className="absolute w-[600px] h-[600px] border border-[#F26422] rounded-full" />
+</div>
+
+{/* Glow */}
+<div className="absolute top-20 left-20 w-96 h-96 bg-orange-200/40 blur-[120px] rounded-full" />
+
+<div className="absolute bottom-20 right-20 w-96 h-96 bg-amber-200/40 blur-[120px] rounded-full" />
 
       <Container className="relative z-10">
         
-        {/* TOP PROFILE INFO ROW */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-12 md:mb-16">
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-14">
           
           
-          <h2 className="text-4xl sm:text-5xl font-black tracking-tight text-white mb-3">
+
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-4">
             নেছার আহমাদ
           </h2>
-          
-          <p className="text-lg sm:text-xl font-bold text-[#F26422] mb-2">
+
+          <p className="text-xl md:text-2xl font-bold text-[#F26422] mb-3">
             প্রফেশনাল ভয়েস আর্টিস্ট ও ট্রেইনার
           </p>
-          
-          <p className="text-white/50 text-sm">
-            প্রতিষ্ঠাতা, <span className="text-white font-medium">ক্রাফট স্কিলস</span>
+
+          <p className="text-slate-500">
+            প্রতিষ্ঠাতা,
+            <span className="font-semibold text-slate-900 ml-1">
+              ক্রাফট স্কিলস
+            </span>
           </p>
         </div>
 
-        {/* BOTTOM SHOWCASE GRID: IMAGE LEFT, VIDEO RIGHT */}
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-10 max-w-5xl mx-auto items-stretch">
+        {/* Content Area */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center max-w-6xl mx-auto">
           
-          {/* LEFT: CRISP PORTRAIT CARD */}
-          <div className="relative aspect-[4/3] md:aspect-auto md:h-[340px] rounded-2xl overflow-hidden border border-white/5 shadow-2xl bg-[#111218]">
-            <Image
-              src="/img/instructor/nesar.webp"
-              alt="নেছার আহমাদ - ট্রেইনার"
-              fill
-              className="object-cover object-top" // Kept scale standard at 100 to eliminate rendering pixelation blur
-              sizes="(max-w-768px) 100vw, 50vw"
-              priority
-            />
-            {/* Dark contrast gradient only at the absolute base */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            
-            <div className="absolute bottom-5 left-5 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/5">
-              <Mic size={14} className="text-[#F26422]" />
-              <span className="text-xs text-white/90 font-medium tracking-wide">Voice Studio</span>
+          {/* Trainer Image */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#F26422]/20 to-transparent rounded-[32px] blur-xl" />
+
+            <div className="relative overflow-hidden rounded-[32px] bg-white border border-slate-200 shadow-[0_30px_80px_rgba(15,23,42,0.12)]">
+              
+              <div className="relative h-[420px] md:h-[380px]">
+                <Image
+                  src="/img/instructor/nesar.webp"
+                  alt="নেছার আহমাদ"
+                  fill
+                  priority
+                  className="object-cover object-top"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+              </div>
+
+              <div className="absolute bottom-5 left-5 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-lg border border-slate-200">
+                <div className="flex items-center gap-2">
+                  <Mic size={15} className="text-[#F26422]" />
+                  <span className="text-sm font-semibold text-slate-800">
+                    Voice Studio Expert
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* RIGHT: PREMIUM PORTFOLIO VIDEO FRAME */}
-          <div className="relative aspect-video md:aspect-auto md:h-[340px] rounded-2xl overflow-hidden border border-white/5 bg-[#111218] shadow-2xl group">
-            <iframe
-              className="w-full h-full border-0"
-              src="https://www.youtube.com/embed/1RxdQgm7-R4?rel=0&modestbranding=1"
-              title="নেছার আহমাদ - পোর্টফোলিও ভিডিও"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+          {/* Video Section */}
+          <div className="relative">
+            
+            <div className="absolute inset-0 bg-[#F26422]/10 blur-2xl rounded-[32px]" />
+
+            <div className="relative overflow-hidden rounded-[32px] bg-white border border-slate-200 shadow-[0_30px_80px_rgba(15,23,42,0.12)]">
+              
+              <div className="h-1 w-full bg-gradient-to-r from-[#F26422] via-[#FF9A63] to-[#F26422]" />
+
+              <iframe
+                className="w-full h-[300px] md:h-[380px]"
+                src="https://www.youtube.com/embed/1RxdQgm7-R4?rel=0&modestbranding=1"
+                title="নেছার আহমাদ - পোর্টফোলিও ভিডিও"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
           </div>
 
         </div>
-
       </Container>
     </section>
   );

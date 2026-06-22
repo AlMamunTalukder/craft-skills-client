@@ -16,6 +16,7 @@ import {
 import { MdArrowForward } from "react-icons/md";
 import { pushEvent } from "@/src/utils/dataLayer";
 import Container from "@/src/components/shared/Container";
+import { Button } from "@/components/ui/button";
 
 const skillIcons = [
   { name: "ইন্টারভিউ", icon: <UserCheck size={16} /> },
@@ -62,22 +63,23 @@ const ExclusiveBanner = () => {
 
   return (
     <section className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden bg-black">
-      
-      {/* =========================
-          🌌 DEEP ULTRA DARK AMBIENT GLOW SYSTEM
-         ========================= */}
-      <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-[#F26422]/10 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[5%] right-[-5%] w-[500px] h-[500px] bg-[#F26422]/5 blur-[130px] rounded-full pointer-events-none" />
-      <div className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[800px] h-[400px] bg-purple-600/[0.03] blur-[160px] rounded-full pointer-events-none" />
 
-      {/* Modern High-End Digital Matrix Grid Texture */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(#fff 1px, transparent 1px)",
-          backgroundSize: "32px 32px",
-        }}
-      />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={"/img/bgexclu.png"}
+          alt="bg"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+          quality={75}
+        />
+       <div className="absolute inset-0 bg-gradient-to-r from-black via-[#120600]/95 to-[#2a0f00]/70 z-10" />
+      </div>
+      
+ 
+
+     
 
       {/* FLOATING DECORATIVE BACKGROUND ICONS */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
@@ -106,14 +108,13 @@ const ExclusiveBanner = () => {
             </h1>
 
             {/* HORIZONTAL SKILLS PILLS STREAM */}
-            <div className="flex flex-wrap justify-center md:justify-start gap-2.5 max-w-lg md:max-w-none">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 opacity-0 animate-fade-in-up ">
               {skillIcons.map((skill, i) => (
-                <div
+                  <div
                   key={i}
-                  className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white/[0.02] border border-white/[0.05] shadow-sm backdrop-blur-md transition-colors hover:border-white/10"
-                >
+                  className="flex items-center content-center justify-center gap-2 px-4 py-2 rounded-md md:rounded-xl bg-white/5 backdrop-blur-md border border-white/10 w-[130px]">
                   <span className="text-[#F26422] flex items-center justify-center">{skill.icon}</span>
-                  <span className="text-gray-300 text-xs sm:text-sm font-semibold">
+                   <span className="text-white text-sm md:text-lg font-bold">
                     {skill.name}
                   </span>
                 </div>
@@ -126,9 +127,9 @@ const ExclusiveBanner = () => {
             </h2>
 
             {/* HIGH-END METALLIC GLOW CALL-TO-ACTION BUTTON */}
-            <button
+            <Button
               onClick={handleCTA}
-              className="group relative flex items-center gap-4 bg-gradient-to-r from-[#F26422] via-[#ff783e] to-[#F26422] px-6 md:px-8 py-4 md:py-5 rounded-full text-white transition-all duration-500 hover:scale-[1.02] active:scale-98 cursor-pointer shadow-[0_15px_40px_rgba(242,100,34,0.25)] hover:shadow-[0_20px_50px_rgba(242,100,34,0.4)]"
+              className="group relative flex items-center gap-4 bg-gradient-to-r from-[#fc8e5b] via-[#ff783e] to-[#ff5100] px-6 md:px-8 py-4 md:py-10 rounded-full text-white transition-all duration-500 hover:scale-[1.02] active:scale-98 cursor-pointer shadow-[0_15px_40px_rgba(242,100,34,0.25)] hover:shadow-[0_20px_50px_rgba(242,100,34,0.4)]"
             >
               <span className="text-base md:text-lg font-black tracking-wide">
                 মাত্র 199 টাকায় এখনই জয়েন করুন
@@ -137,20 +138,20 @@ const ExclusiveBanner = () => {
               <div className="bg-white/15 rounded-full p-1.5 group-hover:bg-white/25 transition-colors duration-300">
                 <MdArrowForward className="text-lg md:text-xl group-hover:translate-x-1 transition-transform duration-300" />
               </div>
-            </button>
+            </Button>
           </div>
 
           {/* RIGHT SIDE: PREMIUM HERO FRAMED MEDIA */}
           <div className="w-full md:w-[42%] flex justify-center items-center relative">
             {/* Soft Ambient Inner Glow Backing layer */}
-            <div className="absolute w-[70%] h-[70%] bg-[#F26422]/10 blur-[80px] rounded-full pointer-events-none" />
+            {/* <div className="absolute w-[70%] h-[70%] bg-[#F26422]/10 blur-[80px] rounded-full pointer-events-none" /> */}
             
             {/* HER0 FLOAT WRAPPER CONTAINER */}
-            <div className="relative z-10 w-[85%] sm:w-[65%] md:w-full aspect-square flex items-center justify-center rounded-[2.5rem] border border-white/[0.03] bg-white/[0.01] p-4 backdrop-blur-xl shadow-[0_30px_100px_rgba(0,0,0,0.6)] group animate-hero-float">
+            <div className="relative z-10 w-[85%] sm:w-[65%] md:w-full aspect-square flex items-center justify-center rounded-[2.5rem]  p-4   group animate-hero-float">
               
               {/* Decorative Frame Overlays */}
-              <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-white/10 rounded-tl-xl transition-all group-hover:border-[#F26422]/40" />
-              <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-white/10 rounded-br-xl transition-all group-hover:border-[#F26422]/40" />
+              {/* <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-white/10 rounded-tl-xl transition-all group-hover:border-[#F26422]/40" /> */}
+              {/* <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-white/10 rounded-br-xl transition-all group-hover:border-[#F26422]/40" /> */}
               
               <div className="relative w-full h-full rounded-2xl overflow-hidden flex items-center justify-center">
                 <Image
