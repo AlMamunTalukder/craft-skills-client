@@ -7,7 +7,7 @@ import { Mic } from "lucide-react";
 
 const ExclusiveTrainer = () => {
   return (
-    <section className="relative py-10 md:py-20 overflow-hidden bg-[#F8F6F1]">
+    <section className="relative py-8 md:py-20 overflow-hidden bg-[#F8F6F1]">
       {/* Sound Wave Lines */}
       <div className="absolute inset-0 flex items-center justify-center opacity-[0.05]">
         <div className="w-[1200px] h-[1200px] border border-[#F26422] rounded-full" />
@@ -23,12 +23,12 @@ const ExclusiveTrainer = () => {
 
       <Container className="relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-3 md:mb-14">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight md:mb-4">
             নেছার আহমাদ
           </h2>
 
-          <p className="text-xl md:text-2xl font-bold text-[#F26422] mb-3">
+          <p className="text-xl md:text-2xl font-bold text-[#F26422] md:mb-3">
             প্রফেশনাল ভয়েস আর্টিস্ট ও ট্রেইনার
           </p>
 
@@ -41,13 +41,13 @@ const ExclusiveTrainer = () => {
         </div>
 
         {/* Content Area */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-4 lg:gap-10 items-center max-w-6xl mx-auto">
           {/* Trainer Image */}
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-[#F26422]/20 to-transparent rounded-[32px] blur-xl" />
 
             <div className="relative overflow-hidden rounded-[32px] bg-white border border-slate-200 shadow-[0_30px_80px_rgba(15,23,42,0.12)]">
-              <div className="relative h-[320px] md:h-[380px]">
+              <div className="relative h-[220px] md:h-[380px]">
                 <Image
                   src="/img/instructor/nesar2.jpeg"
                   alt="নেছার আহমাদ"
@@ -63,7 +63,7 @@ const ExclusiveTrainer = () => {
                 <div className="flex items-center gap-2">
                   <Mic size={15} className="text-[#F26422]" />
                   <span className="text-sm font-semibold text-slate-800">
-                    Voice Studio Expert
+                    Voice Over Expert
                   </span>
                 </div>
               </div>

@@ -74,12 +74,8 @@ const ExclusiveBanner = () => {
           sizes="100vw"
           quality={75}
         />
-       <div className="absolute inset-0 bg-gradient-to-r from-black via-[#120600]/95 to-[#2a0f00]/70 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-[#120600]/95 to-[#2a0f00]/70 z-10" />
       </div>
-      
- 
-
-     
 
       {/* FLOATING DECORATIVE BACKGROUND ICONS */}
       <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
@@ -94,13 +90,13 @@ const ExclusiveBanner = () => {
         ))}
       </div>
 
-      <Container className="relative z-10 w-full py-16 md:py-24 px-4 sm:px-6">
+      <Container className="relative z-10 w-full py-10 md:py-20 px-4 sm:px-6">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 lg:gap-16">
 
           {/* LEFT SIDE: INFORMATIVE CONTROLS */}
           <div className="w-full md:w-[58%] space-y-6 md:space-y-7 text-center md:text-left flex flex-col justify-center items-center md:items-start">
 
-           
+
 
             {/* MAIN TITLE H1 */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight">
@@ -110,11 +106,11 @@ const ExclusiveBanner = () => {
             {/* HORIZONTAL SKILLS PILLS STREAM */}
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 opacity-0 animate-fade-in-up ">
               {skillIcons.map((skill, i) => (
-                  <div
+                <div
                   key={i}
                   className="flex items-center content-center justify-center gap-2 px-4 py-2 rounded-md md:rounded-xl bg-white/5 backdrop-blur-md border border-white/10 w-[130px]">
                   <span className="text-[#F26422] flex items-center justify-center">{skill.icon}</span>
-                   <span className="text-white text-sm md:text-lg font-bold">
+                  <span className="text-white text-sm md:text-lg font-bold">
                     {skill.name}
                   </span>
                 </div>
@@ -143,16 +139,11 @@ const ExclusiveBanner = () => {
 
           {/* RIGHT SIDE: PREMIUM HERO FRAMED MEDIA */}
           <div className="w-full md:w-[42%] flex justify-center items-center relative">
-            {/* Soft Ambient Inner Glow Backing layer */}
-            {/* <div className="absolute w-[70%] h-[70%] bg-[#F26422]/10 blur-[80px] rounded-full pointer-events-none" /> */}
-            
+
             {/* HER0 FLOAT WRAPPER CONTAINER */}
             <div className="relative z-10 w-[85%] sm:w-[65%] md:w-full aspect-square flex items-center justify-center rounded-[2.5rem]  p-4   group animate-hero-float">
-              
-              {/* Decorative Frame Overlays */}
-              {/* <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-white/10 rounded-tl-xl transition-all group-hover:border-[#F26422]/40" /> */}
-              {/* <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-white/10 rounded-br-xl transition-all group-hover:border-[#F26422]/40" /> */}
-              
+
+
               <div className="relative w-full h-full rounded-2xl overflow-hidden flex items-center justify-center">
                 <Image
                   src="/img/exclu.png"
@@ -167,7 +158,7 @@ const ExclusiveBanner = () => {
           </div>
 
         </div>
-      </Container>     
+      </Container>
     </section>
   );
 };

@@ -41,10 +41,10 @@ const MasterclassBundle = () => {
       <Container className="relative z-10">
 
         {/* HEADER */}
-        <div className="text-center mb-14 md:mb-20 flex flex-col items-center">
-          
+        <div className="text-center mb-10 md:mb-20 flex flex-col items-center">
+
           {/* Gift Box Icon Top of Header */}
-          <div className="relative mb-6 p-4 bg-orange-50 rounded-2xl border border-orange-100 ">
+          <div className="relative mb-4 md:mb-6 p-4 bg-orange-50 rounded-2xl border border-orange-100 ">
             <div className="absolute inset-0 bg-orange-500/10 blur-xl rounded-full" />
             <Gift className="w-20 h-20 text-orange-500 relative z-10" />
           </div>

@@ -87,7 +87,7 @@ export default function ExclusiveOfferForm() {
   return (
     <section
       id="registration-form"
-      className="relative overflow-hidden py-16 md:py-28 bg-white"
+      className="relative overflow-hidden py-10 md:py-28 bg-white"
     >
       {/* Background */}
       <div className="absolute top-0 right-0 w-full lg:w-[45%] h-[400px] lg:h-full bg-[#0F1016] pointer-events-none" />
@@ -101,11 +101,11 @@ export default function ExclusiveOfferForm() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {/* Left Side */}
-              <div className="relative p-6 sm:p-10 md:p-14 flex flex-col justify-between overflow-hidden bg-gradient-to-br from-[#121215] to-[#0A0A0C]">
+              <div className="relative p-4 sm:p-10 md:p-14 flex flex-col justify-between overflow-hidden bg-gradient-to-br from-[#121215] to-[#0A0A0C]">
                 <div className="absolute top-0 right-0 w-[350px] h-[350px] bg-[#F26422]/15 blur-[140px] rounded-full pointer-events-none" />
                 <div className="absolute bottom-0 left-[-50px] w-[200px] h-[200px] bg-white/[0.02] blur-[80px] rounded-full pointer-events-none" />
 
-                <div className="relative z-10 my-auto">
+                <div className="relative z-10 ">
                   <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[#F26422]/20 bg-[#F26422]/5 backdrop-blur-md mb-6 sm:mb-8 shadow-[0_4px_20px_rgba(242,100,34,0.05)] animate-pulse">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F26422] opacity-75"></span>
@@ -124,7 +124,7 @@ export default function ExclusiveOfferForm() {
                     </span>
                   </h2>
 
-                  <div className="mt-8 md:mt-12 relative overflow-hidden rounded-3xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl p-5 sm:p-6 shadow-[0_15px_50px_rgba(0,0,0,0.4)]">
+                  <div className="mt-4 md:mt-12 relative overflow-hidden rounded-3xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl p-3 sm:p-6 shadow-[0_15px_50px_rgba(0,0,0,0.4)]">
                     <div className="absolute inset-0 bg-gradient-to-tr from-[#F26422]/5 via-transparent to-white/[0.02] pointer-events-none" />
                     <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                       <div>
@@ -156,7 +156,7 @@ export default function ExclusiveOfferForm() {
 
                 <div className="relative z-10">
                   <div className="mb-3 md:mb-8">
-                    <h3 className="text-3xl md:text-4xl font-black text-[#1A1A1A]">
+                    <h3 className="text-[26px] md:text-4xl font-black text-[#1A1A1A]">
                       এখনই রেজিস্ট্রেশন করুন
                     </h3>
                   </div>
@@ -171,8 +171,8 @@ export default function ExclusiveOfferForm() {
                         name="name"
                         placeholder="পূর্ণ নাম লিখুন"
                         icon={User}
-                        labelClassName="text-[#1A1A1A] font-bold mb-2"
-                        className="h-14 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
+                        labelClassName="text-[#1A1A1A] font-bold "
+                        className=" rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
                       />
 
                       <TextInput
@@ -180,8 +180,8 @@ export default function ExclusiveOfferForm() {
                         name="phone"
                         placeholder="01XXXXXXXXX"
                         icon={Phone}
-                        labelClassName="text-[#1A1A1A] font-bold mb-2"
-                        className="h-14 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
+                        labelClassName="text-[#1A1A1A] font-bold "
+                        className=" rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
                       />
 
                       <TextInput
@@ -189,8 +189,8 @@ export default function ExclusiveOfferForm() {
                         name="whatsapp"
                         placeholder="01XXXXXXXXX"
                         icon={MessageCircle}
-                        labelClassName="text-[#1A1A1A] font-bold mb-2"
-                        className="h-14 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
+                        labelClassName="text-[#1A1A1A] font-bold"
+                        className=" rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
                       />
 
                       <TextInput
@@ -198,8 +198,8 @@ export default function ExclusiveOfferForm() {
                         name="email"
                         placeholder="example@email.com"
                         icon={Mail}
-                        labelClassName="text-[#1A1A1A] font-bold mb-2"
-                        className="h-14 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
+                        labelClassName="text-[#1A1A1A] font-bold "
+                        className="rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
                       />
 
                       <TextInput
@@ -207,8 +207,8 @@ export default function ExclusiveOfferForm() {
                         name="occupation"
                         placeholder="আপনার পেশা লিখুন"
                         icon={User}
-                        labelClassName="text-[#1A1A1A] font-bold mb-2"
-                        className="h-14 rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
+                        labelClassName="text-[#1A1A1A] font-bold "
+                        className=" rounded-2xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-[#F26422] focus:ring-2 focus:ring-[#F26422]/20 transition-all"
                       />
 
                       <SubmitButton

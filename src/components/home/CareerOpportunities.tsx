@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  DoorOpen,
   Mic2,
   Mic,
   Headphones,
@@ -19,8 +18,6 @@ import {
   BookOpen,
   Smile,
   ScrollText,
-  DollarSign,
-  GraduationCap,
   CircleDollarSign,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -78,14 +75,14 @@ export default function CareerOpportunities() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-center">
-          
+
           {/* --- LEFT COLUMN: CATCHY HEADING --- */}
           <div className="lg:col-span-5 text-center lg:text-left flex flex-col justify-center items-center lg:items-start space-y-6 md:space-y-8">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.15] tracking-tight">
               <span className="block text-gray-400 md:mb-3 text-2xl sm:text-3xl md:text-4xl font-bold">
                 শুধু একটি কোর্স,
               </span>
-              
+
               {/* Premium Floating Core Highlight Card */}
               <span className="relative inline-flex items-center my-2 rounded-2xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl px-5 py-3 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] to-[#ff844f] text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
@@ -110,7 +107,7 @@ export default function CareerOpportunities() {
           <div className="lg:col-span-7 relative">
             {/* Glassmorphism Dynamic Main Block Container */}
             <div className={`relative backdrop-blur-xl rounded-2xl md:rounded-[2.5rem] p-3 md:p-10 shadow-2xl overflow-hidden transition-all duration-500 border ${theme.glassBox}`}>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-4 relative z-10">
                 {opportunities.map((item, index) => {
                   const Icon = item.icon;
