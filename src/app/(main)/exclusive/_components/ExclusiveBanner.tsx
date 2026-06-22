@@ -62,7 +62,7 @@ const ExclusiveBanner = () => {
   };
 
   return (
-    <section className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden bg-black">
+    <section className="relative md:min-h-screen flex items-center overflow-hidden bg-black">
 
       <div className="absolute inset-0 z-0">
         <Image

@@ -16,17 +16,6 @@ const CountdownTimer = dynamic(() => import("@/src/components/home/CountdownTime
   ssr: false,
 });
 
-interface ActiveBatch {
-  _id: string;
-  batchNo: string | number;
-  title: string;
-  description?: string;
-  startDate: string;
-  endDate: string;
-  offerPrice: number;
-  isActive: boolean;
-}
-
 interface SiteData {
   facebook?: string;
   whatsapp?: string;
@@ -34,25 +23,36 @@ interface SiteData {
   telegram?: string;
 }
 
+interface VisitorStatus {
+  status: 'active' | 'blocked' | 'registered';
+  stage?: number;
+  expiryTime?: string;
+  isBlocked: boolean;
+  registered: boolean;
+  stageLabel?: string;
+}
+
 export default function SubHeaderExclusive() {
-  const [activeBatch, setActiveBatch] = useState<ActiveBatch | null>(null);
   const [siteData, setSiteData] = useState<SiteData>({});
+  const [visitor, setVisitor] = useState<VisitorStatus | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
 
-    // Fetch active batch
-    fetch(`${API_URL}/exclusive-batches/active`)
+    // Fetch visitor status (for timer)
+    fetch(`${API_URL}/exclusive/visitor-status`, {
+      credentials: 'include',
+    })
       .then((res) => res.json())
       .then((data) => {
-        if (data.success && data.data) {
-          setActiveBatch(data.data);
+        if (data.success) {
+          setVisitor(data);
         }
       })
       .catch(console.error);
 
-    // Fetch site data
+    // Fetch site data for social links
     fetch("/api/site")
       .then((res) => res.json())
       .then((data) => {
@@ -70,21 +70,19 @@ export default function SubHeaderExclusive() {
   }, []);
 
   const handleScroll = () => {
-    // Target the registration form by ID
     const el = document.getElementById("registration-form");
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
+  // Hide while loading, or if visitor is not active
   if (loading) return null;
-  if (!activeBatch) return null;
-  if (!activeBatch.isActive) return null;
+  if (!visitor) return null;
+  if (visitor.status !== 'active') return null;
 
-  // Check if batch has expired using endDate
-  const now = new Date();
-  const endDate = new Date(activeBatch.endDate);
-  if (now > endDate) return null;
+  // Extract timer target from visitor
+  const targetDate = visitor.expiryTime;
 
   const socialLinks = [
     {
@@ -119,15 +117,20 @@ export default function SubHeaderExclusive() {
         <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1">
           <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left md:px-2">
             <h3 className="text-[13px] md:text-[17px] leading-tight font-bold">
-              {activeBatch.title}
+              Voice & Public Speaking Masterclass
             </h3>
             <p className="text-[12px] md:text-[15px] text-[#F26422] font-medium opacity-90 uppercase tracking-tighter pb-[2px] md:pb-0">
-              {activeBatch.description || `Batch ${activeBatch.batchNo}`}
+              Exclusive Limited Time Offer
+              {visitor.stageLabel && (
+                <span className="ml-2 text-white/60 text-[10px] md:text-xs">
+                  • {visitor.stageLabel}
+                </span>
+              )}
             </p>
           </div>
 
           <div className="md:w-[170px] px-1 md:px-0 pb-1.5 md:pb-0">
-            <CountdownTimer targetDate={activeBatch.endDate} />
+            <CountdownTimer targetDate={targetDate} />
           </div>
 
           <div className="w-[170px] px-4 md:px-0">
@@ -168,5 +171,3 @@ export default function SubHeaderExclusive() {
     </div>
   );
 }
-
-

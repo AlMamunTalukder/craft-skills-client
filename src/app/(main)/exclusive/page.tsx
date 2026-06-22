@@ -10,7 +10,7 @@ import ExclusiveTrainer from "./_components/ExclusiveTrainer";
 import ExclusiveCourseReviews from "./_components/ExclusiveCourseReviews";
 import ExclusiveFAQ from "./_components/ExclusiveFAQ";
 import ExclusiveOfferForm from "@/src/components/Forms/Exclusive/ExclusiveForm";
-// import SubHeaderExclusive from "@/src/components/shared/SubHeader/SubHeaderExclusive";
+import SubHeaderExclusive from "@/src/components/shared/SubHeader/SubHeaderExclusive";
 // import InvestmentComparison from "./_components/InvestmentComparison";
 import ExclusiveTimerPopup from "@/src/components/exclusive/ExclusiveTimerPopup";
 
@@ -23,7 +23,7 @@ const Page = async () => {
   return (
     <div>
       <ExclusiveTimerPopup />
-      {/* <SubHeaderExclusive /> */}
+      <SubHeaderExclusive />
       <Header siteData={siteData} />
       <ExclusiveBanner />
       <ExclusiveWhyCourse />
