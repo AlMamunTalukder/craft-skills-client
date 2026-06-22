@@ -33,7 +33,7 @@ const items = [
 
 const MasterclassBundle = () => {
   return (
-    <section className="relative py-20 md:py-28 bg-white overflow-hidden">
+    <section className="relative py-10 md:py-20 bg-white overflow-hidden">
 
       {/* soft premium background glow */}
       <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-orange-200/30 blur-[120px] pointer-events-none" />
@@ -62,7 +62,7 @@ const MasterclassBundle = () => {
         </div>
 
         {/* GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
 
           {items.map((item, i) => {
             const Icon = item.icon;
@@ -91,7 +91,7 @@ const MasterclassBundle = () => {
                 </div>
 
                 {/* main card */}
-                <div className="relative h-full bg-white border border-slate-100 rounded-2xl md:rounded-3xl p-6 pt-10 shadow-sm group-hover:shadow-xl transition-all duration-500">
+                <div className="relative h-full bg-white border border-slate-100 rounded-2xl md:rounded-3xl p-2 md:p-6 pt-10 shadow-sm group-hover:shadow-xl transition-all duration-500">
 
                   {/* subtle decorative glow */}
                   <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
@@ -118,7 +118,7 @@ const MasterclassBundle = () => {
 
                   {/* watermark icon */}
                   <Icon
-                    className="absolute -bottom-6 -right-6 w-20 h-20 opacity-[0.1] rotate-12 group-hover:rotate-0 transition-all duration-700"
+                    className="absolute -bottom-4 md:-bottom-6 -right-5 md:-right-6 w-14 md:w-20 h-14 md:h-20 opacity-[0.1] rotate-12 group-hover:rotate-0 transition-all duration-700"
                     style={{ color: item.color }}
                   />
 

@@ -118,7 +118,7 @@ export default function ExclusiveOfferForm() {
                   </div>
 
                   <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.15] tracking-tight">
-                    ৪ ঘণ্টার{" "}
+                    একদিনের {" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-[#ff844f] to-[#F26422] bg-size-200">
                       পাওয়ারফুল লাইভ মাস্টারক্লাস
                     </span>

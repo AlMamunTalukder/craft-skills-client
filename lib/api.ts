@@ -9,7 +9,7 @@ const API_URL =
 
 export async function getSiteData(): Promise<SiteContent | null> {
   try {
-    const response = await fetch(`${API_URL}/site`, {});
+    const response = await fetch(`${API_URL}/site`, { cache: 'no-store' });
 
     const result = await response.json();
 
@@ -209,7 +209,7 @@ export async function registration(
     });
 
     const result = await response.json();
-    
+
     if (!response.ok) {
       return result;
     }
@@ -229,7 +229,7 @@ export async function login(
   try {
     // Prepare login data with sanitized phone number if needed
     const loginData = { ...data };
-    
+
     // Check if identifier looks like a phone number (not email)
     const isEmail = data.identifier.includes('@');
     if (!isEmail) {
@@ -239,7 +239,7 @@ export async function login(
         loginData.identifier = sanitizedPhone;
       }
     }
-    
+
     const response = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       credentials: "include",

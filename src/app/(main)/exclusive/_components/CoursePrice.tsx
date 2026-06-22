@@ -55,7 +55,7 @@ const CoursePricing = () => {
                       কোর্সের সময়কাল
                     </h3>
                     <p className="text-white text-sm sm:text-base font-bold mt-0.5">
-                      ৪ ঘণ্টার পাওয়ারফুল প্র্যাকটিক্যাল সেশন
+                    একদিনের পাওয়ারফুল মাস্টারক্লাস প্র্যাকটিক্যাল সেশন
                     </p>
                   </div>
                 </div>
