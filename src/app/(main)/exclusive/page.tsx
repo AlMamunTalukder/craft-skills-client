@@ -1,6 +1,6 @@
 import React from "react";
 import ExclusiveBanner from "./_components/ExclusiveBanner";
-import { activeSeminar, getSiteData } from "@/lib/api";
+import { getSiteData } from "@/lib/api";
 import ExclusiveWhyCourse from "./_components/ExclusiveWhyCourse";
 import Header from "@/src/components/shared/Header";
 import WhatYouWillLearn from "./_components/WhatYouWillLearn";
@@ -17,7 +17,6 @@ import ExclusiveTimerPopup from "@/src/components/exclusive/ExclusiveTimerPopup"
 const Page = async () => {
   const [siteData] = await Promise.all([
     getSiteData(),
-    activeSeminar(),
   ]);
 
   return (
