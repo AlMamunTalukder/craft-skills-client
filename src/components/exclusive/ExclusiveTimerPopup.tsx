@@ -54,7 +54,7 @@ export default function ExclusiveTimerPopup() {
     const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
     // ===== DEVELOPMENT SKIP LOGIC – COMMENTED OUT FOR PRODUCTION =====
-    // Uncomment the following lines to enable stage skipping in development.
+    
     /*
     const isDev = process.env.NODE_ENV === 'development';
     const [devStage, setDevStage] = useState<number | null>(null);
