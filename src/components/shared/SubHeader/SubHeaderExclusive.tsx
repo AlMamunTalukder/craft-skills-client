@@ -11,10 +11,14 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import Container from "../Container";
+import { AlertCircle } from "lucide-react";
 
-const CountdownTimer = dynamic(() => import("@/src/components/home/CountdownTimer"), {
-  ssr: false,
-});
+const CountdownTimer = dynamic(
+  () => import("@/src/components/home/CountdownTimer"),
+  {
+    ssr: false,
+  },
+);
 
 interface SiteData {
   facebook?: string;
@@ -24,7 +28,7 @@ interface SiteData {
 }
 
 interface VisitorStatus {
-  status: 'active' | 'blocked' | 'registered';
+  status: "active" | "blocked" | "registered";
   stage?: number;
   expiryTime?: string;
   isBlocked: boolean;
@@ -32,17 +36,21 @@ interface VisitorStatus {
   stageLabel?: string;
 }
 
+const PHONE_NUMBER = "8801700999093";
+const WHATSAPP_LINK = `https://wa.me/${PHONE_NUMBER}`;
+
 export default function SubHeaderExclusive() {
   const [siteData, setSiteData] = useState<SiteData>({});
   const [visitor, setVisitor] = useState<VisitorStatus | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+    const API_URL =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
     // Fetch visitor status (for timer)
     fetch(`${API_URL}/exclusive/visitor-status`, {
-      credentials: 'include',
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => {
@@ -76,12 +84,57 @@ export default function SubHeaderExclusive() {
     }
   };
 
-  // Hide while loading, or if visitor is not active
+  // Hide while loading
   if (loading) return null;
   if (!visitor) return null;
-  if (visitor.status !== 'active') return null;
 
-  // Extract timer target from visitor
+  // ==============================
+  // BLOCKED / REGISTERED STATE – show expiry banner with WhatsApp
+  // ==============================
+  if (visitor.status === "blocked" || visitor.status === "registered") {
+    return (
+      <div className="sticky top-0 z-50 w-full bg-black shadow-lg border-b border-red-500/30 text-white py-2 md:py-3">
+        <Container>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-3 text-center md:text-left">
+              <div className="hidden sm:block w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">
+                <AlertCircle className="text-red-400 w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-sm md:text-base font-bold text-white">
+                  🚫 ১৯৯ টাকার অফারটি শেষ!
+                </p>
+                <p className="text-xs md:text-sm text-red-300 font-semibold">
+                  বর্তমান প্রাইস ৫,০০০ টাকা
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <p className="text-xs md:text-sm text-white/70 text-center md:text-right">
+                বিশেষ অনুরোধে যোগাযোগ করুন
+              </p>
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded-full transition transform hover:scale-[1.02] shadow-lg"
+              >
+                <FaWhatsapp className="w-4 h-4" />
+                <span className="hidden sm:inline">WhatsApp</span>
+                <span className="sm:hidden">মেসেজ</span>
+              </a>
+            </div>
+          </div>
+        </Container>
+      </div>
+    );
+  }
+
+  // ==============================
+  // ACTIVE STATE – show countdown and registration button
+  // ==============================
+  if (visitor.status !== "active") return null;
+
   const targetDate = visitor.expiryTime;
 
   const socialLinks = [

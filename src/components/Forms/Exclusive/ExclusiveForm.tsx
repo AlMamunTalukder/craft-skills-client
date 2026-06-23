@@ -35,20 +35,38 @@ type ExclusiveOfferFormData = z.infer<typeof exclusiveOfferSchema>;
 
 export default function ExclusiveOfferForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [visitorStatus, setVisitorStatus] = useState<{
+    status: 'active' | 'blocked' | 'registered';
+    stageLabel?: string;
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch visitor status on mount
+  useEffect(() => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+    fetch(`${API_URL}/exclusive/visitor-status`, {
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setVisitorStatus(data);
+        }
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleSubmit = async (data: ExclusiveOfferFormData) => {
     setIsSubmitting(true);
     const toastId = toast.loading("প্রসেস হচ্ছে...");
 
     try {
-      // Get visitor ID from cookie (it will be sent automatically)
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/exclusive-offer/register`,
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: data.name,
             phone: data.phone,
@@ -56,8 +74,8 @@ export default function ExclusiveOfferForm() {
             occupation: data.occupation || "",
             email: data.email || "",
           }),
-          credentials: 'include', // ✅ Important: send cookies
-        },
+          credentials: 'include',
+        }
       );
 
       const result = await response.json();
@@ -84,10 +102,51 @@ export default function ExclusiveOfferForm() {
     }
   };
 
+  if (loading) return null;
+
+  // If visitor is blocked or registered, show the "offer ended" message
+  if (visitorStatus?.status === 'blocked' || visitorStatus?.status === 'registered') {
+    return (
+      <section className="relative overflow-hidden py-16 md:py-28 bg-black">
+        <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-black/50" />
+        <Container>
+          <div className="relative z-10 max-w-3xl mx-auto text-center">
+            <div className="bg-gradient-to-br from-red-900/40 to-black/60 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-red-500/30 shadow-2xl">
+              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-500/20 flex items-center justify-center">
+                <GraduationCap className="w-10 h-10 text-red-400" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                অফারটি শেষ!
+              </h2>
+              <p className="text-red-300 text-xl font-semibold mb-2">
+                বর্তমান প্রাইস ৫,০০০ টাকা
+              </p>
+              <p className="text-white/70 text-sm mb-8">
+                বিশেষ অনুরোধে কোনো সুযোগ আছে কি না জানতে এখনই কল অথবা মেসেজ দিন!
+              </p>
+              <a
+                href="https://wa.me/8801700999093"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-full shadow-lg transition transform hover:scale-[1.02]"
+              >
+                <MessageCircle className="w-5 h-5" />
+                হোয়াটসঅ্যাপে মেসেজ করুন
+              </a>
+              <p className="text-xs text-white/40 mt-4">
+                অথবা কল করুন: <span className="font-semibold">০১৭০০৯৯৯০৯৩</span>
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+    );
+  }
+
   return (
     <section
       id="registration-form"
-      className="relative overflow-hidden py-10 md:py-28 bg-white"
+      className="relative overflow-hidden py-16 md:py-28 bg-white"
     >
       {/* Background */}
       <div className="absolute top-0 right-0 w-full lg:w-[45%] h-[400px] lg:h-full bg-[#0F1016] pointer-events-none" />
@@ -159,6 +218,11 @@ export default function ExclusiveOfferForm() {
                     <h3 className="text-[26px] md:text-4xl font-black text-[#1A1A1A]">
                       এখনই রেজিস্ট্রেশন করুন
                     </h3>
+                    {visitorStatus?.stageLabel && (
+                      <p className="text-sm text-orange-500 font-medium mt-1">
+                        ⏳ {visitorStatus.stageLabel} বাকি
+                      </p>
+                    )}
                   </div>
 
                   <AppForm
