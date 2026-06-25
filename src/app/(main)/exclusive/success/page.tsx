@@ -1,4 +1,4 @@
-// app/exclusive-offer/success/page.tsx
+// app/exclusive/success/page.tsx
 
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, PhoneCall } from "lucide-react";

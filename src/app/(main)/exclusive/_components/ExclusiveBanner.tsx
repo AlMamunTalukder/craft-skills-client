@@ -34,12 +34,26 @@ const floatingIcons = [
 const ExclusiveBanner = () => {
   const pathname = usePathname();
 
-  const handleCTA = () => {
+
+   const handleCTA = () => {
     const isMobile = window.innerWidth < 768;
 
-    // =========================
-    // GTM EVENT
-    // =========================
+    // ✅ GTM Event: add_to_cart (standard)
+    pushEvent('add_to_cart', {
+      ecommerce: {
+        currency: 'BDT',
+        value: 199,
+        items: [{
+          item_id: 'exclusive_offer_199',
+          item_name: 'Voice & Public Speaking Masterclass',
+          item_category: 'exclusive_offer',
+          price: 199,
+          quantity: 1,
+        }],
+      },
+    });
+
+    // ✅ Custom event (already present)
     pushEvent("exclusive_offer_banner_click", {
       button_name: "মাত্র 199 টাকায় এখনই জয়েন করুন",
       page_path: pathname,
@@ -49,9 +63,7 @@ const ExclusiveBanner = () => {
       regular_price: 5500,
     });
 
-    // =========================
-    // SCROLL TO FORM
-    // =========================
+    // Scroll to form
     const el = document.getElementById("registration-form");
     if (el) {
       el.scrollIntoView({
@@ -60,6 +72,34 @@ const ExclusiveBanner = () => {
       });
     }
   };
+
+  
+  // const handleCTA = () => {
+  //   const isMobile = window.innerWidth < 768;
+
+  //   // =========================
+  //   // GTM EVENT
+  //   // =========================
+  //   pushEvent("exclusive_offer_banner_click", {
+  //     button_name: "মাত্র 199 টাকায় এখনই জয়েন করুন",
+  //     page_path: pathname,
+  //     section: "exclusive_banner",
+  //     course_name: "Voice & Public Speaking Masterclass",
+  //     offer_price: 199,
+  //     regular_price: 5500,
+  //   });
+
+  //   // =========================
+  //   // SCROLL TO FORM
+  //   // =========================
+  //   const el = document.getElementById("registration-form");
+  //   if (el) {
+  //     el.scrollIntoView({
+  //       behavior: isMobile ? "auto" : "smooth",
+  //       block: "start",
+  //     });
+  //   }
+  // };
 
   return (
     <section className="relative md:min-h-screen flex items-center overflow-hidden bg-black">

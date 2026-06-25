@@ -12,6 +12,7 @@ import {
 } from "react-icons/fa";
 import Container from "../Container";
 import { AlertCircle } from "lucide-react";
+import { pushEvent } from "@/src/utils/dataLayer";
 
 const CountdownTimer = dynamic(
   () => import("@/src/components/home/CountdownTimer"),
@@ -78,11 +79,34 @@ export default function SubHeaderExclusive() {
   }, []);
 
   const handleScroll = () => {
+    // ✅ GTM Event: add_to_cart
+    pushEvent("add_to_cart", {
+      ecommerce: {
+        currency: "BDT",
+        value: 199,
+        items: [
+          {
+            item_id: "exclusive_offer_199",
+            item_name: "Voice & Public Speaking Masterclass",
+            item_category: "exclusive_offer",
+            price: 199,
+            quantity: 1,
+          },
+        ],
+      },
+    });
+
     const el = document.getElementById("registration-form");
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+  // const handleScroll = () => {
+  //   const el = document.getElementById("registration-form");
+  //   if (el) {
+  //     el.scrollIntoView({ behavior: "smooth", block: "start" });
+  //   }
+  // };
 
   // Hide while loading
   if (loading) return null;

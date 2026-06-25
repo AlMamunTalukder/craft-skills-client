@@ -18,6 +18,7 @@ import Container from "../../shared/Container";
 import AppForm from "../AppForm";
 import TextInput from "../../FormInputs/TextInput";
 import SubmitButton from "../../FormInputs/SubmitButton";
+import { pushEvent } from "@/src/utils/dataLayer";
 
 /* =========================
    VALIDATION SCHEMA
@@ -36,16 +37,17 @@ type ExclusiveOfferFormData = z.infer<typeof exclusiveOfferSchema>;
 export default function ExclusiveOfferForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [visitorStatus, setVisitorStatus] = useState<{
-    status: 'active' | 'blocked' | 'registered';
+    status: "active" | "blocked" | "registered";
     stageLabel?: string;
   } | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Fetch visitor status on mount
   useEffect(() => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+    const API_URL =
+      process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
     fetch(`${API_URL}/exclusive/visitor-status`, {
-      credentials: 'include',
+      credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => {
@@ -62,26 +64,50 @@ export default function ExclusiveOfferForm() {
     const toastId = toast.loading("প্রসেস হচ্ছে...");
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/exclusive-offer/register`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: data.name,
-            phone: data.phone,
-            whatsapp: data.whatsapp || "",
-            occupation: data.occupation || "",
-            email: data.email || "",
-          }),
-          credentials: 'include',
-        }
-      );
+      const API_URL =
+        process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+
+      const response = await fetch(`${API_URL}/exclusive-offer/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          phone: data.phone,
+          whatsapp: data.whatsapp || "",
+          occupation: data.occupation || "",
+          email: data.email || "",
+        }),
+        credentials: "include",
+      });
 
       const result = await response.json();
 
       if (!response.ok) {
         throw new Error(result.message || "Registration failed");
+      }
+
+      // ✅ GTM Event: begin_checkout
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "begin_checkout",
+          ecommerce: {
+            currency: "BDT",
+            value: 199,
+            items: [
+              {
+                item_id: "exclusive_offer_199",
+                item_name: "Voice & Public Speaking Masterclass",
+                item_category: "exclusive_offer",
+                price: 199,
+                quantity: 1,
+              },
+            ],
+          },
+          user_name: data.name,
+          user_phone: data.phone,
+          user_email: data.email || "",
+        });
       }
 
       toast.success("Redirecting to payment...", { id: toastId });
@@ -94,18 +120,64 @@ export default function ExclusiveOfferForm() {
 
       throw new Error("Payment URL not found");
     } catch (error: any) {
-      toast.error(error.message || "Something went wrong", {
-        id: toastId,
-      });
+      toast.error(error.message || "Something went wrong", { id: toastId });
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // const handleSubmit = async (data: ExclusiveOfferFormData) => {
+  //   setIsSubmitting(true);
+  //   const toastId = toast.loading("প্রসেস হচ্ছে...");
+
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/exclusive-offer/register`,
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({
+  //           name: data.name,
+  //           phone: data.phone,
+  //           whatsapp: data.whatsapp || "",
+  //           occupation: data.occupation || "",
+  //           email: data.email || "",
+  //         }),
+  //         credentials: 'include',
+  //       }
+  //     );
+
+  //     const result = await response.json();
+
+  //     if (!response.ok) {
+  //       throw new Error(result.message || "Registration failed");
+  //     }
+
+  //     toast.success("Redirecting to payment...", { id: toastId });
+
+  //     const paymentUrl = result?.data?.paymentUrl;
+  //     if (paymentUrl) {
+  //       window.location.href = paymentUrl;
+  //       return;
+  //     }
+
+  //     throw new Error("Payment URL not found");
+  //   } catch (error: any) {
+  //     toast.error(error.message || "Something went wrong", {
+  //       id: toastId,
+  //     });
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
   if (loading) return null;
 
   // If visitor is blocked or registered, show the "offer ended" message
-  if (visitorStatus?.status === 'blocked' || visitorStatus?.status === 'registered') {
+  if (
+    visitorStatus?.status === "blocked" ||
+    visitorStatus?.status === "registered"
+  ) {
     return (
       <section className="relative overflow-hidden py-16 md:py-28 bg-black">
         <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 to-black/50" />
@@ -177,7 +249,7 @@ export default function ExclusiveOfferForm() {
                   </div>
 
                   <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.15] tracking-tight">
-                    একদিনের {" "}
+                    একদিনের{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-[#ff844f] to-[#F26422] bg-size-200">
                       পাওয়ারফুল লাইভ মাস্টারক্লাস
                     </span>
