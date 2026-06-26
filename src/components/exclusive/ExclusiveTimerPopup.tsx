@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { X, Clock, AlertCircle, Phone, MessageCircle } from "lucide-react";
+import { X, Clock, AlertCircle, MessageCircle, Link, Phone } from "lucide-react";
 import { pushEvent } from "@/src/utils/dataLayer";
 
 interface VisitorStatus {
@@ -43,11 +43,11 @@ const stageContent: Record<
   },
 };
 
-const STAGE_DURATIONS = [
-  3 * 60 * 60 * 1000, // 3 hours
-  1 * 60 * 60 * 1000, // 1 hour
-  15 * 60 * 1000, // 15 minutes
-];
+// const STAGE_DURATIONS = [
+//   3 * 60 * 60 * 1000, // 3 hours
+//   1 * 60 * 60 * 1000, // 1 hour
+//   15 * 60 * 1000, // 15 minutes
+// ];
 
 const PHONE_NUMBER = "8801700999093";
 const WHATSAPP_LINK = `https://wa.me/${PHONE_NUMBER}`;
@@ -140,6 +140,10 @@ export default function ExclusiveTimerPopup() {
     return status?.stage || 1;
   };
 
+  // when need test the last stage, you can use the following code to force the last stage for testing purposes. Uncomment the following lines to simulate the last stage:
+  // const getIsBlocked = (): boolean => {
+  //   return true;
+  // };
   const getIsBlocked = (): boolean => {
     return status?.status === "blocked";
   };
@@ -192,50 +196,84 @@ export default function ExclusiveTimerPopup() {
   // === BLOCKED STATE ===
   if (getIsBlocked()) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-        <div className="relative bg-gradient-to-br from-red-900/90 to-black rounded-2xl p-6 max-w-md w-full shadow-2xl border border-red-500/30">
-          {/* ===== DEV SKIP BUTTON – COMMENTED OUT ===== */}
-          {/* 
-                    {isDev && (
-                        <button
-                            onClick={handleSkip}
-                            className="absolute top-2 left-2 text-xs text-white/40 hover:text-white/80 transition"
-                        >
-                            Skip (dev)
-                        </button>
-                    )}
-                    */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+        <div className="relative overflow-hidden max-w-md w-full rounded-3xl border border-orange-500/20 bg-gradient-to-br from-[#1B1B1B] via-[#121212] to-black shadow-[0_25px_80px_rgba(249,115,22,0.25)]">
+
+          {/* Background Glow */}
+          <div className="absolute top-0 -right-10 h-48 w-48 rounded-full bg-orange-500/20 blur-3xl" />
+          <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-yellow-400/10 blur-3xl" />
+
+          {/* Close */}
           <button
             onClick={handleClose}
-            className="absolute top-2 right-2 text-white/70 hover:text-white"
+            className="absolute top-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition-all duration-300 hover:bg-orange-500 hover:text-white"
           >
             <X className="w-5 h-5" />
           </button>
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/20 flex items-center justify-center">
-              <AlertCircle className="w-8 h-8 text-red-400" />
+
+          <div className="relative p-8 text-center">
+
+
+
+            {/* Icon */}
+            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-400 shadow-xl shadow-orange-500/40">
+              <AlertCircle className="h-10 w-10 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-2">
+
+            {/* Title */}
+            <h2 className="text-3xl font-extrabold leading-tight text-white">
               ১৯৯ টাকার অফারটি শেষ!
             </h2>
-            <p className="text-red-300 text-lg font-semibold">
-              বর্তমান প্রাইস ৫,০০০ টাকা
+
+            {/* Price */}
+            <div className="mt-4 rounded-2xl border border-orange-500/20 bg-white/5 p-3">
+              <p className="text-sm text-gray-400">
+                বর্তমান কোর্স ফি
+              </p>
+
+              <p className="mt-1 text-3xl font-extrabold text-orange-400">
+                ৫,০০০ টাকা
+              </p>
+            </div>
+
+            {/* Description */}
+            <p className="mt-6 text-[15px] leading-7 text-gray-300">
+              আপনি চাইলে বিশেষ অনুরোধে এখনও কোনো সুযোগ আছে কি না জানতে
+              আমাদের সাথে সরাসরি যোগাযোগ করতে পারেন।
             </p>
-            <p className="text-white/70 text-sm mt-4 mb-6">
-              বিশেষ অনুরোধে কোনো সুযোগ আছে কি না জানতে এখনই কল অথবা মেসেজ দিন!
-            </p>
+
+            {/* WhatsApp Button */}
             <a
               href={WHATSAPP_LINK}
               target="_blank"
-              rel="noopener noreferrer"
+              // rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition transform hover:scale-[1.02]"
             >
               <MessageCircle className="w-5 h-5" />
               হোয়াটসঅ্যাপে মেসেজ করুন
             </a>
-            <p className="text-xs text-white/40 mt-4">
-              অথবা কল করুন: <span className="font-semibold">০১৭০০৯৯৯০৯৩</span>
-            </p>
+
+            {/* Phone */}
+            <a
+              href="tel:+8801700999093"
+              className="mt-4 flex w-full items-center justify-center gap-3 rounded-2xl border border-orange-500/20 bg-white/5 px-5 py-3 transition-all duration-300 hover:border-orange-400 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20"
+            >
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-400">
+                <Phone className="h-5 w-5 text-white" />
+              </div>
+
+              <div className="text-left">
+                <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
+                  অথবা কল করুন
+                </p>
+
+                <p className="text-xl font-bold tracking-wide text-orange-300">
+                  ০১৭০০৯৯৯০৯৩
+                </p>
+              </div>
+            </a>
+
+
           </div>
         </div>
       </div>

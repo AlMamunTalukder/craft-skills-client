@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Container from "@/src/components/shared/Container";
-import { Mic } from "lucide-react";
+import { AlertCircle, Mic } from "lucide-react";
 
 const ExclusiveTrainer = () => {
   return (
@@ -22,6 +22,14 @@ const ExclusiveTrainer = () => {
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-amber-200/40 blur-[120px] rounded-full" />
 
       <Container className="relative z-10">
+
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/10 px-4 py-2 mb-6">
+          <AlertCircle className="w-4 h-4 text-orange-400" />
+          <span className="text-xs font-semibold tracking-wider uppercase text-orange-300">
+            এক্সক্লুসিভ ট্রেইনার
+          </span>
+        </div>
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-3 md:mb-14">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight md:mb-4">

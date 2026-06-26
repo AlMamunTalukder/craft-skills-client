@@ -197,7 +197,8 @@ export default function SubHeaderExclusive() {
               Voice & Public Speaking Masterclass
             </h3>
             <p className="text-[12px] md:text-[15px] text-[#F26422] font-medium opacity-90 uppercase tracking-tighter pb-[2px] md:pb-0">
-              Exclusive Limited Time Offer
+              Only For
+              {/* Exclusive Limited Time Offer Only For */}
               {visitor.stageLabel && (
                 <span className="ml-2 text-white/60 text-[10px] md:text-xs">
                   • {visitor.stageLabel}
