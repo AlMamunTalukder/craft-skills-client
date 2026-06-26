@@ -175,7 +175,7 @@ export default function ExclusiveOfferForm() {
                   </h3>
                 </div>
 
-                {/* Description */}
+              
                 <p className="mt-8 max-w-xl mx-auto text-gray-300 leading-8">
                   বিশেষ অনুরোধে এখনও সুযোগ আছে কি না জানতে এখনই
                   হোয়াটসঅ্যাপে মেসেজ করুন অথবা সরাসরি কল করুন।
