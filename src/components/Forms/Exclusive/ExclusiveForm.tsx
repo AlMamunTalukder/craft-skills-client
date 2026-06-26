@@ -145,7 +145,7 @@ export default function ExclusiveOfferForm() {
       <Container>
         {visitorStatus?.status === "blocked" ||
           visitorStatus?.status === "registered" ? (
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto z-10">
             <div className="overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-[#111111] via-[#171717] to-black shadow-[0_25px_80px_rgba(242,100,34,0.18)]">
               {/* Orange Top Line */}
               <div className="h-1 w-full bg-gradient-to-r from-[#F26422] via-white to-[#F26422]" />
@@ -216,7 +216,7 @@ export default function ExclusiveOfferForm() {
         ) : (
 
           <div className="max-w-6xl mx-auto">
-            <div className="relative z-10 max-w-6xl mx-auto">
+            <div className="relative z-10 max-w-6xl mx-auto ">
               <div className="relative overflow-hidden rounded-3xl md:rounded-[3rem] border border-white/10 backdrop-blur-2xl bg-white/5 shadow-[0_20px_80px_rgba(0,0,0,0.5)]">
                 <div className="h-1 w-full bg-gradient-to-r from-[#F26422] via-white to-[#F26422]" />
 
@@ -281,12 +281,12 @@ export default function ExclusiveOfferForm() {
                           এখনই রেজিস্ট্রেশন করুন
                         </h3>
                         {visitorStatus?.stageLabel && (
-                            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#F26422]/20 bg-[#F26422]/10 px-4 py-2 backdrop-blur-sm">
-                              <Timer className="h-4 w-4 text-[#F26422]" />
-                              <span className="text-sm font-semibold text-[#F26422]">
-                                Only For {visitorStatus.stageLabel}
-                              </span>
-                            </div>
+                          <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#F26422]/20 bg-[#F26422]/10 px-4 py-2 backdrop-blur-sm">
+                            <Timer className="h-4 w-4 text-[#F26422]" />
+                            <span className="text-sm font-semibold text-[#F26422]">
+                              Only For {visitorStatus.stageLabel}
+                            </span>
+                          </div>
                         )}
                       </div>
 
