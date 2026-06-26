@@ -23,31 +23,91 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            echo "========================================="
             echo "Starting deployment to VPS..."
-            cd /var/www/html/craft/skills/client || exit
+            echo "========================================="
 
+            # Navigate to the project directory
+            cd /var/www/html/craft/skills/client || exit 1
+
+            echo "📂 Current directory: $(pwd)"
+
+            # Pull latest changes
+            echo "📥 Pulling latest code from repository..."
             git fetch --all
             git reset --hard origin/main
 
+            # Check if .env exists, if not create from production template
             if [ ! -f .env ]; then
+              echo "📝 Creating .env from .env.production..."
               cp .env.production .env
+            else
+              echo "✅ .env file already exists"
             fi
 
+            # Install dependencies
+            echo "📦 Installing dependencies..."
             npm install
+
+            # Build the application
+            echo "🔨 Building the application..."
             npm run build
 
-            fuser -k 5001/tcp 2>/dev/null || true
+            # Verify build was successful
+            if [ ! -d ".next" ]; then
+              echo "❌ Build failed! .next directory not found."
+              exit 1
+            fi
+            echo "✅ Build completed successfully!"
 
+            # Kill any process using port 5001 (prevents port conflicts)
+            echo "🔍 Checking for processes on port 5001..."
+            fuser -k 5001/tcp 2>/dev/null || true
+            echo "✅ Port 5001 is free"
+
+            # Start/Restart the application with PM2
+            echo "🚀 Starting/Restarting application with PM2..."
             if command -v pm2 &> /dev/null; then
+              # Delete existing process if it exists
               pm2 delete skills-client 2>/dev/null || true
-              pm2 start ecosystem.config.js
+              
+              # Check if ecosystem.config.js exists
+              if [ -f "ecosystem.config.js" ]; then
+                echo "📄 Using ecosystem.config.js"
+                pm2 start ecosystem.config.js
+              else
+                echo "📄 No ecosystem.config.js found, using inline command"
+                pm2 start node_modules/.bin/next --name skills-client -- start -p 5001
+              fi
+              
+              # Save PM2 process list
               pm2 save
+              echo "✅ PM2 started successfully!"
             else
-              echo "PM2 not found. Please install it using 'npm install -g pm2'."
+              echo "❌ PM2 not found. Please install it using 'npm install -g pm2'."
               exit 1
             fi
 
+            # Restart Nginx to apply any changes
+            echo "🔄 Restarting Nginx..."
             sudo systemctl restart nginx
-            echo "Deployment completed successfully!"
+            echo "✅ Nginx restarted successfully!"
 
+            # Verify application is running
+            echo "🔍 Verifying application status..."
+            sleep 3
+            if pm2 list | grep -q "skills-client.*online"; then
+              echo "✅ Application is running successfully!"
+            else
+              echo "⚠️ Warning: Application may not be running correctly. Check logs with: pm2 logs skills-client"
+            fi
 
+            echo "========================================="
+            echo "✅ Deployment completed successfully!"
+            echo "========================================="
+            echo ""
+            echo "📊 PM2 Status:"
+            pm2 list
+            echo ""
+            echo "📝 Recent logs:"
+            pm2 logs skills-client --lines 5 --nostream
