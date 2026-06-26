@@ -186,7 +186,7 @@ export default function ExclusiveOfferForm() {
                   href="https://wa.me/8801700999093"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-10 inline-flex w-full md:w-auto items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#F26422] to-[#ff884f] px-8 py-4 font-bold text-white transition hover:scale-[1.02]"
+                    className="mt-10 inline-flex w-full md:w-auto items-center justify-center gap-3 rounded-2xl  bg-green-600 hover:bg-green-700 px-8 py-4 font-bold text-white transition hover:scale-[1.02]"
                 >
                   <MessageCircle size={22} />
                   হোয়াটসঅ্যাপে মেসেজ করুন
