@@ -3,96 +3,98 @@
 import React from "react";
 import Image from "next/image";
 import Container from "@/src/components/shared/Container";
-import { AlertCircle, Mic } from "lucide-react";
+import { Radio } from "lucide-react";
 
 const ExclusiveTrainer = () => {
   return (
-    <section className="relative py-8 md:py-20 overflow-hidden bg-[#F8F6F1]">
-      {/* Sound Wave Lines */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.05]">
-        <div className="w-[1200px] h-[1200px] border border-[#F26422] rounded-full" />
-        <div className="absolute w-[1000px] h-[1000px] border border-[#F26422] rounded-full" />
-        <div className="absolute w-[800px] h-[800px] border border-[#F26422] rounded-full" />
-        <div className="absolute w-[600px] h-[600px] border border-[#F26422] rounded-full" />
-      </div>
+    <section className="py-12 lg:py-24 relative overflow-hidden bg-[#CBD5E1]">
 
-      {/* Glow */}
-      <div className="absolute top-20 left-20 w-96 h-96 bg-orange-200/40 blur-[120px] rounded-full" />
-
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-amber-200/40 blur-[120px] rounded-full" />
+      {/* 🌌 MULTI-TONE AMBIENT ART BACKGROUND (MIXED DARKISH-WHITE, YELLOW & ORANGE) */}
+      {/* Darkish-White Deep Contrast Base */}
+      <div className="absolute inset-0 bg-slate-900/[0.04] pointer-events-none" />
+      {/* Soft Luminous Yellow / Amber Glow */}
+      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-amber-400 blur-[140px] rounded-full pointer-events-none opacity-40" />
+      {/* Rich Studio Orange Glow */}
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#F26422] blur-[130px] rounded-full pointer-events-none opacity-30" />
+      {/* Elegant Contrast Darkish Slate Blob */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-slate-400 blur-[160px] rounded-full pointer-events-none opacity-40" />
 
       <Container className="relative z-10">
+        {/* PREMIUM LIGHT-MODE GLASSMORPHIC OUTER CARD */}
+        <div className="relative bg-white/40 border border-white/80 rounded-2xl lg:rounded-[3.5rem] p-3 md:p-12 backdrop-blur-xl shadow-[0_30px_70px_rgba(242,100,34,0.04),0_10px_30px_rgba(0,0,0,0.02)] overflow-hidden text-slate-800">
 
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/20 bg-orange-500/10 px-4 py-2 mb-6">
-          <AlertCircle className="w-4 h-4 text-orange-400" />
-          <span className="text-xs font-semibold tracking-wider uppercase text-orange-300">
-            এক্সক্লুসিভ ট্রেইনার
-          </span>
-        </div>
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-3 md:mb-14">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 leading-tight md:mb-4">
-            নেছার আহমাদ
-          </h2>
+          {/* High-End Technical Dot Grid Texture */}
+          <div
+            className="absolute inset-0 opacity-[0.4] mix-blend-overlay pointer-events-none"
+            style={{
+              backgroundImage: `radial-gradient(#F26422 1px, transparent 1px)`,
+              backgroundSize: "40px 40px",
+            }}
+          />
 
-          <p className="text-xl md:text-2xl font-bold text-[#F26422] md:mb-3">
-            প্রফেশনাল ভয়েস আর্টিস্ট ও ট্রেইনার
-          </p>
+          <div className="relative z-10 grid lg:grid-cols-12 gap-12 lg:gap-4 items-stretch max-w-6xl mx-auto">
 
-          <p className="text-slate-500">
-            প্রতিষ্ঠাতা,
-            <span className="font-semibold text-slate-900 ml-1">
-              ক্রাফট স্কিলস
-            </span>
-          </p>
-        </div>
+            {/* LEFT COLUMN: Full Trainer Portrait Display */}
+            <div className="lg:col-span-5 flex flex-col justify-between">
+              <div className="space-y-2 md:space-y-6 text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-[#F26422]/20 bg-[#F26422]/5">
+                  <Radio size={14} className="text-[#F26422] animate-pulse" />
+                  <span className="text-xs font-bold tracking-widest uppercase text-[#F26422]">
+                    Your Mentor
+                  </span>
+                </div>
 
-        {/* Content Area */}
-        <div className="grid lg:grid-cols-2 gap-4 lg:gap-10 items-center max-w-6xl mx-auto">
-          {/* Trainer Image */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#F26422]/20 to-transparent rounded-[32px] blur-xl" />
+                <div className="md:space-y-3">
+                  <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-none">
+                    নেছার আহমাদ
+                  </h2>
+                  <div className="text-lg md:text-xl font-bold text-[#F26422]">
+                    প্রফেশনাল ভয়েস আর্টিস্ট ও ট্রেইনার
+                  </div>
+                </div>
 
-            <div className="relative overflow-hidden rounded-[32px] bg-white border border-slate-200 shadow-[0_30px_80px_rgba(15,23,42,0.12)]">
-              <div className="relative h-[220px] md:h-[380px]">
+                <p className="text-slate-500 text-sm md:text-base leading-relaxed max-w-md mx-auto lg:mx-0 font-medium">
+                  প্রতিষ্ঠাতা, <span className="text-slate-900 font-bold">ক্রাফট স্কিলস</span>। <br />
+                </p>
+              </div>
+
+              {/* Prominent Vertical Trainer Card */}
+              <div className="mt-3 md:mt-8 relative aspect-[4/5] w-full max-w-[480px] mx-auto lg:mx-0 rounded-2xl overflow-hidden bg-slate-100 border border-white shadow-[0_20px_40px_rgba(0,0,0,0.05)] group">
                 <Image
                   src="/img/instructor/nesar2.jpeg"
                   alt="নেছার আহমাদ"
                   fill
                   priority
-                  className="object-cover object-top"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
               </div>
+            </div>
 
-              <div className="absolute bottom-5 left-5 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl shadow-lg border border-slate-200">
-                <div className="flex items-center gap-2">
-                  <Mic size={15} className="text-[#F26422]" />
-                  <span className="text-sm font-semibold text-slate-800">
-                    Voice Over Expert
+            {/* RIGHT COLUMN: Video Showcase & Expert Bio Details */}
+            <div className="lg:col-span-7 flex flex-col justify-center space-y-8 lg:pl-6  lg:mt-0">
+
+              {/* Main Video Deck */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 px-1">
+                  <span className="w-2 h-2 rounded-full bg-[#F26422] animate-pulse" />
+                  <span className="text-xs font-bold tracking-wider text-slate-400 uppercase">
+                    Mentor Work Portfolio
                   </span>
                 </div>
+
+                <div className="relative aspect-video w-full  rounded-2xl overflow-hidden bg-slate-900 border border-white shadow-xl">
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/1RxdQgm7-R4?rel=0&modestbranding=1"
+                    title="নেছার আহমাদ - পোর্টফোলিও ভিডিও"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
               </div>
+
             </div>
-          </div>
 
-          {/* Video Section */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-[#F26422]/10 blur-2xl rounded-[32px]" />
-
-            <div className="relative overflow-hidden rounded-[32px] bg-white border border-slate-200 shadow-[0_30px_80px_rgba(15,23,42,0.12)]">
-              <div className="h-1 w-full bg-gradient-to-r from-[#F26422] via-[#FF9A63] to-[#F26422]" />
-
-              <iframe
-                className="w-full h-[200px] md:h-[380px]"
-                src="https://www.youtube.com/embed/1RxdQgm7-R4?rel=0&modestbranding=1"
-                title="নেছার আহমাদ - পোর্টফোলিও ভিডিও"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
           </div>
         </div>
       </Container>

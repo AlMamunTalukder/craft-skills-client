@@ -2,13 +2,12 @@
 // components/SubHeaderAdmission.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   FaFacebookF,
   FaWhatsapp,
   FaYoutube,
   FaTelegramPlane,
-  FaUsers,
   FaHandPointRight,
 } from "react-icons/fa";
 import Link from "next/link";
@@ -29,7 +28,6 @@ type Props = {
 
 export default function SubHeaderAdmission({ siteData, batch }: Props) { 
   const [isMobile, setIsMobile] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = () => {
   // Track admission button click

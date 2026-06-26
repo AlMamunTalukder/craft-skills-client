@@ -89,7 +89,7 @@ const ExclusiveWhyCourse = () => {
 
 
             {/* SECTION HEADING TITLE */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight text-center max-w-3xl mb-12 md:mb-16">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight text-center max-w-3xl mb-5 md:mb-16">
               আপনিও কি এই{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-[#ff8855] to-[#F26422]">
                 সমস্যাগুলোতে ভুগছেন?
@@ -126,11 +126,11 @@ const ExclusiveWhyCourse = () => {
 
             {/* EXCLUSIVE CALL-TO-ACTION INFOBAR RING */}
             <div className="mt-14 w-full p-[1px] rounded-2xl md:rounded-[2rem] bg-gradient-to-r from-[#F26422]/30 via-white/[0.05] to-[#F26422]/30 shadow-2xl">
-              <div className="bg-[#0D0D11]/90 backdrop-blur-2xl px-5 py-6 md:px-12 md:py-6 rounded-[calc(1rem-1px)] md:rounded-[2rem] flex flex-col md:flex-row items-center gap-5 md:gap-8 border border-white/[0.05] relative overflow-hidden">
+              <div className="bg-[#0D0D11]/90 backdrop-blur-2xl px-3 py-4 md:px-12 md:py-6 rounded-[calc(1rem-1px)] md:rounded-[2rem] flex flex-col md:flex-row items-center gap-5 md:gap-8 border border-white/[0.05] relative overflow-hidden">
 
                 {/* TROPHY BRAND EMBLEM INSIDE CARD */}
                 <div className="shrink-0">
-                  <div className="w-14 h-14 md:w-16 h-16 rounded-2xl bg-gradient-to-br from-[#F26422] to-[#ff7d44] flex items-center justify-center shadow-[0_8px_25px_rgba(242,100,34,0.3)]">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-[#F26422] to-[#ff7d44] flex items-center justify-center shadow-[0_8px_25px_rgba(242,100,34,0.3)]">
                     <Trophy className="text-white w-6 h-6 md:w-7 md:h-7" />
                   </div>
                 </div>

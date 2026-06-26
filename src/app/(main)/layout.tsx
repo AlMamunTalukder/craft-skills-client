@@ -10,12 +10,10 @@ const layout = async ({ children }: { children: ReactNode }) => {
   return (
     <div>
       <ScrollToTop />
-
       <WhatsApp />
       <FBMessenger />
       <main className="grow">{children}</main>
       <Footer />
-
     </div>
   );
 };

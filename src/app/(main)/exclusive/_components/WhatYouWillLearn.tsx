@@ -50,7 +50,7 @@ const WhatYouWillLearn = () => {
 
       <Container className="relative z-10">
         {/* HEADER */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-5 md:mb-10">
           <h2 className="text-3xl md:text-5xl font-black text-white leading-tight">
             এই{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-white to-[#F26422]">

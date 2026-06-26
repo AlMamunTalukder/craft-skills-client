@@ -189,7 +189,7 @@ export default function SubHeaderExclusive() {
   ];
 
   return (
-    <div className="sticky top-0 z-50 w-full bg-black shadow-lg border-b border-[#F26422]/20 text-white py-0 md:py-1.5">
+    <div className="sticky top-0 z-50 w-full h-[89px] md:h-full md:w-full bg-black shadow-lg border-b border-[#F26422]/20 text-white py-0 md:py-1.5">
       <Container>
         <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1">
           <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left md:px-2">
