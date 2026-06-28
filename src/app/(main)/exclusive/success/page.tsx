@@ -23,11 +23,11 @@ export default async function ExclusiveOfferSuccessPage({
   const { name, phone, email } = params;
 
   // ✅ STATIC LINKS
-  const FACEBOOK_GROUP = "https://facebook.com/";
-  const WHATSAPP_GROUP = "https://chat.whatsapp.com/";
+  const FACEBOOK_GROUP = "https://www.facebook.com/share/g/1D4Sbt1FpN/";
+  const WHATSAPP_GROUP = "https://chat.whatsapp.com/J9D354IJMwi7VNg7Fvq3DY?s=cl&p=a&mlu=1";
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#0F0F0F] py-10 md:py-20">
+    <div className="min-h-screen relative overflow-hidden bg-[#0F0F0F] py-5 md:py-10">
       {/* BACKGROUND */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#F26422_0%,transparent_30%),radial-gradient(circle_at_bottom_right,#353535_0%,transparent_35%)] opacity-30" />
 
@@ -40,16 +40,16 @@ export default async function ExclusiveOfferSuccessPage({
           {/* CARD */}
           <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,0.45)]">
             {/* TOP HEADER */}
-            <div className="relative px-6 md:px-12 pt-10 md:pt-14 pb-8 text-center border-b border-white/10 overflow-hidden">
+            <div className="relative px-6 md:px-8 pt-4 md:pt-7 pb-5 text-center border-b border-white/10 overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-full bg-[linear-gradient(135deg,rgba(242,100,34,0.18),rgba(255,255,255,0.03),rgba(53,53,53,0.4))]" />
 
               <div className="relative z-10">
                 {/* SUCCESS ICON */}
-                <div className="mx-auto mb-6 w-24 h-24 rounded-full bg-gradient-to-br from-[#F26422] to-[#ff8c57] flex items-center justify-center shadow-[0_10px_40px_rgba(242,100,34,0.5)]">
+                <div className="mx-auto mb-3 md:mb-6 w-10 md:w-18 h-10 md:h-18 rounded-full bg-gradient-to-br from-[#F26422] to-[#ff8c57] flex items-center justify-center shadow-[0_10px_40px_rgba(242,100,34,0.5)]">
                   <CheckCircle2 className="w-14 h-14 text-white" />
                 </div>
 
-                <h1 className="text-3xl md:text-5xl font-black text-white leading-tight">
+                <h1 className="text-2xl md:text-4xl font-black text-white leading-tight">
                   রেজিস্ট্রেশন
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-white to-[#F26422]">
                     সফল হয়েছে
@@ -62,7 +62,7 @@ export default async function ExclusiveOfferSuccessPage({
                   </p>
                 )}
 
-                <p className="mt-3 text-sm md:text-base text-white/60 max-w-xl mx-auto leading-relaxed">
+                <p className="hidden lg:block mt-2 md:mt-3 text-sm text-white/60 max-w-xl mx-auto leading-relaxed">
                   আপনার এক্সক্লুসিভ অফার কোর্স রেজিস্ট্রেশন সফলভাবে সম্পন্ন
                   হয়েছে।
                 </p>
@@ -70,7 +70,7 @@ export default async function ExclusiveOfferSuccessPage({
             </div>
 
             {/* CONTENT */}
-            <div className="p-5 md:p-10 space-y-8">
+            <div className="p-2 md:p-5 space-y-5">
               {/* USER INFO */}
               {(phone || email) && (
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-5 md:p-7 backdrop-blur-xl">
@@ -106,33 +106,33 @@ export default async function ExclusiveOfferSuccessPage({
               )}
 
               {/* JOIN GROUPS */}
-              <div className="rounded-3xl border border-[#F26422]/20 bg-[#141414] p-5 md:p-8">
+              <div className="rounded-3xl border border-[#F26422]/20 bg-[#141414] p-3 md:p-5">
                 <h3 className="text-center text-2xl md:text-3xl font-black text-white mb-2">
                   এখনই গ্রুপে যুক্ত হোন
                 </h3>
 
-                <p className="text-center text-white/60 mb-8">
+                <p className="text-sm md:text-base text-center text-white/60 mb-4">
                   লাইভ ক্লাস লিংক এবং আপডেট পেতে নিচের গ্রুপগুলোতে যুক্ত হন
                 </p>
 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {/* FACEBOOK */}
                   <Link
                     href={FACEBOOK_GROUP}
                     target="_blank"
-                    className="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 hover:bg-[#1877F2]/10 hover:border-[#1877F2]/30 transition-all duration-300 px-5 py-5"
+                    className="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 hover:bg-[#1877F2]/10 hover:border-[#1877F2]/30 transition-all duration-300 px-2 md:px-5 py-2 md:py-3"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-2xl bg-[#1877F2]/15 flex items-center justify-center">
-                        <FaFacebookF className="text-[#1877F2] text-2xl" />
+                    <div className="flex items-center gap-2 md:gap-4">
+                      <div className="w-10 md:w-14 h-10 md:h-14 rounded-lg md:rounded-2xl bg-[#1877F2]/15 flex items-center justify-center">
+                        <FaFacebookF className="text-[#1877F2] text-xl md:text-2xl" />
                       </div>
 
                       <div>
-                        <h4 className="text-white font-bold text-lg">
+                        <h4 className="text-white font-bold md:text-lg">
                           Facebook Group
                         </h4>
 
-                        <p className="text-white/60 text-sm">
+                        <p className="text-white/60 text-xs md:text-sm">
                           গ্রুপে জয়েন করতে ক্লিক করুন
                         </p>
                       </div>
@@ -145,19 +145,20 @@ export default async function ExclusiveOfferSuccessPage({
                   <Link
                     href={WHATSAPP_GROUP}
                     target="_blank"
-                    className="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 hover:bg-[#25D366]/10 hover:border-[#25D366]/30 transition-all duration-300 px-5 py-5"
+                    className="group flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 hover:bg-[#25D366]/10 hover:border-[#25D366]/30 transition-all duration-300 px-2 md:px-5 py-2 md:py-3"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-2xl bg-[#25D366]/15 flex items-center justify-center">
-                        <FaWhatsapp className="text-[#25D366] text-2xl" />
+
+                    <div className="flex items-center gap-2 md:gap-4">
+                      <div className="w-10 md:w-14 h-10 md:h-14 rounded-lg md:rounded-2xl bg-[#25D366]/15 flex items-center justify-center">
+                        <FaWhatsapp className="text-[#25D366] text-xl md:text-2xl" />
                       </div>
 
                       <div>
-                        <h4 className="text-white font-bold text-lg">
+                        <h4 className="text-white font-bold md:text-lg">
                           WhatsApp Group
                         </h4>
 
-                        <p className="text-white/60 text-sm">
+                        <p className="text-white/60 text-xs md:text-sm">
                           গ্রুপে জয়েন করতে ক্লিক করুন
                         </p>
                       </div>
@@ -169,23 +170,23 @@ export default async function ExclusiveOfferSuccessPage({
               </div>
 
               {/* CONTACT */}
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 md:p-8 backdrop-blur-xl">
-                <h3 className="text-center text-white font-bold text-2xl mb-6">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-2 md:p-5 backdrop-blur-xl">
+                <h3 className="text-center text-white font-bold text-2xl mb-4">
                   সাহায্য প্রয়োজন?
                 </h3>
 
                 <Link
                   href="tel:01700999093"
-                  className="group flex items-center rounded-2xl border border-white/10 bg-[#F26422]/10 hover:bg-[#F26422]/20 transition-all duration-300 px-5 py-5"
+                  className="group flex items-center rounded-2xl border border-white/10 bg-[#F26422]/10 hover:bg-[#F26422]/20 transition-all duration-300 px-2 md:px-5 py-2 md:py-3"
                 >
-                  <div className="w-14 h-14 rounded-2xl bg-[#F26422] flex items-center justify-center mr-4">
-                    <PhoneCall className="text-white w-6 h-6" />
+                  <div className="w-9 md:w-14 h-9 md:h-14 rounded-lg md:rounded-2xl bg-[#F26422] flex items-center justify-center mr-2  md:mr-4">
+                    <PhoneCall className="text-white md:w-6 md:h-6" />
                   </div>
 
-                  <div>
+                  <div className="">
                     <p className="text-white/60 text-sm">সরাসরি কল করুন</p>
 
-                    <h4 className="text-white text-xl font-black">
+                    <h4 className="text-white text-lg md:text-xl font-black">
                       01700999093
                     </h4>
                   </div>
@@ -195,7 +196,7 @@ export default async function ExclusiveOfferSuccessPage({
               {/* HOME BUTTON */}
               <Link
                 href="/exclusive"
-                className="group relative overflow-hidden flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#F26422] to-[#ff7b42] px-6 py-5 text-lg md:text-xl font-black text-white shadow-[0_10px_40px_rgba(242,100,34,0.4)] hover:scale-[1.02] transition-all duration-300"
+                className="group relative overflow-hidden flex items-center justify-center gap-3 rounded-lg md:rounded-2xl bg-gradient-to-r from-[#F26422] to-[#ff7b42] px-3 md:px-6 py-2 md:py-5 text-lg md:text-xl font-black text-white shadow-[0_10px_40px_rgba(242,100,34,0.4)] hover:scale-[1.02] transition-all duration-300"
               >
                 <span className="relative z-10">হোমপেজে ফিরে যান</span>
 
