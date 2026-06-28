@@ -194,16 +194,16 @@ export default function SubHeaderExclusive() {
         <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1">
           <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left md:px-2">
             <h3 className="text-[13px] md:text-[17px] leading-tight font-bold">
-              Voice & Public Speaking Masterclass
+              ১৯৯ টাকায় ৫,৫০০ টাকার লাইভ মাস্টারক্লাস।
             </h3>
             <p className="text-[12px] md:text-[15px] text-[#F26422] font-medium opacity-90 uppercase tracking-tighter pb-[2px] md:pb-0">
-              Only For
+              অফারটি শেষ হতে আর মাত্র কিছু সময় বাকি।
               {/* Exclusive Limited Time Offer Only For */}
-              {visitor.stageLabel && (
+              {/* {visitor.stageLabel && (
                 <span className="ml-2 text-white/60 text-[10px] md:text-xs">
                   • {visitor.stageLabel}
                 </span>
-              )}
+              )} */}
             </p>
           </div>
 
