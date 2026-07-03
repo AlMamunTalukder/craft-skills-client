@@ -5,10 +5,7 @@ import Container from "@/src/components/shared/Container";
 import { CustomAccordionItem } from "@/src/components/shared/CustomAccordion";
 import { HelpCircle } from "lucide-react";
 
-
-
 const admissionFaq = [
-
   {
     question: "ক্লাসটি কীভাবে এবং কোথায় হবে?",
     answer:
@@ -35,28 +32,18 @@ const admissionFaq = [
       "পেমেন্ট কমপ্লিট করার সাথে সাথেই আপনাকে আমাদের একটি সিক্রেট হোয়াটসঅ্যাপ গ্রুপে (WhatsApp Secret Group) যুক্ত করে নেওয়া হবে। এই গ্রুপেই লাইভ ক্লাসের গুগল মিট লিংক, ক্লাসের শিডিউল এবং সমস্ত ফ্রি বোনাস রিসোর্স শেয়ার করা হবে।",
   },
   // --- ---
-
-
   {
     question: "পেমেন্ট করার পর আমি কীভাবে কোর্সটি শুরু করব?",
     answer: "পেমেন্ট সফলভাবে সম্পন্ন হওয়ার সাথে সাথেই স্ক্রিনে আপনি আমাদের সিক্রেট হোয়াটসঅ্যাপ গ্রুপের লিংক পেয়ে যাবেন। সেই গ্রুপে যুক্ত হলেই আপনি পরবর্তী সমস্ত নির্দেশনা ও ক্লাসের লিংক পেয়ে যাবেন।"
   },
-
   {
     question: "কোর্স শেষে কি কোনো সার্টিফিকেট দেওয়া হবে?",
     answer: "হ্যাঁ, কোর্সটি সফলভাবে সম্পন্ন করার পর আপনি আমাদের পক্ষ থেকে একটি ডিজিটাল সার্টিফিকেট পাবেন।"
   },
-
-
   {
     question: "আমি কি মোবাইল দিয়ে কোর্সটি করতে পারব?",
     answer: "অবশ্যই! আমাদের ওয়েবসাইটটি মোবাইল ফ্রেন্ডলি, তাই আপনি যেকোনো স্মার্টফোন বা ল্যাপটপ থেকে কোর্সটি করতে পারবেন।"
-  },
-  {
-    question: "আমি যদি কোর্স করার পরেও ভালো ফলাফল না পাই?",
-    answer: "আমরা শুধুমাত্র কোর্স করাই না, আমরা আপনার প্র্যাকটিসের ওপর ফিডব্যাক দিই। আপনি যদি নিয়মিত আমাদের গাইডলাইন অনুসরণ করেন এবং অ্যাসাইনমেন্টগুলো সম্পন্ন করেন, তবে আপনার জড়তা কাটতে বাধ্য। আপনি একা নন, আমাদের পুরো টিমের সাপোর্ট সবসময় আপনার সাথে থাকবে।"
-  },
-
+  }
 ];
 
 const ExclusiveFAQ = () => {
@@ -68,9 +55,6 @@ const ExclusiveFAQ = () => {
   return (
     <section className="relative overflow-hidden py-10 md:py-32 bg-black">
 
-      {/* =========================
-          🌌 DEEP ULTRA DARK AMBIENT GLOW SYSTEM
-         ========================= */}
       {/* Center Top Radial Spotlight */}
       <div className="absolute top-[-250px] left-1/2 -translate-x-1/2 w-[850px] h-[850px] bg-[#F26422]/10 blur-[150px] rounded-full pointer-events-none" />
       {/* Bottom Right Complementary Glow */}
@@ -90,20 +74,16 @@ const ExclusiveFAQ = () => {
 
           {/* HEADER LAYER */}
           <div className="text-center mb-5 md:mb-24">
-
-
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
               সচরাচর জিজ্ঞাসিত{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-[#ff8855] to-[#F26422]">
                 প্রশ্নাবলী (FAQ)
               </span>
             </h2>
-
           </div>
 
           {/* TWO COLUMN LOGICAL ACCORDION MAPPING GRID */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 items-start">
-
             {/* LEFT ACCORDION CONTEXT STREAM */}
             <Accordion type="single" collapsible className="w-full space-y-4">
               {leftColumnFaq.map((item, index) => (
@@ -141,9 +121,7 @@ const ExclusiveFAQ = () => {
                 </div>
               ))}
             </Accordion>
-
           </div>
-
         </div>
       </Container>
     </section>

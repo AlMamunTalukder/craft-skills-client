@@ -122,8 +122,10 @@ const Banner = ({ siteData }: { siteData: SiteContent | null }) => {
               {skillIcons.map((skill, i) => (
                  <div
                   key={i}
-                  className="flex items-center content-center justify-center gap-2 px-4 py-2 rounded-md md:rounded-xl bg-white/5 backdrop-blur-md border border-white/10 w-[130px]">
-                  {skill.icon}
+                  className="
+                  flex items-center content-center justify-center gap-2 px-4 py-2 rounded-md md:rounded-xl bg-white/5 backdrop-blur-md border   border-white/10 w-[130px]">
+                  <span className=" flex items-center justify-center">{skill.icon}</span>
+                  {/* {skill.icon} */}
                   <span className="text-white text-sm md:text-lg font-bold">
                     {skill.name}
                   </span>
