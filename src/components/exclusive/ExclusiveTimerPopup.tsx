@@ -11,7 +11,7 @@ interface VisitorStatus {
   isBlocked: boolean;
   registered: boolean;
   message?: string;
-  stageLabel?: string;
+  stageLabel?: string; 
 }
 
 const stageContent: Record<

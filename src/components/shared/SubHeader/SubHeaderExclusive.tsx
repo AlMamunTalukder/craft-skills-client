@@ -13,6 +13,10 @@ import {
 import Container from "../Container";
 import { AlertCircle } from "lucide-react";
 import { pushEvent } from "@/src/utils/dataLayer";
+import moment from 'moment-timezone';
+
+// Set default timezone to Bangladesh
+moment.tz.setDefault('Asia/Dhaka');
 
 const CountdownTimer = dynamic(
   () => import("@/src/components/home/CountdownTimer"),
@@ -29,7 +33,7 @@ interface SiteData {
 }
 
 interface VisitorStatus {
-  status: "active" | "blocked" | "registered";
+  status: "active" | "blocked" | "registered"; 
   stage?: number;
   expiryTime?: string;
   isBlocked: boolean;
@@ -37,19 +41,37 @@ interface VisitorStatus {
   stageLabel?: string;
 }
 
+interface ActiveBatch {
+  _id: string;
+  batchNo: number;
+  title: string;
+  description: string;
+  date: string;
+  registrationDeadline: string;
+  offerPrice: number;
+  regularPrice: number;
+  isActive: boolean;
+  maxSeats: number;
+  enrolledCount: number;
+}
+
+
+
+
 const PHONE_NUMBER = "8801700999093";
 const WHATSAPP_LINK = `https://wa.me/${PHONE_NUMBER}`;
 
 export default function SubHeaderExclusive() {
   const [siteData, setSiteData] = useState<SiteData>({});
   const [visitor, setVisitor] = useState<VisitorStatus | null>(null);
+  const [activeBatch, setActiveBatch] = useState<ActiveBatch | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const API_URL =
       process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
-    // Fetch visitor status (for timer)
+    // 1. Fetch visitor status (for timer)
     fetch(`${API_URL}/exclusive/visitor-status`, {
       credentials: "include",
     })
@@ -61,7 +83,18 @@ export default function SubHeaderExclusive() {
       })
       .catch(console.error);
 
-    // Fetch site data for social links
+    // 2. Fetch active batch data
+    fetch(`${API_URL}/exclusive-batches/active`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.data) {
+          setActiveBatch(data.data);
+          console.log('Active batch loaded:', data.data);
+        }
+      })
+      .catch(console.error);
+
+    // 3. Fetch site data for social links
     fetch("/api/site")
       .then((res) => res.json())
       .then((data) => {
@@ -79,17 +112,17 @@ export default function SubHeaderExclusive() {
   }, []);
 
   const handleScroll = () => {
-    // ✅ GTM Event: add_to_cart
+    // ✅ GTM Event: add_to_cart with dynamic price
     pushEvent("add_to_cart", {
       ecommerce: {
         currency: "BDT",
-        value: 199,
+        value: activeBatch?.offerPrice ,
         items: [
           {
-            item_id: "exclusive_offer_199",
-            item_name: "Voice & Public Speaking Masterclass",
+            item_id: `exclusive_offer_${activeBatch?.offerPrice}`,
+            item_name: activeBatch?.title || "Voice & Public Speaking Masterclass",
             item_category: "exclusive_offer",
-            price: 199,
+            price: activeBatch?.offerPrice,
             quantity: 1,
           },
         ],
@@ -101,12 +134,6 @@ export default function SubHeaderExclusive() {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
-  // const handleScroll = () => {
-  //   const el = document.getElementById("registration-form");
-  //   if (el) {
-  //     el.scrollIntoView({ behavior: "smooth", block: "start" });
-  //   }
-  // };
 
   // Hide while loading
   if (loading) return null;
@@ -194,16 +221,10 @@ export default function SubHeaderExclusive() {
         <div className="flex flex-col md:flex-row items-center justify-between pt-2 md:pt-3 md:pb-1">
           <div className="flex items-center justify-center md:items-start flex-col text-center md:text-left md:px-2">
             <h3 className="text-[13px] md:text-[17px] leading-tight font-bold">
-              ১৯৯ টাকায় ৫,৫০০ টাকার লাইভ মাস্টারক্লাস।
+              {activeBatch?.title}
             </h3>
             <p className="text-[12px] md:text-[15px] text-[#F26422] font-medium opacity-90 uppercase tracking-tighter pb-[2px] md:pb-0">
-              অফারটি শেষ হতে আর মাত্র কিছু সময় বাকি।
-              {/* Exclusive Limited Time Offer Only For */}
-              {/* {visitor.stageLabel && (
-                <span className="ml-2 text-white/60 text-[10px] md:text-xs">
-                  • {visitor.stageLabel}
-                </span>
-              )} */}
+               {activeBatch?.description}         
             </p>
           </div>
 

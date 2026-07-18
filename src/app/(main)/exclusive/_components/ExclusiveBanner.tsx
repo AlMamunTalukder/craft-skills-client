@@ -73,33 +73,6 @@ const ExclusiveBanner = () => {
     }
   };
 
-  
-  // const handleCTA = () => {
-  //   const isMobile = window.innerWidth < 768;
-
-  //   // =========================
-  //   // GTM EVENT
-  //   // =========================
-  //   pushEvent("exclusive_offer_banner_click", {
-  //     button_name: "মাত্র 199 টাকায় এখনই জয়েন করুন",
-  //     page_path: pathname,
-  //     section: "exclusive_banner",
-  //     course_name: "Voice & Public Speaking Masterclass",
-  //     offer_price: 199,
-  //     regular_price: 5500,
-  //   });
-
-  //   // =========================
-  //   // SCROLL TO FORM
-  //   // =========================
-  //   const el = document.getElementById("registration-form");
-  //   if (el) {
-  //     el.scrollIntoView({
-  //       behavior: isMobile ? "auto" : "smooth",
-  //       block: "start",
-  //     });
-  //   }
-  // };
 
   return (
     <section className="relative md:min-h-screen flex items-center overflow-hidden bg-black">
