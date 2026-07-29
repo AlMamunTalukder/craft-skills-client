@@ -9,7 +9,7 @@ const API_URL =
 
 export async function getSiteData(): Promise<SiteContent | null> {
   try {
-    const response = await fetch(`${API_URL}/site`, { cache: 'no-store' });
+    const response = await fetch(`${API_URL}/site`, { next: { revalidate: 60 } });
 
     const result = await response.json();
 
@@ -28,7 +28,7 @@ export async function getSiteData(): Promise<SiteContent | null> {
 
 export async function getActiveBatch() {
   try {
-    const response = await fetch(`${API_URL}/course-batches/active`);
+    const response = await fetch(`${API_URL}/course-batches/active`, { next: { revalidate: 60 } });
 
     const result = await response.json();
     // console.log(result)
@@ -59,7 +59,7 @@ export async function getActiveBatch() {
 // ✅ ADD THIS - Get batch by ID for success page
 export async function getBatchById(batchId: string) {
   try {
-    const response = await fetch(`${API_URL}/course-batches/${batchId}`);
+    const response = await fetch(`${API_URL}/course-batches/${batchId}`, { next: { revalidate: 300 } });
 
     const result = await response.json();
 
@@ -86,7 +86,7 @@ export async function getBatchById(batchId: string) {
 
 export async function getCourses() {
   try {
-    const response = await fetch(`${API_URL}/courses`);
+    const response = await fetch(`${API_URL}/courses`, { next: { revalidate: 60 } });
 
     const result = await response.json();
 
@@ -111,7 +111,7 @@ export async function getCourses() {
 // ✅ ADD THIS - Get single course by ID for success page
 export async function getCourseById(courseId: string): Promise<Course | null> {
   try {
-    const response = await fetch(`${API_URL}/courses/${courseId}`);
+    const response = await fetch(`${API_URL}/courses/${courseId}`, { next: { revalidate: 300 } });
 
     const result = await response.json();
 
@@ -135,7 +135,7 @@ export async function getCourseById(courseId: string): Promise<Course | null> {
 
 export async function activeSeminar(): Promise<Seminar | null> {
   try {
-    const response = await fetch(`${API_URL}/seminars/active`);
+    const response = await fetch(`${API_URL}/seminars/active`, { next: { revalidate: 60 } });
 
     if (!response.ok) return null;
 

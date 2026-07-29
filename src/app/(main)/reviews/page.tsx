@@ -3,7 +3,7 @@ import { currentUser } from "@/lib/currentUser";
 import FbReview from "@/src/components/home/FbReview";
 
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function ReviewsPage() {
   // 1. Fetch the data on the Server

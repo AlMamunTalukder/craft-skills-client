@@ -10,13 +10,12 @@ import { currentUser } from "@/lib/currentUser";
 import SectionTitle from "@/src/components/shared/SectionTitle";
 // import { ScrollTrackerWrapper } from "@/src/components/ScrollTrackerWrapper";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function HomePage() {
   const [siteData, seminar] = await Promise.all([
     getSiteData(),
     activeSeminar(),
-    currentUser(),
   ]);
 
   return (

@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  
-   images: {
+  compress: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -14,13 +15,9 @@ const nextConfig: NextConfig = {
         hostname: 'images.unsplash.com',
         pathname: '/**',
       },
-      
     ],
-  
-      qualities: [75, 80, 100],
- 
+    qualities: [75, 80, 100],
   },
-
 };
 
 export default nextConfig;

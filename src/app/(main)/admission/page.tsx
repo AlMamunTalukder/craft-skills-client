@@ -9,11 +9,10 @@ import AdmissionForm from "@/src/components/Forms/Admission/AdmissionForm";
 import { currentUser } from "@/lib/currentUser";
 // import { ScrollTrackerWrapper } from "@/src/components/ScrollTrackerWrapper";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function AdmissionPage() {
-  const [user, siteData, batch, courses] = await Promise.all([
-    currentUser(),
+  const [siteData, batch, courses] = await Promise.all([
     getSiteData(),
     getActiveBatch(),
     getCourses(),
