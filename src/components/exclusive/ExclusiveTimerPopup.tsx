@@ -49,10 +49,21 @@ const stageContent: Record<
 //   15 * 60 * 1000, // 15 minutes
 // ];
 
-const PHONE_NUMBER = "8801700999093";
-const WHATSAPP_LINK = `https://wa.me/${PHONE_NUMBER}`;
+const DEFAULT_PHONE_NUMBER = "8801700999093";
 
-export default function ExclusiveTimerPopup() {
+const formatLocalPhone = (num: string) => {
+  const clean = num.replace(/[^\d]/g, "");
+  if (clean.startsWith("880") && clean.length === 13) return "0" + clean.slice(3);
+  return clean;
+};
+
+interface Props {
+  siteData?: {
+    whatsappNumber?: string;
+  } | null;
+}
+
+export default function ExclusiveTimerPopup({ siteData }: Props) {
   const [status, setStatus] = useState<VisitorStatus | null>(null);
   const [showPopup, setShowPopup] = useState(true);
   const [timeLeft, setTimeLeft] = useState({
@@ -60,6 +71,11 @@ export default function ExclusiveTimerPopup() {
     minutes: 0,
     seconds: 0,
   });
+
+  const phoneNumber = siteData?.whatsappNumber || DEFAULT_PHONE_NUMBER;
+  const waLink = `https://wa.me/${phoneNumber}`;
+  const telLink = `tel:+${phoneNumber.replace(/[^\d]/g, "")}`;
+  const displayPhone = formatLocalPhone(phoneNumber);
 
   // ===== DEVELOPMENT SKIP LOGIC – COMMENTED OUT FOR PRODUCTION =====
 
@@ -244,7 +260,7 @@ export default function ExclusiveTimerPopup() {
 
             {/* WhatsApp Button */}
             <a
-              href={WHATSAPP_LINK}
+              href={waLink}
               target="_blank"
               // rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition transform hover:scale-[1.02]"
@@ -255,7 +271,7 @@ export default function ExclusiveTimerPopup() {
 
             {/* Phone */}
             <a
-              href="tel:+8801700999093"
+              href={telLink}
               className="mt-4 flex w-full items-center justify-center gap-3 rounded-2xl border border-orange-500/20 bg-white/5 px-5 py-3 transition-all duration-300 hover:border-orange-400 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-400">
@@ -268,7 +284,7 @@ export default function ExclusiveTimerPopup() {
                 </p>
 
                 <p className="text-xl font-bold tracking-wide text-orange-300">
-                  ০১৭০০৯৯৯০৯৩
+                  {displayPhone}
                 </p>
               </div>
             </a>

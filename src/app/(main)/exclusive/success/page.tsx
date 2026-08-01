@@ -5,6 +5,7 @@ import Container from "@/src/components/shared/Container";
 import { Suspense } from "react";
 import ExclusiveOfferSuccessTracker from "../_components/ExclusiveOfferSuccessTracker";
 import { Button } from "@/components/ui/button";
+import { getSiteData } from "@/lib/api";
 
 interface PageProps {
   searchParams: Promise<{
@@ -16,19 +17,11 @@ interface PageProps {
   }>;
 }
 
-// ✅ Fetch settings on server side — gets dynamic links from DB
+// ✅ Fetch site settings on server side — gets dynamic WhatsApp links from DB
 async function getExclusiveSettings() {
   try {
-    const API_URL =
-      process.env.NEXT_PUBLIC_API_URL ||
-      process.env.API_URL ||
-      "http://localhost:5000/api/v1";
-
-    const res = await fetch(`${API_URL}/exclusive-offer/price`, {
-      cache: "no-store",
-    });
-    const data = await res.json();
-    return data?.data || {};
+    const data = await getSiteData();
+    return data || {};
   } catch {
     return {};
   }
@@ -44,7 +37,13 @@ export default async function ExclusiveOfferSuccessPage({
 
   // ✅ Use the date as-is from settings (it's the text the admin entered)
   const eventDate = settings?.date;
-  const WHATSAPP_GROUP = settings?.whatsappLink ;
+  const WHATSAPP_GROUP = settings?.whatsapp;
+  const whatsappNumber = settings?.whatsappNumber || "8801700999093";
+  const whatsappLink = `https://wa.me/${whatsappNumber}`;
+  const telLink = `tel:+${whatsappNumber.replace(/[^\d]/g, "")}`;
+  const displayPhone = whatsappNumber.replace(/[^\d]/g, "").startsWith("880")
+    ? "0" + whatsappNumber.replace(/[^\d]/g, "").slice(3)
+    : whatsappNumber;
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#0F0F0F] py-5 md:py-10">
@@ -178,7 +177,7 @@ export default async function ExclusiveOfferSuccessPage({
                     className="w-full h-auto py-3 justify-start bg-white/5 border border-white/5 hover:border-orange-600 hover:bg-white/10 transition-all duration-300 group"
                     asChild
                   >
-                    <Link href="tel:01700999093" className="flex items-center">
+                    <Link href={telLink} className="flex items-center">
                       <div className="bg-orange-100 p-2 rounded-lg mr-3 group-hover:bg-orange-600 transition-colors">
                         <PhoneCall className="h-5 w-5 text-orange-600 group-hover:text-white" />
                       </div>
@@ -187,7 +186,7 @@ export default async function ExclusiveOfferSuccessPage({
                           সরাসরি কল করুন
                         </span>
                         <span className="text-white font-bold">
-                          01700999093
+                          {displayPhone}
                         </span>
                       </div>
                     </Link>
@@ -199,7 +198,7 @@ export default async function ExclusiveOfferSuccessPage({
                     asChild
                   >
                     <Link
-                      href="https://wa.me/8801700999093"
+                      href={whatsappLink}
                       target="_blank"
                       className="flex items-center"
                     >
@@ -211,7 +210,7 @@ export default async function ExclusiveOfferSuccessPage({
                           হোয়াটসঅ্যাপ ম্যাসেজ
                         </span>
                         <span className="text-white font-bold">
-                          01700999093
+                          {displayPhone}
                         </span>
                       </div>
                     </Link>

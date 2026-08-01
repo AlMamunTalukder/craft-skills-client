@@ -61,6 +61,9 @@ export default function ExclusiveOfferForm() {
   const [loading, setLoading] = useState(true);
   const [eventDate, setEventDate] = useState<string>("");
   const [activeBatch, setActiveBatch] = useState<any>(null);
+  const [siteData, setSiteData] = useState<{
+    whatsappNumber?: string;
+  } | null>(null);
 
   // Fetch visitor status, active batch, and settings on mount
   useEffect(() => {
@@ -90,7 +93,19 @@ export default function ExclusiveOfferForm() {
       })
       .catch(console.error);
 
-    // 3. Fetch event date from settings
+    // 3. Fetch site data for WhatsApp number
+    fetch(`${API_URL}/site`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setSiteData({
+            whatsappNumber: data.data.whatsappNumber,
+          });
+        }
+      })
+      .catch(console.error);
+
+    // 4. Fetch event date from settings
     fetch(`${API_URL}/exclusive-offer/price`)
       .then((res) => res.json())
       .then((data) => {
@@ -210,7 +225,7 @@ export default function ExclusiveOfferForm() {
                   মেসেজ করুন অথবা সরাসরি কল করুন।
                 </p>
                 <a
-                  href="https://wa.me/8801700999093"
+                  href={`https://wa.me/${siteData?.whatsappNumber || "8801700999093"}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-10 inline-flex w-full md:w-auto items-center justify-center gap-3 rounded-2xl bg-green-600 hover:bg-green-700 px-8 py-4 font-bold text-white transition hover:scale-[1.02]"
@@ -219,7 +234,7 @@ export default function ExclusiveOfferForm() {
                   হোয়াটসঅ্যাপে মেসেজ করুন
                 </a>
                 <a
-                  href="tel:+8801700999093"
+                  href={`tel:+${(siteData?.whatsappNumber || "8801700999093").replace(/[^\d]/g, "")}`}
                   className="mt-5 flex w-full md:w-[340px] mx-auto items-center justify-center gap-3 rounded-2xl border border-orange-500/20 bg-white/5 px-5 py-4 transition hover:bg-orange-500/10"
                 >
                   <Phone size={22} className="text-[#F26422]" />
@@ -228,7 +243,9 @@ export default function ExclusiveOfferForm() {
                       অথবা কল করুন
                     </p>
                     <p className="text-xl font-bold text-orange-300">
-                      ০১৭০০৯৯৯০৯৩
+                      {siteData?.whatsappNumber?.replace(/[^\d]/g, "").startsWith("880")
+                        ? "0" + siteData?.whatsappNumber.replace(/[^\d]/g, "").slice(3)
+                        : "01700999093"}
                     </p>
                   </div>
                 </a>

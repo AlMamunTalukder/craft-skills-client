@@ -28,6 +28,7 @@ const CountdownTimer = dynamic(
 interface SiteData {
   facebook?: string;
   whatsapp?: string;
+  whatsappNumber?: string;
   youtube?: string;
   telegram?: string;
 }
@@ -58,11 +59,14 @@ interface ActiveBatch {
 
 
 
-const PHONE_NUMBER = "8801700999093";
-const WHATSAPP_LINK = `https://wa.me/${PHONE_NUMBER}`;
+const DEFAULT_PHONE_NUMBER = "8801700999093";
 
-export default function SubHeaderExclusive() {
-  const [siteData, setSiteData] = useState<SiteData>({});
+interface Props {
+  siteData?: SiteData | null;
+}
+
+export default function SubHeaderExclusive({ siteData: propSiteData }: Props) {
+  const [siteData, setSiteData] = useState<SiteData>(propSiteData || {});
   const [visitor, setVisitor] = useState<VisitorStatus | null>(null);
   const [activeBatch, setActiveBatch] = useState<ActiveBatch | null>(null);
   const [loading, setLoading] = useState(true);
@@ -102,6 +106,7 @@ export default function SubHeaderExclusive() {
           setSiteData({
             facebook: data.data.facebook,
             whatsapp: data.data.whatsapp,
+            whatsappNumber: data.data.whatsappNumber || propSiteData?.whatsappNumber,
             youtube: data.data.youtube,
             telegram: data.data.telegram,
           });
@@ -165,7 +170,7 @@ export default function SubHeaderExclusive() {
                 বিশেষ অনুরোধে যোগাযোগ করুন
               </p>
               <a
-                href={WHATSAPP_LINK}
+                href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm font-bold py-2 px-4 rounded-full transition transform hover:scale-[1.02] shadow-lg"
@@ -187,6 +192,8 @@ export default function SubHeaderExclusive() {
   if (visitor.status !== "active") return null;
 
   const targetDate = visitor.expiryTime;
+  const whatsappNumber = siteData?.whatsappNumber || DEFAULT_PHONE_NUMBER;
+  const whatsappLink = `https://wa.me/${whatsappNumber}`;
 
   const socialLinks = [
     {

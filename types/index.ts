@@ -11,6 +11,7 @@ export interface SiteContent {
   facebook?: string;
   facebookGroup?: string;
   whatsapp?: string;
+  whatsappNumber?: string;
   youtube?: string;
   telegram?: string;
   instagram?: string;

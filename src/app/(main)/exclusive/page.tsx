@@ -21,8 +21,8 @@ const Page = async () => {
 
       return (
             <div>
-                  <ExclusiveTimerPopup />
-                  <SubHeaderExclusive />
+                  <ExclusiveTimerPopup siteData={siteData} />
+                  <SubHeaderExclusive siteData={siteData} />
                   <Header siteData={siteData} />
                   <ExclusiveBanner />
                   <ExclusiveWhyCourse />
