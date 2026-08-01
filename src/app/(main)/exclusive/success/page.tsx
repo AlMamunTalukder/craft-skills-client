@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { ArrowRight, CalendarDays, CheckCircle, PhoneCall } from "lucide-react";
+import { ArrowRight, CheckCircle, PhoneCall } from "lucide-react";
 import {  FaWhatsapp } from "react-icons/fa";
 import Container from "@/src/components/shared/Container";
 import { Suspense } from "react";
 import ExclusiveOfferSuccessTracker from "../_components/ExclusiveOfferSuccessTracker";
 import { Button } from "@/components/ui/button";
 import { getSiteData } from "@/lib/api";
+import type { SiteContent } from "@/types";
 
 interface PageProps {
   searchParams: Promise<{
@@ -18,10 +19,9 @@ interface PageProps {
 }
 
 // ✅ Fetch site settings on server side — gets dynamic WhatsApp links from DB
-async function getExclusiveSettings() {
+async function getExclusiveSettings(): Promise<Partial<SiteContent>> {
   try {
-    const data = await getSiteData();
-    return data || {};
+    return (await getSiteData()) || {};
   } catch {
     return {};
   }
@@ -35,15 +35,13 @@ export default async function ExclusiveOfferSuccessPage({
 
   const settings = await getExclusiveSettings();
 
-  // ✅ Use the date as-is from settings (it's the text the admin entered)
-  const eventDate = settings?.date;
-  const WHATSAPP_GROUP = settings?.whatsapp;
   const whatsappNumber = settings?.whatsappNumber || "8801700999093";
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
   const telLink = `tel:+${whatsappNumber.replace(/[^\d]/g, "")}`;
   const displayPhone = whatsappNumber.replace(/[^\d]/g, "").startsWith("880")
     ? "0" + whatsappNumber.replace(/[^\d]/g, "").slice(3)
     : whatsappNumber;
+  const WHATSAPP_GROUP = settings?.whatsapp || whatsappLink;
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#0F0F0F] py-5 md:py-10">
@@ -76,19 +74,6 @@ export default async function ExclusiveOfferSuccessPage({
                   হয়েছে।
                 </p>
               </div>
-
-              {/* ✅ EVENT DATE - SHOWS THE TEXT ADMIN ENTERED */}
-              {eventDate && (
-                <div className="mt-3 inline-flex items-center gap-3 rounded-2xl border border-[#F26422]/20 bg-[#F26422]/10 px-5 py-3 backdrop-blur-sm">
-                  <CalendarDays
-                    className="text-[#F26422] shrink-0"
-                    size={18}
-                  />
-                  <span className="text-white font-bold text-sm md:text-base">
-                    {eventDate}
-                  </span>
-                </div>
-              )}
             </div>
 
             {/* ── CONTENT ── */}

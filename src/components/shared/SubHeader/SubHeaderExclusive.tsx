@@ -144,6 +144,9 @@ export default function SubHeaderExclusive({ siteData: propSiteData }: Props) {
   if (loading) return null;
   if (!visitor) return null;
 
+  const whatsappNumber = siteData?.whatsappNumber || DEFAULT_PHONE_NUMBER;
+  const whatsappLink = `https://wa.me/${whatsappNumber}`;
+
   // ==============================
   // BLOCKED / REGISTERED STATE – show expiry banner with WhatsApp
   // ==============================
@@ -192,8 +195,6 @@ export default function SubHeaderExclusive({ siteData: propSiteData }: Props) {
   if (visitor.status !== "active") return null;
 
   const targetDate = visitor.expiryTime;
-  const whatsappNumber = siteData?.whatsappNumber || DEFAULT_PHONE_NUMBER;
-  const whatsappLink = `https://wa.me/${whatsappNumber}`;
 
   const socialLinks = [
     {
