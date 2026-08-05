@@ -1,0 +1,10 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/src/app/(main)/admission-registration/fail/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}

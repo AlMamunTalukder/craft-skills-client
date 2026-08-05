@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(main)/layout,_N_T_/(main)/seminar-confirmation/layout,_N_T_/(main)/seminar-confirmation/success/layout,_N_T_/(main)/seminar-confirmation/success/page,_N_T_/seminar-confirmation/success"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KG1haW4p/seminar-confirmation/success/__PAGE__",
+    "/!KG1haW4p/seminar-confirmation/success",
+    "/!KG1haW4p/seminar-confirmation",
+    "/!KG1haW4p",
+    "/_index",
+    "/_head"
+  ]
+}

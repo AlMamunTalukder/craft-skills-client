@@ -1,0 +1,29 @@
+{
+  "node": {
+    "0010ee1dcb67624b5b039af539d981f5b8fdaa1006": {
+      "workers": {
+        "app/(main)/seminar-confirmation/page": {
+          "moduleId": 5391,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "lib/currentUser.ts"
+        }
+      },
+      "exportedName": "logout",
+      "filename": "lib/currentUser.ts"
+    },
+    "00f4c620d876ace5b28b3950daba305c74902fc540": {
+      "workers": {
+        "app/(main)/seminar-confirmation/page": {
+          "moduleId": 5391,
+          "async": false,
+          "exportedName": "currentUser",
+          "filename": "lib/currentUser.ts"
+        }
+      },
+      "exportedName": "currentUser",
+      "filename": "lib/currentUser.ts"
+    }
+  },
+  "edge": {}
+}

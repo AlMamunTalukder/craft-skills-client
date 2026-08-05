@@ -1,0 +1,85 @@
+{
+  "app": {
+    "[project]/src/app/(auth)/login/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(auth)/register/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/about-us/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/admission-registration/cancel/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/admission-registration/fail/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/admission-registration/success/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/admission/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/exclusive/cancel/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/exclusive/fail/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/exclusive/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/exclusive/payment-callback/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/exclusive/success/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/privacy-policy/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/refund-policy/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/reviews/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/seminar-confirmation/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/seminar-confirmation/success/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/seminar-registration/success/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(main)/terms-and-conditions/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(profile)/batch-results/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(profile)/guest-class/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(profile)/main-class/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(profile)/profile/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/(profile)/special-class/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ],
+    "[project]/src/app/_not-found/page": [
+      "static/media/0b1792555a6d440e-s.p.06y566irvfc2v.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

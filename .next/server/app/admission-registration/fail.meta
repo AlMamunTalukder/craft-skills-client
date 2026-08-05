@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(main)/layout,_N_T_/(main)/admission-registration/layout,_N_T_/(main)/admission-registration/fail/layout,_N_T_/(main)/admission-registration/fail/page,_N_T_/admission-registration/fail"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KG1haW4p/admission-registration/fail/__PAGE__",
+    "/!KG1haW4p/admission-registration/fail",
+    "/!KG1haW4p/admission-registration",
+    "/!KG1haW4p",
+    "/_index",
+    "/_head"
+  ]
+}

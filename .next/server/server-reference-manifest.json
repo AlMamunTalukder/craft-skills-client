@@ -1,0 +1,66 @@
+{
+  "node": {
+    "0010ee1dcb67624b5b039af539d981f5b8fdaa1006": {
+      "workers": {
+        "app/(auth)/login/page": {
+          "moduleId": 10652,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "lib/currentUser.ts"
+        },
+        "app/(auth)/register/page": {
+          "moduleId": 24220,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "lib/currentUser.ts"
+        },
+        "app/(main)/reviews/page": {
+          "moduleId": 9968,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "lib/currentUser.ts"
+        },
+        "app/(main)/seminar-confirmation/page": {
+          "moduleId": 5391,
+          "async": false,
+          "exportedName": "logout",
+          "filename": "lib/currentUser.ts"
+        }
+      },
+      "filename": "lib/currentUser.ts",
+      "exportedName": "logout"
+    },
+    "00f4c620d876ace5b28b3950daba305c74902fc540": {
+      "workers": {
+        "app/(auth)/login/page": {
+          "moduleId": 10652,
+          "async": false,
+          "exportedName": "currentUser",
+          "filename": "lib/currentUser.ts"
+        },
+        "app/(auth)/register/page": {
+          "moduleId": 24220,
+          "async": false,
+          "exportedName": "currentUser",
+          "filename": "lib/currentUser.ts"
+        },
+        "app/(main)/reviews/page": {
+          "moduleId": 9968,
+          "async": false,
+          "exportedName": "currentUser",
+          "filename": "lib/currentUser.ts"
+        },
+        "app/(main)/seminar-confirmation/page": {
+          "moduleId": 5391,
+          "async": false,
+          "exportedName": "currentUser",
+          "filename": "lib/currentUser.ts"
+        }
+      },
+      "filename": "lib/currentUser.ts",
+      "exportedName": "currentUser"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "YoUyRGiVHWWZE8dyd3Gj2vVikSNulpRZ4yOJS0ytTPM="
+}
