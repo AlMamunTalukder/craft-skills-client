@@ -5,7 +5,7 @@ import Container from "@/src/components/shared/Container";
 import { Suspense } from "react";
 import ExclusiveOfferSuccessTracker from "../_components/ExclusiveOfferSuccessTracker";
 import { Button } from "@/components/ui/button";
-import { getSiteData } from "@/lib/api";
+import { getActiveExclusiveBatch, getSiteData } from "@/lib/api";
 import type { SiteContent } from "@/types";
 
 interface PageProps {
@@ -33,7 +33,10 @@ export default async function ExclusiveOfferSuccessPage({
   const params = await searchParams;
   const { name, phone, email, amount } = params;
 
-  const settings = await getExclusiveSettings();
+  const [settings, activeBatch] = await Promise.all([
+    getExclusiveSettings(),
+    getActiveExclusiveBatch(),
+  ]);
 
   const whatsappNumber = settings?.whatsappNumber || "8801700999093";
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
@@ -41,7 +44,7 @@ export default async function ExclusiveOfferSuccessPage({
   const displayPhone = whatsappNumber.replace(/[^\d]/g, "").startsWith("880")
     ? "0" + whatsappNumber.replace(/[^\d]/g, "").slice(3)
     : whatsappNumber;
-  const WHATSAPP_GROUP = settings?.whatsapp || whatsappLink;
+  const WHATSAPP_GROUP = activeBatch?.whatsappGroupLink || settings?.whatsapp || whatsappLink;
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-[#0F0F0F] py-5 md:py-10">

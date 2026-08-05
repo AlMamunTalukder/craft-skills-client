@@ -26,6 +26,27 @@ export async function getSiteData(): Promise<SiteContent | null> {
   }
 }
 
+export async function getActiveExclusiveBatch() {
+  try {
+    const response = await fetch(`${API_URL}/exclusive-batches/active`, {
+      next: { revalidate: 60 },
+    });
+
+    const result = await response.json();
+
+    if (result.success && result.data) {
+      return {
+        id: result.data._id,
+        whatsappGroupLink: result.data.whatsappGroupLink || "",
+      };
+    }
+
+    return null;
+  } catch (error) {
+    return null;
+  }
+}
+
 export async function getActiveBatch() {
   try {
     const response = await fetch(`${API_URL}/course-batches/active`, { next: { revalidate: 60 } });

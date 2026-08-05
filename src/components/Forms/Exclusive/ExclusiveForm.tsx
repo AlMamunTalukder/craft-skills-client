@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Container from "../../shared/Container";
+import { sanitizePhoneNumber } from "@/src/utils/phone-sanitizer";
 import AppForm from "../AppForm";
 import TextInput from "../../FormInputs/TextInput";
 import SubmitButton from "../../FormInputs/SubmitButton";
@@ -31,8 +32,18 @@ moment.tz.setDefault('Asia/Dhaka');
 
 const exclusiveOfferSchema = z.object({
   name: z.string().min(1, "নাম লিখুন"),
-  phone: z.string().min(11, "সঠিক মোবাইল নাম্বার লিখুন"),
-  whatsapp: z.string().optional(),
+  phone: z
+    .string()
+    .min(11, "সঠিক ১১-সংখ্যার মোবাইল নম্বর লিখুন")
+    .refine((val) => sanitizePhoneNumber(val) !== null, {
+      message: "সঠিক মোবাইল নম্বর দিন (শুধুমাত্র বাংলাদেশি ১১-সংখ্যার নম্বর)",
+    }),
+  whatsapp: z
+    .string()
+    .optional()
+    .refine((val) => !val || sanitizePhoneNumber(val) !== null, {
+      message: "সঠিক ১১-সংখ্যার হোয়াটসঅ্যাপ নম্বর দিন",
+    }),
   occupation: z.string().optional(),
   email: z.string().email("সঠিক ইমেইল দিন").optional().or(z.literal("")),
 });
