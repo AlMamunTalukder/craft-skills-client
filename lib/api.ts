@@ -38,6 +38,7 @@ export async function getActiveExclusiveBatch() {
       return {
         id: result.data._id,
         whatsappGroupLink: result.data.whatsappGroupLink || "",
+        registrationDeadline: result.data.registrationDeadline || "",
       };
     }
 

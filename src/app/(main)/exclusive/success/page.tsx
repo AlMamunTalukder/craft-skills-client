@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle, PhoneCall } from "lucide-react";
+import { ArrowRight, CalendarDays, CheckCircle, PhoneCall } from "lucide-react";
 import {  FaWhatsapp } from "react-icons/fa";
+import moment from "moment-timezone";
 import Container from "@/src/components/shared/Container";
 import { Suspense } from "react";
 import ExclusiveOfferSuccessTracker from "../_components/ExclusiveOfferSuccessTracker";
@@ -17,6 +18,17 @@ interface PageProps {
     amount?: string;
   }>;
 }
+
+const formatBangladeshDateTime = (isoString?: string | null) => {
+  if (!isoString) return null;
+  try {
+    const date = moment.utc(isoString).tz("Asia/Dhaka");
+    if (!date.isValid()) return null;
+    return date.format("DD MMM YYYY, hh:mm A");
+  } catch {
+    return null;
+  }
+};
 
 // ✅ Fetch site settings on server side — gets dynamic WhatsApp links from DB
 async function getExclusiveSettings(): Promise<Partial<SiteContent>> {
@@ -38,6 +50,7 @@ export default async function ExclusiveOfferSuccessPage({
     getActiveExclusiveBatch(),
   ]);
 
+  const courseStartDate = formatBangladeshDateTime(activeBatch?.registrationDeadline);
   const whatsappNumber = settings?.whatsappNumber || "8801700999093";
   const whatsappLink = `https://wa.me/${whatsappNumber}`;
   const telLink = `tel:+${whatsappNumber.replace(/[^\d]/g, "")}`;
@@ -113,6 +126,23 @@ export default async function ExclusiveOfferSuccessPage({
                         <span className="text-green-400 font-bold">৳{amount}</span>
                       </p>
                     )}
+                  </div>
+                </div>
+              )}
+
+              {/* CLASS START DATE */}
+              {courseStartDate && (
+                <div className="flex items-center gap-4 rounded-3xl border border-[#F26422]/20 bg-[#F26422]/10 px-5 py-4 backdrop-blur-sm">
+                  <div className="w-11 h-11 shrink-0 rounded-xl bg-[#F26422]/15 flex items-center justify-center">
+                    <CalendarDays className="text-[#F26422]" size={22} />
+                  </div>
+                  <div>
+                    <p className="text-white/60 text-xs font-semibold uppercase tracking-wider">
+                      ক্লাস শুরু
+                    </p>
+                    <p className="text-white font-bold text-sm md:text-base">
+                      {courseStartDate}
+                    </p>
                   </div>
                 </div>
               )}
