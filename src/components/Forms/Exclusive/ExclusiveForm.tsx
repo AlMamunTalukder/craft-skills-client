@@ -21,10 +21,10 @@ import { sanitizePhoneNumber } from "@/src/utils/phone-sanitizer";
 import AppForm from "../AppForm";
 import TextInput from "../../FormInputs/TextInput";
 import SubmitButton from "../../FormInputs/SubmitButton";
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
 
 // ✅ Set default timezone to Bangladesh
-moment.tz.setDefault('Asia/Dhaka');
+moment.tz.setDefault("Asia/Dhaka");
 
 /* =========================
    VALIDATION SCHEMA
@@ -54,14 +54,13 @@ type ExclusiveOfferFormData = z.infer<typeof exclusiveOfferSchema>;
 const formatBangladeshDateTime = (isoString?: string | null) => {
   if (!isoString) return null;
   try {
-    const date = moment.utc(isoString).tz('Asia/Dhaka');
+    const date = moment.utc(isoString).tz("Asia/Dhaka");
     if (!date.isValid()) return null;
-    return date.format('DD MMM YYYY, hh:mm A');
+    return date.format("DD MMM YYYY, hh:mm A");
   } catch (error) {
     return null;
   }
 };
-
 
 export default function ExclusiveOfferForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -99,7 +98,7 @@ export default function ExclusiveOfferForm() {
       .then((data) => {
         if (data.success && data.data) {
           setActiveBatch(data.data);
-          console.log('Active Batch Data:', data.data); // Debug log
+          // console.log("Active Batch Data:", data.data);
         }
       })
       .catch(console.error);
@@ -254,8 +253,13 @@ export default function ExclusiveOfferForm() {
                       অথবা কল করুন
                     </p>
                     <p className="text-xl font-bold text-orange-300">
-                      {siteData?.whatsappNumber?.replace(/[^\d]/g, "").startsWith("880")
-                        ? "0" + siteData?.whatsappNumber.replace(/[^\d]/g, "").slice(3)
+                      {siteData?.whatsappNumber
+                        ?.replace(/[^\d]/g, "")
+                        .startsWith("880")
+                        ? "0" +
+                          siteData?.whatsappNumber
+                            .replace(/[^\d]/g, "")
+                            .slice(3)
                         : "01700999093"}
                     </p>
                   </div>
@@ -268,10 +272,10 @@ export default function ExclusiveOfferForm() {
     );
   }
 
-
   // ✅ Format the registration deadline for display
-  const formattedDeadline = formatBangladeshDateTime(activeBatch?.registrationDeadline);
-
+  const formattedDeadline = formatBangladeshDateTime(
+    activeBatch?.registrationDeadline,
+  );
 
   return (
     <section
@@ -306,30 +310,32 @@ export default function ExclusiveOfferForm() {
                     </span>
                   </div>
 
-
                   <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.15] tracking-tight">
-                     একদিনের{" "}
-                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-[#ff844f] to-[#F26422] bg-size-200">
-                       পাওয়ারফুল লাইভ মাস্টারক্লাস                     </span>
-                   </h2>
-
-                  
+                    একদিনের{" "}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F26422] via-[#ff844f] to-[#F26422] bg-size-200">
+                      পাওয়ারফুল লাইভ মাস্টারক্লাস{" "}
+                    </span>
+                  </h2>
 
                   {/* ✅ FIXED: Show formatted date and time in Bangladesh Standard Time */}
-                  <div className="mt-6 inline-flex flex-col items-start gap-3 rounded-2xl border border-[#F26422]/20 bg-[#F26422]/10 px-5 py-4 backdrop-blur-sm">
-                    <div className="flex items-center gap-3">
-                      <CalendarDays
-                        className="text-[#F26422] shrink-0"
-                        size={20}
-                      />
-                      <span className="text-white font-bold text-sm md:text-base">
-                        ক্লাস শুরু: {formattedDeadline }
+                  <div className="relative mt-6 inline-flex items-center gap-3 rounded-2xl border-2 border-[#F26422] bg-gradient-to-r from-[#F26422] to-[#d94f1d] px-4 py-3.5 shadow-[0_0_30px_rgba(242,100,34,0.5)]">
+                    <span className="relative flex h-2.5 w-2.5 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                    </span>
+                    <CalendarDays
+                      className="shrink-0 text-white"
+                      size={22}
+                    />
+                    <div className="leading-tight">
+                      <span className="block text-white text-[10px] font-black uppercase tracking-widest opacity-90">
+                        ক্লাস শুরু
+                      </span>
+                      <span className="block text-white font-black text-base md:text-lg">
+                        {formattedDeadline}
                       </span>
                     </div>
-                   
                   </div>
-
-                  
 
                   <div className="mt-4 md:mt-12 relative overflow-hidden rounded-3xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-xl p-3 sm:p-6 shadow-[0_15px_50px_rgba(0,0,0,0.4)]">
                     <div className="absolute inset-0 bg-gradient-to-tr from-[#F26422]/5 via-transparent to-white/[0.02] pointer-events-none" />
@@ -367,14 +373,14 @@ export default function ExclusiveOfferForm() {
                     <h3 className="text-[26px] md:text-4xl font-black text-[#1A1A1A]">
                       এখনই রেজিস্ট্রেশন করুন
                     </h3>
-                    {visitorStatus?.stageLabel && (
+                    {/* {visitorStatus?.stageLabel && (
                       <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#F26422]/20 bg-[#F26422]/10 px-4 py-2 backdrop-blur-sm">
                         <Timer className="h-4 w-4 text-[#F26422]" />
                         <span className="text-sm font-semibold text-[#F26422]">
                           Only For {visitorStatus.stageLabel}
                         </span>
                       </div>
-                    )}
+                    )} */}
                   </div>
 
                   <AppForm
@@ -446,7 +452,6 @@ export default function ExclusiveOfferForm() {
     </section>
   );
 }
-
 
 // /* eslint-disable @typescript-eslint/no-explicit-any */
 // "use client";

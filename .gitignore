@@ -15,6 +15,9 @@
 
 # next.js
 /out/
+# next.js dev & build cache (never needed on the VPS — regenerated locally)
+.next/dev/
+.next/cache/
 
 # production
 /build

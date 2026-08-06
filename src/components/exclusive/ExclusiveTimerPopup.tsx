@@ -1,7 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import { X, Clock, AlertCircle, MessageCircle, Link, Phone } from "lucide-react";
+import {
+  X,
+  Clock,
+  AlertCircle,
+  MessageCircle,
+  Link,
+  Phone,
+} from "lucide-react";
 import { pushEvent } from "@/src/utils/dataLayer";
+import { MdArrowForward } from "react-icons/md";
 
 interface VisitorStatus {
   status: "active" | "blocked" | "registered";
@@ -11,7 +19,7 @@ interface VisitorStatus {
   isBlocked: boolean;
   registered: boolean;
   message?: string;
-  stageLabel?: string; 
+  stageLabel?: string;
 }
 
 const stageContent: Record<
@@ -43,17 +51,12 @@ const stageContent: Record<
   },
 };
 
-// const STAGE_DURATIONS = [
-//   3 * 60 * 60 * 1000, // 3 hours
-//   1 * 60 * 60 * 1000, // 1 hour
-//   15 * 60 * 1000, // 15 minutes
-// ];
-
 const DEFAULT_PHONE_NUMBER = "8801700999093";
 
 const formatLocalPhone = (num: string) => {
   const clean = num.replace(/[^\d]/g, "");
-  if (clean.startsWith("880") && clean.length === 13) return "0" + clean.slice(3);
+  if (clean.startsWith("880") && clean.length === 13)
+    return "0" + clean.slice(3);
   return clean;
 };
 
@@ -77,17 +80,6 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
   const telLink = `tel:+${phoneNumber.replace(/[^\d]/g, "")}`;
   const displayPhone = formatLocalPhone(phoneNumber);
 
-  // ===== DEVELOPMENT SKIP LOGIC – COMMENTED OUT FOR PRODUCTION =====
-
-  /*
-    const isDev = process.env.NODE_ENV === 'development';
-    const [devStage, setDevStage] = useState<number | null>(null);
-    const [devExpiry, setDevExpiry] = useState<Date | null>(null);
-    const [devIsBlocked, setDevIsBlocked] = useState(false);
-    */
-  // ===== END OF SKIP LOGIC =====
-
-  // Load initial status from backend
   useEffect(() => {
     const API_URL =
       process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
@@ -102,22 +94,14 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
           if (data.status === "registered") {
             setShowPopup(false);
           }
-          // ===== DEV INIT – COMMENTED OUT =====
-          /*
-                    if (isDev && data.status === 'active' && data.stage) {
-                        setDevStage(data.stage);
-                        const expiry = new Date(data.expiryTime!);
-                        setDevExpiry(expiry);
-                    }
-                    */
         }
       })
       .catch((error) => {
         console.error("Error fetching visitor status:", error);
       });
-  }, []); // Removed isDev dependency (commented out)
+  }, []); 
 
-  // Timer effect – uses backend expiry (no dev override)
+  
   useEffect(() => {
     if (!status || status.status !== "active" || !status.remainingMs) return;
 
@@ -142,24 +126,11 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
     return () => clearInterval(interval);
   }, [status]);
 
-  // ===== SKIP HANDLER – COMMENTED OUT =====
-  /*
-    const handleSkip = () => {
-        if (!isDev) return;
-        // ... skip logic
-    };
-    */
-
-  // Determine active stage and content
   const getActiveStage = (): number => {
     // Use backend stage (no dev override)
     return status?.stage || 1;
   };
 
-  // when need test the last stage, you can use the following code to force the last stage for testing purposes. Uncomment the following lines to simulate the last stage:
-  // const getIsBlocked = (): boolean => {
-  //   return true;
-  // };
   const getIsBlocked = (): boolean => {
     return status?.status === "blocked";
   };
@@ -167,14 +138,6 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
   const getIsRegistered = (): boolean => {
     return status?.status === "registered";
   };
-
-  // const handleRegister = () => {
-  //     setShowPopup(false);
-  //     const el = document.getElementById('registration-form');
-  //     if (el) {
-  //         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  //     }
-  // };
 
   const handleRegister = () => {
     // ✅ GTM Event: add_to_cart
@@ -214,7 +177,6 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
         <div className="relative overflow-hidden max-w-md w-full rounded-3xl border border-orange-500/20 bg-gradient-to-br from-[#1B1B1B] via-[#121212] to-black shadow-[0_25px_80px_rgba(249,115,22,0.25)]">
-
           {/* Background Glow */}
           <div className="absolute top-0 -right-10 h-48 w-48 rounded-full bg-orange-500/20 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-yellow-400/10 blur-3xl" />
@@ -227,25 +189,20 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
             <X className="w-5 h-5" />
           </button>
 
-          <div className="relative p-8 text-center">
-
-
-
+          <div className="relative p-4 text-center">
             {/* Icon */}
-            <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-400 shadow-xl shadow-orange-500/40">
+            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-400 shadow-xl shadow-orange-500/40">
               <AlertCircle className="h-10 w-10 text-white" />
             </div>
 
             {/* Title */}
-            <h2 className="text-3xl font-extrabold leading-tight text-white">
+            <h2 className="text-2xl md:text-3xl font-extrabold leading-tight text-white">
               ১৯৯ টাকার অফারটি শেষ!
             </h2>
 
             {/* Price */}
-            <div className="mt-4 rounded-2xl border border-orange-500/20 bg-white/5 p-3">
-              <p className="text-sm text-gray-400">
-                বর্তমান কোর্স ফি
-              </p>
+            <div className="mt-2 rounded-2xl border border-orange-500/20 bg-white/5 p-3">
+              <p className="text-sm text-gray-400">বর্তমান কোর্স ফি</p>
 
               <p className="mt-1 text-3xl font-extrabold text-orange-400">
                 ৫,০০০ টাকা
@@ -253,13 +210,13 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
             </div>
 
             {/* Description */}
-            <p className="mt-6 text-[15px] leading-7 text-gray-300">
-              আপনি চাইলে বিশেষ অনুরোধে এখনও কোনো সুযোগ আছে কি না জানতে
-              আমাদের সাথে সরাসরি যোগাযোগ করতে পারেন।
+            <p className="mt-4 text-[15px] leading-7 text-gray-300">
+              আপনি চাইলে বিশেষ অনুরোধে এখনও কোনো সুযোগ আছে কি না জানতে আমাদের
+              সাথে সরাসরি যোগাযোগ করতে পারেন।
             </p>
 
             {/* WhatsApp Button */}
-            <a
+            <Link
               href={waLink}
               target="_blank"
               // rel="noopener noreferrer"
@@ -267,10 +224,10 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
             >
               <MessageCircle className="w-5 h-5" />
               হোয়াটসঅ্যাপে মেসেজ করুন
-            </a>
+            </Link>
 
             {/* Phone */}
-            <a
+            <Link
               href={telLink}
               className="mt-4 flex w-full items-center justify-center gap-3 rounded-2xl border border-orange-500/20 bg-white/5 px-5 py-3 transition-all duration-300 hover:border-orange-400 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20"
             >
@@ -287,9 +244,7 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
                   {displayPhone}
                 </p>
               </div>
-            </a>
-
-
+            </Link>
           </div>
         </div>
       </div>
@@ -301,19 +256,9 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
   const content = stageContent[stage] || stageContent[1];
 
   return (
+    <>
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
       <div className="relative bg-gradient-to-br from-orange-600/90 to-black rounded-2xl p-6 max-w-md w-full shadow-2xl border border-orange-500/30">
-        {/* ===== DEV SKIP BUTTON – COMMENTED OUT ===== */}
-        {/* 
-                {isDev && (
-                    <button
-                        onClick={handleSkip}
-                        className="absolute top-2 left-2 text-xs text-white/40 hover:text-white/80 transition"
-                    >
-                        Skip (dev)
-                    </button>
-                )}
-                */}
         <button
           onClick={handleClose}
           className="absolute top-2 right-2 text-white/70 hover:text-white"
@@ -356,12 +301,16 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
 
           <button
             onClick={handleRegister}
-            className="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold py-3 px-6 rounded-full hover:shadow-lg transition transform hover:scale-[1.02]"
+            className=" flex justify-center items-center gap-2 w-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-bold py-3 px-6 rounded-full hover:shadow-lg transition transform hover:scale-[1.02]"
           >
             {content.button}
+
+            <MdArrowForward className="text-lg group-hover:translate-x-1 transition-transform duration-300" />
           </button>
         </div>
       </div>
-    </div>
+      </div>
+
+    </>
   );
 }
