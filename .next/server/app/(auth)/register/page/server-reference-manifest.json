@@ -1,6 +1,6 @@
 {
   "node": {
-    "0010ee1dcb67624b5b039af539d981f5b8fdaa1006": {
+    "005b4937981ffbf02b06933ad817b62f3b9c0adff6": {
       "workers": {
         "app/(auth)/register/page": {
           "moduleId": 24220,
@@ -12,7 +12,7 @@
       "exportedName": "logout",
       "filename": "lib/currentUser.ts"
     },
-    "00f4c620d876ace5b28b3950daba305c74902fc540": {
+    "00bf34d5a3480f4d2e75cf34548a3fafb10ead9c02": {
       "workers": {
         "app/(auth)/register/page": {
           "moduleId": 24220,
