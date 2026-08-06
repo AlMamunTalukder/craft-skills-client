@@ -6,6 +6,8 @@
   "/(main)/admission-registration/fail/page": "app/(main)/admission-registration/fail/page.js",
   "/(main)/admission-registration/success/page": "app/(main)/admission-registration/success/page.js",
   "/(main)/admission/page": "app/(main)/admission/page.js",
+  "/(main)/exclusive-gift/page": "app/(main)/exclusive-gift/page.js",
+  "/(main)/exclusive-gift/success/page": "app/(main)/exclusive-gift/success/page.js",
   "/(main)/exclusive/cancel/page": "app/(main)/exclusive/cancel/page.js",
   "/(main)/exclusive/fail/page": "app/(main)/exclusive/fail/page.js",
   "/(main)/exclusive/page": "app/(main)/exclusive/page.js",

@@ -110,6 +110,24 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../src/app/(main)/exclusive-gift/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/exclusive-gift">> = Specific
+  const handler = {} as typeof import("../../src/app/(main)/exclusive-gift/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../src/app/(main)/exclusive-gift/success/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/exclusive-gift/success">> = Specific
+  const handler = {} as typeof import("../../src/app/(main)/exclusive-gift/success/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../src/app/(main)/exclusive/cancel/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/exclusive/cancel">> = Specific

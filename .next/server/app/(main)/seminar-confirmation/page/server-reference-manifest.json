@@ -1,6 +1,6 @@
 {
   "node": {
-    "005b4937981ffbf02b06933ad817b62f3b9c0adff6": {
+    "007b8cfe4b20b98725d589d04c77e38c030ece9769": {
       "workers": {
         "app/(main)/seminar-confirmation/page": {
           "moduleId": 5391,
@@ -12,7 +12,7 @@
       "exportedName": "logout",
       "filename": "lib/currentUser.ts"
     },
-    "00bf34d5a3480f4d2e75cf34548a3fafb10ead9c02": {
+    "00e2cfa722e11734e525b32862e44fb2f2191f1012": {
       "workers": {
         "app/(main)/seminar-confirmation/page": {
           "moduleId": 5391,

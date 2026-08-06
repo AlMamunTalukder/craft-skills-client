@@ -6,6 +6,8 @@
   "/(main)/admission-registration/fail/page": "/admission-registration/fail",
   "/(main)/admission-registration/success/page": "/admission-registration/success",
   "/(main)/admission/page": "/admission",
+  "/(main)/exclusive-gift/page": "/exclusive-gift",
+  "/(main)/exclusive-gift/success/page": "/exclusive-gift/success",
   "/(main)/exclusive/cancel/page": "/exclusive/cancel",
   "/(main)/exclusive/fail/page": "/exclusive/fail",
   "/(main)/exclusive/page": "/exclusive",

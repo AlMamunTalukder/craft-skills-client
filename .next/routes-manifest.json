@@ -144,6 +144,18 @@
       "namedRegex": "^/exclusive/success(?:/)?$"
     },
     {
+      "page": "/exclusive-gift",
+      "regex": "^/exclusive\\-gift(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/exclusive\\-gift(?:/)?$"
+    },
+    {
+      "page": "/exclusive-gift/success",
+      "regex": "^/exclusive\\-gift/success(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/exclusive\\-gift/success(?:/)?$"
+    },
+    {
       "page": "/favicon.ico",
       "regex": "^/favicon\\.ico(?:/)?$",
       "routeKeys": {},
