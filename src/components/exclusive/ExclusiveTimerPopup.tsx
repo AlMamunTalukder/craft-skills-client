@@ -178,8 +178,8 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
         <div className="relative overflow-hidden max-w-md w-full rounded-3xl border border-orange-500/20 bg-gradient-to-br from-[#1B1B1B] via-[#121212] to-black shadow-[0_25px_80px_rgba(249,115,22,0.25)]">
           {/* Background Glow */}
-          <div className="absolute top-0 -right-10 h-48 w-48 rounded-full bg-orange-500/20 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-yellow-400/10 blur-3xl" />
+          <div className="absolute top-0 -right-10 h-48 w-48 rounded-full bg-orange-500/20 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-yellow-400/10 blur-3xl pointer-events-none" />
 
           {/* Close */}
           <button
@@ -189,7 +189,7 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
             <X className="w-5 h-5" />
           </button>
 
-          <div className="relative p-4 text-center">
+          <div className="relative z-10 p-4 text-center max-h-[calc(100vh-2rem)] overflow-y-auto">
             {/* Icon */}
             <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-400 shadow-xl shadow-orange-500/40">
               <AlertCircle className="h-10 w-10 text-white" />
