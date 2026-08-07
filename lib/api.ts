@@ -39,6 +39,7 @@ export async function getActiveExclusiveBatch() {
         id: result.data._id,
         whatsappGroupLink: result.data.whatsappGroupLink || "",
         registrationDeadline: result.data.registrationDeadline || "",
+        giftDriveLink: result.data.giftDriveLink || "",
       };
     }
 

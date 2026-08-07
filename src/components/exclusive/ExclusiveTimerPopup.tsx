@@ -201,7 +201,7 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
             </h2>
 
             {/* Price */}
-            <div className="mt-2 rounded-2xl border border-orange-500/20 bg-white/5 p-3">
+            <div className="mt-1 rounded-2xl border border-orange-500/20 bg-white/5 p-2">
               <p className="text-sm text-gray-400">বর্তমান কোর্স ফি</p>
 
               <p className="mt-1 text-3xl font-extrabold text-orange-400">
@@ -229,7 +229,7 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
             {/* Phone */}
             <Link
               href={telLink}
-              className="mt-4 flex w-full items-center justify-center gap-3 rounded-2xl border border-orange-500/20 bg-white/5 px-5 py-3 transition-all duration-300 hover:border-orange-400 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20"
+              className="mt-1.5 md:mt-4 flex w-full items-center justify-center gap-3 rounded-2xl border border-orange-500/20 bg-white/5 px-5 py-1.5 md:py-3 transition-all duration-300 hover:border-orange-400 hover:bg-orange-500/10 hover:shadow-lg hover:shadow-orange-500/20"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-400">
                 <Phone className="h-5 w-5 text-white" />
@@ -240,7 +240,7 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
                   অথবা কল করুন
                 </p>
 
-                <p className="text-xl font-bold tracking-wide text-orange-300">
+                <p className="text-lg md:text-xl font-bold tracking-wide text-orange-300">
                   {displayPhone}
                 </p>
               </div>

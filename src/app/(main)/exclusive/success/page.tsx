@@ -79,10 +79,8 @@ export default async function ExclusiveOfferSuccessPage({
                   রেজিস্ট্রেশন সফল হয়েছে
                 </h1>
 
-                
-
                 <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[#F26422]/20 bg-[#F26422]/10 px-4 py-2 backdrop-blur-sm">
-                  {/* <Timer className="h-4 w-4 text-[#F26422]" /> */}
+             
                       <span className="text-sm font-semibold text-[#F26422]">
                          <p className="text-white/60 text-xs font-semibold uppercase tracking-wider">
                       ক্লাস শুরু
@@ -92,11 +90,6 @@ export default async function ExclusiveOfferSuccessPage({
                     </p>
                       </span>
                 </div>
-
-                {/* <p className=" mt-2 md:mt-0 text-sm text-white/60 max-w-xl mx-auto leading-relaxed">
-                  আপনার রেজিস্ট্রেশন সফলভাবে সম্পন্ন
-                  হয়েছে।
-                </p> */}
               </div>
             </div>
 
@@ -116,18 +109,7 @@ export default async function ExclusiveOfferSuccessPage({
                       </p>
                     )}
                     {phone},  {email}
-                    {/* {phone && (
-                      <p>
-                        <span className="text-white font-semibold">মোবাইল:</span>{" "}
-                        {phone}
-                      </p>
-                    )}
-                    {email && (
-                      <p>
-                        <span className="text-white font-semibold">ইমেইল:</span>{" "}
-                        {email}
-                      </p>
-                    )} */}
+                
                     
                   </div>
                 </div>
@@ -137,8 +119,8 @@ export default async function ExclusiveOfferSuccessPage({
 
               {/* JOIN GROUPS */}
               <div className="rounded-xl border border-[#F26422]/20 bg-[#013a1e] p-3">
-                <h3 className="text-center text-md md:text-xl font-black text-white mb-2">
-                  আমাদের গ্রুপগুলোতে যুক্ত হয়ে নিন
+                <h3 className="text-center md:text-md font-black text-white mb-2">
+                ক্লাস সংক্রান্ত সকল আপডেট পেতে আমাদের গ্রুপে যুক্ত হয়ে নিন
                 </h3>
 
                 <div className="space-y-2">                 

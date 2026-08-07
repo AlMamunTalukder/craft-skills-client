@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState, Suspense } from "react";
+import { useCallback, useEffect, useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -14,8 +14,12 @@ import { FaWhatsapp } from "react-icons/fa";
 
 export const dynamic = "force-dynamic";
 
-// ── এক্সক্লুসিভ গিফটের Google Drive লিংক (প্রয়োজন মতো বদলান) ──
-const GIFT_DRIVE_LINK = "https://drive.google.com/file/d/REPLACE_ME_GIFT/view";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+
+// ── কালেকটিভ গিফটের Google Drive লিংক (active batch থেকে ডায়নামিক) ──
+const FALLBACK_GIFT_DRIVE_LINK =
+  "https://drive.google.com/file/d/REPLACE_ME_GIFT/view";
 // ── সের্টিফিকেটের Google Drive লিংক ──
 // নোট: certificate download system পরে তৈরি হবে; এখন এই বাটনও Google Drive লিংক খুলবে।
 const CERTIFICATE_DRIVE_LINK =
@@ -23,8 +27,26 @@ const CERTIFICATE_DRIVE_LINK =
 
 function SuccessContent() {
   const [opening, setOpening] = useState<string | null>(null);
+  const [giftLink, setGiftLink] = useState(FALLBACK_GIFT_DRIVE_LINK);
   const searchParams = useSearchParams();
   const name = searchParams.get("name") || "";
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`${API_URL}/exclusive-batches/active`)
+      .then((res) => res.json())
+      .then((result) => {
+        if (!cancelled && result?.success && result?.data?.giftDriveLink) {
+          setGiftLink(result.data.giftDriveLink);
+        }
+      })
+      .catch(() => {
+        /* কেবল fallback link থাকবে */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const openDrive = useCallback((url: string, key: string) => {
     setOpening(key);
@@ -98,7 +120,7 @@ function SuccessContent() {
                 </div>
               </div>
               <button
-                onClick={() => openDrive(GIFT_DRIVE_LINK, "gift")}
+                onClick={() => openDrive(giftLink, "gift")}
                 disabled={opening === "gift"}
                 className="w-full py-4 flex items-center justify-center gap-2 bg-gradient-to-r from-[#F26422] to-[#ff7b42] hover:from-[#e25a1c] hover:to-[#f26a2e] text-white font-black rounded-xl shadow-lg transition-all duration-300 cursor-pointer disabled:opacity-60"
               >

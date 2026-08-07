@@ -1,18 +1,6 @@
 {
   "node": {
-    "004bbc1d4ca1bdffa15f52a117d75cd2c0d6489dd3": {
-      "workers": {
-        "app/(auth)/register/page": {
-          "moduleId": 24220,
-          "async": false,
-          "exportedName": "currentUser",
-          "filename": "lib/currentUser.ts"
-        }
-      },
-      "exportedName": "currentUser",
-      "filename": "lib/currentUser.ts"
-    },
-    "007030740278a6d58cb3b56e5a9ac7062ea4ef92ec": {
+    "002dd84b339d36aeeab34bd30c70ea67c1f9812931": {
       "workers": {
         "app/(auth)/register/page": {
           "moduleId": 24220,
@@ -22,6 +10,18 @@
         }
       },
       "exportedName": "logout",
+      "filename": "lib/currentUser.ts"
+    },
+    "00696f641afb12a5c77237344c6076c33d7065582e": {
+      "workers": {
+        "app/(auth)/register/page": {
+          "moduleId": 24220,
+          "async": false,
+          "exportedName": "currentUser",
+          "filename": "lib/currentUser.ts"
+        }
+      },
+      "exportedName": "currentUser",
       "filename": "lib/currentUser.ts"
     }
   },
