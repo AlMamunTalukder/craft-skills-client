@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   X,
   Clock,
   AlertCircle,
   MessageCircle,
-  Link,
   Phone,
 } from "lucide-react";
 import { pushEvent } from "@/src/utils/dataLayer";
@@ -175,7 +175,7 @@ export default function ExclusiveTimerPopup({ siteData }: Props) {
   // === BLOCKED STATE ===
   if (getIsBlocked()) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto">
         <div className="relative overflow-hidden max-w-md w-full rounded-3xl border border-orange-500/20 bg-gradient-to-br from-[#1B1B1B] via-[#121212] to-black shadow-[0_25px_80px_rgba(249,115,22,0.25)]">
           {/* Background Glow */}
           <div className="absolute top-0 -right-10 h-48 w-48 rounded-full bg-orange-500/20 blur-3xl pointer-events-none" />

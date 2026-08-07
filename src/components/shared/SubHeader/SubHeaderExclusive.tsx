@@ -93,7 +93,7 @@ export default function SubHeaderExclusive({ siteData: propSiteData }: Props) {
       .then((data) => {
         if (data.success && data.data) {
           setActiveBatch(data.data);
-          console.log('Active batch loaded:', data.data);
+          // console.log('Active batch loaded:', data.data);
         }
       })
       .catch(console.error);
